@@ -17,7 +17,7 @@ export function NumberInput({ label, value, onChange, suffix, helper, required, 
           className="min-w-0 flex-1 rounded-l-2xl border-0 bg-transparent px-4 py-3 text-base outline-none"
           aria-label={label}
         />
-        {suffix ? <span className="flex items-center rounded-r-2xl border-l border-slate-200 bg-slate-50 px-4 text-sm font-semibold text-slate-700">{suffix}</span> : null}
+        {suffix ? <span className="flex w-20 shrink-0 items-center justify-center rounded-r-2xl border-l border-slate-200 bg-slate-50 px-3 text-sm font-semibold text-slate-700">{suffix}</span> : null}
       </div>
       {helper ? <span className="mt-2 block text-xs leading-5 text-slate-500">{helper}</span> : null}
     </label>

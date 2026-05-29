@@ -30,7 +30,7 @@ export function MoneyInput({ label, value, onChange, helper, required }: MoneyIn
         <select
           value={unit}
           onChange={(event) => setUnit(event.target.value as "won" | "manwon")}
-          className="rounded-r-2xl border-l border-slate-200 bg-slate-50 px-3 text-sm font-semibold text-slate-700 outline-none"
+          className="w-20 shrink-0 rounded-r-2xl border-l border-slate-200 bg-slate-50 px-3 text-center text-sm font-semibold text-slate-700 outline-none"
           aria-label={`${label} 단위`}
         >
           <option value="manwon">만원</option>
