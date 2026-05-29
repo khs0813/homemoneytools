@@ -1,4 +1,4 @@
-const DEFAULT_SITE_URL = "https://home-money-calculator.onrender.com";
+const DEFAULT_SITE_URL = "https://jipcalc.co.kr";
 const LOCALHOST_HOSTS = new Set(["localhost", "127.0.0.1", "0.0.0.0"]);
 
 export function sanitizeSiteUrl(value: string | undefined, fallback = DEFAULT_SITE_URL): string {
