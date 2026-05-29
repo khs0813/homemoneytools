@@ -45,6 +45,9 @@ export const metadata: Metadata = {
         google: siteConfig.googleSiteVerification
       }
     : undefined,
+  other: {
+    "google-adsense-account": "ca-pub-7766989656523085"
+  },
   appleWebApp: {
     capable: true,
     title: siteConfig.shortName,
