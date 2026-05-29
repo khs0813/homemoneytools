@@ -1,0 +1,102 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { Controller, useForm, useWatch } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { MoneyInput } from "@/components/calculator/MoneyInput";
+import { PercentInput } from "@/components/calculator/PercentInput";
+import { ResultCard } from "@/components/calculator/ResultCard";
+import { ResultRow } from "@/components/calculator/ResultRow";
+import { ShareButton } from "@/components/calculator/ShareButton";
+import { calculateBrokerageFee, type BrokerageTransactionType } from "@/lib/calculators/brokerage-fee";
+import { formatKoreanMoney, formatPercent } from "@/lib/format";
+import { getEnumParam, getNumberParam, writeQueryState } from "@/lib/query-state";
+
+const schema = z.object({
+  transactionType: z.enum(["sale", "jeonse", "monthlyRent"]),
+  transactionAmount: z.number().finite().min(0).optional(),
+  deposit: z.number().finite().min(0).optional(),
+  monthlyRent: z.number().finite().min(0).optional(),
+  customRate: z.number().finite().min(0).optional()
+});
+
+type FormValues = z.infer<typeof schema>;
+type Result = ReturnType<typeof calculateBrokerageFee> | null;
+
+const defaultValues: FormValues = {
+  transactionType: "sale",
+  transactionAmount: 500_000_000,
+  deposit: 100_000_000,
+  monthlyRent: 1_200_000,
+  customRate: undefined
+};
+
+export function BrokerageFeeCalculator() {
+  const [result, setResult] = useState<Result>(null);
+  const { control, handleSubmit, reset } = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues });
+  const transactionType = useWatch({ control, name: "transactionType" });
+
+  useEffect(() => {
+    reset({
+      ...defaultValues,
+      transactionType: getEnumParam("transactionType", ["sale", "jeonse", "monthlyRent"] as const, defaultValues.transactionType) as BrokerageTransactionType,
+      transactionAmount: getNumberParam("transactionAmount", defaultValues.transactionAmount ?? 0),
+      deposit: getNumberParam("deposit", defaultValues.deposit ?? 0),
+      monthlyRent: getNumberParam("monthlyRent", defaultValues.monthlyRent ?? 0),
+      customRate: getNumberParam("customRate", 0)
+    });
+  }, [reset]);
+
+  function onSubmit(values: FormValues) {
+    const normalized = { ...values, customRate: values.customRate && values.customRate > 0 ? values.customRate : undefined };
+    const calculated = calculateBrokerageFee(normalized);
+    setResult(calculated);
+    writeQueryState(normalized);
+  }
+
+  return (
+    <div className="grid gap-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+        <div className="grid gap-5 md:grid-cols-2">
+          <Controller
+            name="transactionType"
+            control={control}
+            render={({ field }) => (
+              <label className="block">
+                <span className="text-sm font-semibold text-slate-800">거래 유형</span>
+                <select {...field} className="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-base outline-none focus:border-brand-navy focus:ring-4 focus:ring-blue-50">
+                  <option value="sale">매매</option>
+                  <option value="jeonse">전세</option>
+                  <option value="monthlyRent">월세</option>
+                </select>
+              </label>
+            )}
+          />
+          {transactionType === "monthlyRent" ? (
+            <>
+              <Controller name="deposit" control={control} render={({ field }) => <MoneyInput label="월세 보증금" required value={field.value ?? 0} onChange={field.onChange} />} />
+              <Controller name="monthlyRent" control={control} render={({ field }) => <MoneyInput label="월세" required value={field.value ?? 0} onChange={field.onChange} />} />
+            </>
+          ) : (
+            <Controller name="transactionAmount" control={control} render={({ field }) => <MoneyInput label={transactionType === "sale" ? "매매가" : "전세보증금"} required value={field.value ?? 0} onChange={field.onChange} />} />
+          )}
+          <Controller name="customRate" control={control} render={({ field }) => <PercentInput label="협의 요율" value={field.value ?? 0} onChange={field.onChange} helper="비워두거나 0이면 상한요율 적용" />} />
+        </div>
+        <button type="submit" className="mt-6 w-full rounded-2xl bg-brand-navy px-5 py-4 font-bold text-white transition hover:bg-blue-950">중개수수료 계산하기</button>
+      </form>
+
+      {result ? (
+        <ResultCard title="예상 총 중개비" value={formatKoreanMoney(result.total)} description={`부가세 10% 포함 예상액입니다. 기준 버전은 ${result.version}입니다.`}>
+          <ResultRow label="적용 거래금액" value={formatKoreanMoney(result.transactionAmount)} />
+          <ResultRow label="적용 요율" value={formatPercent(result.appliedRate, 4)} />
+          <ResultRow label="법정 상한요율" value={formatPercent(result.legalRate, 4)} />
+          <ResultRow label="한도액" value={result.limit ? formatKoreanMoney(result.limit) : "한도 없음"} />
+          <ResultRow label="중개보수" value={formatKoreanMoney(result.brokerageFee)} />
+          <ResultRow label="부가세" value={formatKoreanMoney(result.vat)} />
+          <ShareButton />
+        </ResultCard>
+      ) : null}
+    </div>
+  );
+}

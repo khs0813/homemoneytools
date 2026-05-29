@@ -1,0 +1,52 @@
+{
+  "name": "home-money-calculator-render",
+  "version": "0.1.0",
+  "private": true,
+  "description": "DB 없이 동작하는 부동산·주거비 계산기 Next.js 프로젝트",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start -p ${PORT:-3000}",
+    "start:render": "next start -p $PORT",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "audit": "npm audit --audit-level=low",
+    "check": "npm run typecheck && npm run lint && npm run test && npm run build && npm run audit"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "3.10.0",
+    "class-variance-authority": "0.7.1",
+    "clsx": "2.1.1",
+    "lucide-react": "0.468.0",
+    "next": "16.2.6",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "react-hook-form": "7.76.1",
+    "recharts": "3.8.1",
+    "tailwind-merge": "2.6.1",
+    "zod": "3.25.76"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "6.9.1",
+    "@testing-library/react": "16.3.2",
+    "@types/node": "22.19.19",
+    "@types/react": "19.2.15",
+    "@types/react-dom": "19.2.3",
+    "autoprefixer": "10.5.0",
+    "eslint": "9.39.4",
+    "eslint-config-next": "16.2.6",
+    "jsdom": "25.0.1",
+    "postcss": "8.5.15",
+    "tailwindcss": "3.4.19",
+    "typescript": "5.9.3",
+    "vitest": "4.1.7"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "overrides": {
+    "postcss": "8.5.15"
+  }
+}

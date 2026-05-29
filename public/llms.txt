@@ -1,0 +1,17 @@
+# Home Money Calculator
+
+Home Money Calculator는 DB 저장 없이 동작하는 한국어 부동산·주거비 계산기 사이트입니다.
+
+## 핵심 페이지
+
+- /jeonse-loan-interest-calculator: 전세대출 이자, 월 상환액, 총 이자 계산
+- /rent-vs-jeonse-calculator: 월세와 전세의 총 주거비 비교
+- /dsr-calculator: 주택담보대출 DSR 및 기준 대비 여유 금액 계산
+- /acquisition-tax-calculator: 주택 취득세와 부가 세목 추정
+- /real-estate-brokerage-fee-calculator: 매매, 전세, 월세 중개보수 계산
+- /monthly-rent-conversion-calculator: 전세 월세 전환 및 월세 전세 환산
+- /housing-subscription-score-calculator: 청약 가점 계산
+
+## 주의
+
+계산 결과는 참고용 추정치입니다. 실제 세금, 대출 가능 금액, 중개보수, 청약가점은 법령, 지역, 금융기관, 개인 조건에 따라 달라질 수 있습니다.
