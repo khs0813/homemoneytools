@@ -7,10 +7,11 @@ export const siteConfig = {
   shortName: "HomeCalc",
   description: "전세대출 이자, 월세와 전세 비교, DSR, 취득세, 중개수수료, 월세 환산, 청약 가점을 계산하는 부동산·주거비 계산기입니다.",
   url: siteUrl,
+  contactEmail: "moneyfinancecalculator@gmail.com",
   locale: "ko_KR",
   language: "ko-KR",
   defaultOgImage: "/og-image.png",
-  lastUpdated: "2026-05-29",
+  lastUpdated: "2026-05-31",
   themeColor: "#1E3A8A",
   googleSiteVerification: process.env.GOOGLE_SITE_VERIFICATION || process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined
 } as const;

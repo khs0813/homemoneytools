@@ -5,7 +5,7 @@ import { siteConfig } from "@/config/site";
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url.replace(/\/$/, "");
   const lastModified = siteConfig.lastUpdated;
-  const staticPaths = ["/", "/calculators", "/guides"];
+  const staticPaths = ["/", "/calculators", "/guides", "/privacy-policy", "/terms", "/disclaimer", "/contact"];
   const paths = [
     ...staticPaths,
     ...calculators.map((calculator) => calculator.path),
