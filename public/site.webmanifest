@@ -1,6 +1,6 @@
 {
   "name": "Home Money Calculator",
-  "short_name": "HomeCalc",
+  "short_name": "집 계산기",
   "description": "전세대출 이자, 월세와 전세 비교, DSR, 취득세, 중개수수료, 월세 환산, 청약 가점 계산기",
   "lang": "ko-KR",
   "start_url": "/",

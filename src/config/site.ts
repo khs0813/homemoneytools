@@ -4,7 +4,7 @@ const siteUrl = sanitizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL || process.env.
 
 export const siteConfig = {
   name: "Home Money Calculator",
-  shortName: "HomeCalc",
+  shortName: "집 계산기",
   description: "전세대출 이자, 월세와 전세 비교, DSR, 취득세, 중개수수료, 월세 환산, 청약 가점을 계산하는 부동산·주거비 계산기입니다.",
   url: siteUrl,
   contactEmail: "moneyfinancecalculator@gmail.com",
