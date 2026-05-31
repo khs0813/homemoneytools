@@ -1,6 +1,5 @@
 Home Money Calculator
 
-Purpose: Korean real-estate and housing-cost calculators without database storage.
+Purpose: Korean real-estate and housing-cost calculators.
 Stack: Next.js App Router, TypeScript, Tailwind CSS, React Hook Form, Zod, Vitest.
-Deployment: Render Web Service.
 Last updated: 2026-05-29.

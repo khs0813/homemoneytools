@@ -20,7 +20,7 @@ export default function HomePage() {
       <PageContainer className="py-10 md:py-16">
       <section className="rounded-[2rem] bg-gradient-to-br from-brand-navy via-blue-900 to-slate-950 px-6 py-12 text-white shadow-soft md:px-10 md:py-16">
         <div className="max-w-3xl">
-          <div className="inline-flex rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-emerald-100 ring-1 ring-white/15">DB 없이 빠르게 계산하는 주거비 도구</div>
+          <div className="inline-flex rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-emerald-100 ring-1 ring-white/15">빠르게 계산하는 주거비 도구</div>
           <h1 className="mt-6 text-4xl font-black tracking-tight md:text-6xl">집을 구하기 전, 필요한 돈을 먼저 계산하세요.</h1>
           <p className="mt-6 text-lg leading-8 text-blue-50">
             전세대출 이자부터 월세와 전세 비교, DSR, 취득세, 중개수수료, 월세 환산, 청약 가점까지 한 번에 확인할 수 있습니다.
@@ -45,20 +45,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mt-12 grid gap-5 md:grid-cols-3">
-        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h3 className="text-xl font-bold text-slate-950">DB 저장 없음</h3>
-          <p className="mt-3 text-sm leading-6 text-slate-600">입력값은 브라우저에서 계산에만 사용되며 회원가입이나 저장 기능 없이 바로 계산합니다.</p>
-        </div>
-        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h3 className="text-xl font-bold text-slate-950">설정값 분리</h3>
-          <p className="mt-3 text-sm leading-6 text-slate-600">취득세, 중개보수, DSR, 청약가점 기준값은 config 파일로 분리해 유지보수하기 쉽게 설계했습니다.</p>
-        </div>
-        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h3 className="text-xl font-bold text-slate-950">Render 배포 준비</h3>
-          <p className="mt-3 text-sm leading-6 text-slate-600">Render Web Service 기준 start command와 node version 설정을 포함합니다.</p>
-        </div>
-      </section>
       </PageContainer>
     </>
   );

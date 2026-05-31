@@ -1,6 +1,6 @@
-# Home Money Calculator - Render 배포용 부동산·주거비 계산기
+# Home Money Calculator - 부동산·주거비 계산기
 
-DB 없이 동작하는 Next.js App Router 기반 계산기 사이트입니다.
+Next.js App Router 기반 계산기 사이트입니다.
 
 ## 포함 계산기
 
@@ -20,7 +20,6 @@ DB 없이 동작하는 Next.js App Router 기반 계산기 사이트입니다.
 - React Hook Form
 - Zod
 - Vitest
-- Render Web Service
 
 ## 로컬 실행
 
@@ -43,14 +42,9 @@ npm run build
 npm run start
 ```
 
-## Render 배포
-
-`render.yaml`이 포함되어 있습니다. Render에서 GitHub 저장소를 연결하거나 Blueprint로 배포할 수 있습니다.
-
-환경변수:
+## 환경변수
 
 ```text
-NODE_VERSION=20.19.0
 NEXT_PUBLIC_SITE_URL=https://실제도메인
 NEXT_TELEMETRY_DISABLED=1
 GOOGLE_SITE_VERIFICATION=Search Console 인증값
@@ -66,4 +60,3 @@ GOOGLE_SITE_VERIFICATION=Search Console 인증값
 
 - `SECURITY.md`: 보안 점검 및 운영 정책
 - `SEO.md`: 배포 후 SEO 체크리스트
-

@@ -2,7 +2,7 @@
   "name": "home-money-calculator-render",
   "version": "0.1.0",
   "private": true,
-  "description": "DB 없이 동작하는 부동산·주거비 계산기 Next.js 프로젝트",
+  "description": "부동산·주거비 계산기 Next.js 프로젝트",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
