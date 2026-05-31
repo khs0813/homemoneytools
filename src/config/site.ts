@@ -13,5 +13,6 @@ export const siteConfig = {
   defaultOgImage: "/og-image.png",
   lastUpdated: "2026-05-31",
   themeColor: "#1E3A8A",
-  googleSiteVerification: process.env.GOOGLE_SITE_VERIFICATION || process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined
+  googleSiteVerification: process.env.GOOGLE_SITE_VERIFICATION || process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
+  naverSiteVerification: "373edda71c9ce3b8da86b8877a5f91efbfdb61c5"
 } as const;

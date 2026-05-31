@@ -40,11 +40,12 @@ export const metadata: Metadata = {
     ],
     apple: [{ url: "/apple-touch-icon.svg", type: "image/svg+xml" }]
   },
-  verification: siteConfig.googleSiteVerification
-    ? {
-        google: siteConfig.googleSiteVerification
-      }
-    : undefined,
+  verification: {
+    ...(siteConfig.googleSiteVerification ? { google: siteConfig.googleSiteVerification } : {}),
+    other: {
+      "naver-site-verification": siteConfig.naverSiteVerification
+    }
+  },
   other: {
     "google-adsense-account": "ca-pub-7766989656523085"
   },
