@@ -33,6 +33,11 @@ export const metadata: Metadata = {
   category: "finance",
   classification: "Real estate calculators",
   manifest: "/site.webmanifest",
+  alternates: {
+    types: {
+      "application/rss+xml": `${siteConfig.url}/rss.xml`
+    }
+  },
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },
