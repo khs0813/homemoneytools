@@ -7,7 +7,7 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
         <Link href="/" className="flex items-center gap-2 font-bold text-brand-navy">
-          <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-brand-navy text-xs text-white">주거 계산기</span>
+          <span className="flex h-9 w-20 items-center justify-center whitespace-nowrap rounded-2xl bg-brand-navy px-2 text-xs text-white">주거 계산기</span>
           <span>{siteConfig.shortName}</span>
         </Link>
         <nav className="hidden items-center gap-6 text-sm font-medium text-slate-700 md:flex">
