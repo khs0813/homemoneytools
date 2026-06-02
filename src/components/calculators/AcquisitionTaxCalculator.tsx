@@ -8,6 +8,7 @@ import { MoneyInput } from "@/components/calculator/MoneyInput";
 import { ResultCard } from "@/components/calculator/ResultCard";
 import { ResultRow } from "@/components/calculator/ResultRow";
 import { ShareButton } from "@/components/calculator/ShareButton";
+import { CalculatorWorkspace } from "@/components/calculator/CalculatorWorkspace";
 import { calculateAcquisitionTax, type AcquisitionType, type HouseCount } from "@/lib/calculators/acquisition-tax";
 import { formatKoreanMoney, formatPercent } from "@/lib/format";
 import { getBooleanParam, getEnumParam, getNumberParam, writeQueryState } from "@/lib/query-state";
@@ -71,7 +72,20 @@ export function AcquisitionTaxCalculator() {
   }
 
   return (
-    <div className="grid gap-6">
+    <CalculatorWorkspace
+      pinForm={Boolean(result)}
+      result={result ? (
+        <ResultCard title="예상 총 납부액" value={formatKoreanMoney(result.totalTax)} description={`적용 세율은 약 ${formatPercent(result.rate)}이며, 기준 버전은 ${result.version}입니다.`}>
+          <ResultRow label="취득세 감면 전" value={formatKoreanMoney(result.acquisitionTaxBeforeDiscount)} />
+          <ResultRow label="생애최초 감면 추정" value={formatKoreanMoney(result.firstHomeDiscount)} />
+          <ResultRow label="취득세" value={formatKoreanMoney(result.acquisitionTax)} />
+          <ResultRow label="지방교육세" value={formatKoreanMoney(result.localEducationTax)} />
+          <ResultRow label="농어촌특별세" value={formatKoreanMoney(result.specialRuralTax)} />
+          <ResultRow label="실효 세율" value={formatPercent(result.effectiveRate, 3)} />
+          <ShareButton />
+        </ResultCard>
+      ) : null}
+    >
       <form onSubmit={handleSubmit(onSubmit)} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
         <div className="grid gap-5 md:grid-cols-2">
           <Controller name="price" control={control} render={({ field }) => <MoneyInput label="주택 가격" required value={field.value} onChange={field.onChange} />} />
@@ -110,18 +124,6 @@ export function AcquisitionTaxCalculator() {
         </div>
         <button type="submit" className="mt-6 w-full rounded-2xl bg-brand-navy px-5 py-4 font-bold text-white transition hover:bg-blue-950">취득세 계산하기</button>
       </form>
-
-      {result ? (
-        <ResultCard title="예상 총 납부액" value={formatKoreanMoney(result.totalTax)} description={`적용 세율은 약 ${formatPercent(result.rate)}이며, 기준 버전은 ${result.version}입니다.`}>
-          <ResultRow label="취득세 감면 전" value={formatKoreanMoney(result.acquisitionTaxBeforeDiscount)} />
-          <ResultRow label="생애최초 감면 추정" value={formatKoreanMoney(result.firstHomeDiscount)} />
-          <ResultRow label="취득세" value={formatKoreanMoney(result.acquisitionTax)} />
-          <ResultRow label="지방교육세" value={formatKoreanMoney(result.localEducationTax)} />
-          <ResultRow label="농어촌특별세" value={formatKoreanMoney(result.specialRuralTax)} />
-          <ResultRow label="실효 세율" value={formatPercent(result.effectiveRate, 3)} />
-          <ShareButton />
-        </ResultCard>
-      ) : null}
-    </div>
+    </CalculatorWorkspace>
   );
 }

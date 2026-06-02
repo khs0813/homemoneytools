@@ -10,6 +10,7 @@ import { PercentInput } from "@/components/calculator/PercentInput";
 import { ResultCard } from "@/components/calculator/ResultCard";
 import { ResultRow } from "@/components/calculator/ResultRow";
 import { ShareButton } from "@/components/calculator/ShareButton";
+import { CalculatorWorkspace } from "@/components/calculator/CalculatorWorkspace";
 import { calculateRentVsJeonse } from "@/lib/calculators/rent-vs-jeonse";
 import { formatCurrency, formatKoreanMoney } from "@/lib/format";
 import { getNumberParam, writeQueryState } from "@/lib/query-state";
@@ -69,7 +70,20 @@ export function RentVsJeonseCalculator() {
   const winnerText = result?.winner === "jeonse" ? "전세가 유리합니다" : result?.winner === "rent" ? "월세가 유리합니다" : "전세와 월세가 비슷합니다";
 
   return (
-    <div className="grid gap-6">
+    <CalculatorWorkspace
+      pinForm={Boolean(result)}
+      result={result ? (
+        <ResultCard title={winnerText} value={formatKoreanMoney(result.difference)} description={`비교기간 전체 기준 차이입니다. 월 기준으로는 약 ${formatCurrency(result.monthlyDifference)} 차이입니다.`}>
+          <ResultRow label="전세 총 주거비" value={formatKoreanMoney(result.jeonseTotalCost)} />
+          <ResultRow label="월세 총 주거비" value={formatKoreanMoney(result.rentTotalCost)} />
+          <ResultRow label="전세 보증금 기회비용" value={formatKoreanMoney(result.jeonseOpportunityCost)} />
+          <ResultRow label="전세대출 이자" value={formatKoreanMoney(result.jeonseLoanInterest)} />
+          <ResultRow label="월세 납부 총액" value={formatKoreanMoney(result.monthlyRentTotal)} />
+          <ResultRow label="월세 보증금 기회비용" value={formatKoreanMoney(result.rentDepositOpportunityCost)} />
+          <ShareButton />
+        </ResultCard>
+      ) : null}
+    >
       <form onSubmit={handleSubmit(onSubmit)} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
         <div className="grid gap-5 md:grid-cols-2">
           <Controller name="jeonseDeposit" control={control} render={({ field }) => <MoneyInput label="전세보증금" required value={field.value} onChange={field.onChange} />} />
@@ -83,18 +97,6 @@ export function RentVsJeonseCalculator() {
         </div>
         <button type="submit" className="mt-6 w-full rounded-2xl bg-brand-navy px-5 py-4 font-bold text-white transition hover:bg-blue-950">월세와 전세 비교하기</button>
       </form>
-
-      {result ? (
-        <ResultCard title={winnerText} value={formatKoreanMoney(result.difference)} description={`비교기간 전체 기준 차이입니다. 월 기준으로는 약 ${formatCurrency(result.monthlyDifference)} 차이입니다.`}>
-          <ResultRow label="전세 총 주거비" value={formatKoreanMoney(result.jeonseTotalCost)} />
-          <ResultRow label="월세 총 주거비" value={formatKoreanMoney(result.rentTotalCost)} />
-          <ResultRow label="전세 보증금 기회비용" value={formatKoreanMoney(result.jeonseOpportunityCost)} />
-          <ResultRow label="전세대출 이자" value={formatKoreanMoney(result.jeonseLoanInterest)} />
-          <ResultRow label="월세 납부 총액" value={formatKoreanMoney(result.monthlyRentTotal)} />
-          <ResultRow label="월세 보증금 기회비용" value={formatKoreanMoney(result.rentDepositOpportunityCost)} />
-          <ShareButton />
-        </ResultCard>
-      ) : null}
-    </div>
+    </CalculatorWorkspace>
   );
 }

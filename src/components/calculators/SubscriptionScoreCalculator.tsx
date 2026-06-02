@@ -8,6 +8,7 @@ import { NumberInput } from "@/components/calculator/NumberInput";
 import { ResultCard } from "@/components/calculator/ResultCard";
 import { ResultRow } from "@/components/calculator/ResultRow";
 import { ShareButton } from "@/components/calculator/ShareButton";
+import { CalculatorWorkspace } from "@/components/calculator/CalculatorWorkspace";
 import { calculateSubscriptionScore } from "@/lib/calculators/subscription-score";
 import { todayInputValue } from "@/lib/date";
 import { getDateParam, getEnumParam, getNumberParam, writeQueryState } from "@/lib/query-state";
@@ -69,7 +70,21 @@ export function SubscriptionScoreCalculator() {
   }
 
   return (
-    <div className="grid gap-6">
+    <CalculatorWorkspace
+      pinForm={Boolean(result)}
+      result={result ? (
+        <ResultCard title="예상 청약가점" value={`${result.totalScore}점 / ${result.maxScore}점`} description={`기준 버전은 ${result.version}입니다.`}>
+          <ResultRow label="무주택기간 점수" value={`${result.homelessnessScore}점`} />
+          <ResultRow label="부양가족 점수" value={`${result.dependentsScore}점`} />
+          <ResultRow label="청약통장 가입기간 점수" value={`${result.accountScore}점`} />
+          <ResultRow label="무주택기간" value={`${result.homelessnessYears}년 (${result.homelessnessMonths}개월)`} />
+          <ResultRow label="청약통장 가입기간" value={`${result.accountMonths}개월`} />
+          <ResultRow label="다음 무주택 점수까지" value={result.monthsToNextHomelessnessScore ? `${result.monthsToNextHomelessnessScore}개월` : "최고 구간"} />
+          <ResultRow label="다음 통장 점수까지" value={result.monthsToNextAccountScore ? `${result.monthsToNextAccountScore}개월` : "최고 구간"} />
+          <ShareButton />
+        </ResultCard>
+      ) : null}
+    >
       <form onSubmit={handleSubmit(onSubmit)} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
         <div className="grid gap-5 md:grid-cols-2">
           <Controller name="birthDate" control={control} render={({ field }) => <DateInput label="생년월일" required value={field.value} onChange={field.onChange} />} />
@@ -94,19 +109,6 @@ export function SubscriptionScoreCalculator() {
         </div>
         <button type="submit" className="mt-6 w-full rounded-2xl bg-brand-navy px-5 py-4 font-bold text-white transition hover:bg-blue-950">청약 가점 계산하기</button>
       </form>
-
-      {result ? (
-        <ResultCard title="예상 청약가점" value={`${result.totalScore}점 / ${result.maxScore}점`} description={`기준 버전은 ${result.version}입니다.`}>
-          <ResultRow label="무주택기간 점수" value={`${result.homelessnessScore}점`} />
-          <ResultRow label="부양가족 점수" value={`${result.dependentsScore}점`} />
-          <ResultRow label="청약통장 가입기간 점수" value={`${result.accountScore}점`} />
-          <ResultRow label="무주택기간" value={`${result.homelessnessYears}년 (${result.homelessnessMonths}개월)`} />
-          <ResultRow label="청약통장 가입기간" value={`${result.accountMonths}개월`} />
-          <ResultRow label="다음 무주택 점수까지" value={result.monthsToNextHomelessnessScore ? `${result.monthsToNextHomelessnessScore}개월` : "최고 구간"} />
-          <ResultRow label="다음 통장 점수까지" value={result.monthsToNextAccountScore ? `${result.monthsToNextAccountScore}개월` : "최고 구간"} />
-          <ShareButton />
-        </ResultCard>
-      ) : null}
-    </div>
+    </CalculatorWorkspace>
   );
 }

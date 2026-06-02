@@ -9,6 +9,7 @@ import { PercentInput } from "@/components/calculator/PercentInput";
 import { ResultCard } from "@/components/calculator/ResultCard";
 import { ResultRow } from "@/components/calculator/ResultRow";
 import { ShareButton } from "@/components/calculator/ShareButton";
+import { CalculatorWorkspace } from "@/components/calculator/CalculatorWorkspace";
 import { calculateBrokerageFee, type BrokerageTransactionType } from "@/lib/calculators/brokerage-fee";
 import { formatKoreanMoney, formatPercent } from "@/lib/format";
 import { getEnumParam, getNumberParam, writeQueryState } from "@/lib/query-state";
@@ -56,7 +57,20 @@ export function BrokerageFeeCalculator() {
   }
 
   return (
-    <div className="grid gap-6">
+    <CalculatorWorkspace
+      pinForm={Boolean(result)}
+      result={result ? (
+        <ResultCard title="예상 총 중개비" value={formatKoreanMoney(result.total)} description={`부가세 10% 포함 예상액입니다. 기준 버전은 ${result.version}입니다.`}>
+          <ResultRow label="적용 거래금액" value={formatKoreanMoney(result.transactionAmount)} />
+          <ResultRow label="적용 요율" value={formatPercent(result.appliedRate, 4)} />
+          <ResultRow label="법정 상한요율" value={formatPercent(result.legalRate, 4)} />
+          <ResultRow label="한도액" value={result.limit ? formatKoreanMoney(result.limit) : "한도 없음"} />
+          <ResultRow label="중개보수" value={formatKoreanMoney(result.brokerageFee)} />
+          <ResultRow label="부가세" value={formatKoreanMoney(result.vat)} />
+          <ShareButton />
+        </ResultCard>
+      ) : null}
+    >
       <form onSubmit={handleSubmit(onSubmit)} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
         <div className="grid gap-5 md:grid-cols-2">
           <Controller
@@ -85,18 +99,6 @@ export function BrokerageFeeCalculator() {
         </div>
         <button type="submit" className="mt-6 w-full rounded-2xl bg-brand-navy px-5 py-4 font-bold text-white transition hover:bg-blue-950">중개수수료 계산하기</button>
       </form>
-
-      {result ? (
-        <ResultCard title="예상 총 중개비" value={formatKoreanMoney(result.total)} description={`부가세 10% 포함 예상액입니다. 기준 버전은 ${result.version}입니다.`}>
-          <ResultRow label="적용 거래금액" value={formatKoreanMoney(result.transactionAmount)} />
-          <ResultRow label="적용 요율" value={formatPercent(result.appliedRate, 4)} />
-          <ResultRow label="법정 상한요율" value={formatPercent(result.legalRate, 4)} />
-          <ResultRow label="한도액" value={result.limit ? formatKoreanMoney(result.limit) : "한도 없음"} />
-          <ResultRow label="중개보수" value={formatKoreanMoney(result.brokerageFee)} />
-          <ResultRow label="부가세" value={formatKoreanMoney(result.vat)} />
-          <ShareButton />
-        </ResultCard>
-      ) : null}
-    </div>
+    </CalculatorWorkspace>
   );
 }

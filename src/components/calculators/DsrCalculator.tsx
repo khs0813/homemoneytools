@@ -10,6 +10,7 @@ import { PercentInput } from "@/components/calculator/PercentInput";
 import { ResultCard } from "@/components/calculator/ResultCard";
 import { ResultRow } from "@/components/calculator/ResultRow";
 import { ShareButton } from "@/components/calculator/ShareButton";
+import { CalculatorWorkspace } from "@/components/calculator/CalculatorWorkspace";
 import { calculateDsr } from "@/lib/calculators/dsr";
 import { formatCurrency, formatKoreanMoney, formatPercent } from "@/lib/format";
 import { getEnumParam, getNumberParam, writeQueryState } from "@/lib/query-state";
@@ -72,7 +73,20 @@ export function DsrCalculator() {
   const statusText = result?.status === "safe" ? "기준 이내입니다" : result?.status === "warning" ? "주의 구간입니다" : "기준 초과 가능성이 있습니다";
 
   return (
-    <div className="grid gap-6">
+    <CalculatorWorkspace
+      pinForm={Boolean(result)}
+      result={result ? (
+        <ResultCard title={statusText} value={formatPercent(result.dsr)} description={`입력한 DSR 기준은 ${result.dsrLimit}%입니다.`}>
+          <ResultRow label="연간 원리금 상환액" value={formatKoreanMoney(result.totalAnnualRepayment)} />
+          <ResultRow label="월평균 상환액" value={formatCurrency(result.monthlyAverageRepayment)} />
+          <ResultRow label="주담대 연상환액" value={formatKoreanMoney(result.annualMortgagePayment)} />
+          <ResultRow label="신용대출 연상환액" value={formatKoreanMoney(result.annualCreditPayment)} />
+          <ResultRow label="기준 대비 여유 금액" value={formatKoreanMoney(result.remainingAnnualRepaymentCapacity)} />
+          <ResultRow label="스트레스 금리 적용 DSR" value={formatPercent(result.stressedDsr)} />
+          <ShareButton />
+        </ResultCard>
+      ) : null}
+    >
       <form onSubmit={handleSubmit(onSubmit)} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
         <div className="grid gap-5 md:grid-cols-2">
           <Controller name="annualIncome" control={control} render={({ field }) => <MoneyInput label="연소득" required value={field.value} onChange={field.onChange} />} />
@@ -100,18 +114,6 @@ export function DsrCalculator() {
         </div>
         <button type="submit" className="mt-6 w-full rounded-2xl bg-brand-navy px-5 py-4 font-bold text-white transition hover:bg-blue-950">DSR 계산하기</button>
       </form>
-
-      {result ? (
-        <ResultCard title={statusText} value={formatPercent(result.dsr)} description={`입력한 DSR 기준은 ${result.dsrLimit}%입니다.`}>
-          <ResultRow label="연간 원리금 상환액" value={formatKoreanMoney(result.totalAnnualRepayment)} />
-          <ResultRow label="월평균 상환액" value={formatCurrency(result.monthlyAverageRepayment)} />
-          <ResultRow label="주담대 연상환액" value={formatKoreanMoney(result.annualMortgagePayment)} />
-          <ResultRow label="신용대출 연상환액" value={formatKoreanMoney(result.annualCreditPayment)} />
-          <ResultRow label="기준 대비 여유 금액" value={formatKoreanMoney(result.remainingAnnualRepaymentCapacity)} />
-          <ResultRow label="스트레스 금리 적용 DSR" value={formatPercent(result.stressedDsr)} />
-          <ShareButton />
-        </ResultCard>
-      ) : null}
-    </div>
+    </CalculatorWorkspace>
   );
 }

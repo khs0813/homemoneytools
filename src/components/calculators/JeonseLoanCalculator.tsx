@@ -10,6 +10,7 @@ import { PercentInput } from "@/components/calculator/PercentInput";
 import { ResultCard } from "@/components/calculator/ResultCard";
 import { ResultRow } from "@/components/calculator/ResultRow";
 import { ShareButton } from "@/components/calculator/ShareButton";
+import { CalculatorWorkspace } from "@/components/calculator/CalculatorWorkspace";
 import { calculateJeonseLoan, type RepaymentType } from "@/lib/calculators/loan";
 import { formatCurrency, formatKoreanMoney, formatPercent } from "@/lib/format";
 import { getEnumParam, getNumberParam, writeQueryState } from "@/lib/query-state";
@@ -62,7 +63,21 @@ export function JeonseLoanCalculator() {
   }
 
   return (
-    <div className="grid gap-6">
+    <CalculatorWorkspace
+      pinForm={Boolean(result)}
+      result={result ? (
+        <ResultCard title="예상 월 납입액" value={formatCurrency(result.monthlyPayment)} description="입력하신 상환방식 기준 예상 월 납입액입니다.">
+          <ResultRow label="월 이자만 낼 경우" value={formatCurrency(result.monthlyInterestOnly)} />
+          <ResultRow label="첫 달 납입액" value={formatCurrency(result.firstMonthlyPayment)} />
+          <ResultRow label="마지막 달 납입액" value={formatCurrency(result.lastMonthlyPayment)} />
+          <ResultRow label="총 이자" value={formatKoreanMoney(result.totalInterest)} />
+          <ResultRow label="총 납입액" value={formatKoreanMoney(result.totalPayment)} />
+          <ResultRow label="예상 보증료" value={formatCurrency(result.guaranteeFee)} />
+          <ResultRow label="전세금 대비 대출비율" value={formatPercent(result.loanToDepositRatio)} />
+          <ShareButton />
+        </ResultCard>
+      ) : null}
+    >
       <form onSubmit={handleSubmit(onSubmit)} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
         <div className="grid gap-5 md:grid-cols-2">
           <Controller name="jeonseDeposit" control={control} render={({ field }) => <MoneyInput label="전세보증금" required value={field.value} onChange={field.onChange} />} />
@@ -88,19 +103,6 @@ export function JeonseLoanCalculator() {
         </div>
         <button type="submit" className="mt-6 w-full rounded-2xl bg-brand-navy px-5 py-4 font-bold text-white transition hover:bg-blue-950">전세대출 이자 계산하기</button>
       </form>
-
-      {result ? (
-        <ResultCard title="예상 월 납입액" value={formatCurrency(result.monthlyPayment)} description="입력하신 상환방식 기준 예상 월 납입액입니다.">
-          <ResultRow label="월 이자만 낼 경우" value={formatCurrency(result.monthlyInterestOnly)} />
-          <ResultRow label="첫 달 납입액" value={formatCurrency(result.firstMonthlyPayment)} />
-          <ResultRow label="마지막 달 납입액" value={formatCurrency(result.lastMonthlyPayment)} />
-          <ResultRow label="총 이자" value={formatKoreanMoney(result.totalInterest)} />
-          <ResultRow label="총 납입액" value={formatKoreanMoney(result.totalPayment)} />
-          <ResultRow label="예상 보증료" value={formatCurrency(result.guaranteeFee)} />
-          <ResultRow label="전세금 대비 대출비율" value={formatPercent(result.loanToDepositRatio)} />
-          <ShareButton />
-        </ResultCard>
-      ) : null}
-    </div>
+    </CalculatorWorkspace>
   );
 }

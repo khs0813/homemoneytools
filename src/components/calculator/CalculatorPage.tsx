@@ -22,16 +22,14 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
         ]}
       />
       <CalculatorJsonLd info={info} />
-      <div className="grid gap-8 lg:grid-cols-[1fr_360px]">
-        <section>
-          <div className="rounded-3xl bg-gradient-to-br from-brand-navy to-slate-900 p-8 text-white shadow-soft">
-            <div className="text-sm font-semibold text-emerald-200">부동산·주거비 계산기</div>
-            <h1 className="mt-3 text-3xl font-black tracking-tight md:text-5xl">{info.title}</h1>
-            <p className="mt-5 max-w-3xl text-base leading-7 text-blue-50">{info.description}</p>
-          </div>
-          <div className="mt-8">{children}</div>
-        </section>
-        <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
+      <section>
+        <div className="rounded-3xl bg-gradient-to-br from-brand-navy to-slate-900 p-8 text-white shadow-soft">
+          <div className="text-sm font-semibold text-emerald-200">부동산·주거비 계산기</div>
+          <h1 className="mt-3 text-3xl font-black tracking-tight md:text-5xl">{info.title}</h1>
+          <p className="mt-5 max-w-3xl text-base leading-7 text-blue-50">{info.description}</p>
+        </div>
+        <div className="mt-8">{children}</div>
+        <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(280px,380px)]">
           <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
             <h2 className="text-lg font-bold text-slate-950">이 계산기로 확인할 수 있는 것</h2>
             <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-600">
@@ -42,8 +40,8 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
             </ul>
           </div>
           <DisclaimerBox />
-        </aside>
-      </div>
+        </div>
+      </section>
 
       <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
         <p className="text-sm font-bold text-brand-emerald">계산 전 확인사항</p>

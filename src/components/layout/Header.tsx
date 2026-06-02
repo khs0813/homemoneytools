@@ -10,8 +10,11 @@ export function Header() {
           <span className="flex h-9 w-20 items-center justify-center whitespace-nowrap rounded-2xl bg-brand-navy px-2 text-xs text-white">주거 계산기</span>
           <span>{siteConfig.shortName}</span>
         </Link>
-        <nav className="hidden items-center gap-6 text-sm font-medium text-slate-700 md:flex">
+        <nav className="hidden items-center gap-4 text-sm font-medium text-slate-700 md:flex">
           <Link href="/calculators" className="hover:text-brand-navy">계산기 목록</Link>
+          <Link href="/jeonse-loan-interest-calculator" className="hover:text-brand-navy">전세대출 이자 계산기</Link>
+          <Link href="/dsr-calculator" className="hover:text-brand-navy">주택담보대출 DSR 계산기</Link>
+          <Link href="/housing-subscription-score-calculator" className="hover:text-brand-navy">청약 가점 계산기</Link>
           <Link href="/guides" className="hover:text-brand-navy">부동산 가이드</Link>
           <Link href="/contact" className="hover:text-brand-navy">문의</Link>
         </nav>

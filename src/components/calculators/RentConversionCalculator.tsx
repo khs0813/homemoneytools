@@ -10,6 +10,7 @@ import { PercentInput } from "@/components/calculator/PercentInput";
 import { ResultCard } from "@/components/calculator/ResultCard";
 import { ResultRow } from "@/components/calculator/ResultRow";
 import { ShareButton } from "@/components/calculator/ShareButton";
+import { CalculatorWorkspace } from "@/components/calculator/CalculatorWorkspace";
 import { calculateRentConversion, type RentConversionType } from "@/lib/calculators/rent-conversion";
 import { formatKoreanMoney } from "@/lib/format";
 import { getEnumParam, getNumberParam, writeQueryState } from "@/lib/query-state";
@@ -59,7 +60,17 @@ export function RentConversionCalculator() {
   }
 
   return (
-    <div className="grid gap-6">
+    <CalculatorWorkspace
+      pinForm={Boolean(result)}
+      result={result ? (
+        <ResultCard title={result.type === "jeonse-to-rent" ? "예상 월세" : "전세 환산 금액"} value={result.type === "jeonse-to-rent" ? formatKoreanMoney(result.monthlyRent) : formatKoreanMoney(result.jeonseEquivalent)} description={`${result.years}년 기준 총 월세는 ${formatKoreanMoney(result.totalRentForPeriod)}입니다.`}>
+          <ResultRow label="예상 월세" value={formatKoreanMoney(result.monthlyRent)} />
+          <ResultRow label="전세 환산 금액" value={formatKoreanMoney(result.jeonseEquivalent)} />
+          <ResultRow label="기간 내 월세 총액" value={formatKoreanMoney(result.totalRentForPeriod)} />
+          <ShareButton />
+        </ResultCard>
+      ) : null}
+    >
       <form onSubmit={handleSubmit(onSubmit)} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
         <div className="grid gap-5 md:grid-cols-2">
           <Controller
@@ -86,15 +97,6 @@ export function RentConversionCalculator() {
         </div>
         <button type="submit" className="mt-6 w-full rounded-2xl bg-brand-navy px-5 py-4 font-bold text-white transition hover:bg-blue-950">월세 환산 계산하기</button>
       </form>
-
-      {result ? (
-        <ResultCard title={result.type === "jeonse-to-rent" ? "예상 월세" : "전세 환산 금액"} value={result.type === "jeonse-to-rent" ? formatKoreanMoney(result.monthlyRent) : formatKoreanMoney(result.jeonseEquivalent)} description={`${result.years}년 기준 총 월세는 ${formatKoreanMoney(result.totalRentForPeriod)}입니다.`}>
-          <ResultRow label="예상 월세" value={formatKoreanMoney(result.monthlyRent)} />
-          <ResultRow label="전세 환산 금액" value={formatKoreanMoney(result.jeonseEquivalent)} />
-          <ResultRow label="기간 내 월세 총액" value={formatKoreanMoney(result.totalRentForPeriod)} />
-          <ShareButton />
-        </ResultCard>
-      ) : null}
-    </div>
+    </CalculatorWorkspace>
   );
 }
