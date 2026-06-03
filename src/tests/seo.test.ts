@@ -16,7 +16,7 @@ describe("SEO configuration", () => {
     for (const calculator of calculators) {
       expect(calculator.description.length).toBeGreaterThan(30);
       expect(calculator.keywords.length).toBeGreaterThanOrEqual(3);
-      expect(calculator.faqs.length).toBeGreaterThanOrEqual(3);
+      expect(calculator.faqs.length).toBeGreaterThanOrEqual(5);
     }
   });
 
@@ -45,6 +45,6 @@ describe("SEO configuration", () => {
 
   it("exposes required policy and contact configuration", () => {
     expect(siteConfig.contactEmail).toMatch(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
-    expect(siteConfig.lastUpdated).toBe("2026-05-31");
+    expect(siteConfig.lastUpdated).toBe("2026-06-03");
   });
 });

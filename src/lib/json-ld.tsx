@@ -1,5 +1,6 @@
 import type { CalculatorInfo } from "@/config/calculators";
 import { calculators } from "@/config/calculators";
+import { guides } from "@/config/guides";
 import { siteConfig } from "@/config/site";
 import { absoluteUrl } from "@/lib/seo";
 
@@ -41,14 +42,7 @@ const website = {
 };
 
 export function OrganizationJsonLd() {
-  return (
-    <JsonLd
-      data={{
-        "@context": "https://schema.org",
-        ...publisher
-      }}
-    />
-  );
+  return <JsonLd data={{ "@context": "https://schema.org", ...publisher }} />;
 }
 
 export function BreadcrumbJsonLd({ items }: { items: Array<{ name: string; path: string }> }) {
@@ -109,12 +103,7 @@ export function CalculatorJsonLd({ info }: { info: CalculatorInfo }) {
         browserRequirements: "Requires JavaScript. No database account required.",
         inLanguage: siteConfig.language,
         isAccessibleForFree: true,
-        featureList: [
-          "부동산 비용 계산",
-          "계산 공식 설명",
-          "FAQ",
-          "공유 가능한 URL"
-        ],
+        featureList: ["금융·세금·생활비 계산", "계산 공식 설명", "FAQ", "공유 가능한 URL"],
         offers: {
           "@type": "Offer",
           price: "0",
@@ -132,7 +121,7 @@ export function CalculatorItemListJsonLd() {
       data={{
         "@context": "https://schema.org",
         "@type": "ItemList",
-        name: "부동산·주거비 계산기 목록",
+        name: "금융·세금·생활비 계산기 목록",
         itemListElement: calculators.map((calculator, index) => ({
           "@type": "ListItem",
           position: index + 1,
@@ -151,13 +140,13 @@ export function GuideItemListJsonLd() {
       data={{
         "@context": "https://schema.org",
         "@type": "ItemList",
-        name: "부동산 계산 가이드 목록",
-        itemListElement: calculators.map((calculator, index) => ({
+        name: "생활금융 가이드 목록",
+        itemListElement: guides.map((guide, index) => ({
           "@type": "ListItem",
           position: index + 1,
-          url: absoluteUrl(calculator.guidePath),
-          name: `${calculator.title} 가이드`,
-          description: `${calculator.title}의 입력값, 공식, 계산 예시, 결과 해석 방법을 설명합니다.`
+          url: absoluteUrl(guide.path),
+          name: guide.title,
+          description: guide.description
         }))
       }}
     />
@@ -165,16 +154,20 @@ export function GuideItemListJsonLd() {
 }
 
 export function ArticleJsonLd({ info }: { info: CalculatorInfo }) {
+  return <GenericArticleJsonLd title={`${info.title} 가이드`} description={`${info.title}의 입력값, 공식, 계산 예시, 결과 해석 방법을 설명합니다.`} path={info.guidePath} />;
+}
+
+export function GenericArticleJsonLd({ title, description, path }: { title: string; description: string; path: string }) {
   return (
     <JsonLd
       data={{
         "@context": "https://schema.org",
         "@type": "Article",
-        "@id": `${absoluteUrl(info.guidePath)}#article`,
-        headline: `${info.title} 가이드`,
-        description: `${info.title}의 입력값, 공식, 계산 예시, 결과 해석 방법을 설명합니다.`,
+        "@id": `${absoluteUrl(path)}#article`,
+        headline: title,
+        description,
         inLanguage: siteConfig.language,
-        mainEntityOfPage: `${absoluteUrl(info.guidePath)}#webpage`,
+        mainEntityOfPage: `${absoluteUrl(path)}#webpage`,
         datePublished: siteConfig.lastUpdated,
         dateModified: siteConfig.lastUpdated,
         image: absoluteUrl(siteConfig.defaultOgImage),
@@ -186,12 +179,5 @@ export function ArticleJsonLd({ info }: { info: CalculatorInfo }) {
 }
 
 export function WebsiteJsonLd() {
-  return (
-    <JsonLd
-      data={{
-        "@context": "https://schema.org",
-        ...website
-      }}
-    />
-  );
+  return <JsonLd data={{ "@context": "https://schema.org", ...website }} />;
 }

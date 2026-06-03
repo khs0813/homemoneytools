@@ -9,7 +9,7 @@ const ogImage = {
   url: siteConfig.defaultOgImage,
   width: 1200,
   height: 630,
-  alt: `${siteConfig.name} 부동산·주거비 계산기`
+  alt: `${siteConfig.name} 생활 금융 계산기`
 };
 
 export const viewport: Viewport = {
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   applicationName: siteConfig.name,
   title: {
-    default: `${siteConfig.name} - 부동산·주거비 계산기`,
+    default: `${siteConfig.name} - 생활 금융 계산기`,
     template: `%s | ${siteConfig.name}`
   },
   description: siteConfig.description,
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   creator: siteConfig.name,
   publisher: siteConfig.name,
   category: "finance",
-  classification: "Real estate calculators",
+  classification: "Personal finance calculators",
   manifest: "/site.webmanifest",
   alternates: {
     types: {

@@ -1,21 +1,23 @@
 import type { MetadataRoute } from "next";
 import { calculators } from "@/config/calculators";
+import { guides } from "@/config/guides";
 import { siteConfig } from "@/config/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url.replace(/\/$/, "");
   const lastModified = siteConfig.lastUpdated;
-  const staticPaths = ["/", "/calculators", "/guides", "/privacy-policy", "/terms", "/disclaimer", "/contact"];
+  const staticPaths = ["/", "/about", "/calculators", "/guides", "/privacy-policy", "/terms", "/disclaimer", "/contact"];
   const paths = [
     ...staticPaths,
     ...calculators.map((calculator) => calculator.path),
-    ...calculators.map((calculator) => calculator.guidePath)
+    ...calculators.map((calculator) => calculator.guidePath),
+    ...guides.map((guide) => guide.path)
   ];
 
   return paths.map((path) => ({
     url: `${base}${path}`,
     lastModified,
-    changeFrequency: path === "/" ? "weekly" : "monthly",
-    priority: path === "/" ? 1 : path.includes("calculator") ? 0.85 : 0.7
+    changeFrequency: path === "/" ? "weekly" : path.startsWith("/guides/") ? "monthly" : "monthly",
+    priority: path === "/" ? 1 : path.includes("calculator") ? 0.85 : path.startsWith("/guides/") ? 0.75 : 0.7
   }));
 }

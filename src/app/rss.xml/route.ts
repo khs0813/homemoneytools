@@ -1,4 +1,5 @@
 import { calculators } from "@/config/calculators";
+import { guides } from "@/config/guides";
 import { siteConfig } from "@/config/site";
 
 const baseUrl = siteConfig.url.replace(/\/$/, "");
@@ -9,23 +10,30 @@ function escapeXml(value: string): string {
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
+    .replace(/\"/g, "&quot;")
     .replace(/'/g, "&apos;");
 }
 
 export function GET() {
-  const items = calculators.flatMap((calculator) => [
-    {
-      title: calculator.title,
-      description: calculator.description,
-      path: calculator.path
-    },
-    {
-      title: `${calculator.shortTitle} 가이드`,
-      description: `${calculator.title} 사용 전 알아두면 좋은 계산 기준과 주의사항입니다.`,
-      path: calculator.guidePath
-    }
-  ]);
+  const items = [
+    ...calculators.flatMap((calculator) => [
+      {
+        title: calculator.title,
+        description: calculator.description,
+        path: calculator.path
+      },
+      {
+        title: `${calculator.shortTitle} 가이드`,
+        description: `${calculator.title} 사용 전 알아두면 좋은 계산 기준과 주의사항입니다.`,
+        path: calculator.guidePath
+      }
+    ]),
+    ...guides.map((guide) => ({
+      title: guide.title,
+      description: guide.description,
+      path: guide.path
+    }))
+  ];
 
   const xml = `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0">
