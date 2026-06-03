@@ -18,7 +18,7 @@ export default function ContactPage() {
       <WebPageJsonLd title={title} description={description} path="/contact" />
       <BreadcrumbJsonLd items={[{ name: "홈", path: "/" }, { name: title, path: "/contact" }]} />
       <LegalPage
-        eyebrow="Contact"
+        eyebrow="문의"
         title={title}
         description={description}
         sections={[

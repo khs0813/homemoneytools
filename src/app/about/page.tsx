@@ -3,13 +3,13 @@ import { BreadcrumbJsonLd, WebPageJsonLd } from "@/lib/json-ld";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata = buildPageMetadata(
-  "About",
+  "사이트 소개",
   "집계산의 운영 목적, 계산 기준 관리 방식, 오류 제보 방법, 광고 운영 원칙, 면책 범위를 안내합니다.",
   "/about"
 );
 
 export default function AboutPage() {
-  const title = "About";
+  const title = "사이트 소개";
   const description = "집계산은 전세·월세·매매·대출·청약 같은 주거비 의사결정을 돕기 위해 계산과 해석을 함께 제공하는 정보 서비스입니다.";
 
   return (
@@ -17,7 +17,7 @@ export default function AboutPage() {
       <WebPageJsonLd title={title} description={description} path="/about" />
       <BreadcrumbJsonLd items={[{ name: "홈", path: "/" }, { name: title, path: "/about" }]} />
       <LegalPage
-        eyebrow="About"
+        eyebrow="사이트 소개"
         title={title}
         description={description}
         sections={[

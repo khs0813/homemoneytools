@@ -18,7 +18,7 @@ export default function TermsPage() {
       <WebPageJsonLd title={title} description={description} path="/terms" />
       <BreadcrumbJsonLd items={[{ name: "홈", path: "/" }, { name: title, path: "/terms" }]} />
       <LegalPage
-        eyebrow="Terms"
+        eyebrow="이용안내"
         title={title}
         description={description}
         sections={[

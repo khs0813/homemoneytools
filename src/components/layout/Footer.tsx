@@ -4,7 +4,7 @@ import { isHousingCalculator } from "@/config/housing-content";
 import { siteConfig } from "@/config/site";
 
 const policyLinks = [
-  { href: "/about", label: "About" },
+  { href: "/about", label: "사이트 소개" },
   { href: "/contact", label: "문의" },
   { href: "/privacy-policy", label: "개인정보처리방침" },
   { href: "/terms", label: "이용약관" },

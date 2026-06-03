@@ -18,7 +18,7 @@ export default function PrivacyPolicyPage() {
       <WebPageJsonLd title={title} description={description} path="/privacy-policy" />
       <BreadcrumbJsonLd items={[{ name: "홈", path: "/" }, { name: title, path: "/privacy-policy" }]} />
       <LegalPage
-        eyebrow="Privacy"
+        eyebrow="개인정보"
         title={title}
         description={description}
         sections={[

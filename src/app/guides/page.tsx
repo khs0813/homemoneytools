@@ -18,7 +18,7 @@ export default function GuidesPage() {
       <GuideItemListJsonLd />
       <PageContainer className="py-10 md:py-14">
         <div className="max-w-4xl">
-          <p className="text-sm font-bold text-brand-emerald">Guides</p>
+          <p className="text-sm font-bold text-brand-emerald">주거비 가이드</p>
           <h1 className="mt-3 text-4xl font-black text-slate-950">주거비 정보 가이드</h1>
           <p className="mt-4 text-base leading-7 text-slate-600">
             계산기 결과만으로 판단하기 어려운 사용자를 위해 전세대출 이자 계산 실수, 월세 vs 전세 판단법, DSR 40% 의미, 취득세 체크포인트, 중개수수료 협의 방법, 청약가점 해석처럼 실제 검색 의도에 맞는 독립형 글을 모았습니다.

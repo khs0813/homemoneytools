@@ -18,7 +18,7 @@ export default function DisclaimerPage() {
       <WebPageJsonLd title={title} description={description} path="/disclaimer" />
       <BreadcrumbJsonLd items={[{ name: "홈", path: "/" }, { name: title, path: "/disclaimer" }]} />
       <LegalPage
-        eyebrow="Notice"
+        eyebrow="면책 안내"
         title={title}
         description={description}
         sections={[

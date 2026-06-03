@@ -16,7 +16,7 @@ export function Header() {
         <nav className="hidden items-center gap-4 text-sm font-medium text-slate-700 md:flex">
           <Link href="/calculators" className="hover:text-brand-navy">주거비 계산기</Link>
           <Link href="/guides" className="hover:text-brand-navy">주거비 가이드</Link>
-          <Link href="/about" className="hover:text-brand-navy">About</Link>
+          <Link href="/about" className="hover:text-brand-navy">사이트 소개</Link>
           <Link href="/contact" className="hover:text-brand-navy">문의</Link>
         </nav>
         <details className="relative md:hidden">
@@ -24,7 +24,7 @@ export function Header() {
           <div className="absolute right-0 mt-3 w-72 rounded-2xl border border-slate-200 bg-white p-3 shadow-soft">
             <Link href="/calculators" className="block rounded-xl px-3 py-2 text-sm hover:bg-slate-50">주거비 계산기</Link>
             <Link href="/guides" className="block rounded-xl px-3 py-2 text-sm hover:bg-slate-50">주거비 가이드</Link>
-            <Link href="/about" className="block rounded-xl px-3 py-2 text-sm hover:bg-slate-50">About</Link>
+            <Link href="/about" className="block rounded-xl px-3 py-2 text-sm hover:bg-slate-50">사이트 소개</Link>
             <Link href="/contact" className="block rounded-xl px-3 py-2 text-sm hover:bg-slate-50">문의</Link>
             <div className="mt-2 border-t border-slate-100 pt-2">
               {featuredCalculators.map((calculator) => (
