@@ -18,6 +18,16 @@ export function GuidePage({ guide }: { guide: Guide }) {
           <h1 className="mt-3 text-3xl font-black text-slate-950 md:text-5xl">{guide.h1}</h1>
           <p className="mt-5 text-base leading-8 text-slate-600">{guide.description}</p>
 
+          <section className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-5">
+            <h2 className="text-lg font-bold text-slate-950">계산 기준일과 제도 메모</h2>
+            <p className="mt-3 text-sm leading-7 text-slate-600">기준일: {guide.referenceDate}</p>
+            <ul className="mt-3 grid gap-2 text-sm leading-7 text-slate-600">
+              {guide.policySummary.map((item) => (
+                <li key={item}>• {item}</li>
+              ))}
+            </ul>
+          </section>
+
           {guide.body.map((section) => (
             <section key={section.heading} className="mt-10 border-t border-slate-100 pt-8 first:border-t-0 first:pt-0">
               <h2 className="text-2xl font-black text-slate-950">{section.heading}</h2>
@@ -39,17 +49,30 @@ export function GuidePage({ guide }: { guide: Guide }) {
             </section>
           ))}
 
+          <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-5">
+            <h2 className="text-lg font-bold text-slate-950">공식 출처</h2>
+            <div className="mt-4 grid gap-4">
+              {guide.officialSources.map((source) => (
+                <div key={source.url} className="rounded-2xl bg-slate-50 p-4">
+                  <a href={source.url} target="_blank" rel="noreferrer" className="font-bold text-brand-navy hover:underline">
+                    {source.title}
+                  </a>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">{source.note}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
           <section className="mt-10 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm leading-7 text-amber-950">
-            <h2 className="text-lg font-bold">참고용 면책 안내</h2>
+            <h2 className="text-lg font-bold">면책 안내</h2>
             <p className="mt-3">
-              본 사이트의 계산 결과와 가이드 내용은 사용자가 입력한 값을 기준으로 산출한 참고용 정보이며, 실제 세금,
-              대출, 금융상품, 급여, 요금과 다를 수 있습니다. 중요한 의사결정 전에는 금융기관, 세무사, 노무사 등 전문가 또는 공식 기관을 통해 확인하시기 바랍니다.
+              본 글은 공개된 제도와 기준을 이해하기 쉽게 정리한 참고용 콘텐츠입니다. 실제 세금, 대출, 청약, 중개보수, 요금은 개인 조건과 계약 내용, 최신 제도 변경에 따라 달라질 수 있습니다. 중요한 의사결정 전에는 공식 기관과 전문가 확인이 필요합니다.
             </p>
           </section>
 
           <section className="mt-10 rounded-2xl bg-slate-50 p-5">
             <h2 className="text-lg font-bold text-slate-950">관련 계산기 바로가기</h2>
-            <p className="mt-2 text-sm leading-6 text-slate-600">가이드에서 본 내용을 바로 숫자로 확인해보세요.</p>
+            <p className="mt-2 text-sm leading-6 text-slate-600">글에서 본 내용을 실제 숫자로 검토해보세요.</p>
             <div className="mt-6">
               <RelatedCalculators slugs={guide.relatedCalculatorSlugs} />
             </div>

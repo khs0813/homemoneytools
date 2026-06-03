@@ -1,6 +1,7 @@
 import type { CalculatorInfo } from "@/config/calculators";
 import { calculators } from "@/config/calculators";
 import { guides } from "@/config/guides";
+import { isHousingCalculator } from "@/config/housing-content";
 import { siteConfig } from "@/config/site";
 import { absoluteUrl } from "@/lib/seo";
 
@@ -103,7 +104,7 @@ export function CalculatorJsonLd({ info }: { info: CalculatorInfo }) {
         browserRequirements: "Requires JavaScript. No database account required.",
         inLanguage: siteConfig.language,
         isAccessibleForFree: true,
-        featureList: ["금융·세금·생활비 계산", "계산 공식 설명", "FAQ", "공유 가능한 URL"],
+        featureList: ["주거비 계산", "계산 공식 설명", "FAQ", "공식 출처 안내"],
         offers: {
           "@type": "Offer",
           price: "0",
@@ -121,8 +122,8 @@ export function CalculatorItemListJsonLd() {
       data={{
         "@context": "https://schema.org",
         "@type": "ItemList",
-        name: "금융·세금·생활비 계산기 목록",
-        itemListElement: calculators.map((calculator, index) => ({
+        name: "주거비 계산기 목록",
+        itemListElement: calculators.filter((calculator) => isHousingCalculator(calculator.slug)).map((calculator, index) => ({
           "@type": "ListItem",
           position: index + 1,
           url: absoluteUrl(calculator.path),
@@ -140,7 +141,7 @@ export function GuideItemListJsonLd() {
       data={{
         "@context": "https://schema.org",
         "@type": "ItemList",
-        name: "생활금융 가이드 목록",
+        name: "주거비 정보 가이드 목록",
         itemListElement: guides.map((guide, index) => ({
           "@type": "ListItem",
           position: index + 1,

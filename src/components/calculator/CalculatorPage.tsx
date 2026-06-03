@@ -4,11 +4,13 @@ import { DisclaimerBox } from "@/components/calculator/DisclaimerBox";
 import { FaqJsonLd, FaqSection } from "@/components/calculator/FaqSection";
 import { FormulaAccordion } from "@/components/calculator/FormulaAccordion";
 import { RelatedCalculators } from "@/components/calculator/RelatedCalculators";
+import { housingReferenceBySlug } from "@/config/housing-content";
 import { getSeoContent } from "@/config/seo-content";
 import { BreadcrumbJsonLd, CalculatorJsonLd, WebPageJsonLd } from "@/lib/json-ld";
 
 export function CalculatorPage({ info, children }: { info: CalculatorInfo; children: ReactNode }) {
   const seoContent = getSeoContent(info.slug);
+  const reference = housingReferenceBySlug[info.slug];
 
   return (
     <>
@@ -33,10 +35,10 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
           <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
             <h2 className="text-lg font-bold text-slate-950">이 계산기로 확인할 수 있는 것</h2>
             <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-600">
-              <li>• 입력값 기준 예상 결과와 비용 규모</li>
-              <li>• 계산 공식과 실제 계산 예시 2~3개</li>
-              <li>• 결과 해석 방법과 자주 하는 실수</li>
-              <li>• FAQ, 내부 링크, 참고용 면책 안내</li>
+              <li>• 입력값 기준 월 부담액과 총비용 구조</li>
+              <li>• 금리 변동, 위험 구간, 해석 포인트</li>
+              <li>• 계산 공식, 실제 사례, 자주 하는 실수</li>
+              <li>• 관련 계산기 추천과 공식 참고 출처</li>
             </ul>
           </div>
           <DisclaimerBox />
@@ -81,6 +83,38 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
         </div>
       </section>
 
+      {reference ? (
+        <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+          <h2 className="text-2xl font-black text-slate-950">의사결정 해석 카드</h2>
+          <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {reference.decisionCards.map((card) => (
+              <article key={card.title} className="rounded-2xl bg-slate-50 p-5">
+                <h3 className="text-lg font-bold text-slate-950">{card.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-600">{card.description}</p>
+              </article>
+            ))}
+          </div>
+          <div className="mt-8 grid gap-6 lg:grid-cols-2">
+            <div className="rounded-2xl border border-rose-100 bg-rose-50 p-5">
+              <h3 className="text-lg font-bold text-slate-950">위험 구간 체크</h3>
+              <ul className="mt-4 list-disc space-y-3 pl-5 text-sm leading-6 text-slate-700">
+                {reference.riskChecks.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-2xl border border-blue-100 bg-blue-50 p-5">
+              <h3 className="text-lg font-bold text-slate-950">실제 사례로 보는 해석</h3>
+              <ul className="mt-4 list-disc space-y-3 pl-5 text-sm leading-6 text-slate-700">
+                {reference.caseStudies.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
       <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
         <h2 className="text-2xl font-black text-slate-950">실제 계산 예시</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-3">
@@ -108,6 +142,36 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
           <p className="mt-2 text-sm leading-6 text-slate-600">{seoContent.relatedSearches.join(" · ")}</p>
         </div>
       </section>
+
+      {reference ? (
+        <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+          <h2 className="text-2xl font-black text-slate-950">계산 기준 및 참고 출처</h2>
+          <p className="mt-4 text-sm leading-7 text-slate-600">기준일: {reference.referenceDate}</p>
+          <div className="mt-5 grid gap-4 lg:grid-cols-2">
+            <div className="rounded-2xl bg-slate-50 p-5">
+              <h3 className="text-lg font-bold text-slate-950">제도 해석 메모</h3>
+              <ul className="mt-4 list-disc space-y-3 pl-5 text-sm leading-6 text-slate-700">
+                {reference.policyNotes.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-2xl bg-slate-50 p-5">
+              <h3 className="text-lg font-bold text-slate-950">공식 출처</h3>
+              <div className="mt-4 grid gap-4">
+                {reference.officialSources.map((source) => (
+                  <div key={source.url}>
+                    <a href={source.url} target="_blank" rel="noreferrer" className="font-bold text-brand-navy hover:underline">
+                      {source.title}
+                    </a>
+                    <p className="mt-1 text-sm leading-6 text-slate-600">{source.note}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       <section className="mt-10 grid gap-6">
         <FormulaAccordion formula={info.formula} example={info.example} caution={info.caution} />

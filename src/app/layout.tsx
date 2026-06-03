@@ -9,7 +9,7 @@ const ogImage = {
   url: siteConfig.defaultOgImage,
   width: 1200,
   height: 630,
-  alt: `${siteConfig.name} 생활 금융 계산기`
+  alt: `${siteConfig.name} 주거비 계산기`
 };
 
 export const viewport: Viewport = {
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   applicationName: siteConfig.name,
   title: {
-    default: `${siteConfig.name} - 생활 금융 계산기`,
+    default: `${siteConfig.name} - 주거비 계산기`,
     template: `%s | ${siteConfig.name}`
   },
   description: siteConfig.description,

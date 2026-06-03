@@ -3,9 +3,9 @@ import { fallbackSiteUrl, sanitizeSiteUrl } from "@/lib/site-url";
 const siteUrl = sanitizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL || process.env.RENDER_EXTERNAL_URL, fallbackSiteUrl);
 
 export const siteConfig = {
-  name: "Home Money Calculator",
-  shortName: "머니 계산기",
-  description: "실수령액, 대출이자, 퇴직금, 배당금, 환율, 전기요금, 생활비, 부동산 비용까지 한 번에 계산하는 생활 금융 계산기입니다.",
+  name: "집계산",
+  shortName: "jipcalc.co.kr",
+  description: "전세대출 이자, 월세 vs 전세, DSR, 취득세, 중개수수료, 청약가점, 전월세 전환을 계산하고 해석까지 돕는 주거비 정보 서비스입니다.",
   url: siteUrl,
   contactEmail: "moneyfinancecalculator@gmail.com",
   locale: "ko_KR",
