@@ -565,3 +565,18 @@ export function getGuideBySlug(slug: string): Guide {
   if (!guide) throw new Error(`Guide not found: ${slug}`);
   return guide;
 }
+
+const primaryGuideSlugByCalculatorSlug: Record<string, string> = {
+  "jeonse-loan-interest": "jeonse-loan-interest-mistakes",
+  "rent-vs-jeonse": "rent-vs-jeonse-decision-guide",
+  dsr: "what-dsr-40-means",
+  "acquisition-tax": "acquisition-tax-checklist",
+  "brokerage-fee": "brokerage-fee-negotiation",
+  "monthly-rent-conversion": "monthly-rent-conversion-basics",
+  "housing-subscription-score": "subscription-score-interpretation"
+};
+
+export function getPrimaryGuideForCalculator(calculatorSlug: string): Guide | undefined {
+  const guideSlug = primaryGuideSlugByCalculatorSlug[calculatorSlug];
+  return guideSlug ? guides.find((item) => item.slug === guideSlug) : undefined;
+}

@@ -1,9 +1,11 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 import type { CalculatorInfo } from "@/config/calculators";
 import { DisclaimerBox } from "@/components/calculator/DisclaimerBox";
 import { FaqJsonLd, FaqSection } from "@/components/calculator/FaqSection";
 import { FormulaAccordion } from "@/components/calculator/FormulaAccordion";
 import { RelatedCalculators } from "@/components/calculator/RelatedCalculators";
+import { getPrimaryGuideForCalculator } from "@/config/guides";
 import { housingReferenceBySlug } from "@/config/housing-content";
 import { getSeoContent } from "@/config/seo-content";
 import { BreadcrumbJsonLd, CalculatorJsonLd, WebPageJsonLd } from "@/lib/json-ld";
@@ -11,6 +13,7 @@ import { BreadcrumbJsonLd, CalculatorJsonLd, WebPageJsonLd } from "@/lib/json-ld
 export function CalculatorPage({ info, children }: { info: CalculatorInfo; children: ReactNode }) {
   const seoContent = getSeoContent(info.slug);
   const reference = housingReferenceBySlug[info.slug];
+  const relatedGuide = getPrimaryGuideForCalculator(info.slug);
 
   return (
     <>
@@ -170,6 +173,21 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
               </div>
             </div>
           </div>
+        </section>
+      ) : null}
+
+      {relatedGuide ? (
+        <section className="mt-10 rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm md:p-8">
+          <h2 className="text-2xl font-black text-slate-950">함께 읽으면 좋은 정보 가이드</h2>
+          <p className="mt-4 text-sm leading-7 text-slate-600">
+            계산 결과를 바로 결론으로 쓰기보다, 실제 계약과 대출 판단에 필요한 사례와 제도 설명까지 같이 확인하는 편이 안전합니다.
+          </p>
+          <Link href={relatedGuide.path} className="mt-6 block rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-brand-navy hover:bg-slate-50">
+            <p className="text-sm font-semibold text-brand-emerald">{relatedGuide.category}</p>
+            <h3 className="mt-2 text-xl font-bold text-slate-950">{relatedGuide.title}</h3>
+            <p className="mt-3 text-sm leading-6 text-slate-600">{relatedGuide.description}</p>
+            <div className="mt-4 text-sm font-bold text-brand-navy">가이드 읽기 →</div>
+          </Link>
         </section>
       ) : null}
 

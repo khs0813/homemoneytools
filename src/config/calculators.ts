@@ -233,7 +233,7 @@ export const calculators: CalculatorInfo[] = [
   {
     slug: "jeonse-loan-interest",
     path: "/jeonse-loan-interest-calculator",
-    guidePath: "/guides/jeonse-loan-interest",
+    guidePath: "/guides/jeonse-loan-interest-mistakes",
     title: "전세대출 이자 계산기",
     shortTitle: "전세대출 이자",
     category: "주거·대출",
@@ -254,7 +254,7 @@ export const calculators: CalculatorInfo[] = [
   {
     slug: "rent-vs-jeonse",
     path: "/rent-vs-jeonse-calculator",
-    guidePath: "/guides/rent-vs-jeonse",
+    guidePath: "/guides/rent-vs-jeonse-decision-guide",
     title: "월세 vs 전세 비교 계산기",
     shortTitle: "월세 vs 전세",
     category: "주거·비교",
@@ -275,7 +275,7 @@ export const calculators: CalculatorInfo[] = [
   {
     slug: "dsr",
     path: "/dsr-calculator",
-    guidePath: "/guides/dsr",
+    guidePath: "/guides/what-dsr-40-means",
     title: "주택담보대출 DSR 계산기",
     shortTitle: "DSR",
     category: "주거·대출",
@@ -296,7 +296,7 @@ export const calculators: CalculatorInfo[] = [
   {
     slug: "acquisition-tax",
     path: "/acquisition-tax-calculator",
-    guidePath: "/guides/acquisition-tax",
+    guidePath: "/guides/acquisition-tax-checklist",
     title: "취득세 계산기",
     shortTitle: "취득세",
     category: "부동산·세금",
@@ -317,7 +317,7 @@ export const calculators: CalculatorInfo[] = [
   {
     slug: "brokerage-fee",
     path: "/real-estate-brokerage-fee-calculator",
-    guidePath: "/guides/brokerage-fee",
+    guidePath: "/guides/brokerage-fee-negotiation",
     title: "부동산 중개수수료 계산기",
     shortTitle: "중개수수료",
     category: "부동산·거래비용",
@@ -338,7 +338,7 @@ export const calculators: CalculatorInfo[] = [
   {
     slug: "monthly-rent-conversion",
     path: "/monthly-rent-conversion-calculator",
-    guidePath: "/guides/monthly-rent-conversion",
+    guidePath: "/guides/monthly-rent-conversion-basics",
     title: "월세 환산 계산기",
     shortTitle: "월세 환산",
     category: "주거·비교",
@@ -359,7 +359,7 @@ export const calculators: CalculatorInfo[] = [
   {
     slug: "housing-subscription-score",
     path: "/housing-subscription-score-calculator",
-    guidePath: "/guides/subscription-score",
+    guidePath: "/guides/subscription-score-interpretation",
     title: "청약 가점 계산기",
     shortTitle: "청약 가점",
     category: "부동산·청약",

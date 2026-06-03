@@ -21,7 +21,7 @@ export default function CalculatorsPage() {
       <CalculatorItemListJsonLd />
       <PageContainer className="py-10 md:py-14">
         <div className="max-w-4xl">
-          <p className="text-sm font-bold text-brand-emerald">Calculators</p>
+          <p className="text-sm font-bold text-brand-emerald">주거비 계산기</p>
           <h1 className="mt-3 text-4xl font-black text-slate-950">주거비 계산기 목록</h1>
           <p className="mt-4 text-base leading-7 text-slate-600">
             전세, 월세, 매매, 대출, 청약처럼 집을 구하고 유지하는 과정에서 실제로 자주 부딪히는 비용을 계산할 수 있는 페이지입니다.

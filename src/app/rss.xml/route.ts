@@ -1,5 +1,6 @@
 import { calculators } from "@/config/calculators";
 import { guides } from "@/config/guides";
+import { isHousingCalculator } from "@/config/housing-content";
 import { siteConfig } from "@/config/site";
 
 const baseUrl = siteConfig.url.replace(/\/$/, "");
@@ -16,18 +17,13 @@ function escapeXml(value: string): string {
 
 export function GET() {
   const items = [
-    ...calculators.flatMap((calculator) => [
-      {
+    ...calculators
+      .filter((calculator) => isHousingCalculator(calculator.slug))
+      .map((calculator) => ({
         title: calculator.title,
         description: calculator.description,
         path: calculator.path
-      },
-      {
-        title: `${calculator.shortTitle} 가이드`,
-        description: `${calculator.title} 사용 전 알아두면 좋은 계산 기준과 주의사항입니다.`,
-        path: calculator.guidePath
-      }
-    ]),
+      })),
     ...guides.map((guide) => ({
       title: guide.title,
       description: guide.description,

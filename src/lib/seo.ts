@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import type { CalculatorInfo } from "@/config/calculators";
+import { isHousingCalculator } from "@/config/housing-content";
 
 export function absoluteUrl(path = "/"): string {
   const base = siteConfig.url.replace(/\/$/, "");
@@ -69,6 +70,20 @@ export function buildCalculatorMetadata(info: CalculatorInfo): Metadata {
 
   return {
     ...commonMetadata(title, description, info.path),
+    robots: isHousingCalculator(info.slug)
+      ? defaultRobots
+      : {
+          index: false,
+          follow: true,
+          nocache: false,
+          googleBot: {
+            index: false,
+            follow: true,
+            "max-image-preview": "large",
+            "max-snippet": -1,
+            "max-video-preview": -1
+          }
+        },
     keywords: info.keywords
   };
 }
