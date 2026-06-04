@@ -1,1 +1,3 @@
+# AdSense approval and serving path
+# Replace or extend only if the publisher account changes.
 google.com, pub-7766989656523085, DIRECT, f08c47fec0942fa0

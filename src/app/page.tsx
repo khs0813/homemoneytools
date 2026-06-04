@@ -5,7 +5,7 @@ import { calculators } from "@/config/calculators";
 import { guides } from "@/config/guides";
 import { isHousingCalculator } from "@/config/housing-content";
 import { buildPageMetadata } from "@/lib/seo";
-import { CalculatorItemListJsonLd, WebPageJsonLd, WebsiteJsonLd } from "@/lib/json-ld";
+import { CalculatorItemListJsonLd, WebPageJsonLd } from "@/lib/json-ld";
 
 export const metadata = buildPageMetadata(
   "전세·월세·매매 주거비 계산기",
@@ -19,7 +19,6 @@ export default function HomePage() {
 
   return (
     <>
-      <WebsiteJsonLd />
       <WebPageJsonLd title="전세·월세·매매 주거비 계산기" description="전세대출 이자, 월세 vs 전세, DSR, 취득세, 중개수수료, 전월세 전환, 청약가점을 계산하고 해석까지 돕는 주거비 정보 서비스입니다." path="/" />
       <CalculatorItemListJsonLd />
       <PageContainer className="py-10 md:py-16">
@@ -62,6 +61,30 @@ export default function HomePage() {
             <h2 className="mt-2 text-2xl font-black text-slate-950">청약가점은 점수 확인이 아니라 전략 판단입니다</h2>
             <p className="mt-4 text-sm leading-7 text-slate-600">
               무주택기간, 부양가족수, 통장 가입기간을 단순 합산하는 것만으로는 부족합니다. 현재 점수로 기다릴 가치가 있는지, 전세나 매수와 병행해 볼지 자금계획과 함께 해석해야 합니다.
+            </p>
+          </article>
+        </section>
+
+        <section className="mt-12 grid gap-6 lg:grid-cols-3">
+          <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+            <p className="text-sm font-bold text-brand-emerald">신뢰 표시</p>
+            <h2 className="mt-2 text-2xl font-black text-slate-950">계산기마다 기준일과 수정일을 표시합니다</h2>
+            <p className="mt-4 text-sm leading-7 text-slate-600">
+              전세대출, DSR, 취득세, 중개보수, 청약가점처럼 제도 변화가 중요한 계산기는 공식 출처와 기준일을 함께 보여 주고, 페이지 공통 수정일도 노출합니다.
+            </p>
+          </article>
+          <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+            <p className="text-sm font-bold text-brand-emerald">콘텐츠 깊이</p>
+            <h2 className="mt-2 text-2xl font-black text-slate-950">예시 계산과 위험 구간 해석을 함께 제공합니다</h2>
+            <p className="mt-4 text-sm leading-7 text-slate-600">
+              단순 계산 결과만 보여주지 않고, 실제 시나리오 표, 해석 카드, 자주 하는 실수, FAQ를 통해 왜 이 숫자가 중요한지 설명합니다.
+            </p>
+          </article>
+          <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+            <p className="text-sm font-bold text-brand-emerald">운영 원칙</p>
+            <h2 className="mt-2 text-2xl font-black text-slate-950">정책·문의 페이지를 항상 접근 가능하게 유지합니다</h2>
+            <p className="mt-4 text-sm leading-7 text-slate-600">
+              개인정보처리방침, 이용약관, 면책고지, 문의 페이지는 헤더와 푸터 구조 안에서 쉽게 접근할 수 있도록 유지하고, 광고보다 콘텐츠를 우선 배치합니다.
             </p>
           </article>
         </section>

@@ -21,6 +21,7 @@ export function GuidePage({ guide }: { guide: Guide }) {
           <section className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-5">
             <h2 className="text-lg font-bold text-slate-950">계산 기준일과 제도 메모</h2>
             <p className="mt-3 text-sm leading-7 text-slate-600">기준일: {guide.referenceDate}</p>
+            <p className="mt-1 text-sm leading-7 text-slate-600">최종 수정일: 2026-06-04</p>
             <ul className="mt-3 grid gap-2 text-sm leading-7 text-slate-600">
               {guide.policySummary.map((item) => (
                 <li key={item}>• {item}</li>
@@ -68,6 +69,18 @@ export function GuidePage({ guide }: { guide: Guide }) {
             <p className="mt-3">
               본 글은 공개된 제도와 기준을 이해하기 쉽게 정리한 참고용 콘텐츠입니다. 실제 세금, 대출, 청약, 중개보수, 요금은 개인 조건과 계약 내용, 최신 제도 변경에 따라 달라질 수 있습니다. 중요한 의사결정 전에는 공식 기관과 전문가 확인이 필요합니다.
             </p>
+          </section>
+
+          <section className="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-5">
+            <h2 className="text-lg font-bold text-slate-950">정책 및 문의 링크</h2>
+            <div className="mt-3 grid gap-2 text-sm leading-6 text-slate-600">
+              <p>
+                계산 한계와 책임 범위는 <Link href="/disclaimer" className="font-semibold text-brand-navy hover:underline">면책고지</Link>에서 확인할 수 있습니다.
+              </p>
+              <p>
+                기준 오류나 링크 문제 제보는 <Link href="/contact" className="font-semibold text-brand-navy hover:underline">문의 페이지</Link>를 이용해 주세요.
+              </p>
+            </div>
           </section>
 
           <section className="mt-10 rounded-2xl bg-slate-50 p-5">

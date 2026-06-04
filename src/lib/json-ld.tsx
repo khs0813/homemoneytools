@@ -22,7 +22,15 @@ const publisher = {
   "@type": "Organization",
   "@id": `${siteConfig.url}/#organization`,
   name: siteConfig.name,
+  alternateName: siteConfig.shortName,
   url: siteConfig.url,
+  email: siteConfig.contactEmail,
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "customer support",
+    email: siteConfig.contactEmail,
+    availableLanguage: ["Korean"]
+  },
   logo: {
     "@type": "ImageObject",
     url: absoluteUrl("/icon.svg"),
@@ -39,6 +47,11 @@ const website = {
   url: siteConfig.url,
   inLanguage: siteConfig.language,
   description: siteConfig.description,
+  potentialAction: {
+    "@type": "SearchAction",
+    target: `${siteConfig.url}/guides?query={search_term_string}`,
+    "query-input": "required name=search_term_string"
+  },
   publisher
 };
 
@@ -94,23 +107,49 @@ export function CalculatorJsonLd({ info }: { info: CalculatorInfo }) {
     <JsonLd
       data={{
         "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "@id": `${absoluteUrl(info.path)}#calculator`,
-        name: info.title,
-        url: absoluteUrl(info.path),
-        description: info.description,
-        applicationCategory: "FinanceApplication",
-        operatingSystem: "Web",
-        browserRequirements: "Requires JavaScript. No database account required.",
-        inLanguage: siteConfig.language,
-        isAccessibleForFree: true,
-        featureList: ["주거비 계산", "계산 공식 설명", "FAQ", "공식 출처 안내"],
-        offers: {
-          "@type": "Offer",
-          price: "0",
-          priceCurrency: "KRW"
-        },
-        publisher
+        "@graph": [
+          {
+            "@type": "WebApplication",
+            "@id": `${absoluteUrl(info.path)}#calculator`,
+            name: info.title,
+            alternateName: `${info.shortTitle} 계산기`,
+            url: absoluteUrl(info.path),
+            description: info.description,
+            applicationCategory: "FinanceApplication",
+            applicationSubCategory: "Housing cost calculator",
+            operatingSystem: "Web",
+            browserRequirements: "Requires JavaScript. No database account required.",
+            inLanguage: siteConfig.language,
+            isAccessibleForFree: true,
+            datePublished: siteConfig.lastUpdated,
+            dateModified: siteConfig.lastUpdated,
+            featureList: ["주거비 계산", "시나리오 비교", "위험 구간 해석", "FAQ", "공식 출처 안내"],
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "KRW"
+            },
+            isPartOf: website,
+            publisher
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": `${absoluteUrl(info.path)}#software`,
+            name: info.title,
+            url: absoluteUrl(info.path),
+            description: `${info.description} 계산 공식, 예시 계산, FAQ를 함께 제공합니다.`,
+            applicationCategory: "BusinessApplication",
+            operatingSystem: "All",
+            softwareVersion: "2026.06",
+            isAccessibleForFree: true,
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "KRW"
+            },
+            publisher
+          }
+        ]
       }}
     />
   );

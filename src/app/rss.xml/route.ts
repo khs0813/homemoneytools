@@ -34,7 +34,7 @@ export function GET() {
   const xml = `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0">
   <channel>
-    <title>${escapeXml(siteConfig.shortName)}</title>
+    <title>${escapeXml(siteConfig.name)}</title>
     <link>${baseUrl}</link>
     <description>${escapeXml(siteConfig.description)}</description>
     <language>${siteConfig.language}</language>

@@ -27,7 +27,7 @@ export function LegalPage({
         <p className="mt-4 text-base leading-7 text-slate-600">{description}</p>
         <dl className="mt-6 grid gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm text-slate-700 sm:grid-cols-2">
           <div>
-            <dt className="font-bold text-slate-950">시행일</dt>
+            <dt className="font-bold text-slate-950">최종 수정일</dt>
             <dd className="mt-1">{siteConfig.lastUpdated}</dd>
           </div>
           <div>

@@ -3,7 +3,7 @@ import "@/app/globals.css";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { siteConfig } from "@/config/site";
-import { OrganizationJsonLd } from "@/lib/json-ld";
+import { OrganizationJsonLd, WebsiteJsonLd } from "@/lib/json-ld";
 
 const ogImage = {
   url: siteConfig.defaultOgImage,
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   applicationName: siteConfig.name,
   title: {
-    default: `${siteConfig.name} - 주거비 계산기`,
+    default: siteConfig.name,
     template: `%s | ${siteConfig.name}`
   },
   description: siteConfig.description,
@@ -86,6 +86,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="ko">
       <body>
         <OrganizationJsonLd />
+        <WebsiteJsonLd />
         <Header />
         {children}
         <Footer />

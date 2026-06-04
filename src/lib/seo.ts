@@ -13,7 +13,7 @@ const defaultOgImage = {
   url: absoluteUrl(siteConfig.defaultOgImage),
   width: 1200,
   height: 630,
-  alt: `${siteConfig.name} 부동산·주거비 계산기`
+  alt: siteConfig.name
 };
 
 const defaultRobots: Metadata["robots"] = {
@@ -51,13 +51,13 @@ function commonMetadata(title: string, description: string, path: string): Metad
       locale: siteConfig.locale,
       url: absoluteUrl(path),
       siteName: siteConfig.name,
-      title: `${title} | ${siteConfig.shortName}`,
+      title: `${title} | ${siteConfig.name}`,
       description,
       images: [defaultOgImage]
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | ${siteConfig.shortName}`,
+      title: `${title} | ${siteConfig.name}`,
       description,
       images: [defaultOgImage.url]
     }

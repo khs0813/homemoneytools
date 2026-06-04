@@ -46,6 +46,36 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
           </div>
           <DisclaimerBox />
         </div>
+        <div className="mt-4 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+          <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+            <h2 className="text-lg font-bold text-slate-950">기준일과 수정일</h2>
+            <dl className="mt-4 grid gap-3 text-sm leading-6 text-slate-600 sm:grid-cols-2">
+              <div>
+                <dt className="font-semibold text-slate-900">계산 기준일</dt>
+                <dd className="mt-1">{reference?.referenceDate ?? "별도 제도 기준 없음"}</dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-slate-900">페이지 최종 수정일</dt>
+                <dd className="mt-1">2026-06-04</dd>
+              </div>
+            </dl>
+            <p className="mt-4 text-sm leading-6 text-slate-600">
+              실제 금리, 세율, 중개보수, 청약 기준은 기관 공지와 계약 조건에 따라 달라질 수 있으므로 중요한 결정 전에는 공식 출처를 다시 확인해야 합니다.
+            </p>
+          </div>
+          <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+            <h2 className="text-lg font-bold text-slate-950">신뢰 및 문의</h2>
+            <div className="mt-4 grid gap-3 text-sm leading-6 text-slate-600">
+              <p>
+                운영 기준과 한계는 <Link href="/disclaimer" className="font-semibold text-brand-navy hover:underline">면책고지</Link>에서,
+                개인정보 처리 기준은 <Link href="/privacy-policy" className="font-semibold text-brand-navy hover:underline">개인정보처리방침</Link>에서 확인할 수 있습니다.
+              </p>
+              <p>
+                계산 기준 수정 요청이나 오류 제보는 <Link href="/contact" className="font-semibold text-brand-navy hover:underline">문의 페이지</Link>를 이용해 주세요.
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
@@ -118,6 +148,35 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
         </section>
       ) : null}
 
+      {reference ? (
+        <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+          <h2 className="text-2xl font-black text-slate-950">실제 시나리오 표</h2>
+          <p className="mt-4 text-sm leading-7 text-slate-600">
+            아래 표는 이 계산기를 많이 쓰는 상황을 기준으로 무엇을 같이 확인해야 하는지 정리한 요약표입니다.
+          </p>
+          <div className="mt-6 overflow-x-auto">
+            <table className="min-w-full border-separate border-spacing-0 text-left text-sm">
+              <thead>
+                <tr>
+                  <th className="rounded-l-2xl bg-slate-100 px-4 py-3 font-bold text-slate-950">상황</th>
+                  <th className="bg-slate-100 px-4 py-3 font-bold text-slate-950">함께 볼 항목</th>
+                  <th className="rounded-r-2xl bg-slate-100 px-4 py-3 font-bold text-slate-950">해석 포인트</th>
+                </tr>
+              </thead>
+              <tbody>
+                {reference.scenarioTable.map((row) => (
+                  <tr key={row.scenario}>
+                    <td className="border-b border-slate-100 px-4 py-4 align-top font-semibold text-slate-900">{row.scenario}</td>
+                    <td className="border-b border-slate-100 px-4 py-4 align-top text-slate-600">{row.focus}</td>
+                    <td className="border-b border-slate-100 px-4 py-4 align-top text-slate-600">{row.meaning}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      ) : null}
+
       <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
         <h2 className="text-2xl font-black text-slate-950">실제 계산 예시</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-3">
@@ -149,7 +208,10 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
       {reference ? (
         <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
           <h2 className="text-2xl font-black text-slate-950">계산 기준 및 참고 출처</h2>
-          <p className="mt-4 text-sm leading-7 text-slate-600">기준일: {reference.referenceDate}</p>
+          <div className="mt-4 grid gap-2 text-sm leading-7 text-slate-600 sm:grid-cols-2">
+            <p>기준일: {reference.referenceDate}</p>
+            <p>최종 수정일: 2026-06-04</p>
+          </div>
           <div className="mt-5 grid gap-4 lg:grid-cols-2">
             <div className="rounded-2xl bg-slate-50 p-5">
               <h3 className="text-lg font-bold text-slate-950">제도 해석 메모</h3>

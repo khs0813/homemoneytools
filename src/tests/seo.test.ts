@@ -45,6 +45,7 @@ describe("SEO configuration", () => {
 
   it("exposes required policy and contact configuration", () => {
     expect(siteConfig.contactEmail).toMatch(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
-    expect(siteConfig.lastUpdated).toBe("2026-06-03");
+    expect(siteConfig.lastUpdated).toBe("2026-06-04");
+    expect(siteConfig.name).toBe("집계산 | 부동산·주거비 계산기");
   });
 });

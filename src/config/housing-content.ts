@@ -9,11 +9,18 @@ export type DecisionCard = {
   description: string;
 };
 
+export type ScenarioRow = {
+  scenario: string;
+  focus: string;
+  meaning: string;
+};
+
 export type HousingReferenceContent = {
   referenceDate: string;
   decisionCards: DecisionCard[];
   riskChecks: string[];
   caseStudies: string[];
+  scenarioTable: ScenarioRow[];
   policyNotes: string[];
   officialSources: OfficialSource[];
 };
@@ -57,6 +64,23 @@ export const housingReferenceBySlug: Record<string, HousingReferenceContent> = {
     caseStudies: [
       "전세보증금 4억 원, 대출 2억 원, 금리 4.2%라면 월 이자는 약 70만 원 수준이지만 보증료와 이사비를 합치면 체감 주거비는 더 커집니다.",
       "같은 조건에서 금리가 5.2%로 오르면 월 이자가 약 16만 원 이상 늘어 실수령액 대비 부담이 빠르게 커질 수 있습니다."
+    ],
+    scenarioTable: [
+      {
+        scenario: "대출 2억 원 · 연 4.2%",
+        focus: "현재 월 이자와 보증료",
+        meaning: "월 이자만 보는 대신 보증료와 만기상환 부담까지 합쳐야 실제 전세 유지비가 보입니다."
+      },
+      {
+        scenario: "금리 0.5%p 상승",
+        focus: "월 현금흐름 악화폭",
+        meaning: "소득 대비 여유가 적은 가구는 작은 금리 상승도 곧바로 계약 유지 위험으로 이어질 수 있습니다."
+      },
+      {
+        scenario: "만기일시상환 선택",
+        focus: "만기 원금 상환 재원",
+        meaning: "월 부담은 낮아도 만기 재계약이나 상환 계획이 없다면 가장 위험한 구조가 될 수 있습니다."
+      }
     ],
     policyNotes: [
       "버팀목·보증부 전세대출은 상품별 한도, 소득 기준, 임차보증금 기준이 다릅니다.",
@@ -104,6 +128,23 @@ export const housingReferenceBySlug: Record<string, HousingReferenceContent> = {
       "전세 5억 원, 월세 보증금 1억 원·월세 120만 원 조건은 2년 총주거비로 환산했을 때 생각보다 차이가 작을 수 있습니다.",
       "전세대출 3억 원 이상을 쓰는 경우 금리 1%p 상승만으로 월세보다 전세가 불리해지는 구간이 생길 수 있습니다."
     ],
+    scenarioTable: [
+      {
+        scenario: "전세 5억 원 vs 보증금 1억 원·월세 120만 원",
+        focus: "2년 총주거비 비교",
+        meaning: "겉보기 월세 부담보다 전세 기회비용과 대출이자를 합친 총비용이 더 중요합니다."
+      },
+      {
+        scenario: "고금리 구간",
+        focus: "전세대출 이자 민감도",
+        meaning: "대출 비중이 높을수록 전세의 장점이 약해지고 월세가 더 안전한 선택이 될 수 있습니다."
+      },
+      {
+        scenario: "반전세",
+        focus: "큰 보증금 + 월세 동시 부담",
+        meaning: "보증금 기회비용을 빼면 반전세가 실제보다 저렴하게 보일 수 있습니다."
+      }
+    ],
     policyNotes: [
       "월세와 전세 비교는 단순 가격이 아니라 기회비용과 금융비용을 함께 보는 의사결정입니다.",
       "전세사기 위험, 보증보험 가능 여부, 거주 안정성은 숫자로 환산하기 어려운 별도 판단 요소입니다."
@@ -149,6 +190,23 @@ export const housingReferenceBySlug: Record<string, HousingReferenceContent> = {
     caseStudies: [
       "연소득 7천만 원, 총 연 상환액 2,100만 원이면 DSR은 30% 수준이지만 기존대출이 조금만 늘어도 기준선에 가까워질 수 있습니다.",
       "주담대 금리가 상승하면 월 납입액뿐 아니라 연간 원리금 상환액이 커져 추가대출 여력이 줄어듭니다."
+    ],
+    scenarioTable: [
+      {
+        scenario: "연소득 7천만 원 · 연 상환액 2,100만 원",
+        focus: "현재 DSR 30%",
+        meaning: "수치상 여유가 있어 보여도 기존대출 증가와 스트레스 금리를 같이 봐야 실제 승인 감각이 맞습니다."
+      },
+      {
+        scenario: "신용대출 추가 보유",
+        focus: "분모는 같고 분자만 증가",
+        meaning: "신규 주담대가 아닌 기존 부채 때문에 한도가 예상보다 빨리 줄어드는 구간입니다."
+      },
+      {
+        scenario: "주담대 금리 상승",
+        focus: "연간 원리금 상환액 증가",
+        meaning: "승인 가능 여부와 별개로 추가대출 여력과 생활비 압박이 동시에 커질 수 있습니다."
+      }
     ],
     policyNotes: [
       "DSR은 차주의 상환능력을 보기 위한 지표이지, 집값 적정성을 직접 판단하는 수치는 아닙니다.",
@@ -196,6 +254,23 @@ export const housingReferenceBySlug: Record<string, HousingReferenceContent> = {
       "5억 원 주택이라도 1주택 기본세율과 중과 대상 여부에 따라 실제 세금 차이가 매우 커질 수 있습니다.",
       "생애최초 감면을 기대하고 예산을 짰다가 요건 미충족이면 잔금 자금계획이 흔들릴 수 있습니다."
     ],
+    scenarioTable: [
+      {
+        scenario: "5억 원 주택 · 1주택 기본세율",
+        focus: "기본 취득세와 부가세목",
+        meaning: "매매가만 맞춰도 취득세와 지방교육세까지 합치면 초기 현금 필요액이 커집니다."
+      },
+      {
+        scenario: "다주택 또는 중과 가능성",
+        focus: "주택 수 판정",
+        meaning: "주택 수 해석이 달라지면 세율 자체가 바뀌므로 예산 오차가 크게 벌어집니다."
+      },
+      {
+        scenario: "생애최초 감면 기대",
+        focus: "요건 충족 여부",
+        meaning: "감면 전제 자금계획은 위험하므로 요건 확인 전에는 보수적으로 계산해야 합니다."
+      }
+    ],
     policyNotes: [
       "취득세는 지방세이므로 지자체 실무 안내와 위택스·정부24 계산 안내를 함께 확인하는 것이 안전합니다.",
       "법령 개정 시 세율, 감면 한도, 적용요건이 변할 수 있습니다."
@@ -241,6 +316,23 @@ export const housingReferenceBySlug: Record<string, HousingReferenceContent> = {
     caseStudies: [
       "매매가 5억 원에서는 0.1%p만 차이나도 중개보수 금액이 크게 달라질 수 있습니다.",
       "월세 보증금이 크고 월세가 높은 반전세는 환산거래금액 기준으로 체감보다 중개보수가 커질 수 있습니다."
+    ],
+    scenarioTable: [
+      {
+        scenario: "매매가 5억 원",
+        focus: "상한요율 vs 실제 협의요율",
+        meaning: "요율 차이가 작아 보여도 절대 금액은 수십만 원 이상 벌어질 수 있습니다."
+      },
+      {
+        scenario: "반전세 계약",
+        focus: "환산거래금액 계산",
+        meaning: "보증금만 보고 판단하면 중개보수를 과소평가하기 쉽습니다."
+      },
+      {
+        scenario: "부가세 별도 청구",
+        focus: "최종 현금 준비액",
+        meaning: "협의요율이 낮아도 부가세 포함 여부에 따라 최종 지출은 달라질 수 있습니다."
+      }
     ],
     policyNotes: [
       "중개보수는 상한 범위 안에서 협의가 가능합니다.",
@@ -288,6 +380,23 @@ export const housingReferenceBySlug: Record<string, HousingReferenceContent> = {
       "전세금 5억 원, 보증금 1억 원, 전환율 5%라면 월세는 약 166만 원 수준으로 계산됩니다.",
       "보증금을 5천만 원 더 넣고 월세가 20만 원 줄어든다면, 그 절감이 자금 기회비용보다 큰지 비교해야 합니다."
     ],
+    scenarioTable: [
+      {
+        scenario: "전세금 5억 원 · 보증금 1억 원 · 전환율 5%",
+        focus: "월세 환산액",
+        meaning: "전환율 기준 월세가 주변 시세와 크게 다르면 협상 여지가 있는지 확인할 수 있습니다."
+      },
+      {
+        scenario: "보증금 5천만 원 추가",
+        focus: "월세 절감액 vs 기회비용",
+        meaning: "줄어든 월세가 묶이는 자금의 기대수익보다 커야 보증금 증액이 합리적입니다."
+      },
+      {
+        scenario: "시장금리 상승기",
+        focus: "전환율 체감 변화",
+        meaning: "같은 월세 절감이라도 보증금을 더 넣는 선택이 이전보다 덜 유리해질 수 있습니다."
+      }
+    ],
     policyNotes: [
       "법정 월차임 전환율 상한은 임차인 보호 장치이지만 실제 시장 전환은 지역·주택 상태·수요에 따라 달라집니다.",
       "계약갱신과 신규계약은 협상 구조가 다를 수 있습니다."
@@ -333,6 +442,23 @@ export const housingReferenceBySlug: Record<string, HousingReferenceContent> = {
     caseStudies: [
       "무주택기간이 길어도 부양가족 점수가 낮으면 기대보다 총점이 높지 않을 수 있습니다.",
       "통장 가입기간은 충분하지만 무주택기간이 짧은 경우 청약 시점을 늦추는 전략이 더 유리할 수 있습니다."
+    ],
+    scenarioTable: [
+      {
+        scenario: "무주택기간 길고 부양가족 적음",
+        focus: "항목별 점수 불균형",
+        meaning: "총점만 보지 말고 어떤 항목이 약한지 봐야 당첨 가능성을 현실적으로 해석할 수 있습니다."
+      },
+      {
+        scenario: "가입기간 충분 · 무주택기간 짧음",
+        focus: "대기 전략 여부",
+        meaning: "지금 청약할지, 전세나 매수와 병행할지 판단할 때 점수 성장 여지를 같이 봐야 합니다."
+      },
+      {
+        scenario: "공고일 직전 가족 구성 변화",
+        focus: "부양가족 인정 여부",
+        meaning: "실제 모집공고 기준일에 따라 예상 점수와 신청 가능 점수가 달라질 수 있습니다."
+      }
     ],
     policyNotes: [
       "민영주택 일반공급 가점제는 무주택기간 32점, 부양가족수 35점, 청약통장 가입기간 17점 구조를 기본으로 봅니다.",
