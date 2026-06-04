@@ -32,7 +32,7 @@ export default function HomePage() {
             </p>
             <p className="mt-4 text-base leading-8 text-blue-100">
               각 계산기 페이지에는 계산 공식, 실제 사례, 금리 변동 시 영향, 위험 구간, 관련 계산기, 공식 참고 출처를 함께 정리했습니다.
-              본 사이트의 계산 결과는 참고용 정보이며, 실제 세금·대출·청약·중개보수·요금은 개인 조건과 최신 제도에 따라 달라질 수 있습니다.
+              본 사이트의 계산 결과는 참고용 정보이며, 실제 대출 조건, 취득세, 청약 기준, 중개보수, 전월세 계약 조건은 개인 상황과 최신 제도에 따라 달라질 수 있습니다.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link href="/calculators" className="rounded-2xl bg-white px-6 py-4 text-center font-bold text-brand-navy transition hover:bg-blue-50">주거비 계산기 보기</Link>

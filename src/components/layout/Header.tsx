@@ -9,10 +9,9 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-        <Link href="/" className="flex items-center gap-2 font-bold text-brand-navy">
-          <span className="flex h-9 items-center justify-center whitespace-nowrap rounded-2xl bg-brand-navy px-3 text-xs text-white">집계산</span>
+        <Link href="/" className="font-bold text-brand-navy">
           <span className="hidden sm:inline">{siteConfig.name}</span>
-          <span className="text-sm text-slate-500 sm:hidden">{siteConfig.shortName}</span>
+          <span className="sm:hidden">{siteConfig.shortName}</span>
         </Link>
         <nav className="hidden items-center gap-4 text-sm font-medium text-slate-700 md:flex">
           <Link href="/calculators" className="hover:text-brand-navy">주거비 계산기</Link>

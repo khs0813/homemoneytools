@@ -67,7 +67,7 @@ export function GuidePage({ guide }: { guide: Guide }) {
           <section className="mt-10 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm leading-7 text-amber-950">
             <h2 className="text-lg font-bold">면책 안내</h2>
             <p className="mt-3">
-              본 글은 공개된 제도와 기준을 이해하기 쉽게 정리한 참고용 콘텐츠입니다. 실제 세금, 대출, 청약, 중개보수, 요금은 개인 조건과 계약 내용, 최신 제도 변경에 따라 달라질 수 있습니다. 중요한 의사결정 전에는 공식 기관과 전문가 확인이 필요합니다.
+              본 글은 공개된 제도와 기준을 이해하기 쉽게 정리한 참고용 콘텐츠입니다. 실제 대출 조건, 취득세, 청약 기준, 중개보수, 전월세 계약 조건은 개인 상황과 최신 제도 변경에 따라 달라질 수 있습니다. 중요한 의사결정 전에는 공식 기관과 관계 기관 확인이 필요합니다.
             </p>
           </section>
 
