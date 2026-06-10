@@ -1,4 +1,4 @@
-Home Money Calculator
+집계산
 
 Purpose: Korean real-estate and housing-cost calculators.
 Stack: Next.js App Router, TypeScript, Tailwind CSS, React Hook Form, Zod, Vitest.

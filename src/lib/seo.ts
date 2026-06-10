@@ -30,9 +30,13 @@ const defaultRobots: Metadata["robots"] = {
 };
 
 function commonMetadata(title: string, description: string, path: string): Metadata {
+  const fullTitle = `${title} | ${siteConfig.shortName}`;
+
   return {
     metadataBase: new URL(siteConfig.url),
-    title,
+    title: {
+      absolute: fullTitle
+    },
     description,
     applicationName: siteConfig.name,
     creator: siteConfig.name,
@@ -50,14 +54,14 @@ function commonMetadata(title: string, description: string, path: string): Metad
       type: "website",
       locale: siteConfig.locale,
       url: absoluteUrl(path),
-      siteName: siteConfig.name,
-      title: `${title} | ${siteConfig.name}`,
+      siteName: siteConfig.shortName,
+      title: fullTitle,
       description,
       images: [defaultOgImage]
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | ${siteConfig.name}`,
+      title: fullTitle,
       description,
       images: [defaultOgImage.url]
     }
@@ -65,25 +69,12 @@ function commonMetadata(title: string, description: string, path: string): Metad
 }
 
 export function buildCalculatorMetadata(info: CalculatorInfo): Metadata {
-  const title = info.title;
-  const description = `${info.description} 계산 공식, 예시, 주의사항까지 함께 확인하세요.`;
+  const title = info.seoTitle ?? info.title;
+  const description = info.metaDescription ?? `${info.description} 계산 공식, 예시, 주의사항까지 함께 확인하세요.`;
 
   return {
     ...commonMetadata(title, description, info.path),
-    robots: isHousingCalculator(info.slug)
-      ? defaultRobots
-      : {
-          index: false,
-          follow: true,
-          nocache: false,
-          googleBot: {
-            index: false,
-            follow: true,
-            "max-image-preview": "large",
-            "max-snippet": -1,
-            "max-video-preview": -1
-          }
-        },
+    robots: defaultRobots,
     keywords: info.keywords
   };
 }

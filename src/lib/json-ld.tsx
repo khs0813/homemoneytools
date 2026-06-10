@@ -1,7 +1,6 @@
 import type { CalculatorInfo } from "@/config/calculators";
 import { calculators } from "@/config/calculators";
 import { guides } from "@/config/guides";
-import { isHousingCalculator } from "@/config/housing-content";
 import { siteConfig } from "@/config/site";
 import { absoluteUrl } from "@/lib/seo";
 
@@ -161,8 +160,8 @@ export function CalculatorItemListJsonLd() {
       data={{
         "@context": "https://schema.org",
         "@type": "ItemList",
-        name: "주거비 계산기 목록",
-        itemListElement: calculators.filter((calculator) => isHousingCalculator(calculator.slug)).map((calculator, index) => ({
+        name: "계산기 목록",
+        itemListElement: calculators.map((calculator, index) => ({
           "@type": "ListItem",
           position: index + 1,
           url: absoluteUrl(calculator.path),

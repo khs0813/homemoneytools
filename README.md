@@ -1,4 +1,4 @@
-# Home Money Calculator - 부동산·주거비 계산기
+# 집계산 - 부동산·주거비 계산기
 
 Next.js App Router 기반 계산기 사이트입니다.
 

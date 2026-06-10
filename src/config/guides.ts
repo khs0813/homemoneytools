@@ -20,6 +20,198 @@ export type Guide = {
   relatedCalculatorSlugs: string[];
 };
 
+const situationalGuides: Guide[] = [
+  {
+    slug: "100-million-jeonse-loan-interest",
+    path: "/guides/100-million-jeonse-loan-interest",
+    title: "전세대출 1억 이자 계산: 월 부담은 얼마일까",
+    h1: "전세대출 1억 이자 계산: 월 부담은 얼마일까",
+    category: "전세대출 상황별 가이드",
+    description: "전세대출 1억 원을 금리별로 빌렸을 때 월 이자와 총이자가 어떻게 달라지는지 계산 전 확인할 기준을 정리했습니다.",
+    referenceDate: "2026-06-10",
+    officialSources: [
+      { title: "주택도시기금 버팀목전세자금 FAQ", url: "https://nhuf.molit.go.kr/FP/FP05/FP0502/FP05020103.jsp?gotoPage=1", note: "전세자금대출 상품 조건 확인용" },
+      { title: "한국주택금융공사 전세자금보증", url: "https://www.hf.go.kr/ko/sub02/sub02_01_01.do", note: "보증 구조와 한도 확인용" }
+    ],
+    policySummary: ["1억 전세대출은 금리 1%p 차이만으로 월 이자가 약 8만 3천 원 달라집니다.", "월 이자 외 보증료와 만기 원금 상환 계획을 함께 봐야 합니다."],
+    body: [
+      { heading: "1억 전세대출 월 이자 계산법", paragraphs: ["만기일시상환 기준 월 이자는 대출금액에 연이율을 곱한 뒤 12로 나눕니다. 예를 들어 1억 원을 연 4.8%로 빌리면 월 이자는 약 40만 원입니다.", "금리가 3.5%라면 월 약 29만 원, 5.5%라면 월 약 45만 8천 원 수준으로 올라갑니다. 전세대출 1억은 작아 보일 수 있지만 금리 변동에 따른 현금흐름 차이는 분명합니다."] },
+      { heading: "총이자와 보증료를 같이 봐야 하는 이유", paragraphs: ["2년 계약이라면 월 이자에 24개월을 곱한 총이자를 봐야 합니다. 월 40만 원이면 2년 총이자는 960만 원입니다.", "보증료가 붙는 상품은 실제 총비용이 더 커질 수 있습니다. 전세대출 이자 계산기에서 보증료율과 금리 상승 시나리오를 같이 넣어 보는 편이 안전합니다."] },
+      { heading: "월세와 비교할 때의 기준", paragraphs: ["전세대출 1억 월 이자가 40만 원이라면 단순히 월세 40만 원과 비교하면 안 됩니다. 자기자본으로 넣은 보증금의 기회비용도 함께 계산해야 합니다.", "월세와 전세 중 무엇이 유리한지는 전세보증금 전체, 대출비율, 예금금리, 실제 월세 조건을 같은 기간으로 맞춰 비교해야 판단할 수 있습니다."] }
+    ],
+    faqs: [
+      { question: "전세대출 1억이면 월 이자가 얼마인가요?", answer: "만기일시상환 기준으로 연 4.8%라면 월 약 40만 원입니다. 금리별로 결과가 달라집니다." },
+      { question: "전세대출 1억 총이자는 어떻게 보나요?", answer: "월 이자에 계약기간 개월 수를 곱해 봅니다. 2년이면 월 이자 × 24개월입니다." },
+      { question: "보증료도 꼭 넣어야 하나요?", answer: "상품에 따라 보증료가 붙을 수 있으므로 총비용 관점에서는 함께 보는 것이 좋습니다." },
+      { question: "월세 40만 원과 바로 비교해도 되나요?", answer: "아니요. 전세보증금 기회비용까지 포함해야 공정한 비교가 됩니다." },
+      { question: "어떤 계산기를 같이 쓰면 좋나요?", answer: "전세대출 이자 계산기와 월세 vs 전세 비교 계산기를 함께 쓰는 것이 좋습니다." }
+    ],
+    relatedCalculatorSlugs: ["jeonse-loan-interest", "rent-vs-jeonse", "monthly-rent-conversion"]
+  },
+  {
+    slug: "200-million-jeonse-loan-monthly-interest",
+    path: "/guides/200-million-jeonse-loan-monthly-interest",
+    title: "전세대출 2억 월이자: 금리별 부담 비교",
+    h1: "전세대출 2억 월이자: 금리별 부담 비교",
+    category: "전세대출 상황별 가이드",
+    description: "전세대출 2억 원의 월이자를 금리별로 비교하고, 2년 총이자와 월세 대안 비교 시 주의할 점을 정리했습니다.",
+    referenceDate: "2026-06-10",
+    officialSources: [
+      { title: "주택도시기금 버팀목전세자금 FAQ", url: "https://nhuf.molit.go.kr/FP/FP05/FP0502/FP05020103.jsp?gotoPage=1", note: "전세자금대출 조건 확인용" },
+      { title: "한국주택금융공사 전세자금보증", url: "https://www.hf.go.kr/ko/sub02/sub02_01_01.do", note: "보증 가능성 확인용" }
+    ],
+    policySummary: ["2억 전세대출은 금리 1%p 상승 시 월 이자가 약 16만 7천 원 늘어납니다.", "월이자만 낮게 보지 말고 2년 총이자와 보증료를 함께 봐야 합니다."],
+    body: [
+      { heading: "2억 전세대출 금리별 월이자", paragraphs: ["만기일시상환 기준으로 2억 원을 연 4%로 빌리면 월이자는 약 66만 7천 원입니다. 연 5%라면 약 83만 3천 원, 연 6%라면 100만 원입니다.", "같은 2억이라도 금리 1%p 차이가 월 16만 원 이상 차이를 만들기 때문에 전세 계약 전 여러 금리 시나리오를 보는 것이 필수입니다."] },
+      { heading: "2년 총비용으로 다시 보기", paragraphs: ["월이자 83만 원은 2년 기준 약 2천만 원의 이자 부담이 됩니다. 여기에 보증료, 이사비, 중개보수까지 더하면 체감 비용은 더 커집니다.", "전세대출 2억은 월세 대안과 비교할 때 단순 월이자만 보면 전세가 과도하게 유리해 보일 수 있습니다."] },
+      { heading: "위험 구간 체크", paragraphs: ["실수령 소득 대비 월이자가 높거나, 만기 원금 상환 계획이 없다면 금리 상승기에 부담이 커질 수 있습니다.", "전세보증금 반환 위험과 보증보험 가능 여부도 숫자와 별도로 점검해야 합니다."] }
+    ],
+    faqs: [
+      { question: "전세대출 2억 5% 월이자는 얼마인가요?", answer: "만기일시상환 기준 월 약 83만 3천 원입니다." },
+      { question: "전세대출 2억 6% 월이자는 얼마인가요?", answer: "만기일시상환 기준 월 약 100만 원입니다." },
+      { question: "2년 총이자는 어떻게 계산하나요?", answer: "월이자에 24개월을 곱하면 대략적인 2년 총이자를 볼 수 있습니다." },
+      { question: "전세대출 2억이면 월세보다 유리한가요?", answer: "금리, 자기자본 기회비용, 월세 조건에 따라 다르므로 같은 기간 총비용으로 비교해야 합니다." },
+      { question: "관련 계산기는 무엇인가요?", answer: "전세대출 이자 계산기와 월세 vs 전세 비교 계산기를 같이 확인하세요." }
+    ],
+    relatedCalculatorSlugs: ["jeonse-loan-interest", "rent-vs-jeonse", "brokerage-fee"]
+  },
+  {
+    slug: "salary-50-million-dsr",
+    path: "/guides/salary-50-million-dsr",
+    title: "연봉 5000 DSR 계산: 주담대 한도 점검 순서",
+    h1: "연봉 5000 DSR 계산: 주담대 한도 점검 순서",
+    category: "DSR 상황별 가이드",
+    description: "연봉 5000만 원 기준 DSR 40% 한도에서 연간 원리금 상환 가능액과 주담대 계산 시 확인할 항목을 정리했습니다.",
+    referenceDate: "2026-06-10",
+    officialSources: [
+      { title: "금융위원회 스트레스 DSR 제도 설명", url: "https://www.fsc.go.kr/po010101/81343?curPage=&srchBeginDt=&srchCtgry=1&srchEndDt=&srchKey=&srchText=", note: "스트레스 DSR 설명 확인용" },
+      { title: "기획재정부 DSR 규제 설명", url: "https://whatsnew.moef.go.kr/mec/ots/dif/view.do?comBaseCd=DIFTYPCD&difField1=DIFFIELD05&difSer=db7e3d8b-ba55-463d-89d2-047f5fd3a50d&temp=2022&temp2=HALF002", note: "차주단위 DSR 개요 확인용" }
+    ],
+    policySummary: ["연봉 5000만 원의 DSR 40%는 연간 원리금 2000만 원 수준입니다.", "기존 신용대출이 있으면 신규 주담대 여력은 그만큼 줄어듭니다."],
+    body: [
+      { heading: "연봉 5000 DSR 40%의 의미", paragraphs: ["연봉 5000만 원에서 DSR 40%를 적용하면 모든 대출의 연간 원리금 상환액 합계가 2000만 원 이내인지 확인하게 됩니다. 월평균으로는 약 166만 원 수준입니다.", "이 금액에는 신규 주담대뿐 아니라 기존 신용대출, 자동차 할부, 기타 대출 상환액이 함께 들어갈 수 있습니다."] },
+      { heading: "주담대 한도 계산 전 확인할 것", paragraphs: ["먼저 기존대출의 연간 상환액을 정리해야 합니다. 이미 연 400만 원을 갚고 있다면 신규 주담대가 사용할 수 있는 DSR 여력은 1600만 원 수준으로 줄어듭니다.", "그다음 주담대 금리, 기간, 스트레스 금리를 넣어 예상 연상환액을 계산합니다. 기간을 길게 잡으면 월 부담은 낮아지지만 총이자는 커질 수 있습니다."] },
+      { heading: "승인 가능성과 생활 가능성은 다르다", paragraphs: ["DSR 기준에 들어와도 실제 실수령액 기준 생활비가 빠듯하면 위험할 수 있습니다. 연봉 5000만 원은 세후 월 현금흐름과 주거비, 관리비, 생활비를 함께 봐야 합니다.", "따라서 DSR 계산 결과는 대출 가능성 점검용이고, 최종 결정은 월 현금흐름 기준으로 다시 검토해야 합니다."] }
+    ],
+    faqs: [
+      { question: "연봉 5000 DSR 40%는 얼마인가요?", answer: "연간 원리금 상환액 약 2000만 원, 월평균 약 166만 원 수준입니다." },
+      { question: "기존 신용대출도 포함되나요?", answer: "네. 기존대출 상환액이 있으면 신규 주담대 여력이 줄어들 수 있습니다." },
+      { question: "스트레스 금리는 왜 넣나요?", answer: "향후 금리 상승을 반영해 더 보수적으로 상환능력을 보기 위해서입니다." },
+      { question: "DSR 40% 이하면 대출이 확정되나요?", answer: "아니요. 담보가치, 신용도, 금융기관 기준도 함께 적용됩니다." },
+      { question: "같이 볼 계산기는 무엇인가요?", answer: "DSR 계산기와 실수령액 계산기, 취득세 계산기를 함께 확인하는 것이 좋습니다." }
+    ],
+    relatedCalculatorSlugs: ["dsr", "take-home-pay", "acquisition-tax"]
+  },
+  {
+    slug: "salary-70-million-dsr-40",
+    path: "/guides/salary-70-million-dsr-40",
+    title: "연봉 7000 DSR 40% 계산: 주담대 여력 보기",
+    h1: "연봉 7000 DSR 40% 계산: 주담대 여력 보기",
+    category: "DSR 상황별 가이드",
+    description: "연봉 7000만 원에서 DSR 40% 기준 연간 원리금 한도와 기존대출, 스트레스 금리 반영 시 달라지는 주담대 여력을 설명합니다.",
+    referenceDate: "2026-06-10",
+    officialSources: [
+      { title: "금융위원회 스트레스 DSR 제도 설명", url: "https://www.fsc.go.kr/po010101/81343?curPage=&srchBeginDt=&srchCtgry=1&srchEndDt=&srchKey=&srchText=", note: "스트레스 DSR 설명 확인용" },
+      { title: "기획재정부 DSR 규제 설명", url: "https://whatsnew.moef.go.kr/mec/ots/dif/view.do?comBaseCd=DIFTYPCD&difField1=DIFFIELD05&difSer=db7e3d8b-ba55-463d-89d2-047f5fd3a50d&temp=2022&temp2=HALF002", note: "차주단위 DSR 개요 확인용" }
+    ],
+    policySummary: ["연봉 7000만 원의 DSR 40%는 연간 원리금 2800만 원 수준입니다.", "스트레스 금리와 기존대출이 있으면 체감 한도는 줄어들 수 있습니다."],
+    body: [
+      { heading: "연봉 7000 DSR 40% 기준", paragraphs: ["연봉 7000만 원에 DSR 40%를 적용하면 연간 원리금 상환 가능액은 약 2800만 원입니다. 월평균으로는 약 233만 원입니다.", "이 숫자는 신규 주담대 하나만을 위한 한도가 아니라 모든 대출 상환액의 합계 기준입니다."] },
+      { heading: "스트레스 금리 반영 시 달라지는 점", paragraphs: ["스트레스 금리를 적용하면 같은 대출금액이라도 계산상 연상환액이 커질 수 있습니다. 그래서 현재 금리 기준으로는 여유가 있어 보여도 보수적 기준에서는 한도에 가까워질 수 있습니다.", "연봉 7000만 원이라도 신용대출이나 자동차 할부가 있으면 DSR 여력이 줄어드는 구조는 동일합니다."] },
+      { heading: "매수 예산과 같이 보는 방법", paragraphs: ["DSR이 통과 가능해도 취득세, 중개보수, 이사비, 관리비까지 포함하면 실제 자기자본이 부족할 수 있습니다.", "주담대 한도를 먼저 보고 집값을 정하기보다, 취득세와 월 현금흐름까지 같이 놓고 매수 가능한 가격대를 역산하는 편이 안전합니다."] }
+    ],
+    faqs: [
+      { question: "연봉 7000 DSR 40%는 얼마인가요?", answer: "연간 원리금 약 2800만 원, 월평균 약 233만 원 수준입니다." },
+      { question: "기존대출이 없으면 모두 주담대에 쓸 수 있나요?", answer: "계산상 여력은 커지지만 담보인정비율, 신용도, 금융기관 기준도 따로 적용됩니다." },
+      { question: "스트레스 금리를 넣으면 한도가 줄어드나요?", answer: "보통 계산상 상환액이 커져 DSR 여력이 줄어드는 방향으로 작용합니다." },
+      { question: "DSR만 보면 매수 가능성을 알 수 있나요?", answer: "아니요. 취득세와 자기자본, 생활비를 함께 봐야 합니다." },
+      { question: "관련 계산기는 무엇인가요?", answer: "DSR 계산기, 취득세 계산기, 중개수수료 계산기를 함께 확인하세요." }
+    ],
+    relatedCalculatorSlugs: ["dsr", "acquisition-tax", "brokerage-fee"]
+  },
+  {
+    slug: "600-million-apartment-acquisition-tax",
+    path: "/guides/600-million-apartment-acquisition-tax",
+    title: "6억 아파트 취득세 계산: 잔금 전 준비금",
+    h1: "6억 아파트 취득세 계산: 잔금 전 준비금",
+    category: "취득세 상황별 가이드",
+    description: "6억 아파트 매수 시 취득세, 지방교육세 등 초기 세금 준비금을 어떻게 추정해야 하는지 정리했습니다.",
+    referenceDate: "2026-06-10",
+    officialSources: [
+      { title: "정부24 취득세 안내", url: "https://www.gov.kr/portal/service/serviceInfo/536000000011", note: "취득세 개요 확인용" },
+      { title: "위택스", url: "https://www.wetax.go.kr/", note: "지방세 신고 전 확인용" }
+    ],
+    policySummary: ["6억 아파트 취득세는 주택 수, 지역, 감면 여부에 따라 달라질 수 있습니다.", "취득세는 잔금 시점에 필요한 현금성 비용으로 별도 준비해야 합니다."],
+    body: [
+      { heading: "6억 아파트 취득세를 볼 때의 출발점", paragraphs: ["6억 아파트 취득세는 단순히 매매가에 하나의 세율을 곱해 끝나는 문제가 아닙니다. 1주택인지 다주택인지, 조정대상지역인지, 생애최초 감면 대상인지에 따라 결과가 달라질 수 있습니다.", "계산기에는 주택 가격 6억 원과 주택 수, 지역 조건, 감면 여부를 함께 입력해야 현실적인 추정이 가능합니다."] },
+      { heading: "잔금 전 준비금으로 봐야 한다", paragraphs: ["취득세는 매달 나눠 내는 비용이 아니라 취득 후 신고·납부해야 하는 초기 비용입니다. 잔금 자금만 맞춰 놓고 취득세를 빠뜨리면 자금계획이 흔들릴 수 있습니다.", "취득세 외에도 중개보수, 법무비, 이사비를 함께 준비해야 실제 매수 자금이 맞습니다."] },
+      { heading: "감면과 중과는 별도 확인", paragraphs: ["생애최초 감면이나 일시적 2주택 같은 예외는 요건이 중요합니다. 계산기는 방향을 잡는 도구이고, 실제 신고 전에는 최신 지자체 안내를 확인해야 합니다.", "특히 가족 명의 주택, 분양권, 상속주택 등은 주택 수 판단에 영향을 줄 수 있습니다."] }
+    ],
+    faqs: [
+      { question: "6억 아파트 취득세는 얼마인가요?", answer: "주택 수, 지역, 감면 여부에 따라 달라지므로 취득세 계산기에 조건을 함께 입력해야 합니다." },
+      { question: "취득세만 준비하면 되나요?", answer: "아니요. 지방교육세, 농특세, 중개보수, 법무비도 함께 봐야 합니다." },
+      { question: "생애최초 감면은 자동 적용되나요?", answer: "아니요. 소득, 주택가액, 과거 보유 이력 등 요건을 확인해야 합니다." },
+      { question: "잔금 전에 왜 취득세를 계산해야 하나요?", answer: "취득세는 초기 현금 지출이므로 미리 준비하지 않으면 자금계획이 부족해질 수 있습니다." },
+      { question: "관련 계산기는 무엇인가요?", answer: "취득세 계산기와 중개수수료 계산기를 같이 쓰면 초기비용을 보기 좋습니다." }
+    ],
+    relatedCalculatorSlugs: ["acquisition-tax", "brokerage-fee", "dsr"]
+  },
+  {
+    slug: "900-million-apartment-acquisition-tax",
+    path: "/guides/900-million-apartment-acquisition-tax",
+    title: "9억 아파트 취득세 계산: 주택 수별 체크",
+    h1: "9억 아파트 취득세 계산: 주택 수별 체크",
+    category: "취득세 상황별 가이드",
+    description: "9억 아파트 매수 전 취득세와 부가 세목, 주택 수·조정대상지역 판단을 어떻게 점검해야 하는지 설명합니다.",
+    referenceDate: "2026-06-10",
+    officialSources: [
+      { title: "정부24 취득세 안내", url: "https://www.gov.kr/portal/service/serviceInfo/536000000011", note: "취득세 개요 확인용" },
+      { title: "위택스", url: "https://www.wetax.go.kr/", note: "지방세 신고 전 확인용" }
+    ],
+    policySummary: ["9억 아파트는 취득세 절대 금액이 커져 작은 조건 차이도 체감 부담이 큽니다.", "주택 수와 조정대상지역 여부를 먼저 정리해야 합니다."],
+    body: [
+      { heading: "9억 아파트는 세금 절대액을 먼저 본다", paragraphs: ["9억 아파트는 세율이 조금만 달라져도 세금 차이가 수백만 원 이상 벌어질 수 있습니다. 따라서 매매가와 대출 가능액만 보고 판단하면 초기비용을 과소평가하기 쉽습니다.", "취득세 계산기에서 9억 원을 기준으로 주택 수, 지역, 감면 여부를 바꿔 여러 시나리오를 확인해야 합니다."] },
+      { heading: "주택 수 판단이 핵심", paragraphs: ["무주택자의 첫 주택인지, 기존 주택이 있는지, 일시적 2주택에 해당하는지에 따라 세 부담이 달라질 수 있습니다.", "분양권, 입주권, 상속주택처럼 애매한 자산은 실제 주택 수 판단에 영향을 줄 수 있으므로 단순히 본인 체감으로만 판단하면 위험합니다."] },
+      { heading: "대출과 초기비용을 함께 본다", paragraphs: ["9억 아파트 매수는 DSR, 취득세, 중개보수, 이사비가 동시에 움직입니다. 주담대 월 납입액이 가능해 보여도 초기 세금 준비금이 부족하면 실행이 어렵습니다.", "매수 전에는 DSR 계산기와 취득세 계산기를 함께 사용해 월 상환 가능성과 잔금 전 현금 필요액을 동시에 점검하는 것이 좋습니다."] }
+    ],
+    faqs: [
+      { question: "9억 아파트 취득세는 왜 조건별로 다른가요?", answer: "주택 수, 조정대상지역, 취득 유형, 감면 여부가 세율과 부가 세목에 영향을 줄 수 있기 때문입니다." },
+      { question: "1주택이면 단순하게 계산해도 되나요?", answer: "기본 방향은 단순하지만 생애최초, 면적, 부가 세목 등은 별도 확인이 필요합니다." },
+      { question: "다주택이면 취득세가 크게 오를 수 있나요?", answer: "중과 대상 여부에 따라 크게 달라질 수 있어 최신 기준 확인이 필요합니다." },
+      { question: "DSR도 같이 봐야 하나요?", answer: "네. 취득세는 초기자금, DSR은 월 상환능력을 보여주므로 함께 봐야 합니다." },
+      { question: "관련 계산기는 무엇인가요?", answer: "취득세, DSR, 중개수수료 계산기를 같이 확인하세요." }
+    ],
+    relatedCalculatorSlugs: ["acquisition-tax", "dsr", "brokerage-fee"]
+  },
+  {
+    slug: "monthly-rent-500k-to-jeonse",
+    path: "/guides/monthly-rent-500k-to-jeonse",
+    title: "월세 50 전세 환산: 전월세 전환율로 보기",
+    h1: "월세 50 전세 환산: 전월세 전환율로 보기",
+    category: "전월세 전환 상황별 가이드",
+    description: "월세 50만 원을 전세금으로 환산할 때 전월세 전환율과 보증금 조건을 어떻게 적용해야 하는지 설명합니다.",
+    referenceDate: "2026-06-10",
+    officialSources: [
+      { title: "주택임대차보호법", url: "https://law.go.kr/LSW/lsInfoP.do?lsiSeq=93190", note: "월차임 전환 근거 확인용" },
+      { title: "국토교통부 전월세 전환 정책 안내", url: "https://www.molit.go.kr/policy/rent/rent_c_05.jsp", note: "전월세 전환 설명 확인용" }
+    ],
+    policySummary: ["월세 50만 원은 전환율에 따라 전세 환산액이 크게 달라집니다.", "보증금이 이미 있는 월세라면 보증금에 월세 환산분을 더해 봐야 합니다."],
+    body: [
+      { heading: "월세 50 전세 환산 공식", paragraphs: ["월세를 전세로 환산할 때는 월세 × 12 ÷ 전환율을 사용합니다. 예를 들어 월세 50만 원, 전환율 5%라면 월세 환산분은 1억 2000만 원입니다.", "이미 보증금이 5000만 원이라면 전세 환산 금액은 보증금 5000만 원에 1억 2000만 원을 더한 1억 7000만 원 수준으로 볼 수 있습니다."] },
+      { heading: "전환율에 따라 결과가 달라진다", paragraphs: ["전환율 4%라면 월세 50만 원의 환산분은 1억 5000만 원이고, 전환율 6%라면 1억 원입니다. 같은 월세라도 전환율 가정에 따라 전세 환산액이 크게 달라집니다.", "그래서 주변 시세와 법정 상한, 실제 협상 전환율을 함께 비교해야 합니다."] },
+      { heading: "협상 기준으로 활용하기", paragraphs: ["월세 50만 원을 전세로 바꾸는 계산은 임대인 제안이 합리적인지 확인하는 데 유용합니다. 다만 실제 전세가와 시장 수요가 반영되므로 계산값이 곧 확정 시세는 아닙니다.", "전세대출을 쓰는 경우에는 환산 전세금뿐 아니라 대출 이자까지 같이 봐야 실제 월 부담을 판단할 수 있습니다."] }
+    ],
+    faqs: [
+      { question: "월세 50만 원은 전세로 얼마인가요?", answer: "전환율 5% 기준 월세 환산분은 약 1억 2000만 원입니다. 기존 보증금이 있으면 더해야 합니다." },
+      { question: "전환율 4%면 어떻게 되나요?", answer: "월세 50만 원의 환산분은 약 1억 5000만 원입니다." },
+      { question: "보증금도 포함하나요?", answer: "네. 월세 환산분에 기존 보증금을 더해 전세 환산 금액을 봅니다." },
+      { question: "계산값이 실제 시세와 같나요?", answer: "아니요. 입지, 수요, 옵션, 계약 조건에 따라 실제 시세는 달라질 수 있습니다." },
+      { question: "관련 계산기는 무엇인가요?", answer: "월세 환산 계산기와 월세 vs 전세 비교 계산기를 함께 확인하세요." }
+    ],
+    relatedCalculatorSlugs: ["monthly-rent-conversion", "rent-vs-jeonse", "jeonse-loan-interest"]
+  }
+];
+
 export const guides: Guide[] = [
   {
     slug: "jeonse-loan-interest-mistakes",
@@ -557,7 +749,8 @@ export const guides: Guide[] = [
       { question: "관련 계산기는 무엇을 같이 봐야 하나요?", answer: "청약가점, 취득세, DSR, 전세 vs 월세 계산기를 같이 보는 것이 좋습니다." }
     ],
     relatedCalculatorSlugs: ["housing-subscription-score", "acquisition-tax", "dsr"]
-  }
+  },
+  ...situationalGuides
 ];
 
 export function getGuideBySlug(slug: string): Guide {

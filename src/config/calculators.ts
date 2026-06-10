@@ -9,6 +9,8 @@ export type CalculatorInfo = {
   guidePath: string;
   title: string;
   shortTitle: string;
+  seoTitle?: string;
+  metaDescription?: string;
   category: string;
   description: string;
   keywords: string[];
@@ -236,6 +238,8 @@ export const calculators: CalculatorInfo[] = [
     guidePath: "/guides/jeonse-loan-interest-mistakes",
     title: "전세대출 이자 계산기",
     shortTitle: "전세대출 이자",
+    seoTitle: "전세대출 이자 계산기 - 월 이자·총이자 계산",
+    metaDescription: "전세보증금, 대출금액, 금리, 기간을 입력해 전세대출 월 이자와 총이자를 계산합니다. 1억·2억 전세대출 이자와 금리 상승 시나리오도 함께 확인하세요.",
     category: "주거·대출",
     description: "전세보증금, 대출금액, 금리, 기간, 상환방식을 입력하면 월 이자와 총 이자를 계산할 수 있습니다.",
     keywords: ["전세대출 이자 계산기", "전세대출 월 이자", "전세자금대출 이자 계산"],
@@ -278,6 +282,8 @@ export const calculators: CalculatorInfo[] = [
     guidePath: "/guides/what-dsr-40-means",
     title: "주택담보대출 DSR 계산기",
     shortTitle: "DSR",
+    seoTitle: "DSR 계산기 - 주담대 한도·스트레스 금리 반영",
+    metaDescription: "연소득, 기존대출, 주담대 금리와 기간을 입력해 DSR 40% 기준과 스트레스 금리 반영 결과를 계산합니다. 연봉 5000·7000 기준 한도 점검에 활용하세요.",
     category: "주거·대출",
     description: "연소득과 대출 정보를 입력해 DSR과 기준 대비 여유 금액을 계산합니다.",
     keywords: ["DSR 계산기", "주담대 DSR 계산", "주택담보대출 한도 계산"],
@@ -299,6 +305,8 @@ export const calculators: CalculatorInfo[] = [
     guidePath: "/guides/acquisition-tax-checklist",
     title: "취득세 계산기",
     shortTitle: "취득세",
+    seoTitle: "취득세 계산기 - 주택 수·조정대상지역 반영",
+    metaDescription: "주택 가격, 주택 수, 조정대상지역, 생애최초 감면 여부를 반영해 취득세와 지방교육세 등 부가 세목을 추정합니다. 6억·9억 아파트 취득세를 빠르게 확인하세요.",
     category: "부동산·세금",
     description: "주택 가격, 주택 수, 조정대상지역 여부, 취득 유형을 입력해 취득세와 부가 세목을 추정합니다.",
     keywords: ["취득세 계산기", "아파트 취득세 계산", "주택 취득세 계산"],
@@ -341,6 +349,8 @@ export const calculators: CalculatorInfo[] = [
     guidePath: "/guides/monthly-rent-conversion-basics",
     title: "월세 환산 계산기",
     shortTitle: "월세 환산",
+    seoTitle: "월세 환산 계산기 - 전세·월세 전환율 계산",
+    metaDescription: "전세를 월세로 바꾸거나 월세를 전세금으로 환산합니다. 월세 50 전세 환산, 보증금 조정, 전월세 전환율 협상 기준을 확인하세요.",
     category: "주거·비교",
     description: "전세를 월세로 전환하거나 월세를 전세금으로 환산할 때 예상 금액을 계산합니다.",
     keywords: ["월세 환산 계산기", "전세 월세 전환 계산", "전월세 전환율 계산"],

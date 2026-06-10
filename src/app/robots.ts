@@ -6,10 +6,9 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        allow: ["/", "/ads.txt"]
+        allow: "/"
       }
     ],
-    sitemap: `${siteConfig.url}/sitemap.xml`,
-    host: siteConfig.url
+    sitemap: `${siteConfig.url}/sitemap.xml`
   };
 }

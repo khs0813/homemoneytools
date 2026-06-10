@@ -9,7 +9,7 @@ const ogImage = {
   url: siteConfig.defaultOgImage,
   width: 1200,
   height: 630,
-  alt: `${siteConfig.name} 주거비 계산기`
+  alt: `${siteConfig.shortName} 주거비 계산기`
 };
 
 export const viewport: Viewport = {
@@ -23,8 +23,8 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   applicationName: siteConfig.name,
   title: {
-    default: siteConfig.name,
-    template: `%s | ${siteConfig.name}`
+    default: `${siteConfig.shortName} - ${siteConfig.tagline}`,
+    template: `%s | ${siteConfig.shortName}`
   },
   description: siteConfig.description,
   generator: "Next.js",
@@ -68,14 +68,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: siteConfig.locale,
     url: siteConfig.url,
-    siteName: siteConfig.name,
-    title: siteConfig.name,
+    siteName: siteConfig.shortName,
+    title: `${siteConfig.shortName} - ${siteConfig.tagline}`,
     description: siteConfig.description,
     images: [ogImage]
   },
   twitter: {
     card: "summary_large_image",
-    title: siteConfig.name,
+    title: `${siteConfig.shortName} - ${siteConfig.tagline}`,
     description: siteConfig.description,
     images: [siteConfig.defaultOgImage]
   }

@@ -1,12 +1,16 @@
 import Link from "next/link";
 import { PageContainer } from "@/components/layout/PageContainer";
-import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata = buildPageMetadata(
-  "페이지를 찾을 수 없습니다",
-  "요청한 계산기 또는 가이드를 찾을 수 없습니다. 메인 페이지와 전체 계산기 목록에서 다시 찾아보세요.",
-  "/404"
-);
+export const metadata = {
+  title: {
+    absolute: "페이지를 찾을 수 없습니다 | 집계산"
+  },
+  description: "요청한 계산기 또는 가이드를 찾을 수 없습니다. 메인 페이지와 전체 계산기 목록에서 다시 찾아보세요.",
+  robots: {
+    index: false,
+    follow: true
+  }
+};
 
 export default function NotFound() {
   return (

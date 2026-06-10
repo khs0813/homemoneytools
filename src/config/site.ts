@@ -3,8 +3,9 @@ import { fallbackSiteUrl, sanitizeSiteUrl } from "@/lib/site-url";
 const siteUrl = sanitizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL || process.env.RENDER_EXTERNAL_URL, fallbackSiteUrl);
 
 export const siteConfig = {
-  name: "집계산 | 부동산·주거비 계산기",
+  name: "집계산",
   shortName: "집계산",
+  tagline: "부동산·주거비 계산기",
   domainName: "jipcalc.co.kr",
   description: "전세대출 이자, 월세 vs 전세, DSR, 취득세, 중개수수료, 청약가점, 전월세 전환을 계산하고 해석까지 돕는 주거비 정보 서비스입니다.",
   url: siteUrl,
