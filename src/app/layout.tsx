@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import "@/app/globals.css";
-import { KakaoAdBanner } from "@/components/ads/KakaoAdBanner";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { siteConfig } from "@/config/site";
@@ -90,7 +89,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <WebsiteJsonLd />
         <Header />
         {children}
-        <KakaoAdBanner />
         <Footer />
       </body>
     </html>
