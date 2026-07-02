@@ -98,6 +98,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           data-ad-width="728"
           data-ad-height="90"
         />
+        <ins
+          className="kakao_ad_area"
+          style={{ display: "none" }}
+          data-ad-unit="DAN-4cOowgAme3T2tNK2"
+          data-ad-width="300"
+          data-ad-height="250"
+        />
         <Script
           id="kakao-adfit-sdk"
           src="https://t1.kakaocdn.net/kas/static/ba.min.js"
