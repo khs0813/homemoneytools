@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
+import { AdFitBanner } from "@/components/adfit/AdFitBanner";
 import type { CalculatorInfo } from "@/config/calculators";
 import { DisclaimerBox } from "@/components/calculator/DisclaimerBox";
 import { FaqJsonLd, FaqSection } from "@/components/calculator/FaqSection";
@@ -9,18 +10,6 @@ import { getPrimaryGuideForCalculator } from "@/config/guides";
 import { housingReferenceBySlug } from "@/config/housing-content";
 import { getSeoContent } from "@/config/seo-content";
 import { BreadcrumbJsonLd, CalculatorJsonLd, WebPageJsonLd } from "@/lib/json-ld";
-
-function AdFitBanner({ unit, width, height }: { unit: string; width: string; height: string }) {
-  return (
-    <ins
-      className="kakao_ad_area"
-      style={{ display: "none" }}
-      data-ad-unit={unit}
-      data-ad-width={width}
-      data-ad-height={height}
-    />
-  );
-}
 
 export function CalculatorPage({ info, children }: { info: CalculatorInfo; children: ReactNode }) {
   const seoContent = getSeoContent(info.slug);
