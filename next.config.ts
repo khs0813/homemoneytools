@@ -12,11 +12,10 @@ const contentSecurityPolicy = [
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
-  "frame-src https://display.ad.daum.net https://serv.ds.kakao.com",
+  "frame-src https://display.ad.daum.net https://serv.ds.kakao.com https://t1.daumcdn.net https://t1.kakaocdn.net",
   "frame-ancestors 'none'",
   "worker-src 'self' blob:",
   "manifest-src 'self'",
-  "prefetch-src 'self'",
   "upgrade-insecure-requests"
 ].join("; ");
 
