@@ -10,6 +10,18 @@ import { housingReferenceBySlug } from "@/config/housing-content";
 import { getSeoContent } from "@/config/seo-content";
 import { BreadcrumbJsonLd, CalculatorJsonLd, WebPageJsonLd } from "@/lib/json-ld";
 
+function AdFitBanner({ unit, width, height }: { unit: string; width: string; height: string }) {
+  return (
+    <ins
+      className="kakao_ad_area"
+      style={{ display: "none" }}
+      data-ad-unit={unit}
+      data-ad-width={width}
+      data-ad-height={height}
+    />
+  );
+}
+
 export function CalculatorPage({ info, children }: { info: CalculatorInfo; children: ReactNode }) {
   const seoContent = getSeoContent(info.slug);
   const reference = housingReferenceBySlug[info.slug];
@@ -33,7 +45,17 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
           <h1 className="mt-3 text-3xl font-black tracking-tight md:text-5xl">{info.title}</h1>
           <p className="mt-5 max-w-3xl text-base leading-7 text-blue-50">{info.description}</p>
         </div>
-        <div className="mt-8">{children}</div>
+        <div className="mt-8 overflow-x-auto">
+          <div className="flex min-w-[728px] justify-center lg:min-w-0">
+            <AdFitBanner unit="DAN-vydppL950Rcp0u3T" width="728" height="90" />
+          </div>
+        </div>
+        <div className="mt-8 grid gap-6 xl:grid-cols-[minmax(0,1fr)_300px] xl:items-start">
+          <div>{children}</div>
+          <aside className="flex justify-center xl:sticky xl:top-24">
+            <AdFitBanner unit="DAN-4cOowgAme3T2tNK2" width="300" height="250" />
+          </aside>
+        </div>
         <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(280px,380px)]">
           <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
             <h2 className="text-lg font-bold text-slate-950">이 계산기로 확인할 수 있는 것</h2>
