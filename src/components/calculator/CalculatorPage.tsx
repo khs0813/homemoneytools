@@ -39,9 +39,9 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
             <AdFitBanner unit="DAN-vydppL950Rcp0u3T" width="728" height="90" />
           </div>
         </div>
-        <div className="mt-8 grid gap-6 xl:-mx-16 xl:grid-cols-[minmax(0,1fr)_300px] xl:items-start 2xl:-mx-24">
+        <div className="relative mt-8">
           <div>{children}</div>
-          <aside className="flex justify-center xl:sticky xl:top-24">
+          <aside className="mt-6 flex justify-center xl:absolute xl:left-full xl:top-0 xl:ml-6 xl:mt-0">
             <AdFitBanner unit="DAN-4cOowgAme3T2tNK2" width="300" height="250" />
           </aside>
         </div>
