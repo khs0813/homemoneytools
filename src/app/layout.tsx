@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import "@/app/globals.css";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
@@ -90,6 +91,18 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Header />
         {children}
         <Footer />
+        <ins
+          className="kakao_ad_area"
+          style={{ display: "none" }}
+          data-ad-unit="DAN-vydppL950Rcp0u3T"
+          data-ad-width="728"
+          data-ad-height="90"
+        />
+        <Script
+          id="kakao-adfit-sdk"
+          src="https://t1.kakaocdn.net/kas/static/ba.min.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
