@@ -7,7 +7,7 @@ const contentSecurityPolicy = [
   "style-src 'self' 'unsafe-inline' 'report-sample'",
   "img-src 'self' data: https:",
   "font-src 'self' data:",
-  "connect-src 'self' https://analytics.ad.daum.net https://kaat.daum.net https://kuid-provider.ds.kakao.com https://serv.ds.kakao.com",
+  "connect-src 'self' https://analytics.ad.daum.net https://aem-kakao-collector.onkakao.net https://kaat.daum.net https://kuid-provider.ds.kakao.com https://serv.ds.kakao.com",
   "media-src 'self'",
   "object-src 'none'",
   "base-uri 'self'",

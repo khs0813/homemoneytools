@@ -55,6 +55,7 @@ function loadAdFitSdk() {
   script.dataset.kakaoAdfitSdk = "true";
   script.onload = () => {
     win.__kakaoAdFitSdkLoading = false;
+    runAdFitInit();
   };
   script.onerror = () => {
     win.__kakaoAdFitSdkLoading = false;

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AdFitBanner } from "@/components/adfit/AdFitBanner";
 import { CalculatorCard } from "@/components/calculator/CalculatorCard";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { calculators } from "@/config/calculators";
@@ -41,29 +42,40 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="mt-12 grid gap-6 lg:grid-cols-3">
-          <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-            <p className="text-sm font-bold text-brand-emerald">전세·월세</p>
-            <h2 className="mt-2 text-2xl font-black text-slate-950">월세가 비싸 보여도 전세가 더 부담일 수 있습니다</h2>
-            <p className="mt-4 text-sm leading-7 text-slate-600">
-              전세는 월세가 없다는 이유로 저렴해 보이지만, 보증금 기회비용과 전세대출 이자를 더하면 총주거비가 달라집니다. 월세 보증금이 큰 반전세도 단순 월세만 보면 오판하기 쉽습니다.
-            </p>
-          </article>
-          <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-            <p className="text-sm font-bold text-brand-emerald">매매·대출</p>
-            <h2 className="mt-2 text-2xl font-black text-slate-950">집값보다 먼저 봐야 하는 것은 자금 구조입니다</h2>
-            <p className="mt-4 text-sm leading-7 text-slate-600">
-              주택담보대출 DSR, 취득세, 중개수수료는 집을 살 수 있는지와 동시에 실제로 감당 가능한지를 결정합니다. 금리 0.5%p 변화와 주택 수 판단 차이만으로도 결과가 크게 달라질 수 있습니다.
-            </p>
-          </article>
-          <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-            <p className="text-sm font-bold text-brand-emerald">청약</p>
-            <h2 className="mt-2 text-2xl font-black text-slate-950">청약가점은 점수 확인이 아니라 전략 판단입니다</h2>
-            <p className="mt-4 text-sm leading-7 text-slate-600">
-              무주택기간, 부양가족수, 통장 가입기간을 단순 합산하는 것만으로는 부족합니다. 현재 점수로 기다릴 가치가 있는지, 전세나 매수와 병행해 볼지 자금계획과 함께 해석해야 합니다.
-            </p>
-          </article>
-        </section>
+        <div className="mt-8 overflow-x-auto">
+          <div className="flex min-w-[728px] justify-center lg:min-w-0">
+            <AdFitBanner unit="DAN-vydppL950Rcp0u3T" width="728" height="90" />
+          </div>
+        </div>
+
+        <div className="relative mt-12">
+          <section className="grid gap-6 lg:grid-cols-3">
+            <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+              <p className="text-sm font-bold text-brand-emerald">전세·월세</p>
+              <h2 className="mt-2 text-2xl font-black text-slate-950">월세가 비싸 보여도 전세가 더 부담일 수 있습니다</h2>
+              <p className="mt-4 text-sm leading-7 text-slate-600">
+                전세는 월세가 없다는 이유로 저렴해 보이지만, 보증금 기회비용과 전세대출 이자를 더하면 총주거비가 달라집니다. 월세 보증금이 큰 반전세도 단순 월세만 보면 오판하기 쉽습니다.
+              </p>
+            </article>
+            <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+              <p className="text-sm font-bold text-brand-emerald">매매·대출</p>
+              <h2 className="mt-2 text-2xl font-black text-slate-950">집값보다 먼저 봐야 하는 것은 자금 구조입니다</h2>
+              <p className="mt-4 text-sm leading-7 text-slate-600">
+                주택담보대출 DSR, 취득세, 중개수수료는 집을 살 수 있는지와 동시에 실제로 감당 가능한지를 결정합니다. 금리 0.5%p 변화와 주택 수 판단 차이만으로도 결과가 크게 달라질 수 있습니다.
+              </p>
+            </article>
+            <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+              <p className="text-sm font-bold text-brand-emerald">청약</p>
+              <h2 className="mt-2 text-2xl font-black text-slate-950">청약가점은 점수 확인이 아니라 전략 판단입니다</h2>
+              <p className="mt-4 text-sm leading-7 text-slate-600">
+                무주택기간, 부양가족수, 통장 가입기간을 단순 합산하는 것만으로는 부족합니다. 현재 점수로 기다릴 가치가 있는지, 전세나 매수와 병행해 볼지 자금계획과 함께 해석해야 합니다.
+              </p>
+            </article>
+          </section>
+          <aside className="mt-6 flex justify-center xl:absolute xl:left-full xl:top-0 xl:ml-6 xl:mt-0">
+            <AdFitBanner unit="DAN-4cOowgAme3T2tNK2" width="300" height="250" />
+          </aside>
+        </div>
 
         <section className="mt-12 grid gap-6 lg:grid-cols-3">
           <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">

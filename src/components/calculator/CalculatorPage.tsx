@@ -41,8 +41,13 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
         </div>
         <div className="relative mt-8">
           <div>{children}</div>
-          <aside className="mt-6 flex justify-center xl:absolute xl:left-full xl:top-0 xl:ml-6 xl:mt-0">
-            <AdFitBanner unit="DAN-4cOowgAme3T2tNK2" width="300" height="250" />
+          <aside className="mt-6 flex w-full flex-col items-center gap-6 xl:absolute xl:left-full xl:top-0 xl:ml-6 xl:mt-0 xl:w-[300px]">
+            <div className="flex h-[250px] w-[300px] items-center justify-center">
+              <AdFitBanner unit="DAN-4cOowgAme3T2tNK2" width="300" height="250" />
+            </div>
+            <div className="flex h-[600px] w-[160px] items-center justify-center">
+              <AdFitBanner unit="DAN-3zihtfJ5ImCC9NOc" width="160" height="600" />
+            </div>
           </aside>
         </div>
         <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(280px,380px)]">
