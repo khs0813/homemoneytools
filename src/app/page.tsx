@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AdFitBanner } from "@/components/adfit/AdFitBanner";
+import { AdFitSideBanner, AdFitTopBanner } from "@/components/adfit/AdFitPageAds";
 import { CalculatorCard } from "@/components/calculator/CalculatorCard";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { calculators } from "@/config/calculators";
@@ -42,11 +42,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <div className="mt-8 overflow-x-auto">
-          <div className="flex min-w-[728px] justify-center lg:min-w-0">
-            <AdFitBanner unit="DAN-vydppL950Rcp0u3T" width="728" height="90" />
-          </div>
-        </div>
+        <AdFitTopBanner />
 
         <div className="relative mt-12">
           <section className="grid gap-6 lg:grid-cols-3">
@@ -72,9 +68,7 @@ export default function HomePage() {
               </p>
             </article>
           </section>
-          <aside className="mt-6 flex justify-center xl:absolute xl:left-full xl:top-0 xl:ml-6 xl:mt-0">
-            <AdFitBanner unit="DAN-4cOowgAme3T2tNK2" width="300" height="250" />
-          </aside>
+          <AdFitSideBanner />
         </div>
 
         <section className="mt-12 grid gap-6 lg:grid-cols-3">

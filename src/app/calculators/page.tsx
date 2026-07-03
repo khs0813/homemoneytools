@@ -1,3 +1,4 @@
+import { AdFitSideBanner, AdFitTopBanner } from "@/components/adfit/AdFitPageAds";
 import { CalculatorCard } from "@/components/calculator/CalculatorCard";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { calculators } from "@/config/calculators";
@@ -28,8 +29,12 @@ export default function CalculatorsPage() {
             각 계산기에는 월 부담액, 총비용, 금리 변화 영향, 위험 구간, FAQ, 공식 참고 출처를 함께 정리했습니다.
           </p>
         </div>
-        <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {visibleCalculators.map((calculator) => <CalculatorCard key={calculator.slug} calculator={calculator} />)}
+        <AdFitTopBanner />
+        <div className="relative mt-8">
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {visibleCalculators.map((calculator) => <CalculatorCard key={calculator.slug} calculator={calculator} />)}
+          </div>
+          <AdFitSideBanner />
         </div>
       </PageContainer>
     </>

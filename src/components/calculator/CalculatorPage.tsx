@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { AdFitBanner } from "@/components/adfit/AdFitBanner";
+import { AdFitSideBanner, AdFitTopBanner } from "@/components/adfit/AdFitPageAds";
 import type { CalculatorInfo } from "@/config/calculators";
 import { DisclaimerBox } from "@/components/calculator/DisclaimerBox";
 import { FaqJsonLd, FaqSection } from "@/components/calculator/FaqSection";
@@ -34,21 +34,10 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
           <h1 className="mt-3 text-3xl font-black tracking-tight md:text-5xl">{info.title}</h1>
           <p className="mt-5 max-w-3xl text-base leading-7 text-blue-50">{info.description}</p>
         </div>
-        <div className="mt-8 overflow-x-auto">
-          <div className="flex min-w-[728px] justify-center lg:min-w-0">
-            <AdFitBanner unit="DAN-vydppL950Rcp0u3T" width="728" height="90" />
-          </div>
-        </div>
+        <AdFitTopBanner />
         <div className="relative mt-8">
           <div>{children}</div>
-          <aside className="mt-6 flex w-full flex-col items-center gap-6 xl:absolute xl:left-full xl:top-0 xl:ml-6 xl:mt-0 xl:w-[300px]">
-            <div className="flex h-[250px] w-[300px] items-center justify-center">
-              <AdFitBanner unit="DAN-4cOowgAme3T2tNK2" width="300" height="250" />
-            </div>
-            <div className="flex h-[600px] w-[160px] items-center justify-center">
-              <AdFitBanner unit="DAN-3zihtfJ5ImCC9NOc" width="160" height="600" />
-            </div>
-          </aside>
+          <AdFitSideBanner />
         </div>
         <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(280px,380px)]">
           <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">

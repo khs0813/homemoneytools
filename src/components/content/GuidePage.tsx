@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AdFitSideBanner, AdFitTopBanner } from "@/components/adfit/AdFitPageAds";
 import { FaqJsonLd, FaqSection } from "@/components/calculator/FaqSection";
 import { RelatedCalculators } from "@/components/calculator/RelatedCalculators";
 import { PageContainer } from "@/components/layout/PageContainer";
@@ -13,10 +14,14 @@ export function GuidePage({ guide }: { guide: Guide }) {
       <BreadcrumbJsonLd items={[{ name: "홈", path: "/" }, { name: "가이드", path: "/guides" }, { name: guide.title, path: guide.path }]} />
       <GenericArticleJsonLd title={guide.title} description={guide.description} path={guide.path} />
       <PageContainer className="py-10 md:py-14">
-        <article className="mx-auto max-w-4xl rounded-3xl border border-slate-200 bg-white p-6 shadow-soft md:p-10">
-          <p className="text-sm font-bold text-brand-emerald">{guide.category}</p>
-          <h1 className="mt-3 text-3xl font-black text-slate-950 md:text-5xl">{guide.h1}</h1>
-          <p className="mt-5 text-base leading-8 text-slate-600">{guide.description}</p>
+        <article className="mx-auto max-w-4xl">
+          <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft md:p-10">
+            <p className="text-sm font-bold text-brand-emerald">{guide.category}</p>
+            <h1 className="mt-3 text-3xl font-black text-slate-950 md:text-5xl">{guide.h1}</h1>
+            <p className="mt-5 text-base leading-8 text-slate-600">{guide.description}</p>
+          </div>
+          <AdFitTopBanner />
+          <div className="relative mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-soft md:p-10">
 
           <section className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-5">
             <h2 className="text-lg font-bold text-slate-950">계산 기준일과 제도 메모</h2>
@@ -93,6 +98,8 @@ export function GuidePage({ guide }: { guide: Guide }) {
               <Link href="/guides" className="text-sm font-bold text-brand-navy hover:underline">전체 가이드 목록 보기</Link>
             </div>
           </section>
+            <AdFitSideBanner />
+          </div>
         </article>
         <div className="mx-auto mt-8 max-w-4xl">
           <FaqSection faqs={guide.faqs} />

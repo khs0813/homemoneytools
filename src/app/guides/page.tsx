@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AdFitSideBanner, AdFitTopBanner } from "@/components/adfit/AdFitPageAds";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { guides } from "@/config/guides";
 import { buildPageMetadata } from "@/lib/seo";
@@ -25,15 +26,19 @@ export default function GuidesPage() {
             각 글에는 실제 사례, 주의사항, FAQ, 계산 기준일, 공식 출처, 관련 계산기 링크를 포함했습니다.
           </p>
         </div>
-        <div className="mt-8 grid gap-5 md:grid-cols-2">
-          {guides.map((guide) => (
-            <Link key={guide.slug} href={guide.path} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-soft">
-              <p className="text-sm font-semibold text-brand-emerald">{guide.category}</p>
-              <h2 className="mt-2 text-xl font-bold text-slate-950">{guide.title}</h2>
-              <p className="mt-3 text-sm leading-6 text-slate-600">{guide.description}</p>
-              <div className="mt-5 text-sm font-bold text-brand-navy">읽어보기 →</div>
-            </Link>
-          ))}
+        <AdFitTopBanner />
+        <div className="relative mt-8">
+          <div className="grid gap-5 md:grid-cols-2">
+            {guides.map((guide) => (
+              <Link key={guide.slug} href={guide.path} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-soft">
+                <p className="text-sm font-semibold text-brand-emerald">{guide.category}</p>
+                <h2 className="mt-2 text-xl font-bold text-slate-950">{guide.title}</h2>
+                <p className="mt-3 text-sm leading-6 text-slate-600">{guide.description}</p>
+                <div className="mt-5 text-sm font-bold text-brand-navy">읽어보기 →</div>
+              </Link>
+            ))}
+          </div>
+          <AdFitSideBanner />
         </div>
       </PageContainer>
     </>

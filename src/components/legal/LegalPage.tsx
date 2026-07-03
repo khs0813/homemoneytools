@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { AdFitInlineBanner, AdFitTopBanner } from "@/components/adfit/AdFitPageAds";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { siteConfig } from "@/config/site";
 
@@ -12,12 +13,14 @@ export function LegalPage({
   eyebrow,
   title,
   description,
-  sections
+  sections,
+  children
 }: {
   eyebrow: string;
   title: string;
   description: string;
   sections: LegalSection[];
+  children?: ReactNode;
 }) {
   return (
     <PageContainer className="py-10 md:py-14">
@@ -39,6 +42,9 @@ export function LegalPage({
             </dd>
           </div>
         </dl>
+        <AdFitTopBanner />
+        <AdFitInlineBanner />
+        {children}
         <div className="mt-10 grid gap-8">
           {sections.map((section) => (
             <section key={section.title} className="border-t border-slate-200 pt-8">
