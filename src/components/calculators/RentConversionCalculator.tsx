@@ -63,7 +63,7 @@ export function RentConversionCalculator() {
     <CalculatorWorkspace
       pinForm={Boolean(result)}
       result={result ? (
-        <ResultCard title={result.type === "jeonse-to-rent" ? "예상 월세" : "전세 환산 금액"} value={result.type === "jeonse-to-rent" ? formatKoreanMoney(result.monthlyRent) : formatKoreanMoney(result.jeonseEquivalent)} description={`${result.years}년 기준 총 월세는 ${formatKoreanMoney(result.totalRentForPeriod)}입니다.`}>
+        <ResultCard title={result.type === "jeonse-to-rent" ? "예상 월세" : "전세 환산 금액"} value={result.type === "jeonse-to-rent" ? formatKoreanMoney(result.monthlyRent) : formatKoreanMoney(result.jeonseEquivalent)} description={`${result.years}년 기준 총 월세는 ${formatKoreanMoney(result.totalRentForPeriod)}입니다. 환산 결과는 참고용입니다.`}>
           <ResultRow label="예상 월세" value={formatKoreanMoney(result.monthlyRent)} />
           <ResultRow label="전세 환산 금액" value={formatKoreanMoney(result.jeonseEquivalent)} />
           <ResultRow label="기간 내 월세 총액" value={formatKoreanMoney(result.totalRentForPeriod)} />

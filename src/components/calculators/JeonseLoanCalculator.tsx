@@ -66,7 +66,7 @@ export function JeonseLoanCalculator() {
     <CalculatorWorkspace
       pinForm={Boolean(result)}
       result={result ? (
-        <ResultCard title="예상 월 납입액" value={formatCurrency(result.monthlyPayment)} description="입력하신 상환방식 기준 예상 월 납입액입니다.">
+        <ResultCard title="예상 월 납입액" value={formatCurrency(result.monthlyPayment)} description="입력하신 상환방식 기준 예상 월 납입액이며 참고용입니다.">
           <ResultRow label="월 이자만 낼 경우" value={formatCurrency(result.monthlyInterestOnly)} />
           <ResultRow label="첫 달 납입액" value={formatCurrency(result.firstMonthlyPayment)} />
           <ResultRow label="마지막 달 납입액" value={formatCurrency(result.lastMonthlyPayment)} />

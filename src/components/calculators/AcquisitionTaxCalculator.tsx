@@ -75,7 +75,7 @@ export function AcquisitionTaxCalculator() {
     <CalculatorWorkspace
       pinForm={Boolean(result)}
       result={result ? (
-        <ResultCard title="예상 총 납부액" value={formatKoreanMoney(result.totalTax)} description={`적용 세율은 약 ${formatPercent(result.rate)}이며, 기준 버전은 ${result.version}입니다.`}>
+        <ResultCard title="예상 총 납부액" value={formatKoreanMoney(result.totalTax)} description={`적용 세율은 약 ${formatPercent(result.rate)}이며, 기준 버전은 ${result.version}입니다. 계산 결과는 참고용입니다.`}>
           <ResultRow label="취득세 감면 전" value={formatKoreanMoney(result.acquisitionTaxBeforeDiscount)} />
           <ResultRow label="생애최초 감면 추정" value={formatKoreanMoney(result.firstHomeDiscount)} />
           <ResultRow label="취득세" value={formatKoreanMoney(result.acquisitionTax)} />

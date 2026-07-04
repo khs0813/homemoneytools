@@ -76,7 +76,7 @@ export function DsrCalculator() {
     <CalculatorWorkspace
       pinForm={Boolean(result)}
       result={result ? (
-        <ResultCard title={statusText} value={formatPercent(result.dsr)} description={`입력한 DSR 기준은 ${result.dsrLimit}%입니다.`}>
+        <ResultCard title={statusText} value={formatPercent(result.dsr)} description={`입력한 DSR 기준은 ${result.dsrLimit}%입니다. 본 계산 결과는 참고용입니다.`}>
           <ResultRow label="연간 원리금 상환액" value={formatKoreanMoney(result.totalAnnualRepayment)} />
           <ResultRow label="월평균 상환액" value={formatCurrency(result.monthlyAverageRepayment)} />
           <ResultRow label="주담대 연상환액" value={formatKoreanMoney(result.annualMortgagePayment)} />

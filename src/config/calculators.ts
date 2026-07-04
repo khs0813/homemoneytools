@@ -247,13 +247,14 @@ export const calculators: CalculatorInfo[] = [
     example: "대출금액 1억 원, 연 4.8%, 만기일시상환이면 월 이자는 1억 × 4.8% ÷ 12 = 40만 원입니다.",
     caution: "전세대출 금리는 금융기관, 보증기관, 우대금리, 개인 신용 조건에 따라 달라질 수 있습니다.",
     faqs: [
-      { question: "전세대출 이자는 어떻게 계산하나요?", answer: "만기일시상환 기준으로는 대출금액에 연이율을 곱한 뒤 12로 나누어 월 이자를 계산합니다." },
-      { question: "원리금균등과 만기일시상환의 차이는 무엇인가요?", answer: "만기일시상환은 매월 이자만 내고 만기에 원금을 갚는 방식이며, 원리금균등은 매월 원금과 이자를 함께 갚는 방식입니다." },
+      { question: "1억 전세대출 이자는 한 달에 얼마인가요?", answer: "금리 4% 기준으로 단순 이자 계산 시 월 약 33만 원입니다. 실제 납입액은 상환 방식과 금융기관 조건에 따라 달라질 수 있습니다." },
+      { question: "2억 전세대출 이자는 한 달에 얼마인가요?", answer: "금리 4% 기준으로 단순 이자 계산 시 월 약 67만 원입니다. 실제 금리와 상환 방식에 따라 차이가 있습니다." },
+      { question: "전세대출 이자 계산 결과가 실제 납입액과 같나요?", answer: "아닙니다. 이 계산기는 참고용이며, 실제 납입액은 대출 상품, 금리, 상환 방식, 보증료 등에 따라 달라질 수 있습니다." },
       { question: "보증료도 계산에 포함되나요?", answer: "선택 입력한 보증료율이 있으면 예상 보증료를 별도로 표시합니다." },
       { question: "전세대출 한도는 여기서 알 수 있나요?", answer: "이 페이지는 이자와 상환 부담 계산에 집중하며 실제 한도는 금융기관 심사 기준을 확인해야 합니다." },
       { question: "계약 전 어떤 금리 시나리오를 봐야 하나요?", answer: "현재 금리뿐 아니라 0.5%p, 1%p 높은 금리도 함께 넣어 월 부담 변화를 확인하는 것이 좋습니다." }
     ],
-    relatedSlugs: ["rent-vs-jeonse", "monthly-rent-conversion", "dsr"]
+    relatedSlugs: ["dsr", "monthly-rent-conversion", "rent-vs-jeonse"]
   },
   {
     slug: "rent-vs-jeonse",
@@ -282,8 +283,8 @@ export const calculators: CalculatorInfo[] = [
     guidePath: "/guides/what-dsr-40-means",
     title: "주택담보대출 DSR 계산기",
     shortTitle: "DSR",
-    seoTitle: "DSR 계산기 - 주담대 한도·스트레스 금리 반영",
-    metaDescription: "연소득, 기존대출, 주담대 금리와 기간을 입력해 DSR 40% 기준과 스트레스 금리 반영 결과를 계산합니다. 연봉 5000·7000 기준 한도 점검에 활용하세요.",
+    seoTitle: "주담대·스트레스 DSR 계산기 - 연소득별 월 상환액 계산",
+    metaDescription: "주택담보대출 금액, 금리, 상환기간, 연소득을 입력해 예상 DSR 비율과 스트레스 DSR 기준의 월 상환액을 계산할 수 있습니다.",
     category: "주거·대출",
     description: "연소득과 대출 정보를 입력해 DSR과 기준 대비 여유 금액을 계산합니다.",
     keywords: ["DSR 계산기", "주담대 DSR 계산", "주택담보대출 한도 계산"],
@@ -291,13 +292,13 @@ export const calculators: CalculatorInfo[] = [
     example: "연소득 7천만 원이고 모든 대출의 연간 상환액이 2천1백만 원이면 DSR은 30%입니다.",
     caution: "DSR은 금융기관별 심사 기준, 스트레스 금리, 대출 종류, 대출 만기, 개인 조건에 따라 다르게 산정될 수 있습니다.",
     faqs: [
-      { question: "DSR은 무엇인가요?", answer: "총부채원리금상환비율로, 연소득 대비 모든 대출의 연간 원리금 상환액 비율을 의미합니다." },
-      { question: "DSR 40%는 무슨 뜻인가요?", answer: "연소득의 40% 이내에서 대출 원리금을 상환해야 한다는 기준으로 이해할 수 있습니다." },
-      { question: "신용대출도 포함되나요?", answer: "네. 이 계산기는 기존 신용대출과 기타대출 연상환액을 함께 반영할 수 있습니다." },
-      { question: "스트레스 금리는 왜 보나요?", answer: "향후 금리 상승을 가정해 보수적으로 상환능력을 보는 지표이기 때문입니다." },
-      { question: "승인 여부를 확정해주나요?", answer: "아니요. 이 계산기는 사전 점검용이며 실제 심사는 금융기관 정책에 따릅니다." }
+      { question: "주담대 DSR 계산 결과가 실제 대출 한도인가요?", answer: "아닙니다. 이 계산기는 입력값 기준의 참고용 계산이며, 실제 한도는 금융기관 심사, 소득 인정 방식, 금리, 상환 방식, 정책 기준에 따라 달라질 수 있습니다." },
+      { question: "DSR 40%는 무슨 뜻인가요?", answer: "연간 소득 대비 연간 원리금 상환액의 비율이 40%라는 뜻입니다. 실제 적용 기준은 대출 종류와 정책에 따라 달라질 수 있습니다." },
+      { question: "스트레스 DSR도 함께 봐야 하나요?", answer: "주택담보대출을 고려한다면 일반 DSR뿐 아니라 스트레스 DSR 기준도 함께 확인하는 것이 좋습니다." },
+      { question: "스트레스 DSR과 일반 DSR은 무엇이 다른가요?", answer: "일반 DSR은 현재 조건을 기준으로 상환 부담을 계산하고, 스트레스 DSR은 금리 상승 가능성 등을 반영해 더 보수적으로 상환 부담을 보는 방식입니다." },
+      { question: "주담대 신청 전 이 계산기를 어떻게 활용하면 좋나요?", answer: "연소득, 대출금, 금리, 상환기간을 바꿔가며 예상 월 상환액과 DSR 비율을 비교하는 용도로 사용할 수 있습니다." }
     ],
-    relatedSlugs: ["jeonse-loan-interest", "acquisition-tax", "rent-vs-jeonse"]
+    relatedSlugs: ["jeonse-loan-interest", "monthly-rent-conversion", "acquisition-tax"]
   },
   {
     slug: "acquisition-tax",
@@ -347,10 +348,10 @@ export const calculators: CalculatorInfo[] = [
     slug: "monthly-rent-conversion",
     path: "/monthly-rent-conversion-calculator",
     guidePath: "/guides/monthly-rent-conversion-basics",
-    title: "월세 환산 계산기",
-    shortTitle: "월세 환산",
-    seoTitle: "월세 환산 계산기 - 전세·월세 전환율 계산",
-    metaDescription: "전세를 월세로 바꾸거나 월세를 전세금으로 환산합니다. 월세 50 전세 환산, 보증금 조정, 전월세 전환율 협상 기준을 확인하세요.",
+    title: "월세 전세 환산 계산기",
+    shortTitle: "월세 전세 환산",
+    seoTitle: "월세 전세 환산 계산기 - 보증금·월세 전환금액 계산",
+    metaDescription: "보증금과 월세를 입력하면 전세 환산금액과 월세 환산금액을 바로 계산할 수 있는 무료 전월세 환산 계산기입니다.",
     category: "주거·비교",
     description: "전세를 월세로 전환하거나 월세를 전세금으로 환산할 때 예상 금액을 계산합니다.",
     keywords: ["월세 환산 계산기", "전세 월세 전환 계산", "전월세 전환율 계산"],
@@ -358,13 +359,13 @@ export const calculators: CalculatorInfo[] = [
     example: "전세금 5억 원, 보증금 1억 원, 전환율 5%이면 월세는 약 166만 6,667원입니다.",
     caution: "실제 전월세 전환은 법정 상한, 시장 임대료, 계약 조건에 따라 달라질 수 있습니다.",
     faqs: [
-      { question: "전월세 전환율은 무엇인가요?", answer: "전세보증금 일부를 월세로 바꿀 때 적용하는 연 환산 비율입니다." },
-      { question: "보증금을 높이면 월세가 줄어드나요?", answer: "네. 같은 전세금과 전환율이라면 보증금이 높아질수록 월세로 전환되는 금액이 줄어듭니다." },
-      { question: "월세를 전세로도 환산할 수 있나요?", answer: "월세와 보증금, 전환율을 입력하면 전세 환산 금액을 계산할 수 있습니다." },
-      { question: "전환율은 어디서 정하나요?", answer: "법정 상한과 시장 관행이 있지만 실제 계약은 당사자 협의가 중요합니다." },
+      { question: "월세 전세 환산 결과가 실제 계약 금액과 같나요?", answer: "아닙니다. 환산 결과는 입력한 전환율을 기준으로 한 참고용 계산입니다. 실제 계약 금액은 지역, 집 상태, 시장 상황, 임대인과 임차인의 협의에 따라 달라질 수 있습니다." },
+      { question: "전월세 전환율은 직접 입력해야 하나요?", answer: "가능하면 현재 조건에 맞는 전월세 전환율을 직접 입력하는 것이 좋습니다. 기본값은 참고용 기본값으로 보고 계약 전에는 시장 조건을 따로 확인해야 합니다." },
+      { question: "보증금과 월세를 동시에 입력해도 되나요?", answer: "네. 보증금과 월세를 입력하면 설정한 전환율 기준으로 전세 환산금액을 계산할 수 있습니다." },
+      { question: "전세 보증금을 월세로 전환할 때도 쓸 수 있나요?", answer: "네. 전세금, 조정 후 보증금, 전환율을 입력하면 예상 월세를 계산할 수 있습니다." },
       { question: "계산값이 시세와 다른 이유는 무엇인가요?", answer: "입지, 옵션, 수요, 계약기간 같은 시장 요소가 반영되지 않기 때문입니다." }
     ],
-    relatedSlugs: ["rent-vs-jeonse", "jeonse-loan-interest", "brokerage-fee"]
+    relatedSlugs: ["jeonse-loan-interest", "dsr", "rent-vs-jeonse"]
   },
   {
     slug: "housing-subscription-score",

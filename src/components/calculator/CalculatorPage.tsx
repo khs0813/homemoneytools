@@ -194,6 +194,46 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
         </div>
       </section>
 
+      {seoContent.contentSections?.map((section) => (
+        <section key={section.heading} className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+          <h2 className="text-2xl font-black text-slate-950">{section.heading}</h2>
+          <div className="mt-5 grid gap-4 text-base leading-8 text-slate-600">
+            {section.paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+          {section.table ? (
+            <div className="mt-6 overflow-x-auto">
+              <table className="min-w-full border-separate border-spacing-0 text-left text-sm">
+                <thead>
+                  <tr>
+                    {section.table.headers.map((header, index) => (
+                      <th
+                        key={header}
+                        className={`${index === 0 ? "rounded-l-2xl" : ""} ${index === section.table!.headers.length - 1 ? "rounded-r-2xl" : ""} bg-slate-100 px-4 py-3 font-bold text-slate-950`}
+                      >
+                        {header}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {section.table.rows.map((row) => (
+                    <tr key={row.join("-")}>
+                      {row.map((cell) => (
+                        <td key={cell} className="border-b border-slate-100 px-4 py-4 align-top text-slate-600">
+                          {cell}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : null}
+        </section>
+      ))}
+
       <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
         <h2 className="text-2xl font-black text-slate-950">주의사항과 참고 범위</h2>
         <div className="mt-5 grid gap-3 text-sm leading-7 text-slate-600">
