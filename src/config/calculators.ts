@@ -11,6 +11,7 @@ export type CalculatorInfo = {
   shortTitle: string;
   seoTitle?: string;
   metaDescription?: string;
+  contentLastModified?: string;
   category: string;
   description: string;
   keywords: string[];
@@ -240,6 +241,7 @@ export const calculators: CalculatorInfo[] = [
     shortTitle: "전세대출 이자",
     seoTitle: "전세대출 이자 계산기 - 월 이자·총이자 계산",
     metaDescription: "전세보증금, 대출금액, 금리, 기간을 입력해 전세대출 월 이자와 총이자를 계산합니다. 1억·2억 전세대출 이자와 금리 상승 시나리오도 함께 확인하세요.",
+    contentLastModified: "2026-07-04",
     category: "주거·대출",
     description: "전세보증금, 대출금액, 금리, 기간, 상환방식을 입력하면 월 이자와 총 이자를 계산할 수 있습니다.",
     keywords: ["전세대출 이자 계산기", "전세대출 월 이자", "전세자금대출 이자 계산"],
@@ -285,6 +287,7 @@ export const calculators: CalculatorInfo[] = [
     shortTitle: "DSR",
     seoTitle: "주담대·스트레스 DSR 계산기 - 연소득별 월 상환액 계산",
     metaDescription: "주택담보대출 금액, 금리, 상환기간, 연소득을 입력해 예상 DSR 비율과 스트레스 DSR 기준의 월 상환액을 계산할 수 있습니다.",
+    contentLastModified: "2026-07-04",
     category: "주거·대출",
     description: "연소득과 대출 정보를 입력해 DSR과 기준 대비 여유 금액을 계산합니다.",
     keywords: ["DSR 계산기", "주담대 DSR 계산", "주택담보대출 한도 계산"],
@@ -308,6 +311,7 @@ export const calculators: CalculatorInfo[] = [
     shortTitle: "취득세",
     seoTitle: "취득세 계산기 - 주택 수·조정대상지역 반영",
     metaDescription: "주택 가격, 주택 수, 조정대상지역, 생애최초 감면 여부를 반영해 취득세와 지방교육세 등 부가 세목을 추정합니다. 6억·9억 아파트 취득세를 빠르게 확인하세요.",
+    contentLastModified: "2026-07-04",
     category: "부동산·세금",
     description: "주택 가격, 주택 수, 조정대상지역 여부, 취득 유형을 입력해 취득세와 부가 세목을 추정합니다.",
     keywords: ["취득세 계산기", "아파트 취득세 계산", "주택 취득세 계산"],
@@ -352,6 +356,7 @@ export const calculators: CalculatorInfo[] = [
     shortTitle: "월세 전세 환산",
     seoTitle: "월세 전세 환산 계산기 - 보증금·월세 전환금액 계산",
     metaDescription: "보증금과 월세를 입력하면 전세 환산금액과 월세 환산금액을 바로 계산할 수 있는 무료 전월세 환산 계산기입니다.",
+    contentLastModified: "2026-07-04",
     category: "주거·비교",
     description: "전세를 월세로 전환하거나 월세를 전세금으로 환산할 때 예상 금액을 계산합니다.",
     keywords: ["월세 환산 계산기", "전세 월세 전환 계산", "전월세 전환율 계산"],

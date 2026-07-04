@@ -4,7 +4,10 @@ import { isHousingCalculator } from "@/config/housing-content";
 import { siteConfig } from "@/config/site";
 
 const baseUrl = siteConfig.url.replace(/\/$/, "");
-const lastBuildDate = new Date(siteConfig.lastUpdated).toUTCString();
+
+function toRssDate(date: string): string {
+  return new Date(date).toUTCString();
+}
 
 function escapeXml(value: string): string {
   return value
@@ -22,14 +25,18 @@ export function GET() {
       .map((calculator) => ({
         title: calculator.title,
         description: calculator.description,
-        path: calculator.path
+        path: calculator.path,
+        lastModified: calculator.contentLastModified ?? siteConfig.lastUpdated
       })),
     ...guides.map((guide) => ({
       title: guide.title,
       description: guide.description,
-      path: guide.path
+      path: guide.path,
+      lastModified: siteConfig.lastUpdated
     }))
   ];
+  const latestItemDate = items.reduce<string>((latest, item) => (item.lastModified > latest ? item.lastModified : latest), siteConfig.lastUpdated);
+  const lastBuildDate = toRssDate(latestItemDate);
 
   const xml = `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0">
@@ -46,7 +53,7 @@ export function GET() {
       <link>${baseUrl}${item.path}</link>
       <guid>${baseUrl}${item.path}</guid>
       <description>${escapeXml(item.description)}</description>
-      <pubDate>${lastBuildDate}</pubDate>
+      <pubDate>${toRssDate(item.lastModified)}</pubDate>
     </item>`
       )
       .join("\n    ")}

@@ -1,4 +1,6 @@
 import { describe, expect, it } from "vitest";
+import sitemap from "@/app/sitemap";
+import { GET as getRss } from "@/app/rss.xml/route";
 import { calculators } from "@/config/calculators";
 import { siteConfig } from "@/config/site";
 import { absoluteUrl, buildCalculatorMetadata, buildPageMetadata } from "@/lib/seo";
@@ -47,5 +49,38 @@ describe("SEO configuration", () => {
     expect(siteConfig.contactEmail).toMatch(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
     expect(siteConfig.lastUpdated).toBe("2026-06-04");
     expect(siteConfig.name).toBe("집계산");
+  });
+
+  it("uses per-page lastmod only for recently updated calculator content", () => {
+    const urls = sitemap();
+    const byUrl = new Map(urls.map((item) => [item.url, item.lastModified]));
+
+    expect(byUrl.get(`${siteConfig.url}/dsr-calculator`)).toBe("2026-07-04");
+    expect(byUrl.get(`${siteConfig.url}/jeonse-loan-interest-calculator`)).toBe("2026-07-04");
+    expect(byUrl.get(`${siteConfig.url}/monthly-rent-conversion-calculator`)).toBe("2026-07-04");
+    expect(byUrl.get(`${siteConfig.url}/acquisition-tax-calculator`)).toBe("2026-07-04");
+    expect(byUrl.get(`${siteConfig.url}/rent-vs-jeonse-calculator`)).toBe(siteConfig.lastUpdated);
+  });
+
+  it("uses matching item pubDate values in RSS without updating every item", async () => {
+    const response = getRss();
+    const xml = await response.text();
+    const updatedPubDate = new Date("2026-07-04").toUTCString();
+    const defaultPubDate = new Date(siteConfig.lastUpdated).toUTCString();
+
+    function pubDateForPath(path: string) {
+      const link = `<link>${siteConfig.url}${path}</link>`;
+      const linkIndex = xml.indexOf(link);
+      expect(linkIndex).toBeGreaterThan(-1);
+      const itemStart = xml.lastIndexOf("<item>", linkIndex);
+      const itemEnd = xml.indexOf("</item>", linkIndex);
+      return xml.slice(itemStart, itemEnd).match(/<pubDate>(.*?)<\/pubDate>/)?.[1];
+    }
+
+    expect(pubDateForPath("/dsr-calculator")).toBe(updatedPubDate);
+    expect(pubDateForPath("/jeonse-loan-interest-calculator")).toBe(updatedPubDate);
+    expect(pubDateForPath("/monthly-rent-conversion-calculator")).toBe(updatedPubDate);
+    expect(pubDateForPath("/acquisition-tax-calculator")).toBe(updatedPubDate);
+    expect(pubDateForPath("/rent-vs-jeonse-calculator")).toBe(defaultPubDate);
   });
 });

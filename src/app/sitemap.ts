@@ -5,7 +5,7 @@ import { siteConfig } from "@/config/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url.replace(/\/$/, "");
-  const lastModified = siteConfig.lastUpdated;
+  const calculatorLastModifiedByPath = new Map(calculators.map((calculator) => [calculator.path, calculator.contentLastModified]));
   const staticPaths = ["/", "/about", "/calculators", "/guides", "/privacy-policy", "/terms", "/disclaimer", "/contact"];
   const paths = [
     ...staticPaths,
@@ -15,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return Array.from(new Set(paths)).map((path) => ({
     url: `${base}${path}`,
-    lastModified,
+    lastModified: calculatorLastModifiedByPath.get(path) ?? siteConfig.lastUpdated,
     changeFrequency: path === "/" ? "weekly" : path.startsWith("/guides/") ? "monthly" : "monthly",
     priority: path === "/" ? 1 : path.includes("calculator") ? 0.85 : path.startsWith("/guides/") ? 0.75 : 0.7
   }));
