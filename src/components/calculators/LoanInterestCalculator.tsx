@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,14 +12,12 @@ import { ResultCard } from "@/components/calculator/ResultCard";
 import { ResultRow } from "@/components/calculator/ResultRow";
 import { ShareButton } from "@/components/calculator/ShareButton";
 import { calculateLoanInterest } from "@/lib/calculators/finance";
-import { formatKoreanMoney } from "@/lib/format";
-import { getEnumParam, getNumberParam, writeQueryState } from "@/lib/query-state";
-import type { RepaymentType } from "@/lib/calculators/loan";
+import { formatKoreanMoney, MAX_SAFE_MONEY_AMOUNT, MAX_SAFE_RATE_PERCENT, MAX_SAFE_YEARS } from "@/lib/format";
 
 const schema = z.object({
-  principal: z.number().finite().min(1),
-  annualRate: z.number().finite().min(0),
-  years: z.number().finite().min(0.5),
+  principal: z.number().finite().min(1).max(MAX_SAFE_MONEY_AMOUNT),
+  annualRate: z.number().finite().min(0).max(MAX_SAFE_RATE_PERCENT),
+  years: z.number().finite().min(0.5).max(MAX_SAFE_YEARS),
   repaymentType: z.enum(["interest-only", "equal-payment", "equal-principal"])
 });
 
@@ -35,20 +33,10 @@ const defaultValues: FormValues = {
 
 export function LoanInterestCalculator() {
   const [result, setResult] = useState<Result>(null);
-  const { control, handleSubmit, reset } = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues });
-
-  useEffect(() => {
-    reset({
-      principal: getNumberParam("principal", defaultValues.principal),
-      annualRate: getNumberParam("annualRate", defaultValues.annualRate),
-      years: getNumberParam("years", defaultValues.years),
-      repaymentType: getEnumParam("repaymentType", ["interest-only", "equal-payment", "equal-principal"] as const, defaultValues.repaymentType) as RepaymentType
-    });
-  }, [reset]);
+  const { control, handleSubmit } = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues });
 
   function onSubmit(values: FormValues) {
     setResult(calculateLoanInterest(values));
-    writeQueryState(values);
   }
 
   return (
@@ -67,8 +55,8 @@ export function LoanInterestCalculator() {
       <form onSubmit={handleSubmit(onSubmit)} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
         <div className="grid gap-5 md:grid-cols-2">
           <Controller name="principal" control={control} render={({ field }) => <MoneyInput label="대출원금" required value={field.value} onChange={field.onChange} />} />
-          <Controller name="annualRate" control={control} render={({ field }) => <PercentInput label="연이율" required value={field.value} onChange={field.onChange} />} />
-          <Controller name="years" control={control} render={({ field }) => <NumberInput label="대출기간" required value={field.value} onChange={field.onChange} suffix="년" step={0.5} />} />
+          <Controller name="annualRate" control={control} render={({ field }) => <PercentInput label="연이율" required value={field.value} onChange={field.onChange} min={0} max={30} />} />
+          <Controller name="years" control={control} render={({ field }) => <NumberInput label="대출기간" required value={field.value} onChange={field.onChange} suffix="년" min={0.5} max={50} step={0.5} />} />
           <Controller
             name="repaymentType"
             control={control}

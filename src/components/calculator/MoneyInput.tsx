@@ -22,6 +22,8 @@ export function MoneyInput({ label, value, onChange, helper, required }: MoneyIn
       <div className="mt-2 flex rounded-2xl border border-slate-200 bg-white focus-within:border-brand-navy focus-within:ring-4 focus-within:ring-blue-50">
         <input
           inputMode="numeric"
+          pattern="[0-9,]*"
+          maxLength={24}
           value={displayValue}
           onChange={(event) => onChange(clamp(parseDigits(event.target.value, Math.floor(MAX_SAFE_MONEY_AMOUNT / factor)) * factor, 0, MAX_SAFE_MONEY_AMOUNT))}
           className="min-w-0 flex-1 rounded-l-2xl border-0 bg-transparent px-4 py-3 text-base outline-none"

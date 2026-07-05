@@ -1,4 +1,7 @@
 export const MAX_SAFE_MONEY_AMOUNT = 1_000_000_000_000_000;
+export const MAX_SAFE_RATE_PERCENT = 100;
+export const MAX_SAFE_YEARS = 100;
+export const MAX_DECIMAL_PLACES = 4;
 
 export function clamp(value: number, min: number, max: number): number {
   if (!Number.isFinite(value)) return min;
@@ -8,6 +11,17 @@ export function clamp(value: number, min: number, max: number): number {
 
 export function sanitizeNumber(value: number, min = 0, max = MAX_SAFE_MONEY_AMOUNT): number {
   return clamp(value, min, max);
+}
+
+export function parseBoundedNumber(value: string, min = 0, max = MAX_SAFE_MONEY_AMOUNT, maxDecimalPlaces = MAX_DECIMAL_PLACES): number {
+  const trimmed = value.trim();
+  if (!trimmed) return min;
+  if (!/^\d+(?:\.\d+)?$/.test(trimmed)) return min;
+  const decimalPart = trimmed.split(".")[1];
+  if (decimalPart && decimalPart.length > maxDecimalPlaces) return min;
+
+  const parsed = Number(trimmed);
+  return clamp(parsed, min, max);
 }
 
 export function roundTo(value: number, digits = 0): number {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,12 +9,11 @@ import { ResultCard } from "@/components/calculator/ResultCard";
 import { ResultRow } from "@/components/calculator/ResultRow";
 import { ShareButton } from "@/components/calculator/ShareButton";
 import { CalculatorWorkspace } from "@/components/calculator/CalculatorWorkspace";
-import { calculateAcquisitionTax, type AcquisitionType, type HouseCount } from "@/lib/calculators/acquisition-tax";
-import { formatKoreanMoney, formatPercent } from "@/lib/format";
-import { getBooleanParam, getEnumParam, getNumberParam, writeQueryState } from "@/lib/query-state";
+import { calculateAcquisitionTax } from "@/lib/calculators/acquisition-tax";
+import { formatKoreanMoney, formatPercent, MAX_SAFE_MONEY_AMOUNT } from "@/lib/format";
 
 const schema = z.object({
-  price: z.number().finite().min(1),
+  price: z.number().finite().min(1).max(MAX_SAFE_MONEY_AMOUNT),
   houseCount: z.enum(["one", "two", "threeOrMore"]),
   isRegulatedArea: z.boolean(),
   acquisitionType: z.enum(["purchase", "gift", "inheritance"]),
@@ -50,25 +49,11 @@ function BooleanSelect({ value, onChange, label }: { value: boolean; onChange: (
 
 export function AcquisitionTaxCalculator() {
   const [result, setResult] = useState<Result>(null);
-  const { control, handleSubmit, reset } = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues });
-
-  useEffect(() => {
-    reset({
-      ...defaultValues,
-      price: getNumberParam("price", defaultValues.price),
-      houseCount: getEnumParam("houseCount", ["one", "two", "threeOrMore"] as const, defaultValues.houseCount) as HouseCount,
-      isRegulatedArea: getBooleanParam("isRegulatedArea", defaultValues.isRegulatedArea),
-      acquisitionType: getEnumParam("acquisitionType", ["purchase", "gift", "inheritance"] as const, defaultValues.acquisitionType) as AcquisitionType,
-      isFirstHome: getBooleanParam("isFirstHome", defaultValues.isFirstHome),
-      includeLocalEducationTax: getBooleanParam("includeLocalEducationTax", defaultValues.includeLocalEducationTax),
-      includeSpecialRuralTax: getBooleanParam("includeSpecialRuralTax", defaultValues.includeSpecialRuralTax)
-    });
-  }, [reset]);
+  const { control, handleSubmit } = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues });
 
   function onSubmit(values: FormValues) {
     const calculated = calculateAcquisitionTax(values);
     setResult(calculated);
-    writeQueryState(values);
   }
 
   return (

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,7 +11,6 @@ import { ShareButton } from "@/components/calculator/ShareButton";
 import { CalculatorWorkspace } from "@/components/calculator/CalculatorWorkspace";
 import { calculateSubscriptionScore } from "@/lib/calculators/subscription-score";
 import { todayInputValue } from "@/lib/date";
-import { getDateParam, getEnumParam, getNumberParam, writeQueryState } from "@/lib/query-state";
 
 const schema = z.object({
   birthDate: z.string().min(1),
@@ -47,26 +46,12 @@ function DateInput({ label, value, onChange, required }: { label: string; value?
 
 export function SubscriptionScoreCalculator() {
   const [result, setResult] = useState<Result>(null);
-  const { control, handleSubmit, reset } = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues });
+  const { control, handleSubmit } = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues });
   const maritalStatus = useWatch({ control, name: "maritalStatus" });
-
-  useEffect(() => {
-    reset({
-      ...defaultValues,
-      birthDate: getDateParam("birthDate", defaultValues.birthDate),
-      maritalStatus: getEnumParam("maritalStatus", ["single", "married"] as const, defaultValues.maritalStatus),
-      marriageDate: getDateParam("marriageDate", defaultValues.marriageDate ?? ""),
-      homelessStartDate: getDateParam("homelessStartDate", defaultValues.homelessStartDate),
-      dependents: getNumberParam("dependents", defaultValues.dependents),
-      accountStartDate: getDateParam("accountStartDate", defaultValues.accountStartDate),
-      announcementDate: getDateParam("announcementDate", defaultValues.announcementDate)
-    });
-  }, [reset]);
 
   function onSubmit(values: FormValues) {
     const calculated = calculateSubscriptionScore(values);
     setResult(calculated);
-    writeQueryState(values);
   }
 
   return (
@@ -103,7 +88,7 @@ export function SubscriptionScoreCalculator() {
           />
           {maritalStatus === "married" ? <Controller name="marriageDate" control={control} render={({ field }) => <DateInput label="혼인신고일" value={field.value} onChange={field.onChange} />} /> : null}
           <Controller name="homelessStartDate" control={control} render={({ field }) => <DateInput label="무주택 시작일" required value={field.value} onChange={field.onChange} />} />
-          <Controller name="dependents" control={control} render={({ field }) => <NumberInput label="부양가족 수" required suffix="명" value={field.value} onChange={field.onChange} min={0} />} />
+          <Controller name="dependents" control={control} render={({ field }) => <NumberInput label="부양가족 수" required suffix="명" value={field.value} onChange={field.onChange} min={0} max={6} />} />
           <Controller name="accountStartDate" control={control} render={({ field }) => <DateInput label="청약통장 가입일" required value={field.value} onChange={field.onChange} />} />
           <Controller name="announcementDate" control={control} render={({ field }) => <DateInput label="입주자모집공고일" required value={field.value} onChange={field.onChange} />} />
         </div>

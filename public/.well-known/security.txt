@@ -1,0 +1,4 @@
+Contact: mailto:moneyfinancecalculator@gmail.com
+Preferred-Languages: ko, en
+Canonical: https://jipcalc.co.kr/.well-known/security.txt
+Expires: 2027-07-05T00:00:00Z

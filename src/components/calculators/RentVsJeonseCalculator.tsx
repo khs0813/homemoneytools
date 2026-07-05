@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,19 +12,18 @@ import { ResultRow } from "@/components/calculator/ResultRow";
 import { ShareButton } from "@/components/calculator/ShareButton";
 import { CalculatorWorkspace } from "@/components/calculator/CalculatorWorkspace";
 import { calculateRentVsJeonse } from "@/lib/calculators/rent-vs-jeonse";
-import { formatCurrency, formatKoreanMoney } from "@/lib/format";
-import { getNumberParam, writeQueryState } from "@/lib/query-state";
+import { formatCurrency, formatKoreanMoney, MAX_SAFE_MONEY_AMOUNT, MAX_SAFE_RATE_PERCENT, MAX_SAFE_YEARS } from "@/lib/format";
 
 const schema = z.object({
-  jeonseDeposit: z.number().finite().min(1),
-  rentDeposit: z.number().finite().min(0),
-  monthlyRent: z.number().finite().min(0),
-  years: z.number().finite().min(0.1),
-  savingRate: z.number().finite().min(0),
-  jeonseLoanRate: z.number().finite().min(0),
-  jeonseLoanAmount: z.number().finite().min(0),
-  rentGrowthRate: z.number().finite().min(0).optional(),
-  depositGrowthRate: z.number().finite().min(0).optional()
+  jeonseDeposit: z.number().finite().min(1).max(MAX_SAFE_MONEY_AMOUNT),
+  rentDeposit: z.number().finite().min(0).max(MAX_SAFE_MONEY_AMOUNT),
+  monthlyRent: z.number().finite().min(0).max(MAX_SAFE_MONEY_AMOUNT),
+  years: z.number().finite().min(0.1).max(MAX_SAFE_YEARS),
+  savingRate: z.number().finite().min(0).max(MAX_SAFE_RATE_PERCENT),
+  jeonseLoanRate: z.number().finite().min(0).max(MAX_SAFE_RATE_PERCENT),
+  jeonseLoanAmount: z.number().finite().min(0).max(MAX_SAFE_MONEY_AMOUNT),
+  rentGrowthRate: z.number().finite().min(0).max(30).optional(),
+  depositGrowthRate: z.number().finite().min(0).max(30).optional()
 });
 
 type FormValues = z.infer<typeof schema>;
@@ -44,27 +43,11 @@ const defaultValues: FormValues = {
 
 export function RentVsJeonseCalculator() {
   const [result, setResult] = useState<Result>(null);
-  const { control, handleSubmit, reset } = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues });
-
-  useEffect(() => {
-    reset({
-      ...defaultValues,
-      jeonseDeposit: getNumberParam("jeonseDeposit", defaultValues.jeonseDeposit),
-      rentDeposit: getNumberParam("rentDeposit", defaultValues.rentDeposit),
-      monthlyRent: getNumberParam("monthlyRent", defaultValues.monthlyRent),
-      years: getNumberParam("years", defaultValues.years),
-      savingRate: getNumberParam("savingRate", defaultValues.savingRate),
-      jeonseLoanRate: getNumberParam("jeonseLoanRate", defaultValues.jeonseLoanRate),
-      jeonseLoanAmount: getNumberParam("jeonseLoanAmount", defaultValues.jeonseLoanAmount),
-      rentGrowthRate: getNumberParam("rentGrowthRate", defaultValues.rentGrowthRate ?? 0),
-      depositGrowthRate: getNumberParam("depositGrowthRate", defaultValues.depositGrowthRate ?? 0)
-    });
-  }, [reset]);
+  const { control, handleSubmit } = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues });
 
   function onSubmit(values: FormValues) {
     const calculated = calculateRentVsJeonse(values);
     setResult(calculated);
-    writeQueryState(values);
   }
 
   const winnerText = result?.winner === "jeonse" ? "전세가 유리합니다" : result?.winner === "rent" ? "월세가 유리합니다" : "전세와 월세가 비슷합니다";
@@ -89,11 +72,11 @@ export function RentVsJeonseCalculator() {
           <Controller name="jeonseDeposit" control={control} render={({ field }) => <MoneyInput label="전세보증금" required value={field.value} onChange={field.onChange} />} />
           <Controller name="rentDeposit" control={control} render={({ field }) => <MoneyInput label="월세보증금" required value={field.value} onChange={field.onChange} />} />
           <Controller name="monthlyRent" control={control} render={({ field }) => <MoneyInput label="월세" required value={field.value} onChange={field.onChange} />} />
-          <Controller name="years" control={control} render={({ field }) => <NumberInput label="비교기간" required suffix="년" value={field.value} onChange={field.onChange} step={0.5} />} />
-          <Controller name="savingRate" control={control} render={({ field }) => <PercentInput label="예금금리" required value={field.value} onChange={field.onChange} />} />
-          <Controller name="jeonseLoanRate" control={control} render={({ field }) => <PercentInput label="전세대출금리" value={field.value} onChange={field.onChange} />} />
+          <Controller name="years" control={control} render={({ field }) => <NumberInput label="비교기간" required suffix="년" value={field.value} onChange={field.onChange} min={0.1} max={30} step={0.5} />} />
+          <Controller name="savingRate" control={control} render={({ field }) => <PercentInput label="예금금리" required value={field.value} onChange={field.onChange} min={0} max={30} />} />
+          <Controller name="jeonseLoanRate" control={control} render={({ field }) => <PercentInput label="전세대출금리" value={field.value} onChange={field.onChange} min={0} max={30} />} />
           <Controller name="jeonseLoanAmount" control={control} render={({ field }) => <MoneyInput label="전세대출금액" value={field.value} onChange={field.onChange} />} />
-          <Controller name="rentGrowthRate" control={control} render={({ field }) => <PercentInput label="월세 상승률" value={field.value ?? 0} onChange={field.onChange} />} />
+          <Controller name="rentGrowthRate" control={control} render={({ field }) => <PercentInput label="월세 상승률" value={field.value ?? 0} onChange={field.onChange} min={0} max={30} />} />
         </div>
         <button type="submit" className="mt-6 w-full rounded-2xl bg-brand-navy px-5 py-4 font-bold text-white transition hover:bg-blue-950">월세와 전세 비교하기</button>
       </form>

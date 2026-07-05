@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,19 +12,18 @@ import { ResultRow } from "@/components/calculator/ResultRow";
 import { ShareButton } from "@/components/calculator/ShareButton";
 import { CalculatorWorkspace } from "@/components/calculator/CalculatorWorkspace";
 import { calculateDsr } from "@/lib/calculators/dsr";
-import { formatCurrency, formatKoreanMoney, formatPercent } from "@/lib/format";
-import { getEnumParam, getNumberParam, writeQueryState } from "@/lib/query-state";
+import { formatCurrency, formatKoreanMoney, formatPercent, MAX_SAFE_MONEY_AMOUNT, MAX_SAFE_RATE_PERCENT, MAX_SAFE_YEARS } from "@/lib/format";
 
 const schema = z.object({
-  annualIncome: z.number().finite().min(1),
-  mortgageAmount: z.number().finite().min(0),
-  mortgageRate: z.number().finite().min(0),
-  mortgageYears: z.number().finite().min(1),
-  existingCreditLoanAmount: z.number().finite().min(0).optional(),
-  existingCreditLoanRate: z.number().finite().min(0).optional(),
-  otherAnnualRepayment: z.number().finite().min(0).optional(),
-  dsrLimit: z.number().finite().min(1),
-  stressRate: z.number().finite().min(0).optional(),
+  annualIncome: z.number().finite().min(1).max(MAX_SAFE_MONEY_AMOUNT),
+  mortgageAmount: z.number().finite().min(0).max(MAX_SAFE_MONEY_AMOUNT),
+  mortgageRate: z.number().finite().min(0).max(MAX_SAFE_RATE_PERCENT),
+  mortgageYears: z.number().finite().min(1).max(MAX_SAFE_YEARS),
+  existingCreditLoanAmount: z.number().finite().min(0).max(MAX_SAFE_MONEY_AMOUNT).optional(),
+  existingCreditLoanRate: z.number().finite().min(0).max(MAX_SAFE_RATE_PERCENT).optional(),
+  otherAnnualRepayment: z.number().finite().min(0).max(MAX_SAFE_MONEY_AMOUNT).optional(),
+  dsrLimit: z.number().finite().min(1).max(100),
+  stressRate: z.number().finite().min(0).max(10).optional(),
   creditLoanMode: z.enum(["interest-only", "amortized"])
 });
 
@@ -46,28 +45,11 @@ const defaultValues: FormValues = {
 
 export function DsrCalculator() {
   const [result, setResult] = useState<Result>(null);
-  const { control, handleSubmit, reset } = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues });
-
-  useEffect(() => {
-    reset({
-      ...defaultValues,
-      annualIncome: getNumberParam("annualIncome", defaultValues.annualIncome),
-      mortgageAmount: getNumberParam("mortgageAmount", defaultValues.mortgageAmount),
-      mortgageRate: getNumberParam("mortgageRate", defaultValues.mortgageRate),
-      mortgageYears: getNumberParam("mortgageYears", defaultValues.mortgageYears),
-      existingCreditLoanAmount: getNumberParam("existingCreditLoanAmount", defaultValues.existingCreditLoanAmount ?? 0),
-      existingCreditLoanRate: getNumberParam("existingCreditLoanRate", defaultValues.existingCreditLoanRate ?? 0),
-      otherAnnualRepayment: getNumberParam("otherAnnualRepayment", defaultValues.otherAnnualRepayment ?? 0),
-      dsrLimit: getNumberParam("dsrLimit", defaultValues.dsrLimit),
-      stressRate: getNumberParam("stressRate", defaultValues.stressRate ?? 0),
-      creditLoanMode: getEnumParam("creditLoanMode", ["interest-only", "amortized"] as const, defaultValues.creditLoanMode)
-    });
-  }, [reset]);
+  const { control, handleSubmit } = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues });
 
   function onSubmit(values: FormValues) {
     const calculated = calculateDsr(values);
     setResult(calculated);
-    writeQueryState(values);
   }
 
   const statusText = result?.status === "safe" ? "기준 이내입니다" : result?.status === "warning" ? "주의 구간입니다" : "기준 초과 가능성이 있습니다";
@@ -91,13 +73,13 @@ export function DsrCalculator() {
         <div className="grid gap-5 md:grid-cols-2">
           <Controller name="annualIncome" control={control} render={({ field }) => <MoneyInput label="연소득" required value={field.value} onChange={field.onChange} />} />
           <Controller name="mortgageAmount" control={control} render={({ field }) => <MoneyInput label="주택담보대출 금액" required value={field.value} onChange={field.onChange} />} />
-          <Controller name="mortgageRate" control={control} render={({ field }) => <PercentInput label="주담대 금리" required value={field.value} onChange={field.onChange} />} />
-          <Controller name="mortgageYears" control={control} render={({ field }) => <NumberInput label="주담대 기간" required suffix="년" value={field.value} onChange={field.onChange} />} />
+          <Controller name="mortgageRate" control={control} render={({ field }) => <PercentInput label="주담대 금리" required value={field.value} onChange={field.onChange} min={0} max={30} />} />
+          <Controller name="mortgageYears" control={control} render={({ field }) => <NumberInput label="주담대 기간" required suffix="년" value={field.value} onChange={field.onChange} min={1} max={50} />} />
           <Controller name="existingCreditLoanAmount" control={control} render={({ field }) => <MoneyInput label="기존 신용대출 잔액" value={field.value ?? 0} onChange={field.onChange} />} />
-          <Controller name="existingCreditLoanRate" control={control} render={({ field }) => <PercentInput label="기존 신용대출 금리" value={field.value ?? 0} onChange={field.onChange} />} />
+          <Controller name="existingCreditLoanRate" control={control} render={({ field }) => <PercentInput label="기존 신용대출 금리" value={field.value ?? 0} onChange={field.onChange} min={0} max={30} />} />
           <Controller name="otherAnnualRepayment" control={control} render={({ field }) => <MoneyInput label="기타대출 연상환액" value={field.value ?? 0} onChange={field.onChange} />} />
-          <Controller name="dsrLimit" control={control} render={({ field }) => <NumberInput label="DSR 기준" suffix="%" value={field.value} onChange={field.onChange} />} />
-          <Controller name="stressRate" control={control} render={({ field }) => <PercentInput label="스트레스 금리" value={field.value ?? 0} onChange={field.onChange} />} />
+          <Controller name="dsrLimit" control={control} render={({ field }) => <NumberInput label="DSR 기준" suffix="%" value={field.value} onChange={field.onChange} min={1} max={100} />} />
+          <Controller name="stressRate" control={control} render={({ field }) => <PercentInput label="스트레스 금리" value={field.value ?? 0} onChange={field.onChange} min={0} max={10} />} />
           <Controller
             name="creditLoanMode"
             control={control}

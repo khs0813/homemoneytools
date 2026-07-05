@@ -3,6 +3,7 @@ const DEFAULT_MAX_NUMBER = 1_000_000_000_000_000;
 const DATE_INPUT_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const QUERY_KEY_PATTERN = /^[a-zA-Z0-9_-]{1,64}$/;
 const MAX_QUERY_VALUE_LENGTH = 128;
+const SENSITIVE_QUERY_KEY_PATTERN = /(amount|deposit|income|salary|price|rent|principal|loan|mortgage|housing|debt|wage|tax|fee|bonus|payment|repayment|jeonse)/i;
 
 type NumberParamOptions = {
   min?: number;
@@ -30,6 +31,10 @@ export function writeQueryState(values: Record<string, string | number | boolean
   const url = new URL(window.location.href);
   Object.entries(values).forEach(([key, value]) => {
     if (!QUERY_KEY_PATTERN.test(key)) return;
+    if (SENSITIVE_QUERY_KEY_PATTERN.test(key)) {
+      url.searchParams.delete(key);
+      return;
+    }
     if (value === undefined || value === null || value === "") {
       url.searchParams.delete(key);
       return;

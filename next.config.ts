@@ -2,20 +2,15 @@ import type { NextConfig } from "next";
 
 const contentSecurityPolicy = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' 'report-sample' https://t1.kakaocdn.net",
-  "script-src-attr 'none'",
-  "style-src 'self' 'unsafe-inline' 'report-sample'",
+  "base-uri 'self'",
+  "object-src 'none'",
+  "frame-ancestors 'none'",
   "img-src 'self' data: https:",
   "font-src 'self' data:",
-  "connect-src 'self' https://analytics.ad.daum.net https://aem-kakao-collector.onkakao.net https://kaat.daum.net https://kuid-provider.ds.kakao.com https://serv.ds.kakao.com",
-  "media-src 'self'",
-  "object-src 'none'",
-  "base-uri 'self'",
-  "form-action 'self'",
-  "frame-src https://display.ad.daum.net https://serv.ds.kakao.com https://t1.daumcdn.net https://t1.kakaocdn.net",
-  "frame-ancestors 'none'",
-  "worker-src 'self' blob:",
-  "manifest-src 'self'",
+  "style-src 'self' 'unsafe-inline'",
+  "script-src 'self' 'unsafe-inline' https:",
+  "connect-src 'self' https:",
+  "frame-src https:",
   "upgrade-insecure-requests"
 ].join("; ");
 
@@ -27,12 +22,12 @@ const securityHeaders = [
   { key: "X-Download-Options", value: "noopen" },
   { key: "X-Permitted-Cross-Domain-Policies", value: "none" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-  { key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains; preload" },
+  { key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains" },
   { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
   { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
   { key: "Origin-Agent-Cluster", value: "?1" },
-  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), accelerometer=(), gyroscope=(), browsing-topics=()" },
-  { key: "Content-Security-Policy", value: contentSecurityPolicy }
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=(), usb=()" },
+  { key: "Content-Security-Policy-Report-Only", value: contentSecurityPolicy }
 ];
 
 const nextConfig: NextConfig = {
@@ -47,6 +42,16 @@ const nextConfig: NextConfig = {
       {
         source: "/(.*)",
         headers: securityHeaders
+      }
+    ];
+  },
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.jipcalc.co.kr" }],
+        destination: "https://jipcalc.co.kr/:path*",
+        permanent: true
       }
     ];
   }
