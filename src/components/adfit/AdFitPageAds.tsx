@@ -1,41 +1,92 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { AdFitBanner } from "@/components/adfit/AdFitBanner";
 
+function useMediaQuery(query: string) {
+  const [matches, setMatches] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    const update = () => setMatches(media.matches);
+
+    update();
+    if (typeof media.addEventListener === "function") {
+      media.addEventListener("change", update);
+      return () => media.removeEventListener("change", update);
+    }
+
+    media.addListener(update);
+    return () => media.removeListener(update);
+  }, [query]);
+
+  return matches;
+}
+
 export function AdFitTopBanner() {
-  return (
-    <>
-      <div className="-mx-4 mt-6 flex justify-center overflow-hidden md:hidden">
+  const isDesktop = useMediaQuery("(min-width: 768px)");
+
+  if (isDesktop === null) {
+    return null;
+  }
+
+  if (!isDesktop) {
+    return (
+      <div className="-mx-4 mt-6 flex justify-center overflow-hidden">
         <AdFitBanner unit="DAN-MxttnTNbygaLu9ii" width="320" height="50" />
       </div>
-      <div className="mt-8 hidden overflow-x-auto md:block">
-        <div className="flex min-w-[728px] justify-center lg:min-w-0">
-          <AdFitBanner unit="DAN-vydppL950Rcp0u3T" width="728" height="90" />
-        </div>
+    );
+  }
+
+  return (
+    <div className="mt-8 overflow-x-auto">
+      <div className="flex min-w-[728px] justify-center lg:min-w-0">
+        <AdFitBanner unit="DAN-vydppL950Rcp0u3T" width="728" height="90" />
       </div>
-    </>
+    </div>
   );
 }
 
 export function AdFitVerticalBanner() {
+  const isWideDesktop = useMediaQuery("(min-width: 1536px)");
+
+  if (!isWideDesktop) {
+    return null;
+  }
+
   return <AdFitBanner unit="DAN-3zihtfJ5ImCC9NOc" width="160" height="600" />;
 }
 
 export function AdFitMobileRectangleBanner() {
   return (
-    <div className="-mx-4 flex justify-center overflow-hidden md:hidden">
+    <div className="-mx-4 flex justify-center overflow-hidden">
       <AdFitBanner unit="DAN-tzq6el4IGCSFEnSl" width="320" height="480" />
     </div>
   );
 }
 
+export function AdFitMobileMediumRectangleBanner() {
+  return (
+    <div className="flex justify-center">
+      <AdFitBanner unit="DAN-4cOowgAme3T2tNK2" width="300" height="250" />
+    </div>
+  );
+}
+
 export function AdFitSideBanner({ showVertical = true }: { showVertical?: boolean }) {
+  const isTabletOrDesktop = useMediaQuery("(min-width: 768px)");
+  const isWideDesktop = useMediaQuery("(min-width: 1536px)");
+
+  if (isTabletOrDesktop === null || isWideDesktop === null) {
+    return null;
+  }
+
   return (
     <aside className="mt-6 flex flex-col items-center gap-4 xl:absolute xl:-top-64 xl:left-full xl:ml-6 xl:mt-0">
-      <AdFitMobileRectangleBanner />
-      <div className="hidden justify-center md:flex">
-        <AdFitBanner unit="DAN-4cOowgAme3T2tNK2" width="300" height="250" />
-      </div>
-      {showVertical ? (
-        <div className="hidden xl:block">
+      {!isTabletOrDesktop ? <AdFitMobileMediumRectangleBanner /> : null}
+      {!isTabletOrDesktop ? <AdFitMobileRectangleBanner /> : null}
+      {showVertical && isWideDesktop ? (
+        <div>
           <AdFitVerticalBanner />
         </div>
       ) : null}
@@ -44,12 +95,16 @@ export function AdFitSideBanner({ showVertical = true }: { showVertical?: boolea
 }
 
 export function AdFitInlineBanner() {
+  const isTabletOrDesktop = useMediaQuery("(min-width: 768px)");
+
+  if (isTabletOrDesktop === null) {
+    return null;
+  }
+
   return (
     <aside className="mt-8">
-      <AdFitMobileRectangleBanner />
-      <div className="hidden justify-center md:flex">
-        <AdFitBanner unit="DAN-4cOowgAme3T2tNK2" width="300" height="250" />
-      </div>
+      {!isTabletOrDesktop ? <AdFitMobileMediumRectangleBanner /> : null}
+      {!isTabletOrDesktop ? <AdFitMobileRectangleBanner /> : null}
     </aside>
   );
 }
