@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AdFitSideBanner, AdFitTopBanner } from "@/components/adfit/AdFitPageAds";
+import { AdFitSideBanner, AdFitTopBanner, AdFitVerticalBanner } from "@/components/adfit/AdFitPageAds";
 import { CalculatorCard } from "@/components/calculator/CalculatorCard";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { calculators } from "@/config/calculators";
@@ -23,24 +23,29 @@ export default function HomePage() {
       <WebPageJsonLd title="전세·월세·매매 주거비 계산기" description="전세대출 이자, 월세 vs 전세, DSR, 취득세, 중개수수료, 전월세 전환, 청약가점을 계산하고 해석까지 돕는 주거비 정보 서비스입니다." path="/" />
       <CalculatorItemListJsonLd />
       <PageContainer className="py-10 md:py-16">
-        <section className="rounded-[2rem] bg-gradient-to-br from-brand-navy via-blue-900 to-slate-950 px-6 py-12 text-white shadow-soft md:px-10 md:py-16">
-          <div className="max-w-4xl">
-            <div className="inline-flex rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-emerald-100 ring-1 ring-white/15">주거비 의사결정 정보 서비스</div>
-            <h1 className="mt-6 text-4xl font-black tracking-tight md:text-6xl">집을 구하기 전에 필요한 비용과 위험을 먼저 계산하세요</h1>
-            <p className="mt-6 text-lg leading-8 text-blue-50">
-              전세, 월세, 매매를 선택할 때는 월 부담액만 보는 것으로 충분하지 않습니다. 전세대출 이자, 월세와 전세의 총주거비, DSR 규제, 취득세, 중개수수료, 청약가점처럼 계약 전 반드시 확인해야 할 비용과 기준이 함께 움직입니다.
-              이 사이트는 그 숫자를 계산하는 데서 끝나지 않고, 계산 결과를 어떻게 해석해야 하는지까지 설명하는 것을 목표로 합니다.
-            </p>
-            <p className="mt-4 text-base leading-8 text-blue-100">
-              각 계산기 페이지에는 계산 공식, 실제 사례, 금리 변동 시 영향, 위험 구간, 관련 계산기, 공식 참고 출처를 함께 정리했습니다.
-              본 사이트의 계산 결과는 참고용 정보이며, 실제 대출 조건, 취득세, 청약 기준, 중개보수, 전월세 계약 조건은 개인 상황과 최신 제도에 따라 달라질 수 있습니다.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href="/calculators" className="rounded-2xl bg-white px-6 py-4 text-center font-bold text-brand-navy transition hover:bg-blue-50">주거비 계산기 보기</Link>
-              <Link href="/guides" className="rounded-2xl border border-white/30 px-6 py-4 text-center font-bold text-white transition hover:bg-white/10">주거비 가이드 보기</Link>
+        <div className="relative">
+          <aside className="hidden xl:absolute xl:right-full xl:top-0 xl:mr-6 xl:flex">
+            <AdFitVerticalBanner />
+          </aside>
+          <section className="rounded-[2rem] bg-gradient-to-br from-brand-navy via-blue-900 to-slate-950 px-6 py-12 text-white shadow-soft md:px-10 md:py-16">
+            <div className="max-w-4xl">
+              <div className="inline-flex rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-emerald-100 ring-1 ring-white/15">주거비 의사결정 정보 서비스</div>
+              <h1 className="mt-6 text-4xl font-black tracking-tight md:text-6xl">집을 구하기 전에 필요한 비용과 위험을 먼저 계산하세요</h1>
+              <p className="mt-6 text-lg leading-8 text-blue-50">
+                전세, 월세, 매매를 선택할 때는 월 부담액만 보는 것으로 충분하지 않습니다. 전세대출 이자, 월세와 전세의 총주거비, DSR 규제, 취득세, 중개수수료, 청약가점처럼 계약 전 반드시 확인해야 할 비용과 기준이 함께 움직입니다.
+                이 사이트는 그 숫자를 계산하는 데서 끝나지 않고, 계산 결과를 어떻게 해석해야 하는지까지 설명하는 것을 목표로 합니다.
+              </p>
+              <p className="mt-4 text-base leading-8 text-blue-100">
+                각 계산기 페이지에는 계산 공식, 실제 사례, 금리 변동 시 영향, 위험 구간, 관련 계산기, 공식 참고 출처를 함께 정리했습니다.
+                본 사이트의 계산 결과는 참고용 정보이며, 실제 대출 조건, 취득세, 청약 기준, 중개보수, 전월세 계약 조건은 개인 상황과 최신 제도에 따라 달라질 수 있습니다.
+              </p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Link href="/calculators" className="rounded-2xl bg-white px-6 py-4 text-center font-bold text-brand-navy transition hover:bg-blue-50">주거비 계산기 보기</Link>
+                <Link href="/guides" className="rounded-2xl border border-white/30 px-6 py-4 text-center font-bold text-white transition hover:bg-white/10">주거비 가이드 보기</Link>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </div>
 
         <AdFitTopBanner />
 
@@ -68,7 +73,7 @@ export default function HomePage() {
               </p>
             </article>
           </section>
-          <AdFitSideBanner />
+          <AdFitSideBanner showVertical={false} />
         </div>
 
         <section className="mt-12 grid gap-6 lg:grid-cols-3">

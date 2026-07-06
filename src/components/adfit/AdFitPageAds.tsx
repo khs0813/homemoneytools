@@ -10,10 +10,15 @@ export function AdFitTopBanner() {
   );
 }
 
-export function AdFitSideBanner() {
+export function AdFitVerticalBanner() {
+  return <AdFitBanner unit="DAN-3zihtfJ5ImCC9NOc" width="160" height="600" />;
+}
+
+export function AdFitSideBanner({ showVertical = true }: { showVertical?: boolean }) {
   return (
-    <aside className="mt-6 flex justify-center xl:absolute xl:left-full xl:top-0 xl:ml-6 xl:mt-0">
+    <aside className="mt-6 flex flex-col items-center gap-4 xl:absolute xl:-top-64 xl:left-full xl:ml-6 xl:mt-0">
       <AdFitBanner unit="DAN-4cOowgAme3T2tNK2" width="300" height="250" />
+      {showVertical ? <AdFitVerticalBanner /> : null}
     </aside>
   );
 }

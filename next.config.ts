@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-const contentSecurityPolicy = [
+const contentSecurityPolicyReportOnly = [
   "default-src 'self'",
   "base-uri 'self'",
   "object-src 'none'",
@@ -10,9 +10,10 @@ const contentSecurityPolicy = [
   "style-src 'self' 'unsafe-inline'",
   "script-src 'self' 'unsafe-inline' https:",
   "connect-src 'self' https:",
-  "frame-src https:",
-  "upgrade-insecure-requests"
+  "frame-src https:"
 ].join("; ");
+
+const contentSecurityPolicy = "upgrade-insecure-requests";
 
 const securityHeaders = [
   { key: "X-DNS-Prefetch-Control", value: "off" },
@@ -27,7 +28,8 @@ const securityHeaders = [
   { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
   { key: "Origin-Agent-Cluster", value: "?1" },
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=(), usb=()" },
-  { key: "Content-Security-Policy-Report-Only", value: contentSecurityPolicy }
+  { key: "Content-Security-Policy", value: contentSecurityPolicy },
+  { key: "Content-Security-Policy-Report-Only", value: contentSecurityPolicyReportOnly }
 ];
 
 const nextConfig: NextConfig = {
