@@ -31,10 +31,10 @@ export default function CalculatorsPage() {
         </div>
         <AdFitTopBanner />
         <div className="relative mt-8">
+          <AdFitSideBanner />
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {visibleCalculators.map((calculator) => <CalculatorCard key={calculator.slug} calculator={calculator} />)}
           </div>
-          <AdFitSideBanner />
         </div>
       </PageContainer>
     </>

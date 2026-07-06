@@ -23,6 +23,8 @@ export default function HomePage() {
       <WebPageJsonLd title="전세·월세·매매 주거비 계산기" description="전세대출 이자, 월세 vs 전세, DSR, 취득세, 중개수수료, 전월세 전환, 청약가점을 계산하고 해석까지 돕는 주거비 정보 서비스입니다." path="/" />
       <CalculatorItemListJsonLd />
       <PageContainer className="py-10 md:py-16">
+        <AdFitTopBanner />
+
         <div className="relative">
           <aside className="hidden xl:absolute xl:right-full xl:top-0 xl:mr-6 xl:flex">
             <AdFitVerticalBanner />
@@ -47,9 +49,8 @@ export default function HomePage() {
           </section>
         </div>
 
-        <AdFitTopBanner />
-
         <div className="relative mt-12">
+          <AdFitSideBanner showVertical={false} />
           <section className="grid gap-6 lg:grid-cols-3">
             <article className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
               <p className="text-sm font-bold text-brand-emerald">전세·월세</p>
@@ -73,7 +74,6 @@ export default function HomePage() {
               </p>
             </article>
           </section>
-          <AdFitSideBanner showVertical={false} />
         </div>
 
         <section className="mt-12 grid gap-6 lg:grid-cols-3">

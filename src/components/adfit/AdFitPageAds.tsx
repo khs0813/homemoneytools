@@ -58,6 +58,12 @@ export function AdFitVerticalBanner() {
 }
 
 export function AdFitMobileRectangleBanner() {
+  const isTabletOrDesktop = useMediaQuery("(min-width: 768px)");
+
+  if (isTabletOrDesktop !== false) {
+    return null;
+  }
+
   return (
     <div className="-mx-4 flex justify-center overflow-hidden">
       <AdFitBanner unit="DAN-tzq6el4IGCSFEnSl" width="320" height="480" />
@@ -66,6 +72,12 @@ export function AdFitMobileRectangleBanner() {
 }
 
 export function AdFitMobileMediumRectangleBanner() {
+  const isTabletOrDesktop = useMediaQuery("(min-width: 768px)");
+
+  if (isTabletOrDesktop !== false) {
+    return null;
+  }
+
   return (
     <div className="flex justify-center">
       <AdFitBanner unit="DAN-4cOowgAme3T2tNK2" width="300" height="250" />
@@ -73,7 +85,7 @@ export function AdFitMobileMediumRectangleBanner() {
   );
 }
 
-export function AdFitSideBanner({ showVertical = true }: { showVertical?: boolean }) {
+export function AdFitSideBanner({ showVertical = true, showMobileMediumRectangle = true }: { showVertical?: boolean; showMobileMediumRectangle?: boolean }) {
   const isTabletOrDesktop = useMediaQuery("(min-width: 768px)");
   const isWideDesktop = useMediaQuery("(min-width: 1536px)");
 
@@ -81,9 +93,13 @@ export function AdFitSideBanner({ showVertical = true }: { showVertical?: boolea
     return null;
   }
 
+  if (isTabletOrDesktop && !(showVertical && isWideDesktop)) {
+    return null;
+  }
+
   return (
     <aside className="mt-6 flex flex-col items-center gap-4 xl:absolute xl:-top-64 xl:left-full xl:ml-6 xl:mt-0">
-      {!isTabletOrDesktop ? <AdFitMobileMediumRectangleBanner /> : null}
+      {!isTabletOrDesktop && showMobileMediumRectangle ? <AdFitMobileMediumRectangleBanner /> : null}
       {!isTabletOrDesktop ? <AdFitMobileRectangleBanner /> : null}
       {showVertical && isWideDesktop ? (
         <div>
@@ -101,10 +117,14 @@ export function AdFitInlineBanner() {
     return null;
   }
 
+  if (isTabletOrDesktop) {
+    return null;
+  }
+
   return (
     <aside className="mt-8">
-      {!isTabletOrDesktop ? <AdFitMobileMediumRectangleBanner /> : null}
-      {!isTabletOrDesktop ? <AdFitMobileRectangleBanner /> : null}
+      <AdFitMobileMediumRectangleBanner />
+      <AdFitMobileRectangleBanner />
     </aside>
   );
 }

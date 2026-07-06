@@ -28,6 +28,7 @@ export default function GuidesPage() {
         </div>
         <AdFitTopBanner />
         <div className="relative mt-8">
+          <AdFitSideBanner />
           <div className="grid gap-5 md:grid-cols-2">
             {guides.map((guide) => (
               <Link key={guide.slug} href={guide.path} className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-soft sm:p-6">
@@ -38,7 +39,6 @@ export default function GuidesPage() {
               </Link>
             ))}
           </div>
-          <AdFitSideBanner />
         </div>
       </PageContainer>
     </>

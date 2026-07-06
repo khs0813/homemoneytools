@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { AdFitSideBanner, AdFitTopBanner } from "@/components/adfit/AdFitPageAds";
+import { AdFitMobileMediumRectangleBanner, AdFitSideBanner, AdFitTopBanner } from "@/components/adfit/AdFitPageAds";
 import type { CalculatorInfo } from "@/config/calculators";
 import { DisclaimerBox } from "@/components/calculator/DisclaimerBox";
 import { FaqJsonLd, FaqSection } from "@/components/calculator/FaqSection";
@@ -35,9 +35,12 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
           <p className="mt-5 max-w-3xl text-base leading-7 text-blue-50">{info.description}</p>
         </div>
         <AdFitTopBanner />
+        <div className="mt-6">
+          <AdFitMobileMediumRectangleBanner />
+        </div>
         <div className="relative mt-8">
           <div>{children}</div>
-          <AdFitSideBanner />
+          <AdFitSideBanner showMobileMediumRectangle={false} />
         </div>
         <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(280px,380px)]">
           <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">

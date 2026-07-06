@@ -22,6 +22,7 @@ export function GuidePage({ guide }: { guide: Guide }) {
           </div>
           <AdFitTopBanner />
           <div className="relative mt-8 rounded-3xl border border-slate-200 bg-white p-5 shadow-soft sm:p-6 md:p-10">
+            <AdFitSideBanner />
 
           <section className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-5">
             <h2 className="text-lg font-bold text-slate-950">계산 기준일과 제도 메모</h2>
@@ -98,7 +99,6 @@ export function GuidePage({ guide }: { guide: Guide }) {
               <Link href="/guides" className="text-sm font-bold text-brand-navy hover:underline">전체 가이드 목록 보기</Link>
             </div>
           </section>
-            <AdFitSideBanner />
           </div>
         </article>
         <div className="mx-auto mt-8 max-w-4xl">
