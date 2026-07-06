@@ -40,7 +40,7 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
           <AdFitSideBanner />
         </div>
         <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(280px,380px)]">
-          <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
             <h2 className="text-lg font-bold text-slate-950">이 계산기로 확인할 수 있는 것</h2>
             <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-600">
               <li>• 입력값 기준 월 부담액과 총비용 구조</li>
@@ -83,7 +83,7 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
         </div>
       </section>
 
-      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6 md:p-8">
         <p className="text-sm font-bold text-brand-emerald">계산 전 확인사항</p>
         <h2 className="mt-2 text-2xl font-black text-slate-950">{info.shortTitle} 계산 전 알아둘 내용</h2>
         <div className="mt-5 grid gap-4 text-base leading-8 text-slate-600">
@@ -122,7 +122,7 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
       </section>
 
       {reference ? (
-        <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+        <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6 md:p-8">
           <h2 className="text-2xl font-black text-slate-950">의사결정 해석 카드</h2>
           <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {reference.decisionCards.map((card) => (
@@ -154,7 +154,7 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
       ) : null}
 
       {reference ? (
-        <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+        <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6 md:p-8">
           <h2 className="text-2xl font-black text-slate-950">실제 시나리오 표</h2>
           <p className="mt-4 text-sm leading-7 text-slate-600">
             아래 표는 이 계산기를 많이 쓰는 상황을 기준으로 무엇을 같이 확인해야 하는지 정리한 요약표입니다.
@@ -182,7 +182,7 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
         </section>
       ) : null}
 
-      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6 md:p-8">
         <h2 className="text-2xl font-black text-slate-950">실제 계산 예시</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-3">
           {seoContent.examples.map((example) => (
@@ -195,7 +195,7 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
       </section>
 
       {seoContent.contentSections?.map((section) => (
-        <section key={section.heading} className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+        <section key={section.heading} className="mt-10 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6 md:p-8">
           <h2 className="text-2xl font-black text-slate-950">{section.heading}</h2>
           <div className="mt-5 grid gap-4 text-base leading-8 text-slate-600">
             {section.paragraphs.map((paragraph) => (
@@ -234,7 +234,7 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
         </section>
       ))}
 
-      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6 md:p-8">
         <h2 className="text-2xl font-black text-slate-950">주의사항과 참고 범위</h2>
         <div className="mt-5 grid gap-3 text-sm leading-7 text-slate-600">
           {seoContent.cautions.map((item) => (
@@ -251,7 +251,7 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
       </section>
 
       {reference ? (
-        <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+        <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6 md:p-8">
           <h2 className="text-2xl font-black text-slate-950">계산 기준 및 참고 출처</h2>
           <div className="mt-4 grid gap-2 text-sm leading-7 text-slate-600 sm:grid-cols-2">
             <p>기준일: {reference.referenceDate}</p>
@@ -284,7 +284,7 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
       ) : null}
 
       {relatedGuide ? (
-        <section className="mt-10 rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm md:p-8">
+        <section className="mt-10 rounded-3xl border border-slate-200 bg-slate-50 p-5 shadow-sm sm:p-6 md:p-8">
           <h2 className="text-2xl font-black text-slate-950">함께 읽으면 좋은 정보 가이드</h2>
           <p className="mt-4 text-sm leading-7 text-slate-600">
             계산 결과를 바로 결론으로 쓰기보다, 실제 계약과 대출 판단에 필요한 사례와 제도 설명까지 같이 확인하는 편이 안전합니다.

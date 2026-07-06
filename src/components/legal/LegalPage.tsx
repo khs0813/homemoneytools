@@ -26,7 +26,7 @@ export function LegalPage({
     <PageContainer className="py-10 md:py-14">
       <article className="max-w-4xl">
         <p className="text-sm font-bold text-brand-emerald">{eyebrow}</p>
-        <h1 className="mt-3 text-4xl font-black text-slate-950">{title}</h1>
+        <h1 className="mt-3 text-3xl font-black text-slate-950 sm:text-4xl">{title}</h1>
         <p className="mt-4 text-base leading-7 text-slate-600">{description}</p>
         <dl className="mt-6 grid gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm text-slate-700 sm:grid-cols-2">
           <div>

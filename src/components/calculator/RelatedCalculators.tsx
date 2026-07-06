@@ -4,7 +4,7 @@ import { getRelatedCalculators } from "@/config/calculators";
 export function RelatedCalculators({ slugs }: { slugs: string[] }) {
   const related = getRelatedCalculators(slugs);
   return (
-    <section className="rounded-3xl border border-slate-200 bg-white p-6">
+    <section className="rounded-3xl border border-slate-200 bg-white p-5 sm:p-6">
       <h2 className="text-xl font-bold text-slate-950">관련 계산기</h2>
       <div className="mt-4 grid gap-3 md:grid-cols-3">
         {related.map((calculator) => (

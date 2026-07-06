@@ -30,7 +30,7 @@ export default function HomePage() {
           <section className="rounded-[2rem] bg-gradient-to-br from-brand-navy via-blue-900 to-slate-950 px-6 py-12 text-white shadow-soft md:px-10 md:py-16">
             <div className="max-w-4xl">
               <div className="inline-flex rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-emerald-100 ring-1 ring-white/15">주거비 의사결정 정보 서비스</div>
-              <h1 className="mt-6 text-4xl font-black tracking-tight md:text-6xl">집을 구하기 전에 필요한 비용과 위험을 먼저 계산하세요</h1>
+              <h1 className="mt-6 text-3xl font-black tracking-tight sm:text-4xl md:text-6xl">집을 구하기 전에 필요한 비용과 위험을 먼저 계산하세요</h1>
               <p className="mt-6 text-lg leading-8 text-blue-50">
                 전세, 월세, 매매를 선택할 때는 월 부담액만 보는 것으로 충분하지 않습니다. 전세대출 이자, 월세와 전세의 총주거비, DSR 규제, 취득세, 중개수수료, 청약가점처럼 계약 전 반드시 확인해야 할 비용과 기준이 함께 움직입니다.
                 이 사이트는 그 숫자를 계산하는 데서 끝나지 않고, 계산 결과를 어떻게 해석해야 하는지까지 설명하는 것을 목표로 합니다.
@@ -51,21 +51,21 @@ export default function HomePage() {
 
         <div className="relative mt-12">
           <section className="grid gap-6 lg:grid-cols-3">
-            <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+            <article className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
               <p className="text-sm font-bold text-brand-emerald">전세·월세</p>
               <h2 className="mt-2 text-2xl font-black text-slate-950">월세가 비싸 보여도 전세가 더 부담일 수 있습니다</h2>
               <p className="mt-4 text-sm leading-7 text-slate-600">
                 전세는 월세가 없다는 이유로 저렴해 보이지만, 보증금 기회비용과 전세대출 이자를 더하면 총주거비가 달라집니다. 월세 보증금이 큰 반전세도 단순 월세만 보면 오판하기 쉽습니다.
               </p>
             </article>
-            <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+            <article className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
               <p className="text-sm font-bold text-brand-emerald">매매·대출</p>
               <h2 className="mt-2 text-2xl font-black text-slate-950">집값보다 먼저 봐야 하는 것은 자금 구조입니다</h2>
               <p className="mt-4 text-sm leading-7 text-slate-600">
                 주택담보대출 DSR, 취득세, 중개수수료는 집을 살 수 있는지와 동시에 실제로 감당 가능한지를 결정합니다. 금리 0.5%p 변화와 주택 수 판단 차이만으로도 결과가 크게 달라질 수 있습니다.
               </p>
             </article>
-            <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+            <article className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
               <p className="text-sm font-bold text-brand-emerald">청약</p>
               <h2 className="mt-2 text-2xl font-black text-slate-950">청약가점은 점수 확인이 아니라 전략 판단입니다</h2>
               <p className="mt-4 text-sm leading-7 text-slate-600">
@@ -77,21 +77,21 @@ export default function HomePage() {
         </div>
 
         <section className="mt-12 grid gap-6 lg:grid-cols-3">
-          <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <article className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
             <p className="text-sm font-bold text-brand-emerald">신뢰 표시</p>
             <h2 className="mt-2 text-2xl font-black text-slate-950">계산기마다 기준일과 수정일을 표시합니다</h2>
             <p className="mt-4 text-sm leading-7 text-slate-600">
               전세대출, DSR, 취득세, 중개보수, 청약가점처럼 제도 변화가 중요한 계산기는 공식 출처와 기준일을 함께 보여 주고, 페이지 공통 수정일도 노출합니다.
             </p>
           </article>
-          <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <article className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
             <p className="text-sm font-bold text-brand-emerald">콘텐츠 깊이</p>
             <h2 className="mt-2 text-2xl font-black text-slate-950">예시 계산과 위험 구간 해석을 함께 제공합니다</h2>
             <p className="mt-4 text-sm leading-7 text-slate-600">
               단순 계산 결과만 보여주지 않고, 실제 시나리오 표, 해석 카드, 자주 하는 실수, FAQ를 통해 왜 이 숫자가 중요한지 설명합니다.
             </p>
           </article>
-          <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <article className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
             <p className="text-sm font-bold text-brand-emerald">운영 원칙</p>
             <h2 className="mt-2 text-2xl font-black text-slate-950">정책·문의 페이지를 항상 접근 가능하게 유지합니다</h2>
             <p className="mt-4 text-sm leading-7 text-slate-600">
@@ -113,7 +113,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="mt-12 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+        <section className="mt-12 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6 md:p-8">
           <p className="text-sm font-bold text-brand-emerald">검색형 콘텐츠</p>
           <h2 className="mt-2 text-3xl font-black text-slate-950">계산기와 함께 읽으면 좋은 주거비 가이드</h2>
           <div className="mt-6 grid gap-4 md:grid-cols-2">

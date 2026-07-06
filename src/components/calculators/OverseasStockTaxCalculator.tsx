@@ -68,7 +68,7 @@ export function OverseasStockTaxCalculator() {
         </ResultCard>
       ) : null}
     >
-      <form onSubmit={handleSubmit(onSubmit)} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+      <form onSubmit={handleSubmit(onSubmit)} className="rounded-3xl border border-slate-200 bg-white p-4 shadow-soft sm:p-6">
         <div className="grid gap-5 md:grid-cols-2">
           <Controller name="buyPrice" control={control} render={({ field }) => <NumberInput label="매수 단가(외화)" required value={field.value} onChange={field.onChange} />} />
           <Controller name="sellPrice" control={control} render={({ field }) => <NumberInput label="매도 단가(외화)" required value={field.value} onChange={field.onChange} />} />

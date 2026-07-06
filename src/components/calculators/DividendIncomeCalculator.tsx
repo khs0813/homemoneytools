@@ -65,7 +65,7 @@ export function DividendIncomeCalculator() {
         </ResultCard>
       ) : null}
     >
-      <form onSubmit={handleSubmit(onSubmit)} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+      <form onSubmit={handleSubmit(onSubmit)} className="rounded-3xl border border-slate-200 bg-white p-4 shadow-soft sm:p-6">
         <div className="grid gap-5 md:grid-cols-2">
           <Controller name="investmentAmount" control={control} render={({ field }) => <MoneyInput label="투자금" required value={field.value} onChange={field.onChange} />} />
           <Controller name="dividendYield" control={control} render={({ field }) => <PercentInput label="배당수익률" required value={field.value} onChange={field.onChange} />} />

@@ -3,7 +3,7 @@ import { safeJsonStringify } from "@/lib/json-ld";
 
 export function FaqSection({ faqs }: { faqs: FAQ[] }) {
   return (
-    <section className="rounded-3xl border border-slate-200 bg-white p-6">
+    <section className="rounded-3xl border border-slate-200 bg-white p-5 sm:p-6">
       <h2 className="text-xl font-bold text-slate-950">자주 묻는 질문</h2>
       <div className="mt-5 space-y-3">
         {faqs.map((faq) => (

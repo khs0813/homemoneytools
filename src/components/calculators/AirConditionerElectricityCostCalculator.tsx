@@ -59,7 +59,7 @@ export function AirConditionerElectricityCostCalculator() {
         </ResultCard>
       ) : null}
     >
-      <form onSubmit={handleSubmit(onSubmit)} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+      <form onSubmit={handleSubmit(onSubmit)} className="rounded-3xl border border-slate-200 bg-white p-4 shadow-soft sm:p-6">
         <div className="grid gap-5 md:grid-cols-2">
           <Controller name="powerWatts" control={control} render={({ field }) => <NumberInput label="소비전력" required value={field.value} onChange={field.onChange} suffix="W" />} />
           <Controller name="hoursPerDay" control={control} render={({ field }) => <NumberInput label="하루 사용시간" required value={field.value} onChange={field.onChange} suffix="시간" step={0.5} />} />

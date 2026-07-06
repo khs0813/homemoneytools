@@ -32,7 +32,7 @@ export function Footer() {
           <div className="font-semibold text-slate-900">주요 계산기</div>
           <div className="mt-3 grid gap-2 text-sm text-slate-600">
             {visibleCalculators.map((calculator) => (
-              <Link key={calculator.slug} href={calculator.path} className="hover:text-brand-navy">{calculator.shortTitle}</Link>
+              <Link key={calculator.slug} href={calculator.path} className="flex min-h-10 items-center hover:text-brand-navy">{calculator.shortTitle}</Link>
             ))}
           </div>
         </div>
@@ -40,7 +40,7 @@ export function Footer() {
           <div className="font-semibold text-slate-900">안내</div>
           <div className="mt-3 grid gap-2 text-sm text-slate-600">
             {policyLinks.map((link) => (
-              <Link key={link.href} href={link.href} className="hover:text-brand-navy">{link.label}</Link>
+              <Link key={link.href} href={link.href} className="flex min-h-10 items-center hover:text-brand-navy">{link.label}</Link>
             ))}
           </div>
           <p className="mt-5 text-sm leading-6 text-slate-600">

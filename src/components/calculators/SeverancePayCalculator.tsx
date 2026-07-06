@@ -63,7 +63,7 @@ export function SeverancePayCalculator() {
         </ResultCard>
       ) : null}
     >
-      <form onSubmit={handleSubmit(onSubmit)} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+      <form onSubmit={handleSubmit(onSubmit)} className="rounded-3xl border border-slate-200 bg-white p-4 shadow-soft sm:p-6">
         <div className="grid gap-5 md:grid-cols-2">
           <Controller name="averageMonthlyWage" control={control} render={({ field }) => <MoneyInput label="평균 월임금" required value={field.value} onChange={field.onChange} />} />
           <Controller name="years" control={control} render={({ field }) => <NumberInput label="근속연수" required value={field.value} onChange={field.onChange} suffix="년" />} />

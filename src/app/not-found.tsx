@@ -15,9 +15,9 @@ export const metadata = {
 export default function NotFound() {
   return (
     <PageContainer className="py-16">
-      <section className="mx-auto max-w-3xl rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-soft">
+      <section className="mx-auto max-w-3xl rounded-3xl border border-slate-200 bg-white p-5 text-center shadow-soft sm:p-8">
         <p className="text-sm font-bold text-brand-emerald">404</p>
-        <h1 className="mt-3 text-4xl font-black text-slate-950">페이지를 찾을 수 없습니다</h1>
+        <h1 className="mt-3 text-3xl font-black text-slate-950 sm:text-4xl">페이지를 찾을 수 없습니다</h1>
         <p className="mt-4 text-base leading-7 text-slate-600">
           요청한 계산기나 가이드가 이동되었거나 존재하지 않습니다. 아래 링크에서 주요 페이지로 다시 이동할 수 있습니다.
         </p>

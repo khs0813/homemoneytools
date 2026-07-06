@@ -77,7 +77,7 @@ export function CarMaintenanceCostCalculator() {
         </ResultCard>
       ) : null}
     >
-      <form onSubmit={handleSubmit(onSubmit)} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+      <form onSubmit={handleSubmit(onSubmit)} className="rounded-3xl border border-slate-200 bg-white p-4 shadow-soft sm:p-6">
         <div className="grid gap-5 md:grid-cols-2">
           <Controller name="monthlyDistanceKm" control={control} render={({ field }) => <NumberInput label="월 주행거리" required value={field.value} onChange={field.onChange} suffix="km" />} />
           <Controller name="fuelEfficiencyKmPerL" control={control} render={({ field }) => <NumberInput label="연비" required value={field.value} onChange={field.onChange} suffix="km/L" step={0.1} />} />

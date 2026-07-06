@@ -23,7 +23,7 @@ export function GuideArticle({ info }: { info: CalculatorInfo }) {
       />
       <ArticleJsonLd info={info} />
       <PageContainer className="py-10 md:py-14">
-        <article className="mx-auto max-w-4xl rounded-3xl border border-slate-200 bg-white p-6 shadow-soft md:p-10">
+        <article className="mx-auto max-w-4xl rounded-3xl border border-slate-200 bg-white p-5 shadow-soft sm:p-6 md:p-10">
           <p className="text-sm font-bold text-brand-emerald">주거비 계산 해설</p>
           <h1 className="mt-3 text-3xl font-black text-slate-950 md:text-5xl">{info.title} 계산 기준 해설</h1>
           <p className="mt-5 text-base leading-8 text-slate-600">이 페이지는 계산기 사용법 자체보다, 어떤 상황에서 이 계산이 필요하고 무엇을 주의해야 하는지 설명하는 해설 페이지입니다.</p>

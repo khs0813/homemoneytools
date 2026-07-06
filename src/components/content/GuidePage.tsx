@@ -15,13 +15,13 @@ export function GuidePage({ guide }: { guide: Guide }) {
       <GenericArticleJsonLd title={guide.title} description={guide.description} path={guide.path} />
       <PageContainer className="py-10 md:py-14">
         <article className="mx-auto max-w-4xl">
-          <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft md:p-10">
+          <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-soft sm:p-6 md:p-10">
             <p className="text-sm font-bold text-brand-emerald">{guide.category}</p>
             <h1 className="mt-3 text-3xl font-black text-slate-950 md:text-5xl">{guide.h1}</h1>
             <p className="mt-5 text-base leading-8 text-slate-600">{guide.description}</p>
           </div>
           <AdFitTopBanner />
-          <div className="relative mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-soft md:p-10">
+          <div className="relative mt-8 rounded-3xl border border-slate-200 bg-white p-5 shadow-soft sm:p-6 md:p-10">
 
           <section className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-5">
             <h2 className="text-lg font-bold text-slate-950">계산 기준일과 제도 메모</h2>

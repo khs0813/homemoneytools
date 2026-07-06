@@ -17,9 +17,9 @@ export function MoneyInput({ label, value, onChange, helper, required }: MoneyIn
   const displayValue = useMemo(() => formatNumber(value / factor), [value, factor]);
 
   return (
-    <label className="block">
+    <label className="block min-w-0">
       <span className="text-sm font-semibold text-slate-800">{label}{required ? <span className="text-brand-orange"> *</span> : null}</span>
-      <div className="mt-2 flex rounded-2xl border border-slate-200 bg-white focus-within:border-brand-navy focus-within:ring-4 focus-within:ring-blue-50">
+      <div className="mt-2 flex min-w-0 rounded-2xl border border-slate-200 bg-white focus-within:border-brand-navy focus-within:ring-4 focus-within:ring-blue-50">
         <input
           inputMode="numeric"
           pattern="[0-9,]*"
@@ -32,7 +32,7 @@ export function MoneyInput({ label, value, onChange, helper, required }: MoneyIn
         <select
           value={unit}
           onChange={(event) => setUnit(event.target.value as "won" | "manwon")}
-          className="w-20 shrink-0 rounded-r-2xl border-l border-slate-200 bg-slate-50 px-3 text-center text-sm font-semibold text-slate-700 outline-none"
+          className="w-16 shrink-0 rounded-r-2xl border-l border-slate-200 bg-slate-50 px-2 text-center text-base font-semibold text-slate-700 outline-none sm:w-20 sm:px-3"
           aria-label={`${label} 단위`}
         >
           <option value="manwon">만원</option>
