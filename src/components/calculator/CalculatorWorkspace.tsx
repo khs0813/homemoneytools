@@ -1,4 +1,6 @@
-import type { ReactNode } from "react";
+"use client";
+
+import { useEffect, useRef, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 type CalculatorWorkspaceProps = {
@@ -9,13 +11,43 @@ type CalculatorWorkspaceProps = {
 
 export function CalculatorWorkspace({ children, result }: CalculatorWorkspaceProps) {
   const hasResult = Boolean(result);
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!hasResult || !resultRef.current) {
+      return;
+    }
+
+    const resultElement = resultRef.current;
+    const frame = window.requestAnimationFrame(() => {
+      const isMobileLayout = window.matchMedia("(max-width: 1023px)").matches;
+
+      if (!isMobileLayout) {
+        return;
+      }
+
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      resultElement.focus({ preventScroll: true });
+      resultElement.scrollIntoView({
+        behavior: prefersReducedMotion ? "auto" : "smooth",
+        block: "start"
+      });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [hasResult, result]);
 
   return (
     <div className={cn("grid min-w-0 gap-6 lg:items-start", hasResult && "lg:grid-cols-[minmax(0,1fr)_380px]")}>
       <div className={cn("min-w-0", hasResult && "lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto lg:pr-2")}>
         {children}
       </div>
-      {result}
+      {hasResult ? (
+        <div ref={resultRef} className="scroll-mt-24 focus:outline-none" tabIndex={-1}>
+          {result}
+        </div>
+      ) : null}
     </div>
   );
 }
