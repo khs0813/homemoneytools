@@ -50,7 +50,7 @@ export default function HomePage() {
         </div>
 
         <div className="relative mt-12">
-          <AdFitSideBanner showVertical={false} />
+          <AdFitSideBanner showVertical={false} showMobileLargeRectangle={false} />
           <section className="grid gap-6 lg:grid-cols-3">
             <article className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
               <p className="text-sm font-bold text-brand-emerald">전세·월세</p>

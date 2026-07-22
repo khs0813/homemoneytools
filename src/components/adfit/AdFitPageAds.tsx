@@ -85,7 +85,17 @@ export function AdFitMobileMediumRectangleBanner() {
   );
 }
 
-export function AdFitSideBanner({ showVertical = true, showMobileMediumRectangle = true }: { showVertical?: boolean; showMobileMediumRectangle?: boolean }) {
+type AdFitSideBannerProps = {
+  showVertical?: boolean;
+  showMobileMediumRectangle?: boolean;
+  showMobileLargeRectangle?: boolean;
+};
+
+export function AdFitSideBanner({
+  showVertical = true,
+  showMobileMediumRectangle = true,
+  showMobileLargeRectangle = true
+}: AdFitSideBannerProps) {
   const isTabletOrDesktop = useMediaQuery("(min-width: 768px)");
   const isWideDesktop = useMediaQuery("(min-width: 1536px)");
 
@@ -100,7 +110,7 @@ export function AdFitSideBanner({ showVertical = true, showMobileMediumRectangle
   return (
     <aside className="mt-6 flex flex-col items-center gap-4 xl:absolute xl:-top-64 xl:left-full xl:ml-6 xl:mt-0">
       {!isTabletOrDesktop && showMobileMediumRectangle ? <AdFitMobileMediumRectangleBanner /> : null}
-      {!isTabletOrDesktop ? <AdFitMobileRectangleBanner /> : null}
+      {!isTabletOrDesktop && showMobileLargeRectangle ? <AdFitMobileRectangleBanner /> : null}
       {showVertical && isWideDesktop ? (
         <div>
           <AdFitVerticalBanner />
