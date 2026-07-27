@@ -1,4 +1,5 @@
 import { calculators } from "@/config/calculators";
+import { getCalculatorQualityContent } from "@/config/calculator-quality-content";
 import { guides } from "@/config/guides";
 import { isHousingCalculator } from "@/config/housing-content";
 import { siteConfig } from "@/config/site";
@@ -26,7 +27,7 @@ export function GET() {
         title: calculator.title,
         description: calculator.description,
         path: calculator.path,
-        lastModified: calculator.contentLastModified ?? siteConfig.lastUpdated
+        lastModified: getCalculatorQualityContent(calculator).contentModifiedDate ?? calculator.contentLastModified ?? siteConfig.lastUpdated
       })),
     ...guides.map((guide) => ({
       title: guide.title,

@@ -69,6 +69,10 @@ function DateInput({ label, value, onChange, required, helper }: { label: string
   );
 }
 
+function formatDateValue(value: Date) {
+  return value.toISOString().slice(0, 10);
+}
+
 export function SubscriptionScoreCalculator() {
   const [result, setResult] = useState<Result>(null);
   const { control, handleSubmit, reset, formState: { errors } } = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues });
@@ -112,8 +116,8 @@ export function SubscriptionScoreCalculator() {
           <ResultRow label="무주택기간" value={`${result.homelessnessYears}년 (${result.homelessnessMonths}개월)`} />
           <ResultRow label="본인 통장 가입기간" value={`${result.accountMonths}개월`} />
           {result.spouseAccountScore > 0 ? <ResultRow label="배우자 통장 가입기간" value={`${result.spouseAccountMonths}개월`} /> : null}
-          <ResultRow label="다음 무주택 점수까지" value={result.monthsToNextHomelessnessScore ? `${result.monthsToNextHomelessnessScore}개월` : "최고 구간"} />
-          <ResultRow label="다음 본인 통장 점수까지" value={result.monthsToNextAccountScore ? `${result.monthsToNextAccountScore}개월` : "합산 최고 구간"} />
+          <ResultRow label="다음 점수 증가 예상 시점" value={`무주택 ${result.monthsToNextHomelessnessScore ? `${result.monthsToNextHomelessnessScore}개월 후` : "최고 구간"} · 통장 ${result.monthsToNextAccountScore ? `${result.monthsToNextAccountScore}개월 후` : "합산 최고 구간"}`} />
+          <ResultRow label="입력값 확인사항" value={`무주택 산정 시작일 ${formatDateValue(result.calculatedHomelessStartDate)}, 부양가족 인정 여부, 공고일 기준 세대 구성을 다시 확인하세요.`} />
           <ShareButton />
         </ResultCard>
       ) : null}

@@ -1,0 +1,486 @@
+{
+  "generatedAt": "2026-07-27T14:56:31.510Z",
+  "baseUrl": "http://localhost:3000",
+  "publicHost": "https://jipcalc.co.kr",
+  "count": 53,
+  "sitemapUrlCount": 43,
+  "routes": [
+    {
+      "url": "https://jipcalc.co.kr/",
+      "path": "/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/about",
+      "path": "/about",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/acquisition-tax-calculator",
+      "path": "/acquisition-tax-calculator",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/air-conditioner-electricity-cost-calculator",
+      "path": "/air-conditioner-electricity-cost-calculator",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/calculators",
+      "path": "/calculators",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/car-maintenance-cost-calculator",
+      "path": "/car-maintenance-cost-calculator",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/contact",
+      "path": "/contact",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/disclaimer",
+      "path": "/disclaimer",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/dividend-income-calculator",
+      "path": "/dividend-income-calculator",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/dsr-calculator",
+      "path": "/dsr-calculator",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/electricity-bill-calculator",
+      "path": "/electricity-bill-calculator",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/exchange-rate-calculator",
+      "path": "/exchange-rate-calculator",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/guides",
+      "path": "/guides",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/guides/100-million-jeonse-loan-interest",
+      "path": "/guides/100-million-jeonse-loan-interest",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": false
+    },
+    {
+      "url": "https://jipcalc.co.kr/guides/200-million-jeonse-loan-monthly-interest",
+      "path": "/guides/200-million-jeonse-loan-monthly-interest",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": false
+    },
+    {
+      "url": "https://jipcalc.co.kr/guides/600-million-apartment-acquisition-tax",
+      "path": "/guides/600-million-apartment-acquisition-tax",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": false
+    },
+    {
+      "url": "https://jipcalc.co.kr/guides/900-million-apartment-acquisition-tax",
+      "path": "/guides/900-million-apartment-acquisition-tax",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": false
+    },
+    {
+      "url": "https://jipcalc.co.kr/guides/acquisition-tax",
+      "path": "/guides/acquisition-tax",
+      "status": 308,
+      "contentType": "text/html; charset=utf-8",
+      "location": "/guides/acquisition-tax-checklist",
+      "sitemapIncluded": false,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/guides/acquisition-tax-checklist",
+      "path": "/guides/acquisition-tax-checklist",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": false
+    },
+    {
+      "url": "https://jipcalc.co.kr/guides/brokerage-fee",
+      "path": "/guides/brokerage-fee",
+      "status": 308,
+      "contentType": "text/html; charset=utf-8",
+      "location": "/guides/brokerage-fee-negotiation",
+      "sitemapIncluded": false,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/guides/brokerage-fee-negotiation",
+      "path": "/guides/brokerage-fee-negotiation",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": false
+    },
+    {
+      "url": "https://jipcalc.co.kr/guides/dsr",
+      "path": "/guides/dsr",
+      "status": 308,
+      "contentType": "text/html; charset=utf-8",
+      "location": "/guides/what-dsr-40-means",
+      "sitemapIncluded": false,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/guides/jeonse-loan-interest",
+      "path": "/guides/jeonse-loan-interest",
+      "status": 308,
+      "contentType": "text/html; charset=utf-8",
+      "location": "/guides/jeonse-loan-interest-mistakes",
+      "sitemapIncluded": false,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/guides/jeonse-loan-interest-mistakes",
+      "path": "/guides/jeonse-loan-interest-mistakes",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": false
+    },
+    {
+      "url": "https://jipcalc.co.kr/guides/jeonse-total-housing-cost",
+      "path": "/guides/jeonse-total-housing-cost",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": false
+    },
+    {
+      "url": "https://jipcalc.co.kr/guides/monthly-rent-500k-to-jeonse",
+      "path": "/guides/monthly-rent-500k-to-jeonse",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": false
+    },
+    {
+      "url": "https://jipcalc.co.kr/guides/monthly-rent-conversion",
+      "path": "/guides/monthly-rent-conversion",
+      "status": 308,
+      "contentType": "text/html; charset=utf-8",
+      "location": "/guides/monthly-rent-conversion-basics",
+      "sitemapIncluded": false,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/guides/monthly-rent-conversion-basics",
+      "path": "/guides/monthly-rent-conversion-basics",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": false
+    },
+    {
+      "url": "https://jipcalc.co.kr/guides/regulated-area-acquisition-tax",
+      "path": "/guides/regulated-area-acquisition-tax",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": false
+    },
+    {
+      "url": "https://jipcalc.co.kr/guides/rent-vs-jeonse",
+      "path": "/guides/rent-vs-jeonse",
+      "status": 308,
+      "contentType": "text/html; charset=utf-8",
+      "location": "/guides/rent-vs-jeonse-decision-guide",
+      "sitemapIncluded": false,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/guides/rent-vs-jeonse-decision-guide",
+      "path": "/guides/rent-vs-jeonse-decision-guide",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": false
+    },
+    {
+      "url": "https://jipcalc.co.kr/guides/salary-50-million-dsr",
+      "path": "/guides/salary-50-million-dsr",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": false
+    },
+    {
+      "url": "https://jipcalc.co.kr/guides/salary-70-million-dsr-40",
+      "path": "/guides/salary-70-million-dsr-40",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": false
+    },
+    {
+      "url": "https://jipcalc.co.kr/guides/subscription-account-period",
+      "path": "/guides/subscription-account-period",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": false
+    },
+    {
+      "url": "https://jipcalc.co.kr/guides/subscription-score",
+      "path": "/guides/subscription-score",
+      "status": 308,
+      "contentType": "text/html; charset=utf-8",
+      "location": "/guides/subscription-score-interpretation",
+      "sitemapIncluded": false,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/guides/subscription-score-interpretation",
+      "path": "/guides/subscription-score-interpretation",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": false
+    },
+    {
+      "url": "https://jipcalc.co.kr/guides/subscription-score-vs-buy-or-rent",
+      "path": "/guides/subscription-score-vs-buy-or-rent",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": false
+    },
+    {
+      "url": "https://jipcalc.co.kr/guides/what-dsr-40-means",
+      "path": "/guides/what-dsr-40-means",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": false
+    },
+    {
+      "url": "https://jipcalc.co.kr/housing-subscription-score-calculator",
+      "path": "/housing-subscription-score-calculator",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/jeonse-loan-interest-calculator",
+      "path": "/jeonse-loan-interest-calculator",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/loan-interest-calculator",
+      "path": "/loan-interest-calculator",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/monthly-living-expense-calculator",
+      "path": "/monthly-living-expense-calculator",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/monthly-rent-conversion-calculator",
+      "path": "/monthly-rent-conversion-calculator",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/overseas-stock-capital-gains-tax-calculator",
+      "path": "/overseas-stock-capital-gains-tax-calculator",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/privacy-policy",
+      "path": "/privacy-policy",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/real-estate-brokerage-fee-calculator",
+      "path": "/real-estate-brokerage-fee-calculator",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/rent-vs-jeonse-calculator",
+      "path": "/rent-vs-jeonse-calculator",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/robots.txt",
+      "path": "/robots.txt",
+      "status": 200,
+      "contentType": "text/plain",
+      "location": null,
+      "sitemapIncluded": false,
+      "routeFileDetected": false
+    },
+    {
+      "url": "https://jipcalc.co.kr/rss.xml",
+      "path": "/rss.xml",
+      "status": 200,
+      "contentType": "application/rss+xml; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": false,
+      "routeFileDetected": false
+    },
+    {
+      "url": "https://jipcalc.co.kr/severance-pay-calculator",
+      "path": "/severance-pay-calculator",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/sitemap.xml",
+      "path": "/sitemap.xml",
+      "status": 200,
+      "contentType": "application/xml",
+      "location": null,
+      "sitemapIncluded": false,
+      "routeFileDetected": false
+    },
+    {
+      "url": "https://jipcalc.co.kr/take-home-pay-calculator",
+      "path": "/take-home-pay-calculator",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": true
+    },
+    {
+      "url": "https://jipcalc.co.kr/terms",
+      "path": "/terms",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sitemapIncluded": true,
+      "routeFileDetected": true
+    }
+  ]
+}

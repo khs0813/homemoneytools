@@ -1,5 +1,6 @@
 import type { CalculatorInfo } from "@/config/calculators";
 import { calculators } from "@/config/calculators";
+import { getCalculatorQualityContent } from "@/config/calculator-quality-content";
 import { guides } from "@/config/guides";
 import { siteConfig } from "@/config/site";
 import { absoluteUrl } from "@/lib/seo";
@@ -75,7 +76,7 @@ export function BreadcrumbJsonLd({ items }: { items: Array<{ name: string; path:
   );
 }
 
-export function WebPageJsonLd({ title, description, path }: { title: string; description: string; path: string }) {
+export function WebPageJsonLd({ title, description, path, dateModified = siteConfig.lastUpdated }: { title: string; description: string; path: string; dateModified?: string }) {
   return (
     <JsonLd
       data={{
@@ -88,7 +89,7 @@ export function WebPageJsonLd({ title, description, path }: { title: string; des
         inLanguage: siteConfig.language,
         isPartOf: website,
         datePublished: siteConfig.lastUpdated,
-        dateModified: siteConfig.lastUpdated,
+        dateModified,
         primaryImageOfPage: {
           "@type": "ImageObject",
           url: absoluteUrl(siteConfig.defaultOgImage),
@@ -102,6 +103,8 @@ export function WebPageJsonLd({ title, description, path }: { title: string; des
 }
 
 export function CalculatorJsonLd({ info }: { info: CalculatorInfo }) {
+  const dateModified = getCalculatorQualityContent(info).contentModifiedDate ?? info.contentLastModified ?? siteConfig.lastUpdated;
+
   return (
     <JsonLd
       data={{
@@ -121,7 +124,7 @@ export function CalculatorJsonLd({ info }: { info: CalculatorInfo }) {
             inLanguage: siteConfig.language,
             isAccessibleForFree: true,
             datePublished: siteConfig.lastUpdated,
-            dateModified: siteConfig.lastUpdated,
+            dateModified,
             featureList: ["주거비 계산", "시나리오 비교", "위험 구간 해석", "FAQ", "공식 출처 안내"],
             offers: {
               "@type": "Offer",

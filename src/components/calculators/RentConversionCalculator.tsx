@@ -37,7 +37,11 @@ const schema = z.object({
 });
 
 type FormValues = z.infer<typeof schema>;
-type Result = ReturnType<typeof calculateRentConversion> | null;
+type Result = (ReturnType<typeof calculateRentConversion> & {
+  existingDeposit: number;
+  changedDeposit: number;
+  depositDifference: number;
+}) | null;
 
 const defaultValues: FormValues = {
   type: "jeonse-to-rent",
@@ -67,7 +71,14 @@ export function RentConversionCalculator() {
 
   function onSubmit(values: FormValues) {
     const calculated = calculateRentConversion(values);
-    setResult(calculated);
+    const existingDeposit = values.type === "jeonse-to-rent" ? values.jeonseAmount ?? 0 : values.deposit;
+    const changedDeposit = values.type === "jeonse-to-rent" ? values.deposit : calculated.jeonseEquivalent;
+    setResult({
+      ...calculated,
+      existingDeposit,
+      changedDeposit,
+      depositDifference: Math.abs(existingDeposit - changedDeposit)
+    });
     writeQueryState(values);
   }
 
@@ -76,12 +87,15 @@ export function RentConversionCalculator() {
       pinForm={Boolean(result)}
       result={result ? (
         <ResultCard title={result.type === "jeonse-to-rent" ? "예상 월세" : "전세 환산 금액"} value={result.type === "jeonse-to-rent" ? formatCurrency(result.monthlyRent) : formatCurrency(result.jeonseEquivalent)} description={`${result.years}년 기준 총 월세는 ${formatCurrency(result.totalRentForPeriod)}입니다.`}>
+          <ResultRow label="기존 보증금" value={formatCurrency(result.existingDeposit)} />
+          <ResultRow label="변경 보증금" value={formatCurrency(result.changedDeposit)} />
+          <ResultRow label="보증금 차액" value={formatCurrency(result.depositDifference)} />
           <ResultRow label="적용 전환율" value={formatPercent(result.conversionRate)} />
           {result.type === "jeonse-to-rent"
             ? <ResultRow label="전세→월세 법정 상한 참고값" value={formatPercent(result.legalMaximumRate)} />
             : <ResultRow label="계산 성격" value="월세→전세 비교용 역산 · 법정 상한 직접 적용 아님" />}
           <ResultRow label="예상 월세" value={formatCurrency(result.monthlyRent)} />
-          <ResultRow label="전세 환산 금액" value={formatCurrency(result.jeonseEquivalent)} />
+          <ResultRow label="월세의 전세금 환산액" value={formatCurrency(result.jeonseEquivalent)} />
           <ResultRow label="기간 내 월세 총액" value={formatCurrency(result.totalRentForPeriod)} />
           {result.exceedsLegalMaximum ? <ResultRow label="주의" value="입력 전환율이 현재 법정 상한 참고값을 초과합니다." /> : null}
           <ShareButton />

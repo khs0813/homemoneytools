@@ -59,18 +59,23 @@ export function BrokerageFeeCalculator() {
     writeQueryState(normalized);
   }
 
+  const legalUpperAmount = result
+    ? Math.min(result.transactionAmount * result.legalRate / 100, result.limit ?? Number.POSITIVE_INFINITY)
+    : 0;
+
   return (
     <CalculatorWorkspace
       pinForm={Boolean(result)}
       result={result ? (
         <ResultCard title="예상 총 중개비" value={formatCurrency(result.total)} description={`${result.includeVat ? "부가세 포함" : "부가세 제외"} 예상액이며, 기준 버전은 ${result.version}입니다.`}>
-          <ResultRow label="적용 거래금액" value={formatCurrency(result.transactionAmount)} />
-          <ResultRow label="입력한 협의 요율" value={formatPercent(result.requestedRate, 4)} />
-          <ResultRow label="실제 적용 요율" value={formatPercent(result.appliedRate, 4)} />
-          <ResultRow label="법정 상한요율" value={formatPercent(result.legalRate, 4)} />
-          <ResultRow label="한도액" value={result.limit ? formatCurrency(result.limit) : "한도 없음"} />
-          <ResultRow label="중개보수" value={formatCurrency(result.brokerageFee)} />
+          <ResultRow label="거래금액" value={formatCurrency(result.transactionAmount)} />
+          {transactionType === "monthlyRent" ? <ResultRow label="월세 환산 거래금액" value={formatCurrency(result.transactionAmount)} /> : null}
+          <ResultRow label="적용 상한요율" value={formatPercent(result.legalRate, 4)} />
+          <ResultRow label="법정 상한액" value={formatCurrency(legalUpperAmount)} />
+          <ResultRow label="사용자 입력 협의요율" value={formatPercent(result.requestedRate, 4)} />
+          <ResultRow label="협의 수수료" value={formatCurrency(result.brokerageFee)} />
           <ResultRow label="부가세" value={formatCurrency(result.vat)} />
+          <ResultRow label="총 지급 예상액" value={formatCurrency(result.total)} />
           {result.wasRateCapped ? <ResultRow label="주의" value="입력 요율이 상한을 넘어 법정 상한으로 제한했습니다." /> : null}
           <ShareButton />
         </ResultCard>

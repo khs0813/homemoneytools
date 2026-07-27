@@ -6,6 +6,7 @@ import { DisclaimerBox } from "@/components/calculator/DisclaimerBox";
 import { FaqJsonLd, FaqSection } from "@/components/calculator/FaqSection";
 import { FormulaAccordion } from "@/components/calculator/FormulaAccordion";
 import { RelatedCalculators } from "@/components/calculator/RelatedCalculators";
+import { getCalculatorQualityContent } from "@/config/calculator-quality-content";
 import { getPrimaryGuideForCalculator } from "@/config/guides";
 import { housingReferenceBySlug } from "@/config/housing-content";
 import { getSeoContent } from "@/config/seo-content";
@@ -14,11 +15,15 @@ import { BreadcrumbJsonLd, CalculatorJsonLd, WebPageJsonLd } from "@/lib/json-ld
 export function CalculatorPage({ info, children }: { info: CalculatorInfo; children: ReactNode }) {
   const seoContent = getSeoContent(info.slug);
   const reference = housingReferenceBySlug[info.slug];
+  const qualityContent = getCalculatorQualityContent(info);
   const relatedGuide = getPrimaryGuideForCalculator(info.slug);
+  const calculationBasisDate = qualityContent.calculationBasisDate ?? reference?.referenceDate ?? "별도 제도 기준 없음";
+  const pageModifiedDate = qualityContent.contentModifiedDate ?? info.contentLastModified ?? "2026-06-04";
+  const officialSources = qualityContent.officialSources ?? reference?.officialSources ?? [];
 
   return (
     <>
-      <WebPageJsonLd title={info.title} description={info.description} path={info.path} />
+      <WebPageJsonLd title={info.title} description={info.description} path={info.path} dateModified={pageModifiedDate} />
       <FaqJsonLd faqs={info.faqs} />
       <BreadcrumbJsonLd
         items={[
@@ -34,25 +39,24 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
           <h1 className="mt-3 text-3xl font-black tracking-tight md:text-5xl">{info.title}</h1>
           <p className="mt-5 max-w-3xl text-base leading-7 text-blue-50">{info.description}</p>
         </div>
-        <AdFitTopBanner />
-        <div className="mt-6">
-          <AdFitMobileMediumRectangleBanner />
-        </div>
         <div className="relative mt-8">
           <div>{children}</div>
           <AdFitSideBanner showMobileMediumRectangle={false} />
+        </div>
+        <AdFitTopBanner />
+        <div className="mt-6">
+          <AdFitMobileMediumRectangleBanner />
         </div>
         <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(280px,380px)]">
           <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
             <h2 className="text-lg font-bold text-slate-950">이 계산기로 확인할 수 있는 것</h2>
             <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-600">
-              <li>• 입력값 기준 월 부담액과 총비용 구조</li>
-              <li>• 금리 변동, 위험 구간, 해석 포인트</li>
-              <li>• 계산 공식, 실제 사례, 자주 하는 실수</li>
-              <li>• 관련 계산기 추천과 공식 참고 출처</li>
+              {qualityContent.checks.map((item) => (
+                <li key={item}>• {item}</li>
+              ))}
             </ul>
           </div>
-          <DisclaimerBox />
+          <DisclaimerBox>{qualityContent.shortDisclaimer}</DisclaimerBox>
         </div>
         <div className="mt-4 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
           <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
@@ -60,16 +64,18 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
             <dl className="mt-4 grid gap-3 text-sm leading-6 text-slate-600 sm:grid-cols-2">
               <div>
                 <dt className="font-semibold text-slate-900">계산 기준일</dt>
-                <dd className="mt-1">{reference?.referenceDate ?? "별도 제도 기준 없음"}</dd>
+                <dd className="mt-1">{calculationBasisDate}</dd>
               </div>
               <div>
                 <dt className="font-semibold text-slate-900">페이지 최종 수정일</dt>
-                <dd className="mt-1">2026-06-04</dd>
+                <dd className="mt-1">{pageModifiedDate}</dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-slate-900">출처 확인일</dt>
+                <dd className="mt-1">{qualityContent.sourceCheckedAt ?? "별도 표기 없음"}</dd>
               </div>
             </dl>
-            <p className="mt-4 text-sm leading-6 text-slate-600">
-              실제 금리, 세율, 중개보수, 청약 기준은 기관 공지와 계약 조건에 따라 달라질 수 있으므로 중요한 결정 전에는 공식 출처를 다시 확인해야 합니다.
-            </p>
+            <p className="mt-4 text-sm leading-6 text-slate-600">{qualityContent.basisNote}</p>
           </div>
           <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
             <h2 className="text-lg font-bold text-slate-950">신뢰 및 문의</h2>
@@ -257,8 +263,9 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
         <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6 md:p-8">
           <h2 className="text-2xl font-black text-slate-950">계산 기준 및 참고 출처</h2>
           <div className="mt-4 grid gap-2 text-sm leading-7 text-slate-600 sm:grid-cols-2">
-            <p>기준일: {reference.referenceDate}</p>
-            <p>최종 수정일: 2026-06-04</p>
+            <p>기준일: {calculationBasisDate}</p>
+            <p>최종 수정일: {pageModifiedDate}</p>
+            <p>출처 확인일: {qualityContent.sourceCheckedAt ?? "별도 표기 없음"}</p>
           </div>
           <div className="mt-5 grid gap-4 lg:grid-cols-2">
             <div className="rounded-2xl bg-slate-50 p-5">
@@ -282,6 +289,27 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
                 ))}
               </div>
             </div>
+          </div>
+        </section>
+      ) : null}
+
+      {!reference && officialSources.length > 0 ? (
+        <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6 md:p-8">
+          <h2 className="text-2xl font-black text-slate-950">계산 기준 및 참고 출처</h2>
+          <div className="mt-4 grid gap-2 text-sm leading-7 text-slate-600 sm:grid-cols-2">
+            <p>기준일: {calculationBasisDate}</p>
+            <p>최종 수정일: {pageModifiedDate}</p>
+            <p>출처 확인일: {qualityContent.sourceCheckedAt ?? "별도 표기 없음"}</p>
+          </div>
+          <div className="mt-5 grid gap-4 lg:grid-cols-2">
+            {officialSources.map((source) => (
+              <div key={source.url} className="rounded-2xl bg-slate-50 p-5">
+                <a href={source.url} target="_blank" rel="noreferrer" className="font-bold text-brand-navy hover:underline">
+                  {source.title}
+                </a>
+                <p className="mt-2 text-sm leading-6 text-slate-600">{source.note}</p>
+              </div>
+            ))}
           </div>
         </section>
       ) : null}

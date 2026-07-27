@@ -1,0 +1,446 @@
+{
+  "generatedAt": "2026-07-27T14:10:28.335Z",
+  "count": 17,
+  "results": [
+    {
+      "slug": "take-home-pay",
+      "path": "/take-home-pay-calculator",
+      "input": {
+        "annualSalary": 50000000,
+        "annualBonus": 0,
+        "monthlyNonTaxable": 200000,
+        "dependents": 1,
+        "childrenUnder20": 0
+      },
+      "output": {
+        "grossAnnual": 50000000,
+        "grossMonthly": 4166667,
+        "monthlyNonTaxable": 200000,
+        "nationalPension": 2142000,
+        "healthInsurance": 1687420,
+        "longTermCare": 218521,
+        "employmentInsurance": 428400,
+        "totalInsurance": 4476341,
+        "incomeTax": 3164049,
+        "localIncomeTax": 316405,
+        "annualNet": 42043205,
+        "monthlyNet": 3503600,
+        "monthlyDeductions": 663066,
+        "deductionRate": 15.91
+      },
+      "generatedAt": "2026-07-27T14:10:28.335Z",
+      "resultJson": "{\"annualNet\":42043205,\"deductionRate\":15.91,\"employmentInsurance\":428400,\"grossAnnual\":50000000,\"grossMonthly\":4166667,\"healthInsurance\":1687420,\"incomeTax\":3164049,\"localIncomeTax\":316405,\"longTermCare\":218521,\"monthlyDeductions\":663066,\"monthlyNet\":3503600,\"monthlyNonTaxable\":200000,\"nationalPension\":2142000,\"totalInsurance\":4476341}"
+    },
+    {
+      "slug": "loan-interest",
+      "path": "/loan-interest-calculator",
+      "input": {
+        "principal": 100000000,
+        "annualRate": 5,
+        "years": 10,
+        "repaymentType": "interest-only"
+      },
+      "output": {
+        "monthlyPayment": 416667,
+        "firstMonthlyPayment": 416667,
+        "lastMonthlyPayment": 416667,
+        "monthlyInterestOnly": 416667,
+        "totalInterest": 50000000,
+        "totalPayment": 150000000,
+        "months": 120
+      },
+      "generatedAt": "2026-07-27T14:10:28.335Z",
+      "resultJson": "{\"firstMonthlyPayment\":416667,\"lastMonthlyPayment\":416667,\"monthlyInterestOnly\":416667,\"monthlyPayment\":416667,\"months\":120,\"totalInterest\":50000000,\"totalPayment\":150000000}"
+    },
+    {
+      "slug": "severance-pay",
+      "path": "/severance-pay-calculator",
+      "input": {
+        "averageMonthlyWage": 3500000,
+        "years": 5,
+        "extraMonths": 0,
+        "taxRate": 0
+      },
+      "output": {
+        "serviceYears": 5,
+        "grossSeverance": 17500000,
+        "estimatedTax": 0,
+        "netSeverance": 17500000,
+        "monthlyReserveEquivalent": 291667
+      },
+      "generatedAt": "2026-07-27T14:10:28.335Z",
+      "resultJson": "{\"estimatedTax\":0,\"grossSeverance\":17500000,\"monthlyReserveEquivalent\":291667,\"netSeverance\":17500000,\"serviceYears\":5}"
+    },
+    {
+      "slug": "dividend-income",
+      "path": "/dividend-income-calculator",
+      "input": {
+        "investmentAmount": 100000000,
+        "dividendYield": 4,
+        "taxRate": 15.4,
+        "frequency": 4,
+        "targetMonthlyDividend": 1000000
+      },
+      "output": {
+        "grossAnnualDividend": 4000000,
+        "netAnnualDividend": 3384000,
+        "netMonthlyDividend": 282000,
+        "dividendPerPayment": 846000,
+        "neededPrincipalForTarget": 354609929
+      },
+      "generatedAt": "2026-07-27T14:10:28.335Z",
+      "resultJson": "{\"dividendPerPayment\":846000,\"grossAnnualDividend\":4000000,\"neededPrincipalForTarget\":354609929,\"netAnnualDividend\":3384000,\"netMonthlyDividend\":282000}"
+    },
+    {
+      "slug": "exchange-rate",
+      "path": "/exchange-rate-calculator",
+      "input": {
+        "krwAmount": 1300000,
+        "exchangeRate": 1350,
+        "feeRate": 1,
+        "backExchangeRate": 1350
+      },
+      "output": {
+        "foreignAmount": 962.96,
+        "feeAmountForeign": 9.63,
+        "foreignAfterFee": 953.33,
+        "backToKrw": 1287000,
+        "roundTripDifference": -13000
+      },
+      "generatedAt": "2026-07-27T14:10:28.335Z",
+      "resultJson": "{\"backToKrw\":1287000,\"feeAmountForeign\":9.63,\"foreignAfterFee\":953.33,\"foreignAmount\":962.96,\"roundTripDifference\":-13000}"
+    },
+    {
+      "slug": "overseas-stock-tax",
+      "path": "/overseas-stock-capital-gains-tax-calculator",
+      "input": {
+        "buyPrice": 100,
+        "sellPrice": 120,
+        "shares": 100,
+        "buyRate": 1300,
+        "sellRate": 1350,
+        "fees": 50000
+      },
+      "output": {
+        "purchaseAmountKrw": 13000000,
+        "saleAmountKrw": 16200000,
+        "capitalGain": 3150000,
+        "deduction": 2500000,
+        "taxableGain": 650000,
+        "estimatedTax": 143000
+      },
+      "generatedAt": "2026-07-27T14:10:28.335Z",
+      "resultJson": "{\"capitalGain\":3150000,\"deduction\":2500000,\"estimatedTax\":143000,\"purchaseAmountKrw\":13000000,\"saleAmountKrw\":16200000,\"taxableGain\":650000}"
+    },
+    {
+      "slug": "electricity-bill",
+      "path": "/electricity-bill-calculator",
+      "input": {
+        "monthlyUsageKwh": 350,
+        "season": "normal"
+      },
+      "output": {
+        "usage": 350,
+        "baseFee": 1600,
+        "energyCharge": 56190,
+        "climateCharge": 3150,
+        "fuelAdjustment": 1750,
+        "total": 62690,
+        "averageRate": 179.11,
+        "tierBreakdown": [
+          200,
+          150,
+          0
+        ]
+      },
+      "generatedAt": "2026-07-27T14:10:28.335Z",
+      "resultJson": "{\"averageRate\":179.11,\"baseFee\":1600,\"climateCharge\":3150,\"energyCharge\":56190,\"fuelAdjustment\":1750,\"tierBreakdown\":[200,150,0],\"total\":62690,\"usage\":350}"
+    },
+    {
+      "slug": "air-conditioner-electricity-cost",
+      "path": "/air-conditioner-electricity-cost-calculator",
+      "input": {
+        "powerWatts": 1200,
+        "hoursPerDay": 8,
+        "daysPerMonth": 30,
+        "pricePerKwh": 180
+      },
+      "output": {
+        "monthlyUsageKwh": 288,
+        "estimatedCost": 51840,
+        "dailyCost": 1728,
+        "hourlyCost": 216
+      },
+      "generatedAt": "2026-07-27T14:10:28.335Z",
+      "resultJson": "{\"dailyCost\":1728,\"estimatedCost\":51840,\"hourlyCost\":216,\"monthlyUsageKwh\":288}"
+    },
+    {
+      "slug": "car-maintenance-cost",
+      "path": "/car-maintenance-cost-calculator",
+      "input": {
+        "monthlyDistanceKm": 1200,
+        "fuelEfficiencyKmPerL": 12,
+        "fuelPricePerL": 1700,
+        "annualInsurance": 1200000,
+        "annualTax": 300000,
+        "monthlyParking": 100000,
+        "monthlyToll": 50000,
+        "monthlyMaintenanceReserve": 100000,
+        "monthlyInstallment": 0
+      },
+      "output": {
+        "monthlyFuelCost": 170000,
+        "monthlyInsurance": 100000,
+        "monthlyTax": 25000,
+        "totalMonthlyCost": 545000,
+        "annualCost": 6540000,
+        "costPerKm": 454.17
+      },
+      "generatedAt": "2026-07-27T14:10:28.335Z",
+      "resultJson": "{\"annualCost\":6540000,\"costPerKm\":454.17,\"monthlyFuelCost\":170000,\"monthlyInsurance\":100000,\"monthlyTax\":25000,\"totalMonthlyCost\":545000}"
+    },
+    {
+      "slug": "monthly-living-expense",
+      "path": "/monthly-living-expense-calculator",
+      "input": {
+        "monthlyNetIncome": 3200000,
+        "housing": 900000,
+        "food": 600000,
+        "transportation": 200000,
+        "telecom": 100000,
+        "insurance": 200000,
+        "education": 100000,
+        "leisure": 300000,
+        "debt": 200000,
+        "miscellaneous": 150000
+      },
+      "output": {
+        "categories": {
+          "housing": 900000,
+          "food": 600000,
+          "transportation": 200000,
+          "telecom": 100000,
+          "insurance": 200000,
+          "education": 100000,
+          "leisure": 300000,
+          "debt": 200000,
+          "miscellaneous": 150000
+        },
+        "totalExpense": 2750000,
+        "remaining": 450000,
+        "expenseRate": 85.94
+      },
+      "generatedAt": "2026-07-27T14:10:28.335Z",
+      "resultJson": "{\"categories\":{\"debt\":200000,\"education\":100000,\"food\":600000,\"housing\":900000,\"insurance\":200000,\"leisure\":300000,\"miscellaneous\":150000,\"telecom\":100000,\"transportation\":200000},\"expenseRate\":85.94,\"remaining\":450000,\"totalExpense\":2750000}"
+    },
+    {
+      "slug": "jeonse-loan-interest",
+      "path": "/jeonse-loan-interest-calculator",
+      "input": {
+        "jeonseDeposit": 400000000,
+        "principal": 200000000,
+        "annualRate": 4.2,
+        "years": 2,
+        "repaymentType": "interest-only",
+        "guaranteeFeeRate": 0.115
+      },
+      "output": {
+        "monthlyPayment": 700000,
+        "firstMonthlyPayment": 700000,
+        "lastMonthlyPayment": 700000,
+        "monthlyInterestOnly": 700000,
+        "totalInterest": 16800000,
+        "totalPayment": 216800000,
+        "months": 24,
+        "guaranteeFee": 460000,
+        "prepaymentFee": 0,
+        "estimatedFeesTotal": 460000,
+        "estimatedBorrowingCost": 17260000,
+        "loanToDepositRatio": 50,
+        "isPrincipalWithinDeposit": true
+      },
+      "generatedAt": "2026-07-27T14:10:28.335Z",
+      "resultJson": "{\"estimatedBorrowingCost\":17260000,\"estimatedFeesTotal\":460000,\"firstMonthlyPayment\":700000,\"guaranteeFee\":460000,\"isPrincipalWithinDeposit\":true,\"lastMonthlyPayment\":700000,\"loanToDepositRatio\":50,\"monthlyInterestOnly\":700000,\"monthlyPayment\":700000,\"months\":24,\"prepaymentFee\":0,\"totalInterest\":16800000,\"totalPayment\":216800000}"
+    },
+    {
+      "slug": "rent-vs-jeonse",
+      "path": "/rent-vs-jeonse-calculator",
+      "input": {
+        "jeonseDeposit": 500000000,
+        "rentDeposit": 100000000,
+        "monthlyRent": 1200000,
+        "years": 2,
+        "savingRate": 3,
+        "jeonseLoanRate": 4,
+        "jeonseLoanAmount": 300000000
+      },
+      "output": {
+        "rentTotalCost": 34800000,
+        "monthlyRentTotal": 28800000,
+        "rentDepositOpportunityCost": 6000000,
+        "jeonseTotalCost": 36000000,
+        "jeonseOpportunityCost": 12000000,
+        "jeonseLoanInterest": 24000000,
+        "difference": 1200000,
+        "signedDifference": -1200000,
+        "monthlyDifference": 50000,
+        "winner": "rent",
+        "requestedJeonseLoanAmount": 300000000,
+        "appliedJeonseLoanAmount": 300000000,
+        "isLoanWithinDeposit": true
+      },
+      "generatedAt": "2026-07-27T14:10:28.335Z",
+      "resultJson": "{\"appliedJeonseLoanAmount\":300000000,\"difference\":1200000,\"isLoanWithinDeposit\":true,\"jeonseLoanInterest\":24000000,\"jeonseOpportunityCost\":12000000,\"jeonseTotalCost\":36000000,\"monthlyDifference\":50000,\"monthlyRentTotal\":28800000,\"rentDepositOpportunityCost\":6000000,\"rentTotalCost\":34800000,\"requestedJeonseLoanAmount\":300000000,\"signedDifference\":-1200000,\"winner\":\"rent\"}"
+    },
+    {
+      "slug": "dsr",
+      "path": "/dsr-calculator",
+      "input": {
+        "annualIncome": 70000000,
+        "mortgageAmount": 300000000,
+        "mortgageRate": 4.5,
+        "mortgageYears": 30,
+        "existingCreditLoanAmount": 30000000,
+        "existingCreditLoanRate": 6,
+        "otherAnnualRepayment": 0,
+        "dsrLimit": 40,
+        "stressRate": 1.5,
+        "creditLoanMode": "amortized"
+      },
+      "output": {
+        "version": "2026-07-01 참고용",
+        "annualMortgagePayment": 18240671,
+        "annualCreditPayment": 7800000,
+        "otherAnnualRepayment": 0,
+        "totalAnnualRepayment": 26040671,
+        "monthlyAverageRepayment": 2170056,
+        "dsr": 37.2,
+        "dsrLimit": 40,
+        "remainingAnnualRepaymentCapacity": -1383819,
+        "stressedDsr": 41.98,
+        "stressedTotalAnnualRepayment": 29383819,
+        "assessmentDsr": 41.98,
+        "assessmentTotalAnnualRepayment": 29383819,
+        "assessmentMonthlyAverageRepayment": 2448652,
+        "useStressAssessment": true,
+        "creditLoanMode": "amortized",
+        "status": "over"
+      },
+      "generatedAt": "2026-07-27T14:10:28.335Z",
+      "resultJson": "{\"annualCreditPayment\":7800000,\"annualMortgagePayment\":18240671,\"assessmentDsr\":41.98,\"assessmentMonthlyAverageRepayment\":2448652,\"assessmentTotalAnnualRepayment\":29383819,\"creditLoanMode\":\"amortized\",\"dsr\":37.2,\"dsrLimit\":40,\"monthlyAverageRepayment\":2170056,\"otherAnnualRepayment\":0,\"remainingAnnualRepaymentCapacity\":-1383819,\"status\":\"over\",\"stressedDsr\":41.98,\"stressedTotalAnnualRepayment\":29383819,\"totalAnnualRepayment\":26040671,\"useStressAssessment\":true,\"version\":\"2026-07-01 참고용\"}"
+    },
+    {
+      "slug": "acquisition-tax",
+      "path": "/acquisition-tax-calculator",
+      "input": {
+        "price": 600000000,
+        "houseCount": "one",
+        "isRegulatedArea": false,
+        "floorAreaOver85": true,
+        "firstHomeDiscountType": "none"
+      },
+      "output": {
+        "version": "2026-07-01 참고용",
+        "rate": 1,
+        "acquisitionTaxBeforeDiscount": 6000000,
+        "firstHomeDiscount": 0,
+        "acquisitionTax": 6000000,
+        "localEducationTaxBeforeDiscount": 600000,
+        "localEducationTax": 600000,
+        "specialRuralTax": 1200000,
+        "totalTax": 7800000,
+        "effectiveRate": 1.3,
+        "firstHomeEligibleByBasicInputs": false,
+        "isHeavyRate": false,
+        "warnings": [
+          "법인·증여·상속·부담부증여·분양권·주택 수 제외 특례는 이 간편 계산 범위에 포함하지 않습니다."
+        ]
+      },
+      "generatedAt": "2026-07-27T14:10:28.335Z",
+      "resultJson": "{\"acquisitionTax\":6000000,\"acquisitionTaxBeforeDiscount\":6000000,\"effectiveRate\":1.3,\"firstHomeDiscount\":0,\"firstHomeEligibleByBasicInputs\":false,\"isHeavyRate\":false,\"localEducationTax\":600000,\"localEducationTaxBeforeDiscount\":600000,\"rate\":1,\"specialRuralTax\":1200000,\"totalTax\":7800000,\"version\":\"2026-07-01 참고용\",\"warnings\":[\"법인·증여·상속·부담부증여·분양권·주택 수 제외 특례는 이 간편 계산 범위에 포함하지 않습니다.\"]}"
+    },
+    {
+      "slug": "brokerage-fee",
+      "path": "/real-estate-brokerage-fee-calculator",
+      "input": {
+        "transactionType": "sale",
+        "transactionAmount": 600000000,
+        "customRate": 0.4,
+        "includeVat": true
+      },
+      "output": {
+        "version": "2026-01 참고용",
+        "transactionAmount": 600000000,
+        "requestedRate": 0.4,
+        "appliedRate": 0.4,
+        "legalRate": 0.4,
+        "wasRateCapped": false,
+        "limit": null,
+        "brokerageFee": 2400000,
+        "includeVat": true,
+        "vat": 240000,
+        "total": 2640000
+      },
+      "generatedAt": "2026-07-27T14:10:28.335Z",
+      "resultJson": "{\"appliedRate\":0.4,\"brokerageFee\":2400000,\"includeVat\":true,\"legalRate\":0.4,\"limit\":null,\"requestedRate\":0.4,\"total\":2640000,\"transactionAmount\":600000000,\"vat\":240000,\"version\":\"2026-01 참고용\",\"wasRateCapped\":false}"
+    },
+    {
+      "slug": "monthly-rent-conversion",
+      "path": "/monthly-rent-conversion-calculator",
+      "input": {
+        "type": "jeonse-to-rent",
+        "jeonseAmount": 300000000,
+        "deposit": 100000000,
+        "conversionRate": 5.5,
+        "years": 2
+      },
+      "output": {
+        "version": "2026-07-16 참고용",
+        "conversionRate": 5.5,
+        "legalMaximumRate": 4.75,
+        "exceedsLegalMaximum": true,
+        "years": 2,
+        "type": "jeonse-to-rent",
+        "monthlyRent": 916667,
+        "jeonseEquivalent": 300000000,
+        "totalRentForPeriod": 22000000,
+        "isDepositWithinJeonse": true
+      },
+      "generatedAt": "2026-07-27T14:10:28.335Z",
+      "resultJson": "{\"conversionRate\":5.5,\"exceedsLegalMaximum\":true,\"isDepositWithinJeonse\":true,\"jeonseEquivalent\":300000000,\"legalMaximumRate\":4.75,\"monthlyRent\":916667,\"totalRentForPeriod\":22000000,\"type\":\"jeonse-to-rent\",\"version\":\"2026-07-16 참고용\",\"years\":2}"
+    },
+    {
+      "slug": "housing-subscription-score",
+      "path": "/housing-subscription-score-calculator",
+      "input": {
+        "birthDate": "1988-01-01",
+        "maritalStatus": "married",
+        "marriageDate": "2018-01-01",
+        "homelessStartDate": "2018-01-01",
+        "dependents": 3,
+        "accountStartDate": "2016-01-01",
+        "spouseAccountStartDate": "2017-01-01",
+        "announcementDate": "2026-07-01"
+      },
+      "output": {
+        "version": "2026-06-15 참고용",
+        "totalScore": 53,
+        "maxScore": 84,
+        "homelessnessScore": 18,
+        "dependentsScore": 20,
+        "accountScore": 15,
+        "applicantAccountScore": 12,
+        "spouseAccountScore": 3,
+        "homelessnessMonths": 102,
+        "homelessnessYears": 8,
+        "accountMonths": 126,
+        "spouseAccountMonths": 114,
+        "calculatedHomelessStartDate": "2017-12-31T15:00:00.000Z",
+        "monthsToNextHomelessnessScore": 6,
+        "monthsToNextAccountScore": 6
+      },
+      "generatedAt": "2026-07-27T14:10:28.335Z",
+      "resultJson": "{\"accountMonths\":126,\"accountScore\":15,\"applicantAccountScore\":12,\"calculatedHomelessStartDate\":\"2017-12-31\",\"dependentsScore\":20,\"homelessnessMonths\":102,\"homelessnessScore\":18,\"homelessnessYears\":8,\"maxScore\":84,\"monthsToNextAccountScore\":6,\"monthsToNextHomelessnessScore\":6,\"spouseAccountMonths\":114,\"spouseAccountScore\":3,\"totalScore\":53,\"version\":\"2026-06-15 참고용\"}"
+    }
+  ]
+}

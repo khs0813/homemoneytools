@@ -32,7 +32,13 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>;
 
-type Result = ReturnType<typeof calculateJeonseLoan> | null;
+type BaseResult = ReturnType<typeof calculateJeonseLoan>;
+type Result = (BaseResult & {
+  halfPointUpMonthlyPayment: number;
+  onePointUpMonthlyPayment: number;
+  halfPointUpTotalInterest: number;
+  onePointUpTotalInterest: number;
+}) | null;
 
 const defaultValues: FormValues = {
   jeonseDeposit: 500_000_000,
@@ -63,7 +69,15 @@ export function JeonseLoanCalculator() {
 
   function onSubmit(values: FormValues) {
     const calculated = calculateJeonseLoan(values);
-    setResult(calculated);
+    const halfPointUp = calculateJeonseLoan({ ...values, annualRate: values.annualRate + 0.5 });
+    const onePointUp = calculateJeonseLoan({ ...values, annualRate: values.annualRate + 1 });
+    setResult({
+      ...calculated,
+      halfPointUpMonthlyPayment: halfPointUp.monthlyPayment,
+      onePointUpMonthlyPayment: onePointUp.monthlyPayment,
+      halfPointUpTotalInterest: halfPointUp.totalInterest,
+      onePointUpTotalInterest: onePointUp.totalInterest
+    });
     writeQueryState(values);
   }
 
@@ -72,15 +86,17 @@ export function JeonseLoanCalculator() {
       pinForm={Boolean(result)}
       result={result ? (
         <ResultCard title="예상 월 납입액" value={formatCurrency(result.monthlyPayment)} description="입력하신 상환방식 기준 예상 월 납입액이며 참고용입니다.">
-          <ResultRow label="월 이자만 낼 경우" value={formatCurrency(result.monthlyInterestOnly)} />
+          <ResultRow label="월이자" value={formatCurrency(result.monthlyInterestOnly)} />
           <ResultRow label="첫 달 납입액" value={formatCurrency(result.firstMonthlyPayment)} />
           <ResultRow label="마지막 달 납입액" value={formatCurrency(result.lastMonthlyPayment)} />
-          <ResultRow label="총 이자" value={formatCurrency(result.totalInterest)} />
+          <ResultRow label="계약기간 총이자" value={formatCurrency(result.totalInterest)} />
           <ResultRow label="원금+이자 합계" value={formatCurrency(result.totalPayment)} />
-          <ResultRow label="예상 보증료" value={formatCurrency(result.guaranteeFee)} />
+          <ResultRow label="보증료" value={formatCurrency(result.guaranteeFee)} />
           <ResultRow label="중도상환수수료 최대 추정" value={formatCurrency(result.prepaymentFee)} />
-          <ResultRow label="이자+예상 부대비용" value={formatCurrency(result.estimatedBorrowingCost)} />
-          <ResultRow label="전세금 대비 대출비율" value={formatPercent(result.loanToDepositRatio)} />
+          <ResultRow label="총 금융비용" value={formatCurrency(result.estimatedBorrowingCost)} />
+          <ResultRow label="금리 0.5%p 상승 시 월 납입액" value={`${formatCurrency(result.halfPointUpMonthlyPayment)} · 총이자 ${formatCurrency(result.halfPointUpTotalInterest)}`} />
+          <ResultRow label="금리 1.0%p 상승 시 월 납입액" value={`${formatCurrency(result.onePointUpMonthlyPayment)} · 총이자 ${formatCurrency(result.onePointUpTotalInterest)}`} />
+          <ResultRow label="전세보증금 대비 대출 비율" value={formatPercent(result.loanToDepositRatio)} />
           <ShareButton />
         </ResultCard>
       ) : null}

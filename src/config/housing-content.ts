@@ -166,11 +166,11 @@ export const housingReferenceBySlug: Record<string, HousingReferenceContent> = {
     referenceDate: "2026-06-03",
     decisionCards: [
       {
-        title: "월 부담액 확인",
+        title: "예상 DSR 확인",
         description: "월 납입액이 버틸 만해 보여도 기존 신용대출, 자동차 할부, 기타 대출이 함께 있으면 DSR은 빠르게 높아질 수 있습니다."
       },
       {
-        title: "총비용 비교",
+        title: "상환 여력 확인",
         description: "대출기간을 늘리면 월 부담은 낮아지지만 총이자는 커질 수 있습니다. DSR을 맞추기 위해 기간을 늘릴 때 총비용을 같이 봐야 합니다."
       },
       {
@@ -178,7 +178,7 @@ export const housingReferenceBySlug: Record<string, HousingReferenceContent> = {
         description: "스트레스 DSR은 미래 금리 상승을 반영해 보는 장치입니다. 현재 DSR만 안전해도 스트레스 금리를 적용하면 위험 구간으로 들어갈 수 있습니다."
       },
       {
-        title: "위험 구간",
+        title: "기준 초과 구간",
         description: "차주단위 DSR 한도 근처에서는 금리 0.5%p 상승, 기존대출 증가, 소득변동만으로도 승인 가능성이 달라질 수 있습니다."
       }
     ],
@@ -214,9 +214,9 @@ export const housingReferenceBySlug: Record<string, HousingReferenceContent> = {
     ],
     officialSources: [
       {
-        title: "금융위원회 금융정책 안내 - 스트레스 DSR 제도 설명",
-        url: "https://www.fsc.go.kr/po010101/81343?curPage=&srchBeginDt=&srchCtgry=1&srchEndDt=&srchKey=&srchText=",
-        note: "스트레스 금리 가산 방식과 차주단위 적용 설명 확인용"
+        title: "금융위원회 2026년도 스트레스 DSR 운영방향",
+        url: "https://www.fsc.go.kr/no010101/85824?curPage=&srchBeginDt=&srchCtgry=&srchEndDt=&srchKey=&srchText=DSR",
+        note: "수도권·규제지역 주담대와 지방 주담대의 스트레스 금리 적용 방향 확인용"
       },
       {
         title: "기획재정부 이렇게 달라집니다 - DSR 규제 설명",
@@ -229,19 +229,19 @@ export const housingReferenceBySlug: Record<string, HousingReferenceContent> = {
     referenceDate: "2026-06-03",
     decisionCards: [
       {
-        title: "월 부담액 확인",
+        title: "잔금 현금 준비",
         description: "취득세는 월 납입금이 아니라 잔금 시점에 한 번에 필요한 현금입니다. 대출과 별개로 준비해야 하는 초기 자금으로 봐야 합니다."
       },
       {
-        title: "총비용 비교",
+        title: "부가 세목 확인",
         description: "매매가만 볼 것이 아니라 취득세, 법무비, 중개보수까지 합쳐 총 취득비용을 봐야 실제 필요한 자기자본이 나옵니다."
       },
       {
-        title: "금리 변동 영향",
-        description: "취득세 자체는 금리와 직접 연결되지 않지만, 잔금대출 규모가 커질수록 취득세 현금 마련 부담이 체감상 더 커집니다."
+        title: "감면 전후 차이",
+        description: "생애최초 감면이 적용되면 취득세 본세가 줄어들 수 있지만, 요건을 충족하지 못하면 감면 전 세액을 준비해야 합니다."
       },
       {
-        title: "위험 구간",
+        title: "예외 조건 확인",
         description: "주택 수 판단, 조정대상지역 여부, 생애최초 감면 요건을 잘못 이해하면 세액 오차가 크게 발생할 수 있습니다."
       }
     ],
@@ -277,14 +277,14 @@ export const housingReferenceBySlug: Record<string, HousingReferenceContent> = {
     ],
     officialSources: [
       {
-        title: "정부24 취득세 안내",
-        url: "https://www.gov.kr/portal/service/serviceInfo/536000000011",
-        note: "취득세 개요와 계산 안내, 자치단체 조례 가감 가능성 확인용"
+        title: "국가법령정보센터 지방세법",
+        url: "https://www.law.go.kr/LSW/lsLinkCommonInfo.do?chrClsCd=010202&lsJoLnkSeq=1031175465",
+        note: "주택 취득세 세율, 세율 특례, 조례에 따른 가감 가능성 확인용"
       },
       {
-        title: "위택스 지방세정보",
-        url: "https://www.wetax.go.kr/",
-        note: "실제 신고 전 지방세 신고·납부 절차 확인용"
+        title: "국가법령정보센터 지방세특례제한법 제36조의3",
+        url: "https://www.law.go.kr/LSW/lsLinkCommonInfo.do?chrClsCd=010202&lsJoLnkSeq=1029506977",
+        note: "생애최초 주택 구입 취득세 감면 요건과 한도 확인용"
       }
     ]
   },
@@ -292,19 +292,19 @@ export const housingReferenceBySlug: Record<string, HousingReferenceContent> = {
     referenceDate: "2026-06-03",
     decisionCards: [
       {
-        title: "월 부담액 확인",
+        title: "계약 시 지급액",
         description: "중개보수는 계약 시점 비용이라 월 부담으로 보이지 않지만, 이사 총비용에서는 무시하기 어려운 일회성 지출입니다."
       },
       {
-        title: "총비용 비교",
+        title: "상한요율과 협의요율",
         description: "거래금액이 커질수록 작은 요율 차이도 수십만 원 이상 차이를 만듭니다. 상한요율과 실제 협의요율을 함께 비교해야 합니다."
       },
       {
-        title: "금리 변동 영향",
-        description: "금리와 직접 연동되지는 않지만, 대출과 이사비가 동시에 필요한 시기에는 중개보수 절감이 체감 현금흐름에 의미 있게 작용합니다."
+        title: "부가세 포함 여부",
+        description: "협의한 중개보수에 부가세를 더해 청구하는지 확인해야 실제 지급 예상액을 정확히 준비할 수 있습니다."
       },
       {
-        title: "위험 구간",
+        title: "월세 환산 거래금액",
         description: "월세 거래는 보증금과 월세를 환산한 거래금액 기준이어서 보증금만 보고 계산하면 오차가 큽니다."
       }
     ],
@@ -408,9 +408,9 @@ export const housingReferenceBySlug: Record<string, HousingReferenceContent> = {
         note: "월차임 전환 관련 법적 근거 확인용"
       },
       {
-        title: "국토교통부 정책풀이집 - 전월세 전환 설명",
-        url: "https://www.molit.go.kr/policy/rent/rent_c_05.jsp",
-        note: "계약갱신과 전월세 전환의 정책 설명 확인용"
+        title: "한국은행 기준금리 추이",
+        url: "https://www.bok.or.kr/portal/singl/baseRate/list.do?dataSeCd=01&menuNo=2006",
+        note: "월차임 전환율 상한 산정에 필요한 기준금리 확인용"
       }
     ]
   },
@@ -418,19 +418,19 @@ export const housingReferenceBySlug: Record<string, HousingReferenceContent> = {
     referenceDate: "2026-06-03",
     decisionCards: [
       {
-        title: "월 부담액 확인",
-        description: "청약가점은 월 부담액을 직접 계산하는 지표는 아니지만, 청약 가능성과 당첨 전략을 판단해 향후 주거비 계획에 큰 영향을 줍니다."
+        title: "항목별 점수 확인",
+        description: "무주택기간, 부양가족 수, 청약통장 가입기간을 분리해 봐야 총점이 어디에서 부족한지 확인할 수 있습니다."
       },
       {
-        title: "총비용 비교",
+        title: "청약 전략 판단",
         description: "점수가 낮으면 무리하게 청약을 기다리기보다 전세·매매·월세 대안을 함께 비교해야 합니다. 점수 해석은 다른 주거비 결정과 연결됩니다."
       },
       {
-        title: "금리 변동 영향",
-        description: "청약가점 자체는 금리와 무관하지만, 당첨 이후 대출 여력과 자금 계획은 금리 환경에 크게 좌우됩니다."
+        title: "당첨 이후 자금 계획",
+        description: "청약가점은 당첨 가능성을 보는 입력값입니다. 당첨 이후 필요한 계약금, 중도금, 잔금 계획은 별도 계산으로 확인해야 합니다."
       },
       {
-        title: "위험 구간",
+        title: "입력값 검증",
         description: "무주택기간 산정, 부양가족 인정 여부, 통장 가입기간 계산을 잘못 이해하면 예상 점수와 실제 점수 차이가 크게 납니다."
       }
     ],

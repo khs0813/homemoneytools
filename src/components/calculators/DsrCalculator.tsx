@@ -72,6 +72,8 @@ export function DsrCalculator() {
   }
 
   const statusText = result?.status === "safe" ? "기준 이내입니다" : result?.status === "warning" ? "주의 구간입니다" : "기준 초과 가능성이 있습니다";
+  const marginLabel = result && result.remainingAnnualRepaymentCapacity >= 0 ? "기준 대비 여유 비율" : "기준 초과 비율";
+  const marginRatio = result ? Math.abs(result.assessmentDsr - result.dsrLimit) : 0;
 
   return (
     <CalculatorWorkspace
@@ -80,11 +82,14 @@ export function DsrCalculator() {
         <ResultCard title={statusText} value={formatPercent(result.assessmentDsr)} description={`${result.useStressAssessment ? "스트레스 DSR" : "일반 DSR"} 기준으로 판정했습니다. 기준 버전은 ${result.version}입니다.`}>
           <ResultRow label="일반 DSR" value={formatPercent(result.dsr)} />
           <ResultRow label="스트레스 DSR" value={formatPercent(result.stressedDsr)} />
-          <ResultRow label="판정용 연간 원리금" value={formatCurrency(result.assessmentTotalAnnualRepayment)} />
-          <ResultRow label="판정용 월평균 상환액" value={formatCurrency(result.assessmentMonthlyAverageRepayment)} />
+          <ResultRow label="목표 기준" value={formatPercent(result.dsrLimit)} />
+          <ResultRow label={marginLabel} value={formatPercent(marginRatio, 2)} />
+          <ResultRow label="연간 원리금" value={formatCurrency(result.assessmentTotalAnnualRepayment)} />
+          <ResultRow label="월 환산 원리금" value={formatCurrency(result.assessmentMonthlyAverageRepayment)} />
           <ResultRow label="주담대 연상환액(일반금리)" value={formatCurrency(result.annualMortgagePayment)} />
-          <ResultRow label="신용대출 연상환액" value={formatCurrency(result.annualCreditPayment)} />
+          <ResultRow label="기존대출 반영액" value={formatCurrency(result.annualCreditPayment + result.otherAnnualRepayment)} />
           <ResultRow label="기준 대비 여유 금액" value={formatCurrency(result.remainingAnnualRepaymentCapacity)} />
+          <ResultRow label="적용한 계산 공식" value="DSR = 연간 원리금 상환액 ÷ 연소득 × 100" />
           {result.creditLoanMode === "interest-only" ? <ResultRow label="주의" value="신용대출을 이자만 반영한 현금흐름 참고값입니다." /> : null}
           <ShareButton />
         </ResultCard>

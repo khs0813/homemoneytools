@@ -24,7 +24,7 @@ describe("SEO configuration", () => {
 
   it("builds calculator metadata with canonical, robots, OG and Twitter fields", () => {
     const metadata = buildCalculatorMetadata(calculators[0]);
-    expect(metadata.description).toContain("계산 공식");
+    expect(metadata.description).toBe(calculators[0].description);
     expect(metadata.alternates).toEqual(
       expect.objectContaining({
         canonical: calculators[0].path
@@ -55,17 +55,16 @@ describe("SEO configuration", () => {
     const urls = sitemap();
     const byUrl = new Map(urls.map((item) => [item.url, item.lastModified]));
 
-    expect(byUrl.get(`${siteConfig.url}/dsr-calculator`)).toBe("2026-07-04");
-    expect(byUrl.get(`${siteConfig.url}/jeonse-loan-interest-calculator`)).toBe("2026-07-04");
-    expect(byUrl.get(`${siteConfig.url}/monthly-rent-conversion-calculator`)).toBe("2026-07-04");
-    expect(byUrl.get(`${siteConfig.url}/acquisition-tax-calculator`)).toBe("2026-07-04");
-    expect(byUrl.get(`${siteConfig.url}/rent-vs-jeonse-calculator`)).toBe(siteConfig.lastUpdated);
+    for (const calculator of calculators) {
+      expect(byUrl.get(`${siteConfig.url}${calculator.path}`)).toBe("2026-07-27");
+    }
+    expect(byUrl.get(`${siteConfig.url}/guides/what-dsr-40-means`)).toBe(siteConfig.lastUpdated);
   });
 
   it("uses matching item pubDate values in RSS without updating every item", async () => {
     const response = getRss();
     const xml = await response.text();
-    const updatedPubDate = new Date("2026-07-04").toUTCString();
+    const updatedPubDate = new Date("2026-07-27").toUTCString();
     const defaultPubDate = new Date(siteConfig.lastUpdated).toUTCString();
 
     function pubDateForPath(path: string) {
@@ -81,6 +80,7 @@ describe("SEO configuration", () => {
     expect(pubDateForPath("/jeonse-loan-interest-calculator")).toBe(updatedPubDate);
     expect(pubDateForPath("/monthly-rent-conversion-calculator")).toBe(updatedPubDate);
     expect(pubDateForPath("/acquisition-tax-calculator")).toBe(updatedPubDate);
-    expect(pubDateForPath("/rent-vs-jeonse-calculator")).toBe(defaultPubDate);
+    expect(pubDateForPath("/rent-vs-jeonse-calculator")).toBe(updatedPubDate);
+    expect(pubDateForPath("/guides/what-dsr-40-means")).toBe(defaultPubDate);
   });
 });

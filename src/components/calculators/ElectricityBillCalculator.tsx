@@ -19,7 +19,13 @@ const schema = z.object({
 });
 
 type FormValues = z.infer<typeof schema>;
-type Result = ReturnType<typeof calculateElectricityBill> | null;
+type BaseResult = ReturnType<typeof calculateElectricityBill>;
+type Result = (BaseResult & {
+  season: FormValues["season"];
+  currentTier: string;
+  plus50Difference: number;
+  minus50Difference: number;
+}) | null;
 
 const defaultValues: FormValues = {
   monthlyUsageKwh: 350,
@@ -38,7 +44,16 @@ export function ElectricityBillCalculator() {
   }, [reset]);
 
   function onSubmit(values: FormValues) {
-    setResult(calculateElectricityBill(values));
+    const calculated = calculateElectricityBill(values);
+    const plus50 = calculateElectricityBill({ ...values, monthlyUsageKwh: values.monthlyUsageKwh + 50 });
+    const minus50 = calculateElectricityBill({ ...values, monthlyUsageKwh: Math.max(0, values.monthlyUsageKwh - 50) });
+    setResult({
+      ...calculated,
+      season: values.season,
+      currentTier: getCurrentTier(calculated),
+      plus50Difference: plus50.total - calculated.total,
+      minus50Difference: calculated.total - minus50.total
+    });
     writeQueryState(values);
   }
 
@@ -47,10 +62,14 @@ export function ElectricityBillCalculator() {
       pinForm={Boolean(result)}
       result={result ? (
         <ResultCard title="예상 전기요금" value={formatKoreanMoney(result.total)} description={`평균 체감단가는 ${formatCurrency(result.averageRate)} / kWh 입니다.`}>
+          <ResultRow label="현재 누진 구간" value={result.currentTier} />
+          <ResultRow label="구간별 사용량" value={`1구간 ${result.tierBreakdown[0]}kWh · 2구간 ${result.tierBreakdown[1]}kWh · 3구간 ${result.tierBreakdown[2]}kWh`} />
           <ResultRow label="기본요금" value={formatKoreanMoney(result.baseFee)} />
           <ResultRow label="전력량요금" value={formatKoreanMoney(result.energyCharge)} />
-          <ResultRow label="기후환경요금" value={formatKoreanMoney(result.climateCharge)} />
-          <ResultRow label="연료비조정액" value={formatKoreanMoney(result.fuelAdjustment)} />
+          <ResultRow label="부가 항목" value={`기후환경요금 ${formatKoreanMoney(result.climateCharge)} · 연료비조정액 ${formatKoreanMoney(result.fuelAdjustment)}`} />
+          <ResultRow label="예상 총요금" value={formatKoreanMoney(result.total)} />
+          <ResultRow label="사용량 50kWh 증가 시 예상 차이" value={formatKoreanMoney(result.plus50Difference)} />
+          <ResultRow label="사용량 50kWh 감소 시 예상 차이" value={formatKoreanMoney(result.minus50Difference)} />
           <ShareButton />
         </ResultCard>
       ) : null}
@@ -76,4 +95,12 @@ export function ElectricityBillCalculator() {
       </form>
     </CalculatorWorkspace>
   );
+}
+
+function getCurrentTier(result: BaseResult) {
+  let tierIndex = 0;
+  result.tierBreakdown.forEach((usage, index) => {
+    if (usage > 0) tierIndex = index;
+  });
+  return `${Math.max(1, tierIndex + 1)}구간`;
 }

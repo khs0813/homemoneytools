@@ -1,11 +1,15 @@
 import type { MetadataRoute } from "next";
 import { calculators } from "@/config/calculators";
+import { getCalculatorQualityContent } from "@/config/calculator-quality-content";
 import { guides } from "@/config/guides";
 import { siteConfig } from "@/config/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url.replace(/\/$/, "");
-  const calculatorLastModifiedByPath = new Map(calculators.map((calculator) => [calculator.path, calculator.contentLastModified]));
+  const calculatorLastModifiedByPath = new Map(calculators.map((calculator) => [
+    calculator.path,
+    getCalculatorQualityContent(calculator).contentModifiedDate ?? calculator.contentLastModified
+  ]));
   const staticPaths = ["/", "/about", "/calculators", "/guides", "/privacy-policy", "/terms", "/disclaimer", "/contact"];
   const paths = [
     ...staticPaths,

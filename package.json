@@ -12,6 +12,13 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
+    "seo:audit": "node scripts/collect-seo-snapshot.mjs --label after --base http://localhost:3000",
+    "seo:compare": "node scripts/compare-seo-snapshots.mjs",
+    "seo:user-agents": "node scripts/check-user-agents.mjs --base http://localhost:3000",
+    "mobile:check": "node scripts/check-mobile-layout.mjs --base http://localhost:3000",
+    "performance:check": "node scripts/check-performance.mjs --base http://localhost:3000",
+    "content:duplication": "node scripts/check-content-duplication.mjs --base http://localhost:3000",
+    "calculation:regression": "node scripts/check-calculation-regression.mjs",
     "audit": "npm audit --audit-level=low",
     "check": "npm run typecheck && npm run lint && npm run test && npm run build && npm run audit"
   },

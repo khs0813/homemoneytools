@@ -79,12 +79,13 @@ export function AcquisitionTaxCalculator() {
       pinForm={Boolean(result)}
       result={result ? (
         <ResultCard title="예상 총 납부액" value={formatCurrency(result.totalTax)} description={`적용 취득세율은 ${formatPercent(result.rate)}이며, 기준 버전은 ${result.version}입니다.`}>
-          <ResultRow label="취득세 감면 전" value={formatCurrency(result.acquisitionTaxBeforeDiscount)} />
-          <ResultRow label="생애최초 감면 추정" value={formatCurrency(result.firstHomeDiscount)} />
-          <ResultRow label="취득세" value={formatCurrency(result.acquisitionTax)} />
+          <ResultRow label="취득세 예상액" value={formatCurrency(result.acquisitionTax)} />
           <ResultRow label="지방교육세" value={formatCurrency(result.localEducationTax)} />
           <ResultRow label="농어촌특별세" value={formatCurrency(result.specialRuralTax)} />
-          <ResultRow label="실효 세율" value={formatPercent(result.effectiveRate, 3)} />
+          <ResultRow label="감면 적용 전 세액" value={formatCurrency(result.acquisitionTaxBeforeDiscount)} />
+          <ResultRow label="감면 적용 전후 차이" value={formatCurrency(result.firstHomeDiscount)} />
+          <ResultRow label="총 필요 세금" value={formatCurrency(result.totalTax)} />
+          <ResultRow label="매매가 대비 실효세율" value={formatPercent(result.effectiveRate, 3)} />
           {result.warnings.map((warning) => <ResultRow key={warning} label="주의" value={warning} />)}
           <ShareButton />
         </ResultCard>

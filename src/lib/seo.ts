@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import type { CalculatorInfo } from "@/config/calculators";
-import { isHousingCalculator } from "@/config/housing-content";
 
 export function absoluteUrl(path = "/"): string {
   const base = siteConfig.url.replace(/\/$/, "");
@@ -70,7 +69,7 @@ function commonMetadata(title: string, description: string, path: string): Metad
 
 export function buildCalculatorMetadata(info: CalculatorInfo): Metadata {
   const title = info.seoTitle ?? info.title;
-  const description = info.metaDescription ?? `${info.description} 계산 공식, 예시, 주의사항까지 함께 확인하세요.`;
+  const description = info.metaDescription ?? info.description;
 
   return {
     ...commonMetadata(title, description, info.path),

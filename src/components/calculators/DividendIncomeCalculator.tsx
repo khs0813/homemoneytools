@@ -12,7 +12,7 @@ import { ResultCard } from "@/components/calculator/ResultCard";
 import { ResultRow } from "@/components/calculator/ResultRow";
 import { ShareButton } from "@/components/calculator/ShareButton";
 import { calculateDividendIncome } from "@/lib/calculators/finance";
-import { formatKoreanMoney } from "@/lib/format";
+import { formatKoreanMoney, formatPercent } from "@/lib/format";
 import { getNumberParam, writeQueryState } from "@/lib/query-state";
 
 const schema = z.object({
@@ -24,7 +24,10 @@ const schema = z.object({
 });
 
 type FormValues = z.infer<typeof schema>;
-type Result = ReturnType<typeof calculateDividendIncome> | null;
+type Result = (ReturnType<typeof calculateDividendIncome> & {
+  netDividendYield: number;
+  frequency: number;
+}) | null;
 
 const defaultValues: FormValues = {
   investmentAmount: 100_000_000,
@@ -49,7 +52,12 @@ export function DividendIncomeCalculator() {
   }, [reset]);
 
   function onSubmit(values: FormValues) {
-    setResult(calculateDividendIncome(values));
+    const calculated = calculateDividendIncome(values);
+    setResult({
+      ...calculated,
+      netDividendYield: values.dividendYield * (1 - values.taxRate / 100),
+      frequency: values.frequency
+    });
     writeQueryState(values);
   }
 
@@ -59,8 +67,11 @@ export function DividendIncomeCalculator() {
       result={result ? (
         <ResultCard title="세후 월 배당금" value={formatKoreanMoney(result.netMonthlyDividend)} description={`세후 연 배당금은 ${formatKoreanMoney(result.netAnnualDividend)}입니다.`}>
           <ResultRow label="세전 연 배당금" value={formatKoreanMoney(result.grossAnnualDividend)} />
-          <ResultRow label="세후 1회 지급액" value={formatKoreanMoney(result.dividendPerPayment)} />
-          <ResultRow label="월 목표 달성 필요 원금" value={formatKoreanMoney(result.neededPrincipalForTarget)} />
+          <ResultRow label="세후 연 배당금" value={formatKoreanMoney(result.netAnnualDividend)} />
+          <ResultRow label="지급주기별 예상 배당금" value={`연 ${result.frequency}회 · 1회 ${formatKoreanMoney(result.dividendPerPayment)}`} />
+          <ResultRow label="월 환산 배당금" value={formatKoreanMoney(result.netMonthlyDividend)} />
+          <ResultRow label="세후 배당수익률" value={formatPercent(result.netDividendYield, 2)} />
+          <ResultRow label="목표 월배당에 필요한 원금" value={formatKoreanMoney(result.neededPrincipalForTarget)} />
           <ShareButton />
         </ResultCard>
       ) : null}
