@@ -11,7 +11,7 @@ export type HomelessnessRule = {
 };
 
 export const subscriptionScoreRules = {
-  version: "2026-01 참고용",
+  version: "2026-06-15 참고용",
   maxScore: 84,
   homelessnessPeriod: [
     { minYears: 0, maxYears: 1, score: 2 },
@@ -58,5 +58,10 @@ export const subscriptionScoreRules = {
     { minMonths: 156, maxMonths: 168, score: 15 },
     { minMonths: 168, maxMonths: 180, score: 16 },
     { minMonths: 180, maxMonths: null, score: 17 }
+  ] satisfies PeriodRule[],
+  spouseAccountPeriod: [
+    { minMonths: 0, maxMonths: 12, score: 1 },
+    { minMonths: 12, maxMonths: 24, score: 2 },
+    { minMonths: 24, maxMonths: null, score: 3 }
   ] satisfies PeriodRule[]
 };

@@ -36,23 +36,13 @@ export function formatNumber(value: number): string {
 
 export function formatCurrency(value: number): string {
   if (!Number.isFinite(value)) return "0원";
-  return `${Math.round(value).toLocaleString("ko-KR")}원`;
+  const rounded = Math.round(value);
+  const normalized = Object.is(rounded, -0) ? 0 : rounded;
+  return `${normalized.toLocaleString("ko-KR")}원`;
 }
 
 export function formatKoreanMoney(value: number): string {
-  if (!Number.isFinite(value)) return "0원";
-  const abs = Math.abs(value);
-  const sign = value < 0 ? "-" : "";
-  if (abs >= 100_000_000) {
-    const eok = Math.floor(abs / 100_000_000);
-    const man = Math.round((abs % 100_000_000) / 10_000);
-    if (man === 0) return `${sign}${eok.toLocaleString("ko-KR")}억 원`;
-    return `${sign}${eok.toLocaleString("ko-KR")}억 ${man.toLocaleString("ko-KR")}만 원`;
-  }
-  if (abs >= 10_000) {
-    return `${sign}${Math.round(abs / 10_000).toLocaleString("ko-KR")}만 원`;
-  }
-  return `${sign}${Math.round(abs).toLocaleString("ko-KR")}원`;
+  return formatCurrency(value);
 }
 
 export function formatPercent(value: number, digits = 2): string {

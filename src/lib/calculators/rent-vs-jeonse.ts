@@ -9,7 +9,6 @@ export type RentVsJeonseInput = {
   jeonseLoanRate: number;
   jeonseLoanAmount: number;
   rentGrowthRate?: number;
-  depositGrowthRate?: number;
 };
 
 const MAX_RATE = 100;
@@ -36,13 +35,14 @@ export function calculateRentVsJeonse(input: RentVsJeonseInput) {
   const monthlyRent = sanitizeNumber(input.monthlyRent, 0, MAX_SAFE_MONEY_AMOUNT);
   const savingRate = sanitizeNumber(input.savingRate, 0, MAX_RATE);
   const jeonseLoanRate = sanitizeNumber(input.jeonseLoanRate, 0, MAX_RATE);
-  const jeonseLoanAmount = sanitizeNumber(input.jeonseLoanAmount, 0, MAX_SAFE_MONEY_AMOUNT);
+  const requestedJeonseLoanAmount = sanitizeNumber(input.jeonseLoanAmount, 0, MAX_SAFE_MONEY_AMOUNT);
+  const jeonseLoanAmount = Math.min(requestedJeonseLoanAmount, jeonseDeposit);
 
   const monthlyRentTotal = calculateGrowingMonthlyRent(monthlyRent, years, input.rentGrowthRate ?? 0);
   const rentDepositOpportunityCost = rentDeposit * savingRate / 100 * years;
   const rentTotalCost = monthlyRentTotal + rentDepositOpportunityCost;
 
-  const ownJeonseCapital = Math.max(jeonseDeposit - jeonseLoanAmount, 0);
+  const ownJeonseCapital = jeonseDeposit - jeonseLoanAmount;
   const jeonseOpportunityCost = ownJeonseCapital * savingRate / 100 * years;
   const jeonseLoanInterest = jeonseLoanAmount * jeonseLoanRate / 100 * years;
   const jeonseTotalCost = jeonseOpportunityCost + jeonseLoanInterest;
@@ -60,6 +60,9 @@ export function calculateRentVsJeonse(input: RentVsJeonseInput) {
     difference: roundTo(Math.abs(difference)),
     signedDifference: roundTo(difference),
     monthlyDifference: years > 0 ? roundTo(Math.abs(difference) / (years * 12)) : 0,
-    winner
+    winner,
+    requestedJeonseLoanAmount: roundTo(requestedJeonseLoanAmount),
+    appliedJeonseLoanAmount: roundTo(jeonseLoanAmount),
+    isLoanWithinDeposit: requestedJeonseLoanAmount <= jeonseDeposit
   };
 }

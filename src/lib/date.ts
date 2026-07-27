@@ -18,10 +18,18 @@ export function isValidDateInput(value: string): boolean {
   return Number.isFinite(date.getTime()) && date.getFullYear() === year && date.getMonth() + 1 === month && date.getDate() === day;
 }
 
-export function parseDate(value: string | Date): Date {
-  if (value instanceof Date) return startOfDay(value);
-  if (!isValidDateInput(value)) return startOfDay(new Date());
+export function parseDateStrict(value: string | Date): Date {
+  if (value instanceof Date) {
+    if (!Number.isFinite(value.getTime())) throw new RangeError("유효하지 않은 날짜입니다.");
+    return startOfDay(value);
+  }
+  if (!isValidDateInput(value)) throw new RangeError(`유효하지 않은 날짜입니다: ${value}`);
   return startOfDay(new Date(`${value}T00:00:00`));
+}
+
+/** @deprecated Use parseDateStrict in calculation code. */
+export function parseDate(value: string | Date): Date {
+  return parseDateStrict(value);
 }
 
 export function monthsBetween(start: Date, end: Date): number {

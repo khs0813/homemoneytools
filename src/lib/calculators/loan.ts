@@ -138,14 +138,19 @@ export function calculateJeonseLoan(input: LoanCalculationInput & { jeonseDeposi
   const guaranteeFeeRate = normalizeAnnualRate(input.guaranteeFeeRate ?? 0);
   const prepaymentFeeRate = normalizeAnnualRate(input.prepaymentFeeRate ?? 0);
   const loan = calculateLoan({ ...input, principal });
-  const guaranteeFee = guaranteeFeeRate ? principal * guaranteeFeeRate / 100 : 0;
+  const loanYears = loan.months / 12;
+  const guaranteeFee = guaranteeFeeRate ? principal * guaranteeFeeRate / 100 * loanYears : 0;
   const prepaymentFee = prepaymentFeeRate ? principal * prepaymentFeeRate / 100 : 0;
   const loanToDepositRatio = jeonseDeposit > 0 ? principal / jeonseDeposit * 100 : 0;
+  const estimatedFeesTotal = guaranteeFee + prepaymentFee;
 
   return {
     ...loan,
     guaranteeFee: roundTo(guaranteeFee),
     prepaymentFee: roundTo(prepaymentFee),
-    loanToDepositRatio: roundTo(loanToDepositRatio, 2)
+    estimatedFeesTotal: roundTo(estimatedFeesTotal),
+    estimatedBorrowingCost: roundTo(loan.totalInterest + estimatedFeesTotal),
+    loanToDepositRatio: roundTo(loanToDepositRatio, 2),
+    isPrincipalWithinDeposit: principal <= jeonseDeposit
   };
 }

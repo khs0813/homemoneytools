@@ -9,6 +9,7 @@ export type BrokerageFeeInput = {
   deposit?: number;
   monthlyRent?: number;
   customRate?: number;
+  includeVat?: boolean;
 };
 
 const MAX_CUSTOM_RATE = 100;
@@ -36,20 +37,28 @@ export function calculateBrokerageFee(input: BrokerageFeeInput) {
 
   const bands = input.transactionType === "sale" ? brokerageRates.residential.sale : brokerageRates.residential.rent;
   const band = findBand(transactionAmount, bands);
-  const customRate = input.customRate !== undefined ? sanitizeNumber(input.customRate, 0, MAX_CUSTOM_RATE) : undefined;
-  const appliedRate = customRate !== undefined ? customRate / 100 : band.rate;
+  const legalRatePercent = band.rate * 100;
+  const requestedRatePercent = input.customRate !== undefined
+    ? sanitizeNumber(input.customRate, 0, MAX_CUSTOM_RATE)
+    : legalRatePercent;
+  const appliedRatePercent = Math.min(requestedRatePercent, legalRatePercent);
+  const appliedRate = appliedRatePercent / 100;
   const rawFee = transactionAmount * appliedRate;
   const brokerageFee = band.limit ? Math.min(rawFee, band.limit) : rawFee;
-  const vat = brokerageFee * brokerageRates.vatRate;
+  const includeVat = input.includeVat ?? true;
+  const vat = includeVat ? brokerageFee * brokerageRates.vatRate : 0;
   const total = brokerageFee + vat;
 
   return {
     version: brokerageRates.version,
     transactionAmount: roundTo(transactionAmount),
-    appliedRate: roundTo(appliedRate * 100, 4),
-    legalRate: roundTo(band.rate * 100, 4),
+    requestedRate: roundTo(requestedRatePercent, 4),
+    appliedRate: roundTo(appliedRatePercent, 4),
+    legalRate: roundTo(legalRatePercent, 4),
+    wasRateCapped: requestedRatePercent > legalRatePercent,
     limit: band.limit,
     brokerageFee: roundTo(brokerageFee),
+    includeVat,
     vat: roundTo(vat),
     total: roundTo(total)
   };
