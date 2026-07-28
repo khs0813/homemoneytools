@@ -47,6 +47,37 @@ export function AdFitTopBanner() {
   );
 }
 
+export function AdFitDesktopTopBanner() {
+  const isDesktop = useMediaQuery("(min-width: 768px)");
+
+  if (isDesktop !== true) {
+    return null;
+  }
+
+  return (
+    <div className="mt-8 overflow-x-auto">
+      <div className="flex min-w-[728px] justify-center lg:min-w-0">
+        <AdFitBanner unit="DAN-vydppL950Rcp0u3T" width="728" height="90" />
+      </div>
+    </div>
+  );
+}
+
+export function AdFitMobileCalculatorHeaderAds() {
+  const isTabletOrDesktop = useMediaQuery("(min-width: 768px)");
+
+  if (isTabletOrDesktop !== false) {
+    return null;
+  }
+
+  return (
+    <aside className="-mx-4 mb-6 flex flex-col items-center gap-4 overflow-hidden">
+      <AdFitBanner unit="DAN-MxttnTNbygaLu9ii" width="320" height="50" />
+      <AdFitBanner unit="DAN-4cOowgAme3T2tNK2" width="300" height="250" />
+    </aside>
+  );
+}
+
 export function AdFitVerticalBanner() {
   const isWideDesktop = useMediaQuery("(min-width: 1536px)");
 
