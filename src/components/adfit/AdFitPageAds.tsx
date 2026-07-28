@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { AdFitBanner } from "@/components/adfit/AdFitBanner";
 
-function useMediaQuery(query: string) {
-  const [matches, setMatches] = useState<boolean | null>(null);
+function useMediaQuery(query: string, initialMatches: boolean | null = null) {
+  const [matches, setMatches] = useState<boolean | null>(initialMatches);
 
   useEffect(() => {
     const media = window.matchMedia(query);
@@ -24,7 +24,7 @@ function useMediaQuery(query: string) {
 }
 
 export function AdFitTopBanner() {
-  const isDesktop = useMediaQuery("(min-width: 768px)");
+  const isDesktop = useMediaQuery("(min-width: 768px)", false);
 
   if (isDesktop === null) {
     return null;
