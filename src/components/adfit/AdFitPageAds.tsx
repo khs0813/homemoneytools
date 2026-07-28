@@ -66,12 +66,27 @@ export function AdFitDesktopTopBanner() {
 export function AdFitMobileCalculatorHeaderAds() {
   const isTabletOrDesktop = useMediaQuery("(min-width: 768px)");
 
+  useEffect(() => {
+    if (isTabletOrDesktop !== false) {
+      return;
+    }
+
+    const frame = window.requestAnimationFrame(() => {
+      const headerHeight = document.querySelector("header")?.getBoundingClientRect().height ?? 0;
+      if (window.scrollY > 0 && window.scrollY <= headerHeight + 8) {
+        window.scrollTo({ top: 0, behavior: "auto" });
+      }
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [isTabletOrDesktop]);
+
   if (isTabletOrDesktop !== false) {
     return null;
   }
 
   return (
-    <aside className="-mx-4 mb-6 flex flex-col items-center gap-4 overflow-hidden">
+    <aside className="-mx-4 mb-6 flex scroll-mt-24 flex-col items-center gap-4 overflow-hidden pt-3">
       <AdFitBanner unit="DAN-MxttnTNbygaLu9ii" width="320" height="50" />
       <AdFitBanner unit="DAN-4cOowgAme3T2tNK2" width="300" height="250" />
     </aside>
