@@ -18,8 +18,8 @@ function getOrdinaryRate(price: number): number {
   const band = acquisitionTaxRates.residential.ordinary.find((item) => safePrice >= item.min && (item.max === null || safePrice < item.max));
   if (!band) return 0;
   if (band.rateType === "linearOneToThree") {
-    const progress = (safePrice - 600_000_000) / 300_000_000;
-    return 0.01 + progress * 0.02;
+    const legalRatePercent = safePrice * 2 / 300_000_000 - 3;
+    return roundTo(legalRatePercent, 4) / 100;
   }
   return band.rate ?? 0;
 }

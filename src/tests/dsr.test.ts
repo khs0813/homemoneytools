@@ -38,6 +38,28 @@ describe("DSR calculator", () => {
     expect(result.assessmentDsr).toBe(result.dsr);
   });
 
+  it("keeps actual repayment amounts at the contract rate when stress rate is applied", () => {
+    const baseInput = {
+      annualIncome: 70_000_000,
+      mortgageAmount: 300_000_000,
+      mortgageRate: 4,
+      mortgageYears: 30,
+      existingCreditLoanAmount: 0,
+      existingCreditLoanRate: 0,
+      otherAnnualRepayment: 0,
+      dsrLimit: 40
+    };
+    const ordinary = calculateDsr({ ...baseInput, stressRate: 0 });
+    const stressed = calculateDsr({ ...baseInput, stressRate: 3 });
+
+    expect(stressed.totalAnnualRepayment).toBe(ordinary.totalAnnualRepayment);
+    expect(stressed.monthlyAverageRepayment).toBe(ordinary.monthlyAverageRepayment);
+    expect(stressed.annualMortgagePayment).toBe(17_186_951);
+    expect(stressed.monthlyAverageRepayment).toBe(1_432_246);
+    expect(stressed.assessmentMonthlyAverageRepayment).toBe(1_995_907);
+    expect(stressed.assessmentMonthlyAverageRepayment).toBeGreaterThan(stressed.monthlyAverageRepayment);
+  });
+
   it("keeps interest-only credit loan mode as a cash-flow reference", () => {
     const result = calculateDsr({
       annualIncome: 70_000_000,

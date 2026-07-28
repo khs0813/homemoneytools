@@ -61,8 +61,27 @@ describe("acquisition tax", () => {
   });
 
   it("keeps ordinary rate boundaries at 600 million and 900 million", () => {
+    expect(calculateAcquisitionTax({ price: 599_999_999, houseCount: "one", isRegulatedArea: false }).rate).toBe(1);
     expect(calculateAcquisitionTax({ price: 600_000_000, houseCount: "one", isRegulatedArea: false }).rate).toBe(1);
+    expect(calculateAcquisitionTax({ price: 600_000_001, houseCount: "one", isRegulatedArea: false }).rate).toBe(1);
+    expect(calculateAcquisitionTax({ price: 750_000_000, houseCount: "one", isRegulatedArea: false }).rate).toBe(2);
+    expect(calculateAcquisitionTax({ price: 899_999_999, houseCount: "one", isRegulatedArea: false }).rate).toBe(3);
     expect(calculateAcquisitionTax({ price: 900_000_000, houseCount: "one", isRegulatedArea: false }).rate).toBe(3);
+    expect(calculateAcquisitionTax({ price: 900_000_001, houseCount: "one", isRegulatedArea: false }).rate).toBe(3);
+  });
+
+  it("rounds the 600 to 900 million ordinary housing rate before applying tax", () => {
+    const result = calculateAcquisitionTax({
+      price: 650_000_000,
+      houseCount: "one",
+      isRegulatedArea: false,
+      firstHomeDiscountType: "none"
+    });
+
+    expect(result.rate).toBe(1.3333);
+    expect(result.acquisitionTax).toBe(8_666_450);
+    expect(result.localEducationTax).toBe(866_645);
+    expect(result.totalTax).toBe(9_533_095);
   });
 
   it("adds special rural tax for a house over 85 square metres", () => {

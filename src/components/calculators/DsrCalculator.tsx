@@ -84,9 +84,11 @@ export function DsrCalculator() {
           <ResultRow label="스트레스 DSR" value={formatPercent(result.stressedDsr)} />
           <ResultRow label="목표 기준" value={formatPercent(result.dsrLimit)} />
           <ResultRow label={marginLabel} value={formatPercent(marginRatio, 2)} />
-          <ResultRow label="연간 원리금" value={formatCurrency(result.assessmentTotalAnnualRepayment)} />
-          <ResultRow label="월 환산 원리금" value={formatCurrency(result.assessmentMonthlyAverageRepayment)} />
-          <ResultRow label="주담대 연상환액(일반금리)" value={formatCurrency(result.annualMortgagePayment)} />
+          <ResultRow label="실제 기준 연간 원리금" value={formatCurrency(result.totalAnnualRepayment)} />
+          <ResultRow label="실제 기준 월환산 원리금" value={formatCurrency(result.monthlyAverageRepayment)} />
+          <ResultRow label="심사용 연간 원리금" value={formatCurrency(result.assessmentTotalAnnualRepayment)} />
+          <ResultRow label="심사용 월환산 원리금" value={formatCurrency(result.assessmentMonthlyAverageRepayment)} />
+          <ResultRow label="주담대 연상환액(계약금리)" value={formatCurrency(result.annualMortgagePayment)} />
           <ResultRow label="기존대출 반영액" value={formatCurrency(result.annualCreditPayment + result.otherAnnualRepayment)} />
           <ResultRow label="기준 대비 여유 금액" value={formatCurrency(result.remainingAnnualRepaymentCapacity)} />
           <ResultRow label="적용한 계산 공식" value="DSR = 연간 원리금 상환액 ÷ 연소득 × 100" />
