@@ -22,6 +22,24 @@ describe("loan calculators", () => {
     expect(result.isPrincipalWithinDeposit).toBe(true);
   });
 
+  it("keeps core jeonse monthly interest regressions", () => {
+    expect(calculateJeonseLoan({
+      jeonseDeposit: 300_000_000,
+      principal: 100_000_000,
+      annualRate: 4,
+      years: 2,
+      repaymentType: "interest-only"
+    }).monthlyPayment).toBe(333_333);
+
+    expect(calculateJeonseLoan({
+      jeonseDeposit: 300_000_000,
+      principal: 200_000_000,
+      annualRate: 5,
+      years: 2,
+      repaymentType: "interest-only"
+    }).monthlyPayment).toBe(833_333);
+  });
+
   it("detects a loan amount greater than the jeonse deposit", () => {
     const result = calculateJeonseLoan({
       jeonseDeposit: 100_000_000,

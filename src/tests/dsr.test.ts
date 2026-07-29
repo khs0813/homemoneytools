@@ -38,6 +38,22 @@ describe("DSR calculator", () => {
     expect(result.assessmentDsr).toBe(result.dsr);
   });
 
+  it("keeps the DSR formula as annual repayment divided by annual income", () => {
+    const result = calculateDsr({
+      annualIncome: 50_000_000,
+      mortgageAmount: 0,
+      mortgageRate: 0,
+      mortgageYears: 30,
+      existingCreditLoanAmount: 0,
+      existingCreditLoanRate: 0,
+      otherAnnualRepayment: 10_000_000,
+      dsrLimit: 40,
+      stressRate: 0
+    });
+
+    expect(result.dsr).toBe(20);
+  });
+
   it("keeps actual repayment amounts at the contract rate when stress rate is applied", () => {
     const baseInput = {
       annualIncome: 70_000_000,

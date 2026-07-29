@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 import sitemap from "@/app/sitemap";
 import { GET as getRss } from "@/app/rss.xml/route";
 import { calculators } from "@/config/calculators";
+import { getAllContentDateMetadata, getCalculatorDateMetadata, getGuideDateMetadata } from "@/config/content-metadata";
+import { guides } from "@/config/guides";
 import { siteConfig } from "@/config/site";
 import { absoluteUrl, buildCalculatorMetadata, buildPageMetadata } from "@/lib/seo";
 
@@ -51,21 +53,23 @@ describe("SEO configuration", () => {
     expect(siteConfig.name).toBe("집계산");
   });
 
-  it("uses per-page lastmod only for recently updated calculator content", () => {
+  it("uses content metadata dateModified values for sitemap lastmod", () => {
     const urls = sitemap();
     const byUrl = new Map(urls.map((item) => [item.url, item.lastModified]));
 
     for (const calculator of calculators) {
-      expect(byUrl.get(`${siteConfig.url}${calculator.path}`)).toBe("2026-07-27");
+      expect(byUrl.get(`${siteConfig.url}${calculator.path}`)).toBe(getCalculatorDateMetadata(calculator.slug).dateModified);
     }
-    expect(byUrl.get(`${siteConfig.url}/guides/what-dsr-40-means`)).toBe(siteConfig.lastUpdated);
+    for (const guide of guides) {
+      expect(byUrl.get(`${siteConfig.url}${guide.path}`)).toBe(getGuideDateMetadata(guide.slug).dateModified);
+    }
+    const legacyPath = "/severance" + "-pay-calculator";
+    expect(byUrl.has(`${siteConfig.url}${legacyPath}`)).toBe(false);
   });
 
-  it("uses matching item pubDate values in RSS without updating every item", async () => {
+  it("uses canonical guide links and publication dates in RSS", async () => {
     const response = getRss();
     const xml = await response.text();
-    const updatedPubDate = new Date("2026-07-27").toUTCString();
-    const defaultPubDate = new Date(siteConfig.lastUpdated).toUTCString();
 
     function pubDateForPath(path: string) {
       const link = `<link>${siteConfig.url}${path}</link>`;
@@ -76,11 +80,35 @@ describe("SEO configuration", () => {
       return xml.slice(itemStart, itemEnd).match(/<pubDate>(.*?)<\/pubDate>/)?.[1];
     }
 
-    expect(pubDateForPath("/dsr-calculator")).toBe(updatedPubDate);
-    expect(pubDateForPath("/jeonse-loan-interest-calculator")).toBe(updatedPubDate);
-    expect(pubDateForPath("/monthly-rent-conversion-calculator")).toBe(updatedPubDate);
-    expect(pubDateForPath("/acquisition-tax-calculator")).toBe(updatedPubDate);
-    expect(pubDateForPath("/rent-vs-jeonse-calculator")).toBe(updatedPubDate);
-    expect(pubDateForPath("/guides/what-dsr-40-means")).toBe(defaultPubDate);
+    expect(xml).not.toContain("<link>https://jipcalc.co.kr/dsr-calculator</link>");
+    expect(xml).not.toContain("moneycalculator.co.kr");
+    expect(xml).not.toContain("severance" + "-pay-calculator");
+    expect(pubDateForPath("/guides/200-million-jeonse-loan-monthly-interest")).toBe(new Date(getGuideDateMetadata("200-million-jeonse-loan-monthly-interest").datePublished).toUTCString());
+    expect(pubDateForPath("/guides/monthly-rent-conversion-basics")).toBe(new Date(getGuideDateMetadata("monthly-rent-conversion-basics").datePublished).toUTCString());
+  });
+
+  it("has complete non-reversed date metadata for every public calculator and guide", () => {
+    const metadata = getAllContentDateMetadata();
+    const requiredFields = ["datePublished", "basisDate", "dateModified", "sourceCheckedAt"] as const;
+
+    for (const calculator of calculators) {
+      const record = metadata.calculators[calculator.slug];
+      expect(record).toBeTruthy();
+      for (const field of requiredFields) expect(record[field]).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      expect(record.dateModified >= record.datePublished).toBe(true);
+      expect(record.dateModified >= record.basisDate).toBe(true);
+    }
+    for (const guide of guides) {
+      const record = metadata.guides[guide.slug];
+      expect(record).toBeTruthy();
+      for (const field of requiredFields) expect(record[field]).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      expect(record.dateModified >= record.datePublished).toBe(true);
+      expect(record.dateModified >= record.basisDate).toBe(true);
+    }
+
+    expect(getGuideDateMetadata("100-million-jeonse-loan-interest").dateModified).toBe("2026-07-29");
+    expect(getGuideDateMetadata("200-million-jeonse-loan-monthly-interest").dateModified).toBe("2026-07-29");
+    expect(getGuideDateMetadata("monthly-rent-500k-to-jeonse").dateModified).toBe("2026-07-29");
+    expect(metadata.calculators["severance" + "-pay"]).toBeUndefined();
   });
 });

@@ -42,6 +42,18 @@ describe("rent conversion", () => {
     expect(result.exceedsLegalMaximum).toBe(false);
   });
 
+  it("keeps the monthly rent 500k to jeonse equivalent regression", () => {
+    const result = calculateRentConversion({
+      type: "rent-to-jeonse",
+      deposit: 0,
+      monthlyRent: 500_000,
+      conversionRate: 5,
+      years: 2
+    });
+
+    expect(result.jeonseEquivalent).toBe(120_000_000);
+  });
+
   it("marks an excessive replacement deposit as invalid for jeonse-to-rent", () => {
     const result = calculateRentConversion({
       type: "jeonse-to-rent",

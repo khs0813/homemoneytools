@@ -1,6 +1,6 @@
 import type { CalculatorInfo } from "@/config/calculators";
 import { calculators } from "@/config/calculators";
-import { getCalculatorQualityContent } from "@/config/calculator-quality-content";
+import { getCalculatorDateMetadata } from "@/config/content-metadata";
 import { guides } from "@/config/guides";
 import { siteConfig } from "@/config/site";
 import { absoluteUrl } from "@/lib/seo";
@@ -76,7 +76,7 @@ export function BreadcrumbJsonLd({ items }: { items: Array<{ name: string; path:
   );
 }
 
-export function WebPageJsonLd({ title, description, path, dateModified = siteConfig.lastUpdated }: { title: string; description: string; path: string; dateModified?: string }) {
+export function WebPageJsonLd({ title, description, path, datePublished = siteConfig.lastUpdated, dateModified = siteConfig.lastUpdated }: { title: string; description: string; path: string; datePublished?: string; dateModified?: string }) {
   return (
     <JsonLd
       data={{
@@ -88,7 +88,7 @@ export function WebPageJsonLd({ title, description, path, dateModified = siteCon
         description,
         inLanguage: siteConfig.language,
         isPartOf: website,
-        datePublished: siteConfig.lastUpdated,
+        datePublished,
         dateModified,
         primaryImageOfPage: {
           "@type": "ImageObject",
@@ -103,7 +103,7 @@ export function WebPageJsonLd({ title, description, path, dateModified = siteCon
 }
 
 export function CalculatorJsonLd({ info }: { info: CalculatorInfo }) {
-  const dateModified = getCalculatorQualityContent(info).contentModifiedDate ?? info.contentLastModified ?? siteConfig.lastUpdated;
+  const dateMetadata = getCalculatorDateMetadata(info.slug);
 
   return (
     <JsonLd
@@ -123,8 +123,8 @@ export function CalculatorJsonLd({ info }: { info: CalculatorInfo }) {
             browserRequirements: "Requires JavaScript. No database account required.",
             inLanguage: siteConfig.language,
             isAccessibleForFree: true,
-            datePublished: siteConfig.lastUpdated,
-            dateModified,
+            datePublished: dateMetadata.datePublished,
+            dateModified: dateMetadata.dateModified,
             featureList: ["주거비 계산", "시나리오 비교", "위험 구간 해석", "FAQ", "공식 출처 안내"],
             offers: {
               "@type": "Offer",
@@ -196,10 +196,11 @@ export function GuideItemListJsonLd() {
 }
 
 export function ArticleJsonLd({ info }: { info: CalculatorInfo }) {
-  return <GenericArticleJsonLd title={`${info.title} 가이드`} description={`${info.title}의 입력값, 공식, 계산 예시, 결과 해석 방법을 설명합니다.`} path={info.guidePath} />;
+  const dateMetadata = getCalculatorDateMetadata(info.slug);
+  return <GenericArticleJsonLd title={`${info.title} 가이드`} description={`${info.title}의 입력값, 공식, 계산 예시, 결과 해석 방법을 설명합니다.`} path={info.guidePath} datePublished={dateMetadata.datePublished} dateModified={dateMetadata.dateModified} />;
 }
 
-export function GenericArticleJsonLd({ title, description, path }: { title: string; description: string; path: string }) {
+export function GenericArticleJsonLd({ title, description, path, datePublished = siteConfig.lastUpdated, dateModified = siteConfig.lastUpdated }: { title: string; description: string; path: string; datePublished?: string; dateModified?: string }) {
   return (
     <JsonLd
       data={{
@@ -210,8 +211,8 @@ export function GenericArticleJsonLd({ title, description, path }: { title: stri
         description,
         inLanguage: siteConfig.language,
         mainEntityOfPage: `${absoluteUrl(path)}#webpage`,
-        datePublished: siteConfig.lastUpdated,
-        dateModified: siteConfig.lastUpdated,
+        datePublished,
+        dateModified,
         image: absoluteUrl(siteConfig.defaultOgImage),
         author: publisher,
         publisher

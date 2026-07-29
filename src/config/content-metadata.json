@@ -1,0 +1,210 @@
+{
+  "calculators": {
+    "take-home-pay": {
+      "datePublished": "2026-06-04",
+      "basisDate": "2026-06-04",
+      "dateModified": "2026-06-04",
+      "sourceCheckedAt": "2026-06-04"
+    },
+    "loan-interest": {
+      "datePublished": "2026-06-04",
+      "basisDate": "2026-06-04",
+      "dateModified": "2026-06-04",
+      "sourceCheckedAt": "2026-06-04"
+    },
+    "dividend-income": {
+      "datePublished": "2026-06-04",
+      "basisDate": "2026-07-27",
+      "dateModified": "2026-07-27",
+      "sourceCheckedAt": "2026-07-27"
+    },
+    "exchange-rate": {
+      "datePublished": "2026-06-04",
+      "basisDate": "2026-06-04",
+      "dateModified": "2026-06-04",
+      "sourceCheckedAt": "2026-06-04"
+    },
+    "overseas-stock-tax": {
+      "datePublished": "2026-06-04",
+      "basisDate": "2026-06-04",
+      "dateModified": "2026-06-04",
+      "sourceCheckedAt": "2026-06-04"
+    },
+    "electricity-bill": {
+      "datePublished": "2026-06-04",
+      "basisDate": "2026-07-27",
+      "dateModified": "2026-07-27",
+      "sourceCheckedAt": "2026-07-27"
+    },
+    "air-conditioner-electricity-cost": {
+      "datePublished": "2026-06-04",
+      "basisDate": "2026-06-04",
+      "dateModified": "2026-06-04",
+      "sourceCheckedAt": "2026-06-04"
+    },
+    "car-maintenance-cost": {
+      "datePublished": "2026-06-04",
+      "basisDate": "2026-06-04",
+      "dateModified": "2026-06-04",
+      "sourceCheckedAt": "2026-06-04"
+    },
+    "monthly-living-expense": {
+      "datePublished": "2026-06-04",
+      "basisDate": "2026-06-04",
+      "dateModified": "2026-06-04",
+      "sourceCheckedAt": "2026-06-04"
+    },
+    "jeonse-loan-interest": {
+      "datePublished": "2026-06-04",
+      "basisDate": "2026-06-03",
+      "dateModified": "2026-07-27",
+      "sourceCheckedAt": "2026-07-27"
+    },
+    "rent-vs-jeonse": {
+      "datePublished": "2026-06-04",
+      "basisDate": "2026-06-03",
+      "dateModified": "2026-07-27",
+      "sourceCheckedAt": "2026-07-27"
+    },
+    "dsr": {
+      "datePublished": "2026-06-04",
+      "basisDate": "2026-07-01",
+      "dateModified": "2026-07-27",
+      "sourceCheckedAt": "2026-07-27"
+    },
+    "acquisition-tax": {
+      "datePublished": "2026-06-04",
+      "basisDate": "2026-07-01",
+      "dateModified": "2026-07-27",
+      "sourceCheckedAt": "2026-07-27"
+    },
+    "brokerage-fee": {
+      "datePublished": "2026-06-04",
+      "basisDate": "2026-01-01",
+      "dateModified": "2026-07-27",
+      "sourceCheckedAt": "2026-07-27"
+    },
+    "monthly-rent-conversion": {
+      "datePublished": "2026-06-04",
+      "basisDate": "2026-07-16",
+      "dateModified": "2026-07-27",
+      "sourceCheckedAt": "2026-07-27"
+    },
+    "housing-subscription-score": {
+      "datePublished": "2026-06-04",
+      "basisDate": "2026-06-15",
+      "dateModified": "2026-07-27",
+      "sourceCheckedAt": "2026-07-27"
+    }
+  },
+  "guides": {
+    "100-million-jeonse-loan-interest": {
+      "datePublished": "2026-06-10",
+      "basisDate": "2026-06-10",
+      "dateModified": "2026-07-29",
+      "sourceCheckedAt": "2026-06-10"
+    },
+    "200-million-jeonse-loan-monthly-interest": {
+      "datePublished": "2026-06-10",
+      "basisDate": "2026-06-10",
+      "dateModified": "2026-07-29",
+      "sourceCheckedAt": "2026-06-10"
+    },
+    "salary-50-million-dsr": {
+      "datePublished": "2026-06-10",
+      "basisDate": "2026-06-10",
+      "dateModified": "2026-07-29",
+      "sourceCheckedAt": "2026-06-10"
+    },
+    "salary-70-million-dsr-40": {
+      "datePublished": "2026-06-10",
+      "basisDate": "2026-06-10",
+      "dateModified": "2026-07-29",
+      "sourceCheckedAt": "2026-06-10"
+    },
+    "600-million-apartment-acquisition-tax": {
+      "datePublished": "2026-06-10",
+      "basisDate": "2026-06-10",
+      "dateModified": "2026-07-29",
+      "sourceCheckedAt": "2026-06-10"
+    },
+    "900-million-apartment-acquisition-tax": {
+      "datePublished": "2026-06-10",
+      "basisDate": "2026-06-10",
+      "dateModified": "2026-07-29",
+      "sourceCheckedAt": "2026-06-10"
+    },
+    "monthly-rent-500k-to-jeonse": {
+      "datePublished": "2026-06-10",
+      "basisDate": "2026-06-10",
+      "dateModified": "2026-07-29",
+      "sourceCheckedAt": "2026-06-10"
+    },
+    "jeonse-loan-interest-mistakes": {
+      "datePublished": "2026-06-04",
+      "basisDate": "2026-06-03",
+      "dateModified": "2026-06-04",
+      "sourceCheckedAt": "2026-06-03"
+    },
+    "rent-vs-jeonse-decision-guide": {
+      "datePublished": "2026-06-04",
+      "basisDate": "2026-06-03",
+      "dateModified": "2026-06-04",
+      "sourceCheckedAt": "2026-06-03"
+    },
+    "what-dsr-40-means": {
+      "datePublished": "2026-06-04",
+      "basisDate": "2026-06-03",
+      "dateModified": "2026-06-04",
+      "sourceCheckedAt": "2026-06-03"
+    },
+    "acquisition-tax-checklist": {
+      "datePublished": "2026-06-04",
+      "basisDate": "2026-06-03",
+      "dateModified": "2026-06-04",
+      "sourceCheckedAt": "2026-06-03"
+    },
+    "brokerage-fee-negotiation": {
+      "datePublished": "2026-06-04",
+      "basisDate": "2026-06-03",
+      "dateModified": "2026-06-04",
+      "sourceCheckedAt": "2026-06-03"
+    },
+    "subscription-score-interpretation": {
+      "datePublished": "2026-06-04",
+      "basisDate": "2026-06-03",
+      "dateModified": "2026-06-04",
+      "sourceCheckedAt": "2026-06-03"
+    },
+    "monthly-rent-conversion-basics": {
+      "datePublished": "2026-06-04",
+      "basisDate": "2026-06-03",
+      "dateModified": "2026-06-04",
+      "sourceCheckedAt": "2026-06-03"
+    },
+    "jeonse-total-housing-cost": {
+      "datePublished": "2026-06-04",
+      "basisDate": "2026-06-03",
+      "dateModified": "2026-06-04",
+      "sourceCheckedAt": "2026-06-03"
+    },
+    "subscription-account-period": {
+      "datePublished": "2026-06-04",
+      "basisDate": "2026-06-03",
+      "dateModified": "2026-06-04",
+      "sourceCheckedAt": "2026-06-03"
+    },
+    "regulated-area-acquisition-tax": {
+      "datePublished": "2026-06-04",
+      "basisDate": "2026-06-03",
+      "dateModified": "2026-06-04",
+      "sourceCheckedAt": "2026-06-03"
+    },
+    "subscription-score-vs-buy-or-rent": {
+      "datePublished": "2026-06-04",
+      "basisDate": "2026-06-03",
+      "dateModified": "2026-06-04",
+      "sourceCheckedAt": "2026-06-03"
+    }
+  }
+}

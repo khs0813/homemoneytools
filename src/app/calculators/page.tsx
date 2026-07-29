@@ -14,6 +14,7 @@ export const metadata = buildPageMetadata(
 
 export default function CalculatorsPage() {
   const visibleCalculators = calculators.filter((calculator) => isHousingCalculator(calculator.slug));
+  const utilityCalculators = calculators.filter((calculator) => !isHousingCalculator(calculator.slug));
 
   return (
     <>
@@ -36,6 +37,15 @@ export default function CalculatorsPage() {
             {visibleCalculators.map((calculator) => <CalculatorCard key={calculator.slug} calculator={calculator} />)}
           </div>
         </div>
+        {utilityCalculators.length > 0 ? (
+          <section className="mt-10">
+            <h2 className="text-2xl font-black text-slate-950">생활·금융 보조 계산기</h2>
+            <p className="mt-3 text-sm leading-7 text-slate-600">주거비 판단과 함께 확인할 수 있는 실수령액, 생활비, 공과금, 투자 세금 계산기입니다.</p>
+            <div className="mt-6 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+              {utilityCalculators.map((calculator) => <CalculatorCard key={calculator.slug} calculator={calculator} />)}
+            </div>
+          </section>
+        ) : null}
       </PageContainer>
     </>
   );

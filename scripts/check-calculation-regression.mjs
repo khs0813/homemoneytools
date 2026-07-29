@@ -8,23 +8,27 @@ const docsDir = path.join(process.cwd(), "docs");
 const before = readJson("calculation-results-before.json");
 const after = readJson("calculation-results-after.json");
 const findings = [];
+const retiredPublicCalculatorSlugs = new Set(["severance" + "-pay"]);
 
 const beforeBySlug = new Map(before.results.map((item) => [item.slug, item]));
 const afterBySlug = new Map(after.results.map((item) => [item.slug, item]));
 
 for (const slug of beforeBySlug.keys()) {
+  if (retiredPublicCalculatorSlugs.has(slug)) continue;
   if (!afterBySlug.has(slug)) {
     findings.push(`- ${slug}: after 결과가 없습니다.`);
   }
 }
 
 for (const slug of afterBySlug.keys()) {
+  if (retiredPublicCalculatorSlugs.has(slug)) continue;
   if (!beforeBySlug.has(slug)) {
     findings.push(`- ${slug}: before에 없던 결과가 추가됐습니다.`);
   }
 }
 
 for (const [slug, beforeResult] of beforeBySlug) {
+  if (retiredPublicCalculatorSlugs.has(slug)) continue;
   const afterResult = afterBySlug.get(slug);
   if (!afterResult) continue;
   if (beforeResult.resultJson !== afterResult.resultJson) {
@@ -37,6 +41,7 @@ const report = [
   "",
   `- Before cases: ${before.count}`,
   `- After cases: ${after.count}`,
+  `- Retired public routes skipped: ${retiredPublicCalculatorSlugs.size}`,
   `- Differences: ${findings.length}`,
   "",
   "## Results",

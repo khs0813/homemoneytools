@@ -8,7 +8,6 @@ export type Guide = {
   path: string;
   h1: string;
   category: string;
-  referenceDate: string;
   officialSources: OfficialSource[];
   policySummary: string[];
   body: Array<{
@@ -28,7 +27,6 @@ const situationalGuides: Guide[] = [
     h1: "전세대출 1억 이자 계산: 월 부담은 얼마일까",
     category: "전세대출 상황별 가이드",
     description: "전세대출 1억 원을 금리별로 빌렸을 때 월 이자와 총이자가 어떻게 달라지는지 계산 전 확인할 기준을 정리했습니다.",
-    referenceDate: "2026-06-10",
     officialSources: [
       { title: "주택도시기금 버팀목전세자금 FAQ", url: "https://nhuf.molit.go.kr/FP/FP05/FP0502/FP05020103.jsp?gotoPage=1", note: "전세자금대출 상품 조건 확인용" },
       { title: "한국주택금융공사 전세자금보증", url: "https://www.hf.go.kr/ko/sub02/sub02_01_01.do", note: "보증 구조와 한도 확인용" }
@@ -55,7 +53,6 @@ const situationalGuides: Guide[] = [
     h1: "전세대출 2억 월이자: 금리별 부담 비교",
     category: "전세대출 상황별 가이드",
     description: "전세대출 2억 원의 월이자를 금리별로 비교하고, 2년 총이자와 월세 대안 비교 시 주의할 점을 정리했습니다.",
-    referenceDate: "2026-06-10",
     officialSources: [
       { title: "주택도시기금 버팀목전세자금 FAQ", url: "https://nhuf.molit.go.kr/FP/FP05/FP0502/FP05020103.jsp?gotoPage=1", note: "전세자금대출 조건 확인용" },
       { title: "한국주택금융공사 전세자금보증", url: "https://www.hf.go.kr/ko/sub02/sub02_01_01.do", note: "보증 가능성 확인용" }
@@ -82,7 +79,6 @@ const situationalGuides: Guide[] = [
     h1: "연봉 5000 DSR 계산: 주담대 한도 점검 순서",
     category: "DSR 상황별 가이드",
     description: "연봉 5000만 원 기준 DSR 40% 한도에서 연간 원리금 상환 가능액과 주담대 계산 시 확인할 항목을 정리했습니다.",
-    referenceDate: "2026-06-10",
     officialSources: [
       { title: "금융위원회 스트레스 DSR 제도 설명", url: "https://www.fsc.go.kr/po010101/81343?curPage=&srchBeginDt=&srchCtgry=1&srchEndDt=&srchKey=&srchText=", note: "스트레스 DSR 설명 확인용" },
       { title: "기획재정부 DSR 규제 설명", url: "https://whatsnew.moef.go.kr/mec/ots/dif/view.do?comBaseCd=DIFTYPCD&difField1=DIFFIELD05&difSer=db7e3d8b-ba55-463d-89d2-047f5fd3a50d&temp=2022&temp2=HALF002", note: "차주단위 DSR 개요 확인용" }
@@ -109,7 +105,6 @@ const situationalGuides: Guide[] = [
     h1: "연봉 7000 DSR 40% 계산: 주담대 여력 보기",
     category: "DSR 상황별 가이드",
     description: "연봉 7000만 원에서 DSR 40% 기준 연간 원리금 한도와 기존대출, 스트레스 금리 반영 시 달라지는 주담대 여력을 설명합니다.",
-    referenceDate: "2026-06-10",
     officialSources: [
       { title: "금융위원회 스트레스 DSR 제도 설명", url: "https://www.fsc.go.kr/po010101/81343?curPage=&srchBeginDt=&srchCtgry=1&srchEndDt=&srchKey=&srchText=", note: "스트레스 DSR 설명 확인용" },
       { title: "기획재정부 DSR 규제 설명", url: "https://whatsnew.moef.go.kr/mec/ots/dif/view.do?comBaseCd=DIFTYPCD&difField1=DIFFIELD05&difSer=db7e3d8b-ba55-463d-89d2-047f5fd3a50d&temp=2022&temp2=HALF002", note: "차주단위 DSR 개요 확인용" }
@@ -136,7 +131,6 @@ const situationalGuides: Guide[] = [
     h1: "6억 아파트 취득세 계산: 잔금 전 준비금",
     category: "취득세 상황별 가이드",
     description: "6억 아파트 매수 시 취득세, 지방교육세 등 초기 세금 준비금을 어떻게 추정해야 하는지 정리했습니다.",
-    referenceDate: "2026-06-10",
     officialSources: [
       { title: "정부24 취득세 안내", url: "https://www.gov.kr/portal/service/serviceInfo/536000000011", note: "취득세 개요 확인용" },
       { title: "위택스", url: "https://www.wetax.go.kr/", note: "지방세 신고 전 확인용" }
@@ -163,7 +157,6 @@ const situationalGuides: Guide[] = [
     h1: "9억 아파트 취득세 계산: 주택 수별 체크",
     category: "취득세 상황별 가이드",
     description: "9억 아파트 매수 전 취득세와 부가 세목, 주택 수·조정대상지역 판단을 어떻게 점검해야 하는지 설명합니다.",
-    referenceDate: "2026-06-10",
     officialSources: [
       { title: "정부24 취득세 안내", url: "https://www.gov.kr/portal/service/serviceInfo/536000000011", note: "취득세 개요 확인용" },
       { title: "위택스", url: "https://www.wetax.go.kr/", note: "지방세 신고 전 확인용" }
@@ -190,7 +183,6 @@ const situationalGuides: Guide[] = [
     h1: "월세 50 전세 환산: 전월세 전환율로 보기",
     category: "전월세 전환 상황별 가이드",
     description: "월세 50만 원을 전세금으로 환산할 때 전월세 전환율과 보증금 조건을 어떻게 적용해야 하는지 설명합니다.",
-    referenceDate: "2026-06-10",
     officialSources: [
       { title: "주택임대차보호법", url: "https://law.go.kr/LSW/lsInfoP.do?lsiSeq=93190", note: "월차임 전환 근거 확인용" },
       { title: "국토교통부 전월세 전환 정책 안내", url: "https://www.molit.go.kr/policy/rent/rent_c_05.jsp", note: "전월세 전환 설명 확인용" }
@@ -220,7 +212,6 @@ export const guides: Guide[] = [
     h1: "전세대출 이자 계산 실수 7가지",
     category: "전세대출 가이드",
     description: "전세대출 이자를 계산할 때 자주 놓치는 보증료, 금리 상승, 만기 상환 리스크를 실제 사례 중심으로 정리했습니다.",
-    referenceDate: "2026-06-03",
     officialSources: [
       { title: "주택도시기금 버팀목전세자금 FAQ", url: "https://nhuf.molit.go.kr/FP/FP05/FP0502/FP05020103.jsp?gotoPage=1", note: "전세자금대출 기본 요건 확인용" },
       { title: "한국주택금융공사 전세자금보증 찾기", url: "https://www.hf.go.kr/ko/sub02/sub02_01_01.do", note: "보증 구조와 보증한도 확인용" }
@@ -277,7 +268,6 @@ export const guides: Guide[] = [
     h1: "월세 vs 전세 판단법: 숫자로 비교하는 순서",
     category: "전월세 비교 가이드",
     description: "월세와 전세 중 무엇이 유리한지 판단할 때 기회비용, 전세대출 이자, 총주거비를 어떤 순서로 비교해야 하는지 정리했습니다.",
-    referenceDate: "2026-06-03",
     officialSources: [
       { title: "주택임대차보호법", url: "https://law.go.kr/LSW/lsInfoP.do?lsiSeq=93190", note: "전월세 계약 제도와 전환 근거 확인용" },
       { title: "국토교통부 정책풀이집", url: "https://www.molit.go.kr/policy/rent/rent_f_02.jsp", note: "전월세 전환 관련 정책 설명 확인용" }
@@ -325,7 +315,6 @@ export const guides: Guide[] = [
     h1: "DSR 40% 의미를 실제 대출 관점에서 설명하면",
     category: "대출 규제 가이드",
     description: "DSR 40%가 실무에서 어떤 의미인지, 소득과 기존대출이 주담대 한도에 어떤 영향을 주는지 설명합니다.",
-    referenceDate: "2026-06-03",
     officialSources: [
       { title: "금융위원회 스트레스 DSR 제도 설명", url: "https://www.fsc.go.kr/po010101/81343?curPage=&srchBeginDt=&srchCtgry=1&srchEndDt=&srchKey=&srchText=", note: "스트레스 DSR 설명 확인용" },
       { title: "기획재정부 이렇게 달라집니다 - DSR", url: "https://whatsnew.moef.go.kr/mec/ots/dif/view.do?comBaseCd=DIFTYPCD&difField1=DIFFIELD05&difSer=db7e3d8b-ba55-463d-89d2-047f5fd3a50d&temp=2022&temp2=HALF002", note: "차주단위 DSR 40% 개요 확인용" }
@@ -373,7 +362,6 @@ export const guides: Guide[] = [
     h1: "취득세 계산 전 반드시 확인할 6가지",
     category: "취득세 가이드",
     description: "주택 수, 조정대상지역, 생애최초 감면 여부 등 취득세 계산 전에 확인해야 할 핵심 체크포인트를 정리했습니다.",
-    referenceDate: "2026-06-03",
     officialSources: [
       { title: "정부24 취득세 안내", url: "https://www.gov.kr/portal/service/serviceInfo/536000000011", note: "취득세 개요와 세율 구조 확인용" },
       { title: "위택스", url: "https://www.wetax.go.kr/", note: "실제 신고 전 지방세 신고 절차 확인용" }
@@ -421,7 +409,6 @@ export const guides: Guide[] = [
     h1: "중개수수료 협의 방법: 상한요율만 믿으면 안 되는 이유",
     category: "중개보수 가이드",
     description: "중개보수 상한요율, 협의 가능 범위, 월세 환산거래금액까지 실제 협의 때 필요한 포인트를 정리했습니다.",
-    referenceDate: "2026-06-03",
     officialSources: [
       { title: "서울부동산정보광장 부동산 중개보수 안내", url: "https://land.seoul.go.kr/land/broker/brokerageCommission.do", note: "거래유형별 상한요율 확인용" },
       { title: "공인중개사법 시행규칙", url: "https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=260406", note: "요율 게시·설명 관련 규정 확인용" }
@@ -469,7 +456,6 @@ export const guides: Guide[] = [
     h1: "청약가점 해석: 점수만 보지 말아야 하는 이유",
     category: "청약 가이드",
     description: "청약가점이 높고 낮다는 말이 실제로 무엇을 뜻하는지, 무주택기간·부양가족·가입기간을 어떻게 해석해야 하는지 설명합니다.",
-    referenceDate: "2026-06-03",
     officialSources: [
       { title: "주택도시기금 청약가점빠른계산기", url: "https://nhuf.molit.go.kr/FP/FP07/FP0702/FP070210.jsp", note: "기본 점수 구조 확인용" },
       { title: "주택공급에 관한 규칙 별표1", url: "https://www.law.go.kr/flDownload.do?flSeq=102470549&gubun=", note: "가점제 세부 기준 확인용" }
@@ -517,7 +503,6 @@ export const guides: Guide[] = [
     h1: "전월세 전환율 쉽게 이해하기",
     category: "전월세 전환 가이드",
     description: "전세를 월세로, 월세를 전세로 바꿔 볼 때 전월세 전환율을 어떻게 해석해야 하는지 설명합니다.",
-    referenceDate: "2026-06-03",
     officialSources: [
       { title: "주택임대차보호법", url: "https://law.go.kr/LSW/lsInfoP.do?lsiSeq=93190", note: "월차임 전환의 법적 근거 확인용" },
       { title: "국토교통부 정책풀이집", url: "https://www.molit.go.kr/policy/rent/rent_c_05.jsp", note: "전월세 전환 정책 설명 확인용" }
@@ -565,7 +550,6 @@ export const guides: Guide[] = [
     h1: "전세 계약할 때 총주거비로 봐야 하는 이유",
     category: "전세 비용 가이드",
     description: "전세보증금, 대출이자, 기회비용, 보증료, 이사비까지 합친 총주거비 관점으로 전세를 보는 방법을 정리했습니다.",
-    referenceDate: "2026-06-03",
     officialSources: [
       { title: "주택도시기금 버팀목전세자금 FAQ", url: "https://nhuf.molit.go.kr/FP/FP05/FP0502/FP05020103.jsp?gotoPage=1", note: "전세대출 조건 확인용" },
       { title: "한국주택금융공사 전세자금보증", url: "https://www.hf.go.kr/ko/sub02/sub02_01_01.do", note: "보증 구조 확인용" }
@@ -613,7 +597,6 @@ export const guides: Guide[] = [
     h1: "청약통장 가입기간이 점수에 미치는 영향",
     category: "청약통장 가이드",
     description: "청약통장 가입기간 점수는 얼마나 큰 의미가 있는지, 무주택기간·부양가족 점수와 어떻게 같이 봐야 하는지 설명합니다.",
-    referenceDate: "2026-06-03",
     officialSources: [
       { title: "주택도시기금 청약가점빠른계산기", url: "https://nhuf.molit.go.kr/FP/FP07/FP0702/FP070210.jsp", note: "가입기간 점수 구조 확인용" },
       { title: "주택공급에 관한 규칙 별표1", url: "https://www.law.go.kr/flDownload.do?flSeq=102470549&gubun=", note: "가점제 세부 기준 확인용" }
@@ -661,7 +644,6 @@ export const guides: Guide[] = [
     h1: "조정대상지역과 취득세 중과 체크포인트",
     category: "취득세 심화 가이드",
     description: "조정대상지역 여부와 주택 수 판단이 취득세 계산에 왜 중요한지 실제 체크포인트 중심으로 설명합니다.",
-    referenceDate: "2026-06-03",
     officialSources: [
       { title: "정부24 취득세 안내", url: "https://www.gov.kr/portal/service/serviceInfo/536000000011", note: "취득세 기본 안내" },
       { title: "위택스", url: "https://www.wetax.go.kr/", note: "지방세 신고 전 확인용" }
@@ -709,7 +691,6 @@ export const guides: Guide[] = [
     h1: "청약을 기다릴지 매수·전세로 갈지 판단하는 방법",
     category: "주거 전략 가이드",
     description: "청약가점만 보고 기다리는 것이 유리한지, 전세나 매수와 병행해서 판단해야 하는지 주거비 전략 관점에서 설명합니다.",
-    referenceDate: "2026-06-03",
     officialSources: [
       { title: "주택도시기금 청약가점빠른계산기", url: "https://nhuf.molit.go.kr/FP/FP07/FP0702/FP070210.jsp", note: "현재 가점 확인용" },
       { title: "주택공급에 관한 규칙 별표1", url: "https://www.law.go.kr/flDownload.do?flSeq=102470549&gubun=", note: "가점제 구조 확인용" }

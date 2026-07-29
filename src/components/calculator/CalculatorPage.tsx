@@ -7,8 +7,10 @@ import { FaqJsonLd, FaqSection } from "@/components/calculator/FaqSection";
 import { FormulaAccordion } from "@/components/calculator/FormulaAccordion";
 import { RelatedCalculators } from "@/components/calculator/RelatedCalculators";
 import { getCalculatorQualityContent } from "@/config/calculator-quality-content";
+import { getCalculatorDateMetadata } from "@/config/content-metadata";
 import { getPrimaryGuideForCalculator } from "@/config/guides";
 import { housingReferenceBySlug } from "@/config/housing-content";
+import { getSeoRelatedLinks } from "@/config/related-links";
 import { getSeoContent } from "@/config/seo-content";
 import { BreadcrumbJsonLd, CalculatorJsonLd, WebPageJsonLd } from "@/lib/json-ld";
 
@@ -16,14 +18,17 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
   const seoContent = getSeoContent(info.slug);
   const reference = housingReferenceBySlug[info.slug];
   const qualityContent = getCalculatorQualityContent(info);
+  const dateMetadata = getCalculatorDateMetadata(info.slug);
+  const seoRelatedLinks = getSeoRelatedLinks(info.slug);
   const relatedGuide = getPrimaryGuideForCalculator(info.slug);
-  const calculationBasisDate = qualityContent.calculationBasisDate ?? reference?.referenceDate ?? "별도 제도 기준 없음";
-  const pageModifiedDate = qualityContent.contentModifiedDate ?? info.contentLastModified ?? "2026-06-04";
+  const calculationBasisDate = dateMetadata.basisDate;
+  const pageModifiedDate = dateMetadata.dateModified;
+  const sourceCheckedAt = dateMetadata.sourceCheckedAt;
   const officialSources = qualityContent.officialSources ?? reference?.officialSources ?? [];
 
   return (
     <>
-      <WebPageJsonLd title={info.title} description={info.description} path={info.path} dateModified={pageModifiedDate} />
+      <WebPageJsonLd title={info.title} description={info.description} path={info.path} datePublished={dateMetadata.datePublished} dateModified={pageModifiedDate} />
       <FaqJsonLd faqs={info.faqs} />
       <BreadcrumbJsonLd
         items={[
@@ -70,7 +75,7 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
               </div>
               <div>
                 <dt className="font-semibold text-slate-900">출처 확인일</dt>
-                <dd className="mt-1">{qualityContent.sourceCheckedAt ?? "별도 표기 없음"}</dd>
+                <dd className="mt-1">{sourceCheckedAt}</dd>
               </div>
             </dl>
             <p className="mt-4 text-sm leading-6 text-slate-600">{qualityContent.basisNote}</p>
@@ -251,10 +256,19 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
         <div className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm leading-7 text-amber-950">
           <strong>면책 안내:</strong> {seoContent.disclaimer}
         </div>
-        <div className="mt-6 rounded-2xl border border-blue-100 bg-blue-50 p-5">
-          <h3 className="text-base font-bold text-slate-950">함께 검색되는 주제</h3>
-          <p className="mt-2 text-sm leading-6 text-slate-600">{seoContent.relatedSearches.join(" · ")}</p>
-        </div>
+        {seoRelatedLinks.length > 0 ? (
+          <div className="mt-6 rounded-2xl border border-blue-100 bg-blue-50 p-5">
+            <h3 className="text-base font-bold text-slate-950">관련 문서와 계산기</h3>
+            <div className="mt-4 grid gap-3 md:grid-cols-2">
+              {seoRelatedLinks.map((link) => (
+                <Link key={link.href} href={link.href} className="rounded-2xl border border-blue-100 bg-white/70 p-4 transition hover:border-brand-navy hover:bg-white">
+                  <span className="font-bold text-slate-950">{link.title}</span>
+                  <span className="mt-2 block text-sm leading-6 text-slate-600">{link.description}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        ) : null}
       </section>
 
       {reference ? (
@@ -263,7 +277,7 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
           <div className="mt-4 grid gap-2 text-sm leading-7 text-slate-600 sm:grid-cols-2">
             <p>기준일: {calculationBasisDate}</p>
             <p>최종 수정일: {pageModifiedDate}</p>
-            <p>출처 확인일: {qualityContent.sourceCheckedAt ?? "별도 표기 없음"}</p>
+            <p>출처 확인일: {sourceCheckedAt}</p>
           </div>
           <div className="mt-5 grid gap-4 lg:grid-cols-2">
             <div className="rounded-2xl bg-slate-50 p-5">
@@ -297,7 +311,7 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
           <div className="mt-4 grid gap-2 text-sm leading-7 text-slate-600 sm:grid-cols-2">
             <p>기준일: {calculationBasisDate}</p>
             <p>최종 수정일: {pageModifiedDate}</p>
-            <p>출처 확인일: {qualityContent.sourceCheckedAt ?? "별도 표기 없음"}</p>
+            <p>출처 확인일: {sourceCheckedAt}</p>
           </div>
           <div className="mt-5 grid gap-4 lg:grid-cols-2">
             {officialSources.map((source) => (

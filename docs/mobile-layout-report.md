@@ -1,6 +1,6 @@
 # Mobile Layout Report
 
-- Generated at: 2026-07-27T14:57:58.062Z
+- Generated at: 2026-07-29T14:06:40.441Z
 - Fetch base: http://localhost:3000
 - Viewports: 360px, 390px, 412px
 - Checked combinations: 27

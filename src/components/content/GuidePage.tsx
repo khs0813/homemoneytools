@@ -3,16 +3,19 @@ import { AdFitSideBanner, AdFitTopBanner } from "@/components/adfit/AdFitPageAds
 import { FaqJsonLd, FaqSection } from "@/components/calculator/FaqSection";
 import { RelatedCalculators } from "@/components/calculator/RelatedCalculators";
 import { PageContainer } from "@/components/layout/PageContainer";
+import { getGuideDateMetadata } from "@/config/content-metadata";
 import type { Guide } from "@/config/guides";
 import { BreadcrumbJsonLd, GenericArticleJsonLd, WebPageJsonLd } from "@/lib/json-ld";
 
 export function GuidePage({ guide }: { guide: Guide }) {
+  const dateMetadata = getGuideDateMetadata(guide.slug);
+
   return (
     <>
-      <WebPageJsonLd title={guide.title} description={guide.description} path={guide.path} />
+      <WebPageJsonLd title={guide.title} description={guide.description} path={guide.path} datePublished={dateMetadata.datePublished} dateModified={dateMetadata.dateModified} />
       <FaqJsonLd faqs={guide.faqs} />
       <BreadcrumbJsonLd items={[{ name: "홈", path: "/" }, { name: "가이드", path: "/guides" }, { name: guide.title, path: guide.path }]} />
-      <GenericArticleJsonLd title={guide.title} description={guide.description} path={guide.path} />
+      <GenericArticleJsonLd title={guide.title} description={guide.description} path={guide.path} datePublished={dateMetadata.datePublished} dateModified={dateMetadata.dateModified} />
       <PageContainer className="py-10 md:py-14">
         <article className="mx-auto max-w-4xl">
           <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-soft sm:p-6 md:p-10">
@@ -26,8 +29,9 @@ export function GuidePage({ guide }: { guide: Guide }) {
 
           <section className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-5">
             <h2 className="text-lg font-bold text-slate-950">계산 기준일과 제도 메모</h2>
-            <p className="mt-3 text-sm leading-7 text-slate-600">기준일: {guide.referenceDate}</p>
-            <p className="mt-1 text-sm leading-7 text-slate-600">최종 수정일: 2026-06-04</p>
+            <p className="mt-3 text-sm leading-7 text-slate-600">기준일: {dateMetadata.basisDate}</p>
+            <p className="mt-1 text-sm leading-7 text-slate-600">최종 수정일: {dateMetadata.dateModified}</p>
+            <p className="mt-1 text-sm leading-7 text-slate-600">출처 확인일: {dateMetadata.sourceCheckedAt}</p>
             <ul className="mt-3 grid gap-2 text-sm leading-7 text-slate-600">
               {guide.policySummary.map((item) => (
                 <li key={item}>• {item}</li>

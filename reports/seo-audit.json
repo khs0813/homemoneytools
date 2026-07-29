@@ -1,0 +1,14 @@
+{
+  "generatedAt": "2026-07-29T14:10:29.046Z",
+  "mode": "http",
+  "baseUrl": "http://localhost:3000",
+  "sitemapUrlCount": 42,
+  "htmlPageCount": 42,
+  "sourceSummary": {
+    "calculatorCount": 16,
+    "guideCount": 18
+  },
+  "fatalCount": 0,
+  "warningCount": 0,
+  "issues": []
+}

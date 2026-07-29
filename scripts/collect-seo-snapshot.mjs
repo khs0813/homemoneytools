@@ -383,12 +383,6 @@ function collectCalculationResults(generatedAt) {
       output: calculateLoan({ principal: 100_000_000, annualRate: 5, years: 10, repaymentType: "interest-only" })
     },
     {
-      slug: "severance-pay",
-      path: "/severance-pay-calculator",
-      input: { averageMonthlyWage: 3_500_000, years: 5, extraMonths: 0, taxRate: 0 },
-      output: finance.calculateSeverancePay({ averageMonthlyWage: 3_500_000, years: 5, extraMonths: 0, taxRate: 0 })
-    },
-    {
       slug: "dividend-income",
       path: "/dividend-income-calculator",
       input: { investmentAmount: 100_000_000, dividendYield: 4, taxRate: 15.4, frequency: 4, targetMonthlyDividend: 1_000_000 },

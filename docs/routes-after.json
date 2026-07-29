@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-27T14:56:31.510Z",
+  "generatedAt": "2026-07-29T14:08:34.750Z",
   "baseUrl": "http://localhost:3000",
   "publicHost": "https://jipcalc.co.kr",
-  "count": 53,
-  "sitemapUrlCount": 43,
+  "count": 52,
+  "sitemapUrlCount": 42,
   "routes": [
     {
       "url": "https://jipcalc.co.kr/",
@@ -445,15 +445,6 @@
       "location": null,
       "sitemapIncluded": false,
       "routeFileDetected": false
-    },
-    {
-      "url": "https://jipcalc.co.kr/severance-pay-calculator",
-      "path": "/severance-pay-calculator",
-      "status": 200,
-      "contentType": "text/html; charset=utf-8",
-      "location": null,
-      "sitemapIncluded": true,
-      "routeFileDetected": true
     },
     {
       "url": "https://jipcalc.co.kr/sitemap.xml",

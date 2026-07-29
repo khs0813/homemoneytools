@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { CalculatorInfo } from "@/config/calculators";
 import { FaqJsonLd, FaqSection } from "@/components/calculator/FaqSection";
 import { PageContainer } from "@/components/layout/PageContainer";
+import { getCalculatorDateMetadata } from "@/config/content-metadata";
 import { housingReferenceBySlug } from "@/config/housing-content";
 import { getSeoContent } from "@/config/seo-content";
 import { ArticleJsonLd, BreadcrumbJsonLd, WebPageJsonLd } from "@/lib/json-ld";
@@ -9,10 +10,11 @@ import { ArticleJsonLd, BreadcrumbJsonLd, WebPageJsonLd } from "@/lib/json-ld";
 export function GuideArticle({ info }: { info: CalculatorInfo }) {
   const content = getSeoContent(info.slug);
   const reference = housingReferenceBySlug[info.slug];
+  const dateMetadata = getCalculatorDateMetadata(info.slug);
 
   return (
     <>
-      <WebPageJsonLd title={`${info.title} 계산 기준 해설`} description={info.description} path={info.guidePath} />
+      <WebPageJsonLd title={`${info.title} 계산 기준 해설`} description={info.description} path={info.guidePath} datePublished={dateMetadata.datePublished} dateModified={dateMetadata.dateModified} />
       <FaqJsonLd faqs={info.faqs} />
       <BreadcrumbJsonLd
         items={[
@@ -30,7 +32,9 @@ export function GuideArticle({ info }: { info: CalculatorInfo }) {
 
           <section className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-5">
             <h2 className="text-lg font-bold text-slate-950">계산 기준일</h2>
-            <p className="mt-3 text-sm leading-7 text-slate-600">{reference?.referenceDate ?? "2026-06-03"}</p>
+            <p className="mt-3 text-sm leading-7 text-slate-600">기준일: {dateMetadata.basisDate}</p>
+            <p className="mt-1 text-sm leading-7 text-slate-600">최종 수정일: {dateMetadata.dateModified}</p>
+            <p className="mt-1 text-sm leading-7 text-slate-600">출처 확인일: {dateMetadata.sourceCheckedAt}</p>
           </section>
 
           <section className="mt-8">

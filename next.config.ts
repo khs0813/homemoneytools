@@ -50,6 +50,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/severance-pay-calculator",
+        destination: "https://www.moneycalculator.co.kr/severance-pay-calculator",
+        statusCode: 301
+      },
+      {
         source: "/:path*",
         has: [{ type: "host", value: "www.jipcalc.co.kr" }],
         destination: "https://jipcalc.co.kr/:path*",

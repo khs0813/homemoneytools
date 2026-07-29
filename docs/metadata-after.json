@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-07-27T14:56:31.510Z",
+  "generatedAt": "2026-07-29T14:08:34.750Z",
   "baseUrl": "http://localhost:3000",
   "publicHost": "https://jipcalc.co.kr",
-  "count": 43,
+  "count": 42,
   "pages": [
     {
       "url": "https://jipcalc.co.kr/",
@@ -195,8 +195,8 @@
       "xRobotsTag": "",
       "indexable": true,
       "sitemapIncluded": true,
-      "internalLinkCount": 35,
-      "uniqueInternalLinkCount": 16,
+      "internalLinkCount": 38,
+      "uniqueInternalLinkCount": 18,
       "internalLinks": [
         "/",
         "/about",
@@ -206,6 +206,8 @@
         "/disclaimer",
         "/dsr-calculator",
         "/guides",
+        "/guides/600-million-apartment-acquisition-tax",
+        "/guides/900-million-apartment-acquisition-tax",
         "/guides/acquisition-tax-checklist",
         "/housing-subscription-score-calculator",
         "/jeonse-loan-interest-calculator",
@@ -215,7 +217,7 @@
         "/rent-vs-jeonse-calculator",
         "/terms"
       ],
-      "bodyTextLength": 5054,
+      "bodyTextLength": 5152,
       "structuredDataTypes": [
         "BreadcrumbList",
         "FAQPage",
@@ -287,7 +289,7 @@
         "/rent-vs-jeonse-calculator",
         "/terms"
       ],
-      "bodyTextLength": 3221,
+      "bodyTextLength": 3163,
       "structuredDataTypes": [
         "BreadcrumbList",
         "FAQPage",
@@ -298,9 +300,9 @@
         "WebSite"
       ],
       "datePublished": "2026-06-04",
-      "dateModified": "2026-07-27",
-      "calculationBasisDate": "별도 제도 기준 없음",
-      "sourceCheckedAt": "별도 표기 없음"
+      "dateModified": "2026-06-04",
+      "calculationBasisDate": "2026-06-04",
+      "sourceCheckedAt": "2026-06-04"
     },
     {
       "url": "https://jipcalc.co.kr/calculators",
@@ -312,7 +314,9 @@
       "metaDescriptionCount": 1,
       "h1": "주거비 계산기 목록",
       "h1Count": 1,
-      "h2": [],
+      "h2": [
+        "생활·금융 보조 계산기"
+      ],
       "canonical": "https://jipcalc.co.kr/calculators",
       "canonicalCount": 1,
       "robotsMeta": [
@@ -328,26 +332,35 @@
       "xRobotsTag": "",
       "indexable": true,
       "sitemapIncluded": true,
-      "internalLinkCount": 35,
-      "uniqueInternalLinkCount": 15,
+      "internalLinkCount": 44,
+      "uniqueInternalLinkCount": 24,
       "internalLinks": [
         "/",
         "/about",
         "/acquisition-tax-calculator",
+        "/air-conditioner-electricity-cost-calculator",
         "/calculators",
+        "/car-maintenance-cost-calculator",
         "/contact",
         "/disclaimer",
+        "/dividend-income-calculator",
         "/dsr-calculator",
+        "/electricity-bill-calculator",
+        "/exchange-rate-calculator",
         "/guides",
         "/housing-subscription-score-calculator",
         "/jeonse-loan-interest-calculator",
+        "/loan-interest-calculator",
+        "/monthly-living-expense-calculator",
         "/monthly-rent-conversion-calculator",
+        "/overseas-stock-capital-gains-tax-calculator",
         "/privacy-policy",
         "/real-estate-brokerage-fee-calculator",
         "/rent-vs-jeonse-calculator",
+        "/take-home-pay-calculator",
         "/terms"
       ],
-      "bodyTextLength": 1132,
+      "bodyTextLength": 1932,
       "structuredDataTypes": [
         "BreadcrumbList",
         "ItemList",
@@ -417,7 +430,7 @@
         "/take-home-pay-calculator",
         "/terms"
       ],
-      "bodyTextLength": 3193,
+      "bodyTextLength": 3141,
       "structuredDataTypes": [
         "BreadcrumbList",
         "FAQPage",
@@ -428,9 +441,9 @@
         "WebSite"
       ],
       "datePublished": "2026-06-04",
-      "dateModified": "2026-07-27",
-      "calculationBasisDate": "별도 제도 기준 없음",
-      "sourceCheckedAt": "별도 표기 없음"
+      "dateModified": "2026-06-04",
+      "calculationBasisDate": "2026-06-04",
+      "sourceCheckedAt": "2026-06-04"
     },
     {
       "url": "https://jipcalc.co.kr/contact",
@@ -613,7 +626,7 @@
         "/rent-vs-jeonse-calculator",
         "/terms"
       ],
-      "bodyTextLength": 3413,
+      "bodyTextLength": 3357,
       "structuredDataTypes": [
         "BreadcrumbList",
         "FAQPage",
@@ -675,8 +688,8 @@
       "xRobotsTag": "",
       "indexable": true,
       "sitemapIncluded": true,
-      "internalLinkCount": 35,
-      "uniqueInternalLinkCount": 16,
+      "internalLinkCount": 39,
+      "uniqueInternalLinkCount": 18,
       "internalLinks": [
         "/",
         "/about",
@@ -686,6 +699,8 @@
         "/disclaimer",
         "/dsr-calculator",
         "/guides",
+        "/guides/salary-50-million-dsr",
+        "/guides/salary-70-million-dsr-40",
         "/guides/what-dsr-40-means",
         "/housing-subscription-score-calculator",
         "/jeonse-loan-interest-calculator",
@@ -695,7 +710,7 @@
         "/rent-vs-jeonse-calculator",
         "/terms"
       ],
-      "bodyTextLength": 5983,
+      "bodyTextLength": 6156,
       "structuredDataTypes": [
         "BreadcrumbList",
         "FAQPage",
@@ -768,7 +783,7 @@
         "/rent-vs-jeonse-calculator",
         "/terms"
       ],
-      "bodyTextLength": 3401,
+      "bodyTextLength": 3348,
       "structuredDataTypes": [
         "BreadcrumbList",
         "FAQPage",
@@ -840,7 +855,7 @@
         "/rent-vs-jeonse-calculator",
         "/terms"
       ],
-      "bodyTextLength": 3158,
+      "bodyTextLength": 3107,
       "structuredDataTypes": [
         "BreadcrumbList",
         "FAQPage",
@@ -851,9 +866,9 @@
         "WebSite"
       ],
       "datePublished": "2026-06-04",
-      "dateModified": "2026-07-27",
-      "calculationBasisDate": "별도 제도 기준 없음",
-      "sourceCheckedAt": "별도 표기 없음"
+      "dateModified": "2026-06-04",
+      "calculationBasisDate": "2026-06-04",
+      "sourceCheckedAt": "2026-06-04"
     },
     {
       "url": "https://jipcalc.co.kr/guides",
@@ -1006,7 +1021,7 @@
         "/rent-vs-jeonse-calculator",
         "/terms"
       ],
-      "bodyTextLength": 2068,
+      "bodyTextLength": 2087,
       "structuredDataTypes": [
         "Article",
         "BreadcrumbList",
@@ -1015,10 +1030,10 @@
         "WebPage",
         "WebSite"
       ],
-      "datePublished": "2026-06-04",
-      "dateModified": "2026-06-04",
+      "datePublished": "2026-06-10",
+      "dateModified": "2026-07-29",
       "calculationBasisDate": null,
-      "sourceCheckedAt": null
+      "sourceCheckedAt": "2026-06-10"
     },
     {
       "url": "https://jipcalc.co.kr/guides/200-million-jeonse-loan-monthly-interest",
@@ -1076,7 +1091,7 @@
         "/rent-vs-jeonse-calculator",
         "/terms"
       ],
-      "bodyTextLength": 1909,
+      "bodyTextLength": 1928,
       "structuredDataTypes": [
         "Article",
         "BreadcrumbList",
@@ -1085,10 +1100,10 @@
         "WebPage",
         "WebSite"
       ],
-      "datePublished": "2026-06-04",
-      "dateModified": "2026-06-04",
+      "datePublished": "2026-06-10",
+      "dateModified": "2026-07-29",
       "calculationBasisDate": null,
-      "sourceCheckedAt": null
+      "sourceCheckedAt": "2026-06-10"
     },
     {
       "url": "https://jipcalc.co.kr/guides/600-million-apartment-acquisition-tax",
@@ -1146,7 +1161,7 @@
         "/rent-vs-jeonse-calculator",
         "/terms"
       ],
-      "bodyTextLength": 1969,
+      "bodyTextLength": 1988,
       "structuredDataTypes": [
         "Article",
         "BreadcrumbList",
@@ -1155,10 +1170,10 @@
         "WebPage",
         "WebSite"
       ],
-      "datePublished": "2026-06-04",
-      "dateModified": "2026-06-04",
+      "datePublished": "2026-06-10",
+      "dateModified": "2026-07-29",
       "calculationBasisDate": null,
-      "sourceCheckedAt": null
+      "sourceCheckedAt": "2026-06-10"
     },
     {
       "url": "https://jipcalc.co.kr/guides/900-million-apartment-acquisition-tax",
@@ -1216,7 +1231,7 @@
         "/rent-vs-jeonse-calculator",
         "/terms"
       ],
-      "bodyTextLength": 1990,
+      "bodyTextLength": 2009,
       "structuredDataTypes": [
         "Article",
         "BreadcrumbList",
@@ -1225,10 +1240,10 @@
         "WebPage",
         "WebSite"
       ],
-      "datePublished": "2026-06-04",
-      "dateModified": "2026-06-04",
+      "datePublished": "2026-06-10",
+      "dateModified": "2026-07-29",
       "calculationBasisDate": null,
-      "sourceCheckedAt": null
+      "sourceCheckedAt": "2026-06-10"
     },
     {
       "url": "https://jipcalc.co.kr/guides/acquisition-tax-checklist",
@@ -1286,7 +1301,7 @@
         "/rent-vs-jeonse-calculator",
         "/terms"
       ],
-      "bodyTextLength": 2043,
+      "bodyTextLength": 2062,
       "structuredDataTypes": [
         "Article",
         "BreadcrumbList",
@@ -1298,7 +1313,7 @@
       "datePublished": "2026-06-04",
       "dateModified": "2026-06-04",
       "calculationBasisDate": null,
-      "sourceCheckedAt": null
+      "sourceCheckedAt": "2026-06-03"
     },
     {
       "url": "https://jipcalc.co.kr/guides/brokerage-fee-negotiation",
@@ -1356,7 +1371,7 @@
         "/rent-vs-jeonse-calculator",
         "/terms"
       ],
-      "bodyTextLength": 2066,
+      "bodyTextLength": 2085,
       "structuredDataTypes": [
         "Article",
         "BreadcrumbList",
@@ -1368,7 +1383,7 @@
       "datePublished": "2026-06-04",
       "dateModified": "2026-06-04",
       "calculationBasisDate": null,
-      "sourceCheckedAt": null
+      "sourceCheckedAt": "2026-06-03"
     },
     {
       "url": "https://jipcalc.co.kr/guides/jeonse-loan-interest-mistakes",
@@ -1426,7 +1441,7 @@
         "/rent-vs-jeonse-calculator",
         "/terms"
       ],
-      "bodyTextLength": 2609,
+      "bodyTextLength": 2628,
       "structuredDataTypes": [
         "Article",
         "BreadcrumbList",
@@ -1438,7 +1453,7 @@
       "datePublished": "2026-06-04",
       "dateModified": "2026-06-04",
       "calculationBasisDate": null,
-      "sourceCheckedAt": null
+      "sourceCheckedAt": "2026-06-03"
     },
     {
       "url": "https://jipcalc.co.kr/guides/jeonse-total-housing-cost",
@@ -1496,7 +1511,7 @@
         "/rent-vs-jeonse-calculator",
         "/terms"
       ],
-      "bodyTextLength": 2025,
+      "bodyTextLength": 2044,
       "structuredDataTypes": [
         "Article",
         "BreadcrumbList",
@@ -1508,7 +1523,7 @@
       "datePublished": "2026-06-04",
       "dateModified": "2026-06-04",
       "calculationBasisDate": null,
-      "sourceCheckedAt": null
+      "sourceCheckedAt": "2026-06-03"
     },
     {
       "url": "https://jipcalc.co.kr/guides/monthly-rent-500k-to-jeonse",
@@ -1566,7 +1581,7 @@
         "/rent-vs-jeonse-calculator",
         "/terms"
       ],
-      "bodyTextLength": 1965,
+      "bodyTextLength": 1984,
       "structuredDataTypes": [
         "Article",
         "BreadcrumbList",
@@ -1575,10 +1590,10 @@
         "WebPage",
         "WebSite"
       ],
-      "datePublished": "2026-06-04",
-      "dateModified": "2026-06-04",
+      "datePublished": "2026-06-10",
+      "dateModified": "2026-07-29",
       "calculationBasisDate": null,
-      "sourceCheckedAt": null
+      "sourceCheckedAt": "2026-06-10"
     },
     {
       "url": "https://jipcalc.co.kr/guides/monthly-rent-conversion-basics",
@@ -1636,7 +1651,7 @@
         "/rent-vs-jeonse-calculator",
         "/terms"
       ],
-      "bodyTextLength": 1997,
+      "bodyTextLength": 2016,
       "structuredDataTypes": [
         "Article",
         "BreadcrumbList",
@@ -1648,7 +1663,7 @@
       "datePublished": "2026-06-04",
       "dateModified": "2026-06-04",
       "calculationBasisDate": null,
-      "sourceCheckedAt": null
+      "sourceCheckedAt": "2026-06-03"
     },
     {
       "url": "https://jipcalc.co.kr/guides/regulated-area-acquisition-tax",
@@ -1706,7 +1721,7 @@
         "/rent-vs-jeonse-calculator",
         "/terms"
       ],
-      "bodyTextLength": 2002,
+      "bodyTextLength": 2021,
       "structuredDataTypes": [
         "Article",
         "BreadcrumbList",
@@ -1718,7 +1733,7 @@
       "datePublished": "2026-06-04",
       "dateModified": "2026-06-04",
       "calculationBasisDate": null,
-      "sourceCheckedAt": null
+      "sourceCheckedAt": "2026-06-03"
     },
     {
       "url": "https://jipcalc.co.kr/guides/rent-vs-jeonse-decision-guide",
@@ -1776,7 +1791,7 @@
         "/rent-vs-jeonse-calculator",
         "/terms"
       ],
-      "bodyTextLength": 2261,
+      "bodyTextLength": 2280,
       "structuredDataTypes": [
         "Article",
         "BreadcrumbList",
@@ -1788,7 +1803,7 @@
       "datePublished": "2026-06-04",
       "dateModified": "2026-06-04",
       "calculationBasisDate": null,
-      "sourceCheckedAt": null
+      "sourceCheckedAt": "2026-06-03"
     },
     {
       "url": "https://jipcalc.co.kr/guides/salary-50-million-dsr",
@@ -1847,7 +1862,7 @@
         "/take-home-pay-calculator",
         "/terms"
       ],
-      "bodyTextLength": 2063,
+      "bodyTextLength": 2082,
       "structuredDataTypes": [
         "Article",
         "BreadcrumbList",
@@ -1856,10 +1871,10 @@
         "WebPage",
         "WebSite"
       ],
-      "datePublished": "2026-06-04",
-      "dateModified": "2026-06-04",
+      "datePublished": "2026-06-10",
+      "dateModified": "2026-07-29",
       "calculationBasisDate": null,
-      "sourceCheckedAt": null
+      "sourceCheckedAt": "2026-06-10"
     },
     {
       "url": "https://jipcalc.co.kr/guides/salary-70-million-dsr-40",
@@ -1917,7 +1932,7 @@
         "/rent-vs-jeonse-calculator",
         "/terms"
       ],
-      "bodyTextLength": 2001,
+      "bodyTextLength": 2020,
       "structuredDataTypes": [
         "Article",
         "BreadcrumbList",
@@ -1926,10 +1941,10 @@
         "WebPage",
         "WebSite"
       ],
-      "datePublished": "2026-06-04",
-      "dateModified": "2026-06-04",
+      "datePublished": "2026-06-10",
+      "dateModified": "2026-07-29",
       "calculationBasisDate": null,
-      "sourceCheckedAt": null
+      "sourceCheckedAt": "2026-06-10"
     },
     {
       "url": "https://jipcalc.co.kr/guides/subscription-account-period",
@@ -1987,7 +2002,7 @@
         "/rent-vs-jeonse-calculator",
         "/terms"
       ],
-      "bodyTextLength": 2102,
+      "bodyTextLength": 2121,
       "structuredDataTypes": [
         "Article",
         "BreadcrumbList",
@@ -1999,7 +2014,7 @@
       "datePublished": "2026-06-04",
       "dateModified": "2026-06-04",
       "calculationBasisDate": null,
-      "sourceCheckedAt": null
+      "sourceCheckedAt": "2026-06-03"
     },
     {
       "url": "https://jipcalc.co.kr/guides/subscription-score-interpretation",
@@ -2057,7 +2072,7 @@
         "/rent-vs-jeonse-calculator",
         "/terms"
       ],
-      "bodyTextLength": 2118,
+      "bodyTextLength": 2137,
       "structuredDataTypes": [
         "Article",
         "BreadcrumbList",
@@ -2069,7 +2084,7 @@
       "datePublished": "2026-06-04",
       "dateModified": "2026-06-04",
       "calculationBasisDate": null,
-      "sourceCheckedAt": null
+      "sourceCheckedAt": "2026-06-03"
     },
     {
       "url": "https://jipcalc.co.kr/guides/subscription-score-vs-buy-or-rent",
@@ -2127,7 +2142,7 @@
         "/rent-vs-jeonse-calculator",
         "/terms"
       ],
-      "bodyTextLength": 2054,
+      "bodyTextLength": 2073,
       "structuredDataTypes": [
         "Article",
         "BreadcrumbList",
@@ -2139,7 +2154,7 @@
       "datePublished": "2026-06-04",
       "dateModified": "2026-06-04",
       "calculationBasisDate": null,
-      "sourceCheckedAt": null
+      "sourceCheckedAt": "2026-06-03"
     },
     {
       "url": "https://jipcalc.co.kr/guides/what-dsr-40-means",
@@ -2197,7 +2212,7 @@
         "/rent-vs-jeonse-calculator",
         "/terms"
       ],
-      "bodyTextLength": 2271,
+      "bodyTextLength": 2290,
       "structuredDataTypes": [
         "Article",
         "BreadcrumbList",
@@ -2209,7 +2224,7 @@
       "datePublished": "2026-06-04",
       "dateModified": "2026-06-04",
       "calculationBasisDate": null,
-      "sourceCheckedAt": null
+      "sourceCheckedAt": "2026-06-03"
     },
     {
       "url": "https://jipcalc.co.kr/housing-subscription-score-calculator",
@@ -2250,8 +2265,8 @@
       "xRobotsTag": "",
       "indexable": true,
       "sitemapIncluded": true,
-      "internalLinkCount": 35,
-      "uniqueInternalLinkCount": 16,
+      "internalLinkCount": 38,
+      "uniqueInternalLinkCount": 18,
       "internalLinks": [
         "/",
         "/about",
@@ -2261,7 +2276,9 @@
         "/disclaimer",
         "/dsr-calculator",
         "/guides",
+        "/guides/subscription-account-period",
         "/guides/subscription-score-interpretation",
+        "/guides/subscription-score-vs-buy-or-rent",
         "/housing-subscription-score-calculator",
         "/jeonse-loan-interest-calculator",
         "/monthly-rent-conversion-calculator",
@@ -2270,7 +2287,7 @@
         "/rent-vs-jeonse-calculator",
         "/terms"
       ],
-      "bodyTextLength": 4524,
+      "bodyTextLength": 4619,
       "structuredDataTypes": [
         "BreadcrumbList",
         "FAQPage",
@@ -2330,8 +2347,8 @@
       "xRobotsTag": "",
       "indexable": true,
       "sitemapIncluded": true,
-      "internalLinkCount": 35,
-      "uniqueInternalLinkCount": 16,
+      "internalLinkCount": 39,
+      "uniqueInternalLinkCount": 19,
       "internalLinks": [
         "/",
         "/about",
@@ -2341,7 +2358,10 @@
         "/disclaimer",
         "/dsr-calculator",
         "/guides",
+        "/guides/100-million-jeonse-loan-interest",
+        "/guides/200-million-jeonse-loan-monthly-interest",
         "/guides/jeonse-loan-interest-mistakes",
+        "/guides/monthly-rent-conversion-basics",
         "/housing-subscription-score-calculator",
         "/jeonse-loan-interest-calculator",
         "/monthly-rent-conversion-calculator",
@@ -2350,7 +2370,7 @@
         "/rent-vs-jeonse-calculator",
         "/terms"
       ],
-      "bodyTextLength": 5679,
+      "bodyTextLength": 5819,
       "structuredDataTypes": [
         "BreadcrumbList",
         "FAQPage",
@@ -2420,7 +2440,7 @@
         "/take-home-pay-calculator",
         "/terms"
       ],
-      "bodyTextLength": 3396,
+      "bodyTextLength": 3338,
       "structuredDataTypes": [
         "BreadcrumbList",
         "FAQPage",
@@ -2431,9 +2451,9 @@
         "WebSite"
       ],
       "datePublished": "2026-06-04",
-      "dateModified": "2026-07-27",
-      "calculationBasisDate": "별도 제도 기준 없음",
-      "sourceCheckedAt": "별도 표기 없음"
+      "dateModified": "2026-06-04",
+      "calculationBasisDate": "2026-06-04",
+      "sourceCheckedAt": "2026-06-04"
     },
     {
       "url": "https://jipcalc.co.kr/monthly-living-expense-calculator",
@@ -2492,7 +2512,7 @@
         "/take-home-pay-calculator",
         "/terms"
       ],
-      "bodyTextLength": 3281,
+      "bodyTextLength": 3230,
       "structuredDataTypes": [
         "BreadcrumbList",
         "FAQPage",
@@ -2503,9 +2523,9 @@
         "WebSite"
       ],
       "datePublished": "2026-06-04",
-      "dateModified": "2026-07-27",
-      "calculationBasisDate": "별도 제도 기준 없음",
-      "sourceCheckedAt": "별도 표기 없음"
+      "dateModified": "2026-06-04",
+      "calculationBasisDate": "2026-06-04",
+      "sourceCheckedAt": "2026-06-04"
     },
     {
       "url": "https://jipcalc.co.kr/monthly-rent-conversion-calculator",
@@ -2550,8 +2570,8 @@
       "xRobotsTag": "",
       "indexable": true,
       "sitemapIncluded": true,
-      "internalLinkCount": 35,
-      "uniqueInternalLinkCount": 16,
+      "internalLinkCount": 38,
+      "uniqueInternalLinkCount": 17,
       "internalLinks": [
         "/",
         "/about",
@@ -2561,6 +2581,7 @@
         "/disclaimer",
         "/dsr-calculator",
         "/guides",
+        "/guides/monthly-rent-500k-to-jeonse",
         "/guides/monthly-rent-conversion-basics",
         "/housing-subscription-score-calculator",
         "/jeonse-loan-interest-calculator",
@@ -2570,7 +2591,7 @@
         "/rent-vs-jeonse-calculator",
         "/terms"
       ],
-      "bodyTextLength": 4944,
+      "bodyTextLength": 5062,
       "structuredDataTypes": [
         "BreadcrumbList",
         "FAQPage",
@@ -2642,7 +2663,7 @@
         "/take-home-pay-calculator",
         "/terms"
       ],
-      "bodyTextLength": 3286,
+      "bodyTextLength": 3230,
       "structuredDataTypes": [
         "BreadcrumbList",
         "FAQPage",
@@ -2653,9 +2674,9 @@
         "WebSite"
       ],
       "datePublished": "2026-06-04",
-      "dateModified": "2026-07-27",
-      "calculationBasisDate": "별도 제도 기준 없음",
-      "sourceCheckedAt": "별도 표기 없음"
+      "dateModified": "2026-06-04",
+      "calculationBasisDate": "2026-06-04",
+      "sourceCheckedAt": "2026-06-04"
     },
     {
       "url": "https://jipcalc.co.kr/privacy-policy",
@@ -2759,7 +2780,7 @@
       "xRobotsTag": "",
       "indexable": true,
       "sitemapIncluded": true,
-      "internalLinkCount": 35,
+      "internalLinkCount": 38,
       "uniqueInternalLinkCount": 16,
       "internalLinks": [
         "/",
@@ -2779,7 +2800,7 @@
         "/rent-vs-jeonse-calculator",
         "/terms"
       ],
-      "bodyTextLength": 4357,
+      "bodyTextLength": 4469,
       "structuredDataTypes": [
         "BreadcrumbList",
         "FAQPage",
@@ -2791,7 +2812,7 @@
       ],
       "datePublished": "2026-06-04",
       "dateModified": "2026-07-27",
-      "calculationBasisDate": "2026-01",
+      "calculationBasisDate": "2026-01-01",
       "sourceCheckedAt": "2026-07-27"
     },
     {
@@ -2833,8 +2854,8 @@
       "xRobotsTag": "",
       "indexable": true,
       "sitemapIncluded": true,
-      "internalLinkCount": 35,
-      "uniqueInternalLinkCount": 16,
+      "internalLinkCount": 38,
+      "uniqueInternalLinkCount": 18,
       "internalLinks": [
         "/",
         "/about",
@@ -2844,6 +2865,8 @@
         "/disclaimer",
         "/dsr-calculator",
         "/guides",
+        "/guides/jeonse-total-housing-cost",
+        "/guides/monthly-rent-conversion-basics",
         "/guides/rent-vs-jeonse-decision-guide",
         "/housing-subscription-score-calculator",
         "/jeonse-loan-interest-calculator",
@@ -2853,7 +2876,7 @@
         "/rent-vs-jeonse-calculator",
         "/terms"
       ],
-      "bodyTextLength": 4639,
+      "bodyTextLength": 4736,
       "structuredDataTypes": [
         "BreadcrumbList",
         "FAQPage",
@@ -2867,78 +2890,6 @@
       "dateModified": "2026-07-27",
       "calculationBasisDate": "2026-06-03",
       "sourceCheckedAt": "2026-07-27"
-    },
-    {
-      "url": "https://jipcalc.co.kr/severance-pay-calculator",
-      "path": "/severance-pay-calculator",
-      "status": 200,
-      "title": "퇴직금 계산기 | 집계산",
-      "titleCount": 1,
-      "metaDescription": "평균임금과 근속기간을 기준으로 예상 퇴직금을 계산하고 월 단위 적립 감각을 확인합니다.",
-      "metaDescriptionCount": 1,
-      "h1": "퇴직금 계산기",
-      "h1Count": 1,
-      "h2": [
-        "이 계산기로 확인할 수 있는 것",
-        "기준일과 수정일",
-        "신뢰 및 문의",
-        "퇴직금 계산 전 알아둘 내용",
-        "실제 계산 예시",
-        "주의사항과 참고 범위",
-        "관련 계산기",
-        "자주 묻는 질문"
-      ],
-      "canonical": "https://jipcalc.co.kr/severance-pay-calculator",
-      "canonicalCount": 1,
-      "robotsMeta": [
-        {
-          "name": "robots",
-          "content": "index, follow"
-        },
-        {
-          "name": "googlebot",
-          "content": "index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"
-        }
-      ],
-      "xRobotsTag": "",
-      "indexable": true,
-      "sitemapIncluded": true,
-      "internalLinkCount": 34,
-      "uniqueInternalLinkCount": 18,
-      "internalLinks": [
-        "/",
-        "/about",
-        "/acquisition-tax-calculator",
-        "/calculators",
-        "/contact",
-        "/disclaimer",
-        "/dividend-income-calculator",
-        "/dsr-calculator",
-        "/guides",
-        "/housing-subscription-score-calculator",
-        "/jeonse-loan-interest-calculator",
-        "/monthly-living-expense-calculator",
-        "/monthly-rent-conversion-calculator",
-        "/privacy-policy",
-        "/real-estate-brokerage-fee-calculator",
-        "/rent-vs-jeonse-calculator",
-        "/take-home-pay-calculator",
-        "/terms"
-      ],
-      "bodyTextLength": 3257,
-      "structuredDataTypes": [
-        "BreadcrumbList",
-        "FAQPage",
-        "Organization",
-        "SoftwareApplication",
-        "WebApplication",
-        "WebPage",
-        "WebSite"
-      ],
-      "datePublished": "2026-06-04",
-      "dateModified": "2026-07-27",
-      "calculationBasisDate": "별도 제도 기준 없음",
-      "sourceCheckedAt": "별도 표기 없음"
     },
     {
       "url": "https://jipcalc.co.kr/take-home-pay-calculator",
@@ -2997,7 +2948,7 @@
         "/rent-vs-jeonse-calculator",
         "/terms"
       ],
-      "bodyTextLength": 3741,
+      "bodyTextLength": 3685,
       "structuredDataTypes": [
         "BreadcrumbList",
         "FAQPage",
@@ -3008,9 +2959,9 @@
         "WebSite"
       ],
       "datePublished": "2026-06-04",
-      "dateModified": "2026-07-27",
-      "calculationBasisDate": "별도 제도 기준 없음",
-      "sourceCheckedAt": "별도 표기 없음"
+      "dateModified": "2026-06-04",
+      "calculationBasisDate": "2026-06-04",
+      "sourceCheckedAt": "2026-06-04"
     },
     {
       "url": "https://jipcalc.co.kr/terms",

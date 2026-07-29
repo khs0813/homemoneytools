@@ -5,13 +5,8 @@ export type CalculatorQualityContent = {
   checks: string[];
   basisNote: string;
   shortDisclaimer: string;
-  contentModifiedDate?: string;
-  calculationBasisDate?: string;
-  sourceCheckedAt?: string;
   officialSources?: OfficialSource[];
 };
-
-const checkedAt = "2026-07-27";
 
 export const calculatorQualityContentBySlug: Record<string, CalculatorQualityContent> = {
   "take-home-pay": {
@@ -24,17 +19,10 @@ export const calculatorQualityContentBySlug: Record<string, CalculatorQualityCon
     basisNote: "사용자가 입력한 원금, 금리, 기간, 상환방식을 월 단위로 환산해 계산합니다. 은행별 일수 계산, 실행일, 수수료는 별도입니다.",
     shortDisclaimer: "대출이자 결과는 입력 조건에 따른 참고값입니다. 실제 상환 스케줄은 금융기관 약정 조건을 확인해야 합니다."
   },
-  "severance-pay": {
-    checks: ["평균임금 기준 예상 퇴직금", "근속기간 월 단위 반영액", "예상 세금 차감 후 금액", "월 적립 환산액"],
-    basisNote: "평균임금과 근속기간을 입력값 기준으로 단순화해 계산합니다. 평균임금 산정 제외 항목과 퇴직연금 방식은 별도 확인이 필요합니다.",
-    shortDisclaimer: "퇴직금 계산은 참고용입니다. 실제 지급액은 근로계약, 임금 항목, 퇴직연금 운용 방식에 따라 달라질 수 있습니다."
-  },
   "dividend-income": {
     checks: ["세전 연배당금", "세후 연배당금", "지급주기별 예상 배당금", "월 환산 배당금", "세후 배당수익률", "목표 월배당에 필요한 원금"],
     basisNote: "투자금, 연 배당수익률, 원천징수세율, 지급 횟수를 입력값 그대로 적용합니다. 배당정책 변경, 환율, 외국 세금, 감배당 위험은 별도입니다.",
     shortDisclaimer: "배당금은 확정 수익이 아닙니다. 종목·ETF의 배당정책, 원천징수, 환율, 감배당 가능성을 함께 확인해야 합니다.",
-    calculationBasisDate: checkedAt,
-    sourceCheckedAt: checkedAt,
     officialSources: [
       {
         title: "국세청 원천징수 세율 안내",
@@ -57,8 +45,6 @@ export const calculatorQualityContentBySlug: Record<string, CalculatorQualityCon
     checks: ["현재 누진 구간", "구간별 사용량", "기본요금", "전력량요금", "부가 항목", "예상 총요금", "사용량 50kWh 증가 시 차이", "사용량 50kWh 감소 시 차이"],
     basisNote: "주택용 전기요금의 기본요금, 구간별 전력량요금, 기후환경요금, 연료비조정액을 입력 사용량에 적용해 추정합니다.",
     shortDisclaimer: "전기요금은 주택용 저압 간편 추정치입니다. 실제 고지서는 계약종별, 복지할인, 필수사용량 공제, 검침일에 따라 달라질 수 있습니다.",
-    calculationBasisDate: checkedAt,
-    sourceCheckedAt: checkedAt,
     officialSources: [
       {
         title: "한국전력공사 주요 전기요금제도",
@@ -85,51 +71,37 @@ export const calculatorQualityContentBySlug: Record<string, CalculatorQualityCon
   "jeonse-loan-interest": {
     checks: ["월이자", "계약기간 총이자", "보증료", "총 금융비용", "금리 0.5%p 상승 시 결과", "금리 1.0%p 상승 시 결과", "전세보증금 대비 대출 비율"],
     basisNote: "전세보증금, 대출금액, 금리, 기간, 상환방식과 보증료율을 입력값 기준으로 적용합니다.",
-    shortDisclaimer: "전세대출 결과는 참고용입니다. 보증기관, 은행 심사, 우대금리, 보증료율, 중도상환 조건을 실제 상품에서 확인해야 합니다.",
-    calculationBasisDate: "2026-06-03",
-    sourceCheckedAt: checkedAt
+    shortDisclaimer: "전세대출 결과는 참고용입니다. 보증기관, 은행 심사, 우대금리, 보증료율, 중도상환 조건을 실제 상품에서 확인해야 합니다."
   },
   "rent-vs-jeonse": {
     checks: ["전세대출 이자", "전세보증금 자기자본 기회비용", "월세 총액", "월세보증금 기회비용", "보증료", "중개보수", "이사비", "2년 총주거비", "월 환산 비용", "손익분기 월세"],
     basisNote: "전세와 월세를 같은 기간의 총주거비로 환산해 비교합니다. 선택의 유불리 판단에 필요한 항목만 다룹니다.",
-    shortDisclaimer: "전세와 월세 비교는 입력값 기준입니다. 보증금 반환 위험, 보증보험 가능 여부, 재계약 조건은 별도로 확인해야 합니다.",
-    calculationBasisDate: "2026-06-03",
-    sourceCheckedAt: checkedAt
+    shortDisclaimer: "전세와 월세 비교는 입력값 기준입니다. 보증금 반환 위험, 보증보험 가능 여부, 재계약 조건은 별도로 확인해야 합니다."
   },
   dsr: {
     checks: ["입력 조건 기준 예상 DSR", "스트레스 금리 적용 전후 DSR", "DSR 기준까지 남은 연간 상환 여력", "신규 주담대 예상 월 원리금", "기존대출이 DSR에 미치는 영향"],
     basisNote: "연소득 대비 모든 대출의 연간 원리금 상환액을 계산하고, 입력한 스트레스 금리를 신규 주담대에 더해 보수적으로 판정합니다.",
-    shortDisclaimer: "DSR 결과는 상환능력 점검용입니다. 실제 대출 가능 여부는 금융회사 심사, 담보가치, 규제 적용 대상에 따라 달라집니다.",
-    calculationBasisDate: "2026-07-01",
-    sourceCheckedAt: checkedAt
+    shortDisclaimer: "DSR 결과는 상환능력 점검용입니다. 실제 대출 가능 여부는 금융회사 심사, 담보가치, 규제 적용 대상에 따라 달라집니다."
   },
   "acquisition-tax": {
     checks: ["취득세 예상액", "지방교육세", "농어촌특별세", "감면 적용 전후 차이", "총 필요 세금", "매매가 대비 실효세율"],
     basisNote: "주택 유상매매 기준으로 가격, 주택 수, 조정대상지역, 면적, 생애최초 감면 유형을 입력값대로 반영합니다.",
-    shortDisclaimer: "취득세는 지자체 신고 기준이 우선입니다. 일시적 2주택, 상속, 증여, 주택 수 판정, 조정대상지역, 생애최초 감면은 관할 지자체에서 확인해야 합니다.",
-    calculationBasisDate: "2026-07-01",
-    sourceCheckedAt: checkedAt
+    shortDisclaimer: "취득세는 지자체 신고 기준이 우선입니다. 일시적 2주택, 상속, 증여, 주택 수 판정, 조정대상지역, 생애최초 감면은 관할 지자체에서 확인해야 합니다."
   },
   "brokerage-fee": {
     checks: ["거래금액", "적용 상한요율", "법정 상한액", "사용자 입력 협의요율", "협의 수수료", "부가세", "총 지급 예상액", "월세 환산 거래금액"],
     basisNote: "매매와 전세는 거래금액을 직접 적용하고, 월세는 보증금과 월세를 환산한 거래금액에 주택 중개보수 상한요율을 적용합니다.",
-    shortDisclaimer: "중개보수는 상한 범위 안에서 협의하는 금액입니다. 시도 조례, 부가세 청구 여부, 주택 외 거래 여부를 계약 전 확인해야 합니다.",
-    calculationBasisDate: "2026-01",
-    sourceCheckedAt: checkedAt
+    shortDisclaimer: "중개보수는 상한 범위 안에서 협의하는 금액입니다. 시도 조례, 부가세 청구 여부, 주택 외 거래 여부를 계약 전 확인해야 합니다."
   },
   "monthly-rent-conversion": {
     checks: ["기존 보증금", "변경 보증금", "보증금 차액", "적용 전환율", "예상 월세", "월세의 전세금 환산액"],
     basisNote: "전세금과 변경 보증금의 차액에 전월세 전환율을 적용해 월세를 산출하거나, 월세를 전세금으로 역산합니다.",
-    shortDisclaimer: "전월세 전환 계산은 계약 조건 비교용입니다. 법정 상한, 시장 전환율, 신규계약 여부에 따라 실제 협상 결과가 달라질 수 있습니다.",
-    calculationBasisDate: "2026-07-16",
-    sourceCheckedAt: checkedAt
+    shortDisclaimer: "전월세 전환 계산은 계약 조건 비교용입니다. 법정 상한, 시장 전환율, 신규계약 여부에 따라 실제 협상 결과가 달라질 수 있습니다."
   },
   "housing-subscription-score": {
     checks: ["무주택기간 점수", "부양가족 점수", "청약통장 가입기간 점수", "총점", "다음 점수 증가 예상 시점", "입력값에서 확인해야 할 주의사항"],
     basisNote: "입주자모집공고일을 기준으로 무주택기간, 부양가족 수, 본인·배우자 청약통장 가입기간 점수를 합산합니다.",
-    shortDisclaimer: "청약가점은 모집공고와 청약홈 기준이 우선입니다. 무주택기간, 부양가족 인정, 배우자 통장 가점은 실제 신청 전 다시 확인해야 합니다.",
-    calculationBasisDate: "2026-06-15",
-    sourceCheckedAt: checkedAt
+    shortDisclaimer: "청약가점은 모집공고와 청약홈 기준이 우선입니다. 무주택기간, 부양가족 인정, 배우자 통장 가점은 실제 신청 전 다시 확인해야 합니다."
   }
 };
 
@@ -141,7 +113,6 @@ export function getCalculatorQualityContent(info: CalculatorInfo): CalculatorQua
   };
 
   return {
-    contentModifiedDate: checkedAt,
     ...content
   };
 }
