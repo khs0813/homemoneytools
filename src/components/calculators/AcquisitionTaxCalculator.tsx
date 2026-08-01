@@ -10,6 +10,7 @@ import { ResultRow } from "@/components/calculator/ResultRow";
 import { ShareButton } from "@/components/calculator/ShareButton";
 import { CalculatorWorkspace } from "@/components/calculator/CalculatorWorkspace";
 import { calculateAcquisitionTax, type FirstHomeDiscountType, type HouseCount } from "@/lib/calculators/acquisition-tax";
+import { trackGrowthEvent } from "@/lib/analytics";
 import { formatCurrency, formatPercent, MAX_SAFE_MONEY_AMOUNT } from "@/lib/format";
 import { getBooleanParam, getEnumParam, getNumberParam, writeQueryState } from "@/lib/query-state";
 
@@ -33,6 +34,8 @@ const defaultValues: FormValues = {
   floorAreaOver85: false,
   firstHomeDiscountType: "none"
 };
+
+const analyticsContext = { calculator_type: "acquisition_tax", content_cluster: "housing" };
 
 function BooleanSelect({ value, onChange, label, helper }: { value: boolean; onChange: (value: boolean) => void; label: string; helper?: string }) {
   return (
@@ -71,11 +74,13 @@ export function AcquisitionTaxCalculator() {
     const normalized = { ...values, isTemporaryTwoHouse: values.houseCount === "two" && values.isTemporaryTwoHouse };
     const calculated = calculateAcquisitionTax(normalized);
     setResult(calculated);
+    trackGrowthEvent("calculator_complete", analyticsContext);
     writeQueryState(normalized);
   }
 
   return (
     <CalculatorWorkspace
+      analyticsContext={analyticsContext}
       pinForm={Boolean(result)}
       result={result ? (
         <ResultCard title="예상 총 납부액" value={formatCurrency(result.totalTax)} description={`적용 취득세율은 ${formatPercent(result.rate)}이며, 기준 버전은 ${result.version}입니다.`}>

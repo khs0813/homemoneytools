@@ -13,6 +13,7 @@ import { ResultRow } from "@/components/calculator/ResultRow";
 import { ShareButton } from "@/components/calculator/ShareButton";
 import { CalculatorWorkspace } from "@/components/calculator/CalculatorWorkspace";
 import { calculateJeonseLoan, type RepaymentType } from "@/lib/calculators/loan";
+import { trackGrowthEvent } from "@/lib/analytics";
 import { formatCurrency, formatPercent, MAX_SAFE_MONEY_AMOUNT, MAX_SAFE_RATE_PERCENT, MAX_SAFE_YEARS } from "@/lib/format";
 import { getEnumParam, getNumberParam, writeQueryState } from "@/lib/query-state";
 
@@ -50,6 +51,8 @@ const defaultValues: FormValues = {
   prepaymentFeeRate: 0
 };
 
+const analyticsContext = { calculator_type: "jeonse_loan_interest", content_cluster: "housing" };
+
 export function JeonseLoanCalculator() {
   const [result, setResult] = useState<Result>(null);
   const { control, handleSubmit, reset, formState: { errors } } = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues });
@@ -78,11 +81,13 @@ export function JeonseLoanCalculator() {
       halfPointUpTotalInterest: halfPointUp.totalInterest,
       onePointUpTotalInterest: onePointUp.totalInterest
     });
+    trackGrowthEvent("calculator_complete", analyticsContext);
     writeQueryState(values);
   }
 
   return (
     <CalculatorWorkspace
+      analyticsContext={analyticsContext}
       pinForm={Boolean(result)}
       result={result ? (
         <ResultCard title="예상 월 납입액" value={formatCurrency(result.monthlyPayment)} description="입력하신 상환방식 기준 예상 월 납입액이며 참고용입니다.">

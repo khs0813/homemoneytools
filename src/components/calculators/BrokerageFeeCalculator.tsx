@@ -11,6 +11,7 @@ import { ResultRow } from "@/components/calculator/ResultRow";
 import { ShareButton } from "@/components/calculator/ShareButton";
 import { CalculatorWorkspace } from "@/components/calculator/CalculatorWorkspace";
 import { calculateBrokerageFee, type BrokerageTransactionType } from "@/lib/calculators/brokerage-fee";
+import { trackGrowthEvent } from "@/lib/analytics";
 import { formatCurrency, formatPercent } from "@/lib/format";
 import { getBooleanParam, getEnumParam, getNumberParam, writeQueryState } from "@/lib/query-state";
 
@@ -35,6 +36,8 @@ const defaultValues: FormValues = {
   includeVat: true
 };
 
+const analyticsContext = { calculator_type: "brokerage_fee", content_cluster: "housing" };
+
 export function BrokerageFeeCalculator() {
   const [result, setResult] = useState<Result>(null);
   const { control, handleSubmit, reset } = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues });
@@ -56,6 +59,7 @@ export function BrokerageFeeCalculator() {
     const normalized = { ...values, customRate: values.customRate && values.customRate > 0 ? values.customRate : undefined };
     const calculated = calculateBrokerageFee(normalized);
     setResult(calculated);
+    trackGrowthEvent("calculator_complete", analyticsContext);
     writeQueryState(normalized);
   }
 
@@ -65,6 +69,7 @@ export function BrokerageFeeCalculator() {
 
   return (
     <CalculatorWorkspace
+      analyticsContext={analyticsContext}
       pinForm={Boolean(result)}
       result={result ? (
         <ResultCard title="예상 총 중개비" value={formatCurrency(result.total)} description={`${result.includeVat ? "부가세 포함" : "부가세 제외"} 예상액이며, 기준 버전은 ${result.version}입니다.`}>

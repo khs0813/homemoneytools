@@ -13,6 +13,7 @@ import { ResultRow } from "@/components/calculator/ResultRow";
 import { ShareButton } from "@/components/calculator/ShareButton";
 import { CalculatorWorkspace } from "@/components/calculator/CalculatorWorkspace";
 import { rentConversionRules } from "@/config/rent-conversion-rules";
+import { trackGrowthEvent } from "@/lib/analytics";
 import { calculateRentConversion, type RentConversionType } from "@/lib/calculators/rent-conversion";
 import { formatCurrency, formatPercent, MAX_SAFE_MONEY_AMOUNT, MAX_SAFE_RATE_PERCENT, MAX_SAFE_YEARS } from "@/lib/format";
 import { getEnumParam, getNumberParam, writeQueryState } from "@/lib/query-state";
@@ -52,6 +53,8 @@ const defaultValues: FormValues = {
   years: 2
 };
 
+const analyticsContext = { calculator_type: "monthly_rent_conversion", content_cluster: "housing" };
+
 export function RentConversionCalculator() {
   const [result, setResult] = useState<Result>(null);
   const { control, handleSubmit, reset, formState: { errors } } = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues });
@@ -79,11 +82,13 @@ export function RentConversionCalculator() {
       changedDeposit,
       depositDifference: Math.abs(existingDeposit - changedDeposit)
     });
+    trackGrowthEvent("calculator_complete", analyticsContext);
     writeQueryState(values);
   }
 
   return (
     <CalculatorWorkspace
+      analyticsContext={analyticsContext}
       pinForm={Boolean(result)}
       result={result ? (
         <ResultCard title={result.type === "jeonse-to-rent" ? "예상 월세" : "전세 환산 금액"} value={result.type === "jeonse-to-rent" ? formatCurrency(result.monthlyRent) : formatCurrency(result.jeonseEquivalent)} description={`${result.years}년 기준 총 월세는 ${formatCurrency(result.totalRentForPeriod)}입니다.`}>

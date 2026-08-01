@@ -12,6 +12,7 @@ import { ResultRow } from "@/components/calculator/ResultRow";
 import { ShareButton } from "@/components/calculator/ShareButton";
 import { CalculatorWorkspace } from "@/components/calculator/CalculatorWorkspace";
 import { dsrRules } from "@/config/dsr-rules";
+import { trackGrowthEvent } from "@/lib/analytics";
 import { calculateDsr } from "@/lib/calculators/dsr";
 import { formatCurrency, formatPercent, MAX_SAFE_MONEY_AMOUNT, MAX_SAFE_RATE_PERCENT, MAX_SAFE_YEARS } from "@/lib/format";
 import { getEnumParam, getNumberParam, writeQueryState } from "@/lib/query-state";
@@ -45,6 +46,8 @@ const defaultValues: FormValues = {
   creditLoanMode: "amortized"
 };
 
+const analyticsContext = { calculator_type: "dsr", content_cluster: "housing" };
+
 export function DsrCalculator() {
   const [result, setResult] = useState<Result>(null);
   const { control, handleSubmit, reset } = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues });
@@ -68,6 +71,7 @@ export function DsrCalculator() {
   function onSubmit(values: FormValues) {
     const calculated = calculateDsr(values);
     setResult(calculated);
+    trackGrowthEvent("calculator_complete", analyticsContext);
     writeQueryState(values);
   }
 
@@ -77,6 +81,7 @@ export function DsrCalculator() {
 
   return (
     <CalculatorWorkspace
+      analyticsContext={analyticsContext}
       pinForm={Boolean(result)}
       result={result ? (
         <ResultCard title={statusText} value={formatPercent(result.assessmentDsr)} description={`${result.useStressAssessment ? "스트레스 DSR" : "일반 DSR"} 기준으로 판정했습니다. 기준 버전은 ${result.version}입니다.`}>
