@@ -23,7 +23,6 @@ export function GuidePage({ guide }: { guide: Guide }) {
             <h1 className="mt-3 text-3xl font-black text-slate-950 md:text-5xl">{guide.h1}</h1>
             <p className="mt-5 text-base leading-8 text-slate-600">{guide.description}</p>
           </div>
-          <AdFitTopBanner />
           <div className="relative mt-8 rounded-3xl border border-slate-200 bg-white p-5 shadow-soft sm:p-6 md:p-10">
             <AdFitSideBanner />
 
@@ -38,6 +37,7 @@ export function GuidePage({ guide }: { guide: Guide }) {
               ))}
             </ul>
           </section>
+          <AdFitTopBanner />
 
           {guide.body.map((section) => (
             <section key={section.heading} className="mt-10 border-t border-slate-100 pt-8 first:border-t-0 first:pt-0">

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { AdFitSideBanner, AdFitTopBanner, AdFitVerticalBanner } from "@/components/adfit/AdFitPageAds";
 import { CalculatorCard } from "@/components/calculator/CalculatorCard";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { calculators } from "@/config/calculators";
@@ -23,12 +22,7 @@ export default function HomePage() {
       <WebPageJsonLd title="전세·월세·매매 주거비 계산기" description="전세대출 이자, 월세 vs 전세, DSR, 취득세, 중개수수료, 전월세 전환, 청약가점을 계산하고 해석까지 돕는 주거비 정보 서비스입니다." path="/" />
       <CalculatorItemListJsonLd />
       <PageContainer className="py-10 md:py-16">
-        <AdFitTopBanner />
-
         <div className="relative">
-          <aside className="hidden xl:absolute xl:right-full xl:top-0 xl:mr-6 xl:flex">
-            <AdFitVerticalBanner />
-          </aside>
           <section className="rounded-[2rem] bg-gradient-to-br from-brand-navy via-blue-900 to-slate-950 px-6 py-12 text-white shadow-soft md:px-10 md:py-16">
             <div className="max-w-4xl">
               <div className="inline-flex rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-emerald-100 ring-1 ring-white/15">주거비 의사결정 정보 서비스</div>
@@ -50,7 +44,6 @@ export default function HomePage() {
         </div>
 
         <div className="relative mt-12">
-          <AdFitSideBanner showVertical={false} showMobileLargeRectangle={false} />
           <section className="grid gap-6 lg:grid-cols-3">
             <article className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
               <p className="text-sm font-bold text-brand-emerald">전세·월세</p>

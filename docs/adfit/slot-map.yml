@@ -60,7 +60,7 @@ slots:
     dan_id_present: "render-env-required"
     component: "src/components/adfit/AdFitSlot.tsx"
     sdk_loader: "AdFitSlot loadAdFitSdk"
-    render_condition: "viewport is desktop, feature flag is on, env value exists"
+    render_condition: "viewport is at least 1536px wide, feature flag is on, env value exists"
     feature_flag: "NEXT_PUBLIC_ADFIT_ENABLE_DESKTOP_RAIL"
     current_order: "side rail beside content, not sticky or fixed"
 

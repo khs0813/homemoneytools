@@ -19,7 +19,7 @@
 | 모바일 배너 | `NEXT_PUBLIC_ADFIT_MOBILE_BANNER` | 300x250 | 모바일 `result_primary`, 직사각형 이미지 env가 없을 때만 fallback. |
 | 모바일용 얇은 띠배너 | `NEXT_PUBLIC_ADFIT_MOBILE_THIN_BANNER` | 320x50 | 모바일 `mid_content` 또는 `end`. |
 | 웹 배너 | `NEXT_PUBLIC_ADFIT_DESKTOP_WEB_BANNER` | 728x90 | 데스크톱 `result_primary`, `mid_content`, `end`. |
-| 우측상단 | `NEXT_PUBLIC_ADFIT_DESKTOP_RIGHT_TOP` | 160x600 | 데스크톱 `desktop_rail`. |
+| 우측상단 | `NEXT_PUBLIC_ADFIT_DESKTOP_RIGHT_TOP` | 160x600 | 1536px 이상 데스크톱 `desktop_rail`. |
 
 ## 동작 규칙
 

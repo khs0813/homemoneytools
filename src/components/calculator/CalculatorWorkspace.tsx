@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type ReactNode } from "react";
+import { AdFitSlot } from "@/components/adfit/AdFitSlot";
 import { cn } from "@/lib/utils";
 
 type CalculatorWorkspaceProps = {
@@ -46,6 +47,7 @@ export function CalculatorWorkspace({ children, result }: CalculatorWorkspacePro
       {hasResult ? (
         <div ref={resultRef} className="scroll-mt-24 focus:outline-none" tabIndex={-1}>
           {result}
+          <AdFitSlot placement="result_primary" />
         </div>
       ) : null}
     </div>
