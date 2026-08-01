@@ -1,0 +1,3 @@
+"date","site","experiment_id","placement","changed_variable","baseline_window","status","notes"
+"2026-08-01","jipcalc.co.kr","adfit-baseline-20260801","all","hardcoded DAN removal and guardrail fix","2026-07-18~2026-07-31","implemented","PR0/PR1 guardrail. SEO metadata and calculator formulas unchanged."
+"2026-08-01","jipcalc.co.kr","pending-pr2-mobile-result","result_primary","mobile result slot combination","2026-07-18~2026-07-31","pending","Run as separate PR after obvious mobile rectangle request-drop cause is verified."
