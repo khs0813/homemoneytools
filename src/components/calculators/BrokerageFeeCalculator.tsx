@@ -6,8 +6,9 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MoneyInput } from "@/components/calculator/MoneyInput";
 import { PercentInput } from "@/components/calculator/PercentInput";
-import { ResultCard } from "@/components/calculator/ResultCard";
+import { QuickPresetGroup } from "@/components/calculator/QuickPresetGroup";
 import { ResultRow } from "@/components/calculator/ResultRow";
+import { ResultSummary } from "@/components/calculator/ResultSummary";
 import { ShareButton } from "@/components/calculator/ShareButton";
 import { CalculatorWorkspace } from "@/components/calculator/CalculatorWorkspace";
 import { calculateBrokerageFee, type BrokerageTransactionType } from "@/lib/calculators/brokerage-fee";
@@ -40,8 +41,11 @@ const analyticsContext = { calculator_type: "brokerage_fee", content_cluster: "h
 
 export function BrokerageFeeCalculator() {
   const [result, setResult] = useState<Result>(null);
-  const { control, handleSubmit, reset } = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues });
+  const { control, handleSubmit, reset, setValue } = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues });
   const transactionType = useWatch({ control, name: "transactionType" });
+  const transactionAmount = useWatch({ control, name: "transactionAmount" });
+  const deposit = useWatch({ control, name: "deposit" });
+  const monthlyRent = useWatch({ control, name: "monthlyRent" });
 
   useEffect(() => {
     reset({
@@ -66,27 +70,62 @@ export function BrokerageFeeCalculator() {
   const legalUpperAmount = result
     ? Math.min(result.transactionAmount * result.legalRate / 100, result.limit ?? Number.POSITIVE_INFINITY)
     : 0;
+  const legalSavings = result ? Math.max(0, legalUpperAmount - result.brokerageFee) : 0;
+  const vatIncludedEstimate = result ? result.brokerageFee * 1.1 : 0;
+
+  function applyPreset(values: Partial<FormValues>) {
+    Object.entries(values).forEach(([key, value]) => {
+      setValue(key as keyof FormValues, value as never, { shouldDirty: true, shouldValidate: true });
+    });
+  }
 
   return (
     <CalculatorWorkspace
       analyticsContext={analyticsContext}
       pinForm={Boolean(result)}
       result={result ? (
-        <ResultCard title="예상 총 중개비" value={formatCurrency(result.total)} description={`${result.includeVat ? "부가세 포함" : "부가세 제외"} 예상액이며, 기준 버전은 ${result.version}입니다.`}>
+        <ResultSummary
+          title="예상 총 중개비"
+          value={formatCurrency(result.total)}
+          description={`${result.includeVat ? "부가세 포함" : "부가세 제외"} 예상액이며, 중개보수 상한과 협의요율을 함께 비교합니다.`}
+          basisDate="2026-01-01"
+          assumptions={[
+            `중개보수 요율 데이터 버전 ${result.version}을 사용합니다.`,
+            "월세 거래금액은 기존 중개보수 서비스의 환산거래금액 공식을 사용합니다.",
+            "협의요율이 상한요율을 넘으면 기존 서비스가 법정 상한으로 제한합니다."
+          ]}
+        >
           <ResultRow label="거래금액" value={formatCurrency(result.transactionAmount)} />
           {transactionType === "monthlyRent" ? <ResultRow label="월세 환산 거래금액" value={formatCurrency(result.transactionAmount)} /> : null}
           <ResultRow label="적용 상한요율" value={formatPercent(result.legalRate, 4)} />
           <ResultRow label="법정 상한액" value={formatCurrency(legalUpperAmount)} />
           <ResultRow label="사용자 입력 협의요율" value={formatPercent(result.requestedRate, 4)} />
-          <ResultRow label="협의 수수료" value={formatCurrency(result.brokerageFee)} />
+          <ResultRow label="협의요율 적용액" value={formatCurrency(result.brokerageFee)} />
+          <ResultRow label="상한 대비 절감액" value={formatCurrency(legalSavings)} />
+          <ResultRow label="부가세 제외 금액" value={formatCurrency(result.brokerageFee)} />
+          <ResultRow label="부가세 포함 예상액" value={formatCurrency(vatIncludedEstimate)} />
           <ResultRow label="부가세" value={formatCurrency(result.vat)} />
           <ResultRow label="총 지급 예상액" value={formatCurrency(result.total)} />
           {result.wasRateCapped ? <ResultRow label="주의" value="입력 요율이 상한을 넘어 법정 상한으로 제한했습니다." /> : null}
           <ShareButton />
-        </ResultCard>
+        </ResultSummary>
       ) : null}
     >
       <form onSubmit={handleSubmit(onSubmit)} className="rounded-3xl border border-slate-200 bg-white p-4 shadow-soft sm:p-6">
+        <div className="mb-6">
+          <QuickPresetGroup
+            label="거래 조건 빠른 선택"
+            calculatorType="brokerage_fee"
+            options={[
+              { label: "매매 3억원", name: "sale_300m", selected: transactionType === "sale" && transactionAmount === 300_000_000, onSelect: () => applyPreset({ transactionType: "sale", transactionAmount: 300_000_000 }) },
+              { label: "매매 5억원", name: "sale_500m", selected: transactionType === "sale" && transactionAmount === 500_000_000, onSelect: () => applyPreset({ transactionType: "sale", transactionAmount: 500_000_000 }) },
+              { label: "전세 2억원", name: "jeonse_200m", selected: transactionType === "jeonse" && transactionAmount === 200_000_000, onSelect: () => applyPreset({ transactionType: "jeonse", transactionAmount: 200_000_000 }) },
+              { label: "전세 3억원", name: "jeonse_300m", selected: transactionType === "jeonse" && transactionAmount === 300_000_000, onSelect: () => applyPreset({ transactionType: "jeonse", transactionAmount: 300_000_000 }) },
+              { label: "보증금 1천·월세 50", name: "rent_deposit_10m_rent_500k", selected: transactionType === "monthlyRent" && deposit === 10_000_000 && monthlyRent === 500_000, onSelect: () => applyPreset({ transactionType: "monthlyRent", deposit: 10_000_000, monthlyRent: 500_000 }) },
+              { label: "보증금 1억·월세 100", name: "rent_deposit_100m_rent_1m", selected: transactionType === "monthlyRent" && deposit === 100_000_000 && monthlyRent === 1_000_000, onSelect: () => applyPreset({ transactionType: "monthlyRent", deposit: 100_000_000, monthlyRent: 1_000_000 }) }
+            ]}
+          />
+        </div>
         <div className="grid gap-5 md:grid-cols-2">
           <Controller
             name="transactionType"

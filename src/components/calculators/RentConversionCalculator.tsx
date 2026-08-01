@@ -8,8 +8,9 @@ import { FormErrorSummary } from "@/components/calculator/FormErrorSummary";
 import { MoneyInput } from "@/components/calculator/MoneyInput";
 import { NumberInput } from "@/components/calculator/NumberInput";
 import { PercentInput } from "@/components/calculator/PercentInput";
-import { ResultCard } from "@/components/calculator/ResultCard";
+import { QuickPresetGroup } from "@/components/calculator/QuickPresetGroup";
 import { ResultRow } from "@/components/calculator/ResultRow";
+import { ResultSummary } from "@/components/calculator/ResultSummary";
 import { ShareButton } from "@/components/calculator/ShareButton";
 import { CalculatorWorkspace } from "@/components/calculator/CalculatorWorkspace";
 import { rentConversionRules } from "@/config/rent-conversion-rules";
@@ -42,6 +43,7 @@ type Result = (ReturnType<typeof calculateRentConversion> & {
   existingDeposit: number;
   changedDeposit: number;
   depositDifference: number;
+  onePointRateChangeAmount: number;
 }) | null;
 
 const defaultValues: FormValues = {
@@ -57,8 +59,11 @@ const analyticsContext = { calculator_type: "monthly_rent_conversion", content_c
 
 export function RentConversionCalculator() {
   const [result, setResult] = useState<Result>(null);
-  const { control, handleSubmit, reset, formState: { errors } } = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues });
+  const { control, handleSubmit, reset, setValue, formState: { errors } } = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues });
   const type = useWatch({ control, name: "type" });
+  const monthlyRent = useWatch({ control, name: "monthlyRent" });
+  const deposit = useWatch({ control, name: "deposit" });
+  const conversionRate = useWatch({ control, name: "conversionRate" });
 
   useEffect(() => {
     reset({
@@ -74,13 +79,18 @@ export function RentConversionCalculator() {
 
   function onSubmit(values: FormValues) {
     const calculated = calculateRentConversion(values);
+    const onePointUp = calculateRentConversion({ ...values, conversionRate: values.conversionRate + 1 });
     const existingDeposit = values.type === "jeonse-to-rent" ? values.jeonseAmount ?? 0 : values.deposit;
     const changedDeposit = values.type === "jeonse-to-rent" ? values.deposit : calculated.jeonseEquivalent;
+    const onePointRateChangeAmount = values.type === "jeonse-to-rent"
+      ? onePointUp.monthlyRent - calculated.monthlyRent
+      : calculated.jeonseEquivalent - onePointUp.jeonseEquivalent;
     setResult({
       ...calculated,
       existingDeposit,
       changedDeposit,
-      depositDifference: Math.abs(existingDeposit - changedDeposit)
+      depositDifference: Math.abs(existingDeposit - changedDeposit),
+      onePointRateChangeAmount
     });
     trackGrowthEvent("calculator_complete", analyticsContext);
     writeQueryState(values);
@@ -91,11 +101,22 @@ export function RentConversionCalculator() {
       analyticsContext={analyticsContext}
       pinForm={Boolean(result)}
       result={result ? (
-        <ResultCard title={result.type === "jeonse-to-rent" ? "예상 월세" : "전세 환산 금액"} value={result.type === "jeonse-to-rent" ? formatCurrency(result.monthlyRent) : formatCurrency(result.jeonseEquivalent)} description={`${result.years}년 기준 총 월세는 ${formatCurrency(result.totalRentForPeriod)}입니다.`}>
+        <ResultSummary
+          title={result.type === "jeonse-to-rent" ? "예상 월세" : "전세 환산 금액"}
+          value={result.type === "jeonse-to-rent" ? formatCurrency(result.monthlyRent) : formatCurrency(result.jeonseEquivalent)}
+          description={`${result.years}년 기준 총 월세는 ${formatCurrency(result.totalRentForPeriod)}입니다.`}
+          basisDate="2026-07-16"
+          assumptions={[
+            "전세와 월세 환산은 입력한 전환율을 같은 공식에 적용한 참고값입니다.",
+            "월세에서 전세로 환산할 때는 기존 보증금을 월세 환산분에 더합니다.",
+            "전세에서 월세로 전환할 때 입력 전환율이 법정 상한 참고값을 넘으면 주의 문구를 표시합니다."
+          ]}
+        >
           <ResultRow label="기존 보증금" value={formatCurrency(result.existingDeposit)} />
           <ResultRow label="변경 보증금" value={formatCurrency(result.changedDeposit)} />
           <ResultRow label="보증금 차액" value={formatCurrency(result.depositDifference)} />
           <ResultRow label="적용 전환율" value={formatPercent(result.conversionRate)} />
+          <ResultRow label="전환율 1%p 변화 시 결과 차이" value={formatCurrency(Math.abs(result.onePointRateChangeAmount))} />
           {result.type === "jeonse-to-rent"
             ? <ResultRow label="전세→월세 법정 상한 참고값" value={formatPercent(result.legalMaximumRate)} />
             : <ResultRow label="계산 성격" value="월세→전세 비교용 역산 · 법정 상한 직접 적용 아님" />}
@@ -104,10 +125,44 @@ export function RentConversionCalculator() {
           <ResultRow label="기간 내 월세 총액" value={formatCurrency(result.totalRentForPeriod)} />
           {result.exceedsLegalMaximum ? <ResultRow label="주의" value="입력 전환율이 현재 법정 상한 참고값을 초과합니다." /> : null}
           <ShareButton />
-        </ResultCard>
+        </ResultSummary>
       ) : null}
     >
       <form onSubmit={handleSubmit(onSubmit)} className="rounded-3xl border border-slate-200 bg-white p-4 shadow-soft sm:p-6">
+        <div className="mb-6 grid gap-3">
+          <QuickPresetGroup
+            label="월세 빠른 선택"
+            calculatorType="monthly_rent_conversion"
+            options={[
+              { label: "50만원", name: "monthly_rent_500k", selected: monthlyRent === 500_000, onSelect: () => setValue("monthlyRent", 500_000, { shouldDirty: true, shouldValidate: true }) },
+              { label: "70만원", name: "monthly_rent_700k", selected: monthlyRent === 700_000, onSelect: () => setValue("monthlyRent", 700_000, { shouldDirty: true, shouldValidate: true }) },
+              { label: "100만원", name: "monthly_rent_1m", selected: monthlyRent === 1_000_000, onSelect: () => setValue("monthlyRent", 1_000_000, { shouldDirty: true, shouldValidate: true }) },
+              { label: "직접 입력", name: "monthly_rent_custom", selected: ![500_000, 700_000, 1_000_000].includes(monthlyRent ?? 0), onSelect: () => undefined }
+            ]}
+          />
+          <QuickPresetGroup
+            label="보증금 빠른 선택"
+            calculatorType="monthly_rent_conversion"
+            options={[
+              { label: "0원", name: "deposit_0", selected: deposit === 0, onSelect: () => setValue("deposit", 0, { shouldDirty: true, shouldValidate: true }) },
+              { label: "1천만원", name: "deposit_10m", selected: deposit === 10_000_000, onSelect: () => setValue("deposit", 10_000_000, { shouldDirty: true, shouldValidate: true }) },
+              { label: "5천만원", name: "deposit_50m", selected: deposit === 50_000_000, onSelect: () => setValue("deposit", 50_000_000, { shouldDirty: true, shouldValidate: true }) },
+              { label: "1억원", name: "deposit_100m", selected: deposit === 100_000_000, onSelect: () => setValue("deposit", 100_000_000, { shouldDirty: true, shouldValidate: true }) },
+              { label: "직접 입력", name: "deposit_custom", selected: ![0, 10_000_000, 50_000_000, 100_000_000].includes(deposit), onSelect: () => undefined }
+            ]}
+          />
+          <QuickPresetGroup
+            label="전환율 빠른 선택"
+            calculatorType="monthly_rent_conversion"
+            options={[
+              { label: "4%", name: "conversion_rate_4", selected: conversionRate === 4, onSelect: () => setValue("conversionRate", 4, { shouldDirty: true, shouldValidate: true }) },
+              { label: "4.75%", name: "conversion_rate_4_75", selected: conversionRate === 4.75, onSelect: () => setValue("conversionRate", 4.75, { shouldDirty: true, shouldValidate: true }) },
+              { label: "5%", name: "conversion_rate_5", selected: conversionRate === 5, onSelect: () => setValue("conversionRate", 5, { shouldDirty: true, shouldValidate: true }) },
+              { label: "6%", name: "conversion_rate_6", selected: conversionRate === 6, onSelect: () => setValue("conversionRate", 6, { shouldDirty: true, shouldValidate: true }) },
+              { label: "직접 입력", name: "conversion_rate_custom", selected: ![4, 4.75, 5, 6].includes(conversionRate), onSelect: () => undefined }
+            ]}
+          />
+        </div>
         <div className="grid gap-5 md:grid-cols-2">
           <Controller
             name="type"
