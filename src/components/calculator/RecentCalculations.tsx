@@ -9,7 +9,8 @@ export function RecentCalculations() {
   const [items, setItems] = useState<RecentCalculation[]>([]);
 
   useEffect(() => {
-    setItems(loadRecentCalculations());
+    const timer = window.setTimeout(() => setItems(loadRecentCalculations()), 0);
+    return () => window.clearTimeout(timer);
   }, []);
 
   if (items.length === 0) {
@@ -57,4 +58,3 @@ export function RecentCalculations() {
     </section>
   );
 }
-

@@ -90,6 +90,12 @@ function getUnit(config: UnitConfig): string | undefined {
   return getEnvValue(config.envKey) || config.fallbackUnit;
 }
 
+export function getAdFitSlotConfigForTest(placement: AdFitPlacement, device: Device) {
+  const config = placementConfig[placement];
+  const unitConfig = config[device];
+  return unitConfig ? { ...unitConfig, unit: getUnit(unitConfig), enabled: isEnabled(config.flagEnvKey) } : undefined;
+}
+
 function getAdFitInit() {
   const adfit = (window as Window & AdFitGlobal).adfit;
   return typeof adfit === "function" ? adfit : adfit?.init;
@@ -207,7 +213,7 @@ export function AdFitSlot({ placement, className }: AdFitSlotProps) {
   }
 
   return (
-    <aside className={["my-4 flex justify-center overflow-hidden", className].filter(Boolean).join(" ")} data-adfit-placement={placement}>
+    <aside className={["my-4 flex justify-center overflow-hidden", className].filter(Boolean).join(" ")} data-adfit-placement={placement} data-testid={`adfit-slot-${placement}`}>
       <div
         ref={containerRef}
         className="max-w-full overflow-hidden"
@@ -225,4 +231,3 @@ export function AdFitSlot({ placement, className }: AdFitSlotProps) {
     </aside>
   );
 }
-
