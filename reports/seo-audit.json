@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-29T14:10:29.046Z",
+  "generatedAt": "2026-08-01T03:00:41.872Z",
   "mode": "http",
   "baseUrl": "http://localhost:3000",
-  "sitemapUrlCount": 42,
-  "htmlPageCount": 42,
+  "sitemapUrlCount": 43,
+  "htmlPageCount": 43,
   "sourceSummary": {
-    "calculatorCount": 16,
+    "calculatorCount": 17,
     "guideCount": 18
   },
   "fatalCount": 0,

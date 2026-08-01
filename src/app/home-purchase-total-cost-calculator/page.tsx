@@ -1,0 +1,19 @@
+import { CalculatorPage } from "@/components/calculator/CalculatorPage";
+import { HomePurchaseTotalCostCalculator } from "@/components/calculators/HomePurchaseTotalCostCalculator";
+import { getCalculatorBySlug } from "@/config/calculators";
+import { buildCalculatorMetadata } from "@/lib/seo";
+
+const info = getCalculatorBySlug("home-purchase-total-cost");
+
+export const metadata = buildCalculatorMetadata(info);
+
+export default function Page() {
+  return (
+    <main className="mx-auto max-w-6xl px-4 py-10 md:py-14">
+      <CalculatorPage info={info}>
+        <HomePurchaseTotalCostCalculator />
+      </CalculatorPage>
+    </main>
+  );
+}
+

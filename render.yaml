@@ -13,3 +13,29 @@ services:
         value: https://jipcalc.co.kr
       - key: NEXT_TELEMETRY_DISABLED
         value: "1"
+      - key: NEXT_PUBLIC_ENABLE_CALCULATOR_RESULT_AD
+        value: "true"
+      - key: NEXT_PUBLIC_ENABLE_CALCULATOR_MID_AD
+        value: "true"
+      - key: NEXT_PUBLIC_ENABLE_CALCULATOR_END_AD
+        value: "true"
+      - key: NEXT_PUBLIC_ENABLE_DESKTOP_RAIL_AD
+        value: "true"
+      - key: NEXT_PUBLIC_ENABLE_GUIDE_AFTER_ANSWER_AD
+        value: "true"
+      - key: NEXT_PUBLIC_ADFIT_MOBILE_RESULT
+        sync: false
+      - key: NEXT_PUBLIC_ADFIT_MOBILE_MID
+        sync: false
+      - key: NEXT_PUBLIC_ADFIT_MOBILE_END
+        sync: false
+      - key: NEXT_PUBLIC_ADFIT_DESKTOP_RESULT
+        sync: false
+      - key: NEXT_PUBLIC_ADFIT_DESKTOP_MID
+        sync: false
+      - key: NEXT_PUBLIC_ADFIT_DESKTOP_RAIL
+        sync: false
+      - key: NEXT_PUBLIC_ADFIT_GUIDE_MOBILE_AFTER_ANSWER
+        sync: false
+      - key: NEXT_PUBLIC_ADFIT_GUIDE_DESKTOP_AFTER_ANSWER
+        sync: false

@@ -26,6 +26,17 @@ function normalizeQueryValue(value: string | number | boolean): string | null {
   return normalized;
 }
 
+function getSearchOrFragmentParam(name: string): string | null {
+  if (typeof window === "undefined") return null;
+
+  const searchValue = window.location.search ? new URLSearchParams(window.location.search).get(name) : null;
+  if (searchValue !== null) return searchValue;
+
+  const hash = window.location.hash.startsWith("#") ? window.location.hash.slice(1) : "";
+  if (!hash || hash.startsWith("/")) return null;
+  return new URLSearchParams(hash).get(name);
+}
+
 export function writeQueryState(values: Record<string, string | number | boolean | undefined | null>) {
   if (typeof window === "undefined") return;
   const url = new URL(window.location.href);
@@ -53,7 +64,7 @@ export function writeQueryState(values: Record<string, string | number | boolean
 
 export function getNumberParam(name: string, fallback: number, options: NumberParamOptions = {}): number {
   if (typeof window === "undefined" || !QUERY_KEY_PATTERN.test(name)) return fallback;
-  const value = window.location.search ? new URLSearchParams(window.location.search).get(name) : null;
+  const value = getSearchOrFragmentParam(name);
   if (value === null || value.length > 32 || /[^0-9.+-]/.test(value)) return fallback;
 
   const parsed = Number(value);
@@ -66,7 +77,7 @@ export function getNumberParam(name: string, fallback: number, options: NumberPa
 
 export function getStringParam(name: string, fallback: string): string {
   if (typeof window === "undefined" || !QUERY_KEY_PATTERN.test(name)) return fallback;
-  const value = window.location.search ? new URLSearchParams(window.location.search).get(name) : null;
+  const value = getSearchOrFragmentParam(name);
   if (value === null || value.length > MAX_QUERY_VALUE_LENGTH) return fallback;
   const trimmed = value.trim();
   if (!trimmed || /[\u0000-\u001f\u007f]/.test(trimmed)) return fallback;

@@ -1,0 +1,51 @@
+url,type,route_file,component_or_source,indexable,canonical_source,notes
+/,page,src/app/page.tsx,HomePage,yes,buildPageMetadata,Homepage currently exposes housing calculators plus top AdFit.
+/calculators,page,src/app/calculators/page.tsx,Calculator listing,yes,buildPageMetadata,Calculator index.
+/guides,page,src/app/guides/page.tsx,Guide listing,yes,buildPageMetadata,Guide index.
+/jeonse-loan-interest-calculator,calculator,src/app/jeonse-loan-interest-calculator/page.tsx,JeonseLoanCalculator,yes,buildCalculatorMetadata,Core target page.
+/monthly-rent-conversion-calculator,calculator,src/app/monthly-rent-conversion-calculator/page.tsx,RentConversionCalculator,yes,buildCalculatorMetadata,Core target page.
+/rent-vs-jeonse-calculator,calculator,src/app/rent-vs-jeonse-calculator/page.tsx,RentVsJeonseCalculator,yes,buildCalculatorMetadata,Protected high-performance page metadata.
+/dsr-calculator,calculator,src/app/dsr-calculator/page.tsx,DsrCalculator,yes,buildCalculatorMetadata,Core target page.
+/real-estate-brokerage-fee-calculator,calculator,src/app/real-estate-brokerage-fee-calculator/page.tsx,BrokerageFeeCalculator,yes,buildCalculatorMetadata,Core target page.
+/acquisition-tax-calculator,calculator,src/app/acquisition-tax-calculator/page.tsx,AcquisitionTaxCalculator,yes,buildCalculatorMetadata,Actual acquisition tax route.
+/home-purchase-total-cost-calculator,calculator,src/app/home-purchase-total-cost-calculator/page.tsx,HomePurchaseTotalCostCalculator,yes,buildCalculatorMetadata,New Growth calculator route.
+/housing-subscription-score-calculator,calculator,src/app/housing-subscription-score-calculator/page.tsx,SubscriptionScoreCalculator,yes,buildCalculatorMetadata,Housing core.
+/loan-interest-calculator,calculator,src/app/loan-interest-calculator/page.tsx,LoanInterestCalculator,yes,buildCalculatorMetadata,Related but not housing-specific.
+/take-home-pay-calculator,calculator,src/app/take-home-pay-calculator/page.tsx,TakeHomePayCalculator,yes,buildCalculatorMetadata,Non-housing cluster.
+/monthly-living-expense-calculator,calculator,src/app/monthly-living-expense-calculator/page.tsx,MonthlyLivingExpenseCalculator,yes,buildCalculatorMetadata,Non-housing cluster.
+/electricity-bill-calculator,calculator,src/app/electricity-bill-calculator/page.tsx,ElectricityBillCalculator,yes,buildCalculatorMetadata,Non-housing cluster.
+/air-conditioner-electricity-cost-calculator,calculator,src/app/air-conditioner-electricity-cost-calculator/page.tsx,AirConditionerElectricityCostCalculator,yes,buildCalculatorMetadata,Non-housing cluster.
+/car-maintenance-cost-calculator,calculator,src/app/car-maintenance-cost-calculator/page.tsx,CarMaintenanceCostCalculator,yes,buildCalculatorMetadata,Non-housing cluster.
+/dividend-income-calculator,calculator,src/app/dividend-income-calculator/page.tsx,DividendIncomeCalculator,yes,buildCalculatorMetadata,Non-housing cluster.
+/exchange-rate-calculator,calculator,src/app/exchange-rate-calculator/page.tsx,ExchangeRateCalculator,yes,buildCalculatorMetadata,Non-housing cluster.
+/overseas-stock-capital-gains-tax-calculator,calculator,src/app/overseas-stock-capital-gains-tax-calculator/page.tsx,OverseasStockTaxCalculator,yes,buildCalculatorMetadata,Non-housing cluster.
+/guides/100-million-jeonse-loan-interest,guide,src/app/guides/[slug]/page.tsx,guides config,yes,buildPageMetadata,Protected high-performance guide metadata.
+/guides/200-million-jeonse-loan-monthly-interest,guide,src/app/guides/[slug]/page.tsx,guides config,yes,buildPageMetadata,Target guide.
+/guides/salary-50-million-dsr,guide,src/app/guides/[slug]/page.tsx,guides config,yes,buildPageMetadata,Protected high-performance guide metadata.
+/guides/salary-70-million-dsr-40,guide,src/app/guides/[slug]/page.tsx,guides config,yes,buildPageMetadata,Target guide.
+/guides/600-million-apartment-acquisition-tax,guide,src/app/guides/[slug]/page.tsx,guides config,yes,buildPageMetadata,Protected high-performance guide metadata.
+/guides/900-million-apartment-acquisition-tax,guide,src/app/guides/[slug]/page.tsx,guides config,yes,buildPageMetadata,Acquisition tax guide.
+/guides/monthly-rent-500k-to-jeonse,guide,src/app/guides/[slug]/page.tsx,guides config,yes,buildPageMetadata,Rent conversion guide.
+/guides/jeonse-loan-interest-mistakes,guide,src/app/guides/[slug]/page.tsx,guides config,yes,buildPageMetadata,Guide configured in guides array.
+/guides/rent-vs-jeonse-decision-guide,guide,src/app/guides/[slug]/page.tsx,guides config,yes,buildPageMetadata,Guide configured in guides array.
+/guides/what-dsr-40-means,guide,src/app/guides/[slug]/page.tsx,guides config,yes,buildPageMetadata,Guide configured in guides array.
+/guides/acquisition-tax-checklist,guide,src/app/guides/[slug]/page.tsx,guides config,yes,buildPageMetadata,Guide configured in guides array.
+/guides/brokerage-fee-negotiation,guide,src/app/guides/[slug]/page.tsx,guides config,yes,buildPageMetadata,Guide configured in guides array.
+/guides/monthly-rent-conversion-basics,guide,src/app/guides/[slug]/page.tsx,guides config,yes,buildPageMetadata,Guide configured in guides array.
+/guides/jeonse-total-housing-cost,guide,src/app/guides/[slug]/page.tsx,guides config,yes,buildPageMetadata,Guide configured in guides array.
+/guides/subscription-score-interpretation,guide,src/app/guides/[slug]/page.tsx,guides config,yes,buildPageMetadata,Guide configured in guides array.
+/guides/subscription-account-period,guide,src/app/guides/[slug]/page.tsx,guides config,yes,buildPageMetadata,Guide configured in guides array.
+/guides/regulated-area-acquisition-tax,guide,src/app/guides/[slug]/page.tsx,guides config,yes,buildPageMetadata,Guide configured in guides array.
+/guides/subscription-score-vs-buy-or-rent,guide,src/app/guides/[slug]/page.tsx,guides config,yes,buildPageMetadata,Guide configured in guides array.
+/guides/subscription-score,page,src/app/guides/subscription-score/page.tsx,legacy guide alias,yes,page metadata,Static guide route.
+/guides/dsr,page,src/app/guides/dsr/page.tsx,legacy guide alias,yes,page metadata,Static guide route.
+/guides/jeonse-loan-interest,page,src/app/guides/jeonse-loan-interest/page.tsx,legacy guide alias,yes,page metadata,Static guide route.
+/guides/brokerage-fee,page,src/app/guides/brokerage-fee/page.tsx,legacy guide alias,yes,page metadata,Static guide route.
+/guides/monthly-rent-conversion,page,src/app/guides/monthly-rent-conversion/page.tsx,legacy guide alias,yes,page metadata,Static guide route.
+/guides/rent-vs-jeonse,page,src/app/guides/rent-vs-jeonse/page.tsx,legacy guide alias,yes,page metadata,Static guide route.
+/guides/acquisition-tax,page,src/app/guides/acquisition-tax/page.tsx,legacy guide alias,yes,page metadata,Static guide route.
+/about,page,src/app/about/page.tsx,Legal/static,yes,buildPageMetadata,Static page.
+/privacy-policy,page,src/app/privacy-policy/page.tsx,LegalPage,yes,buildPageMetadata,Static policy page.
+/terms,page,src/app/terms/page.tsx,LegalPage,yes,buildPageMetadata,Static policy page.
+/disclaimer,page,src/app/disclaimer/page.tsx,LegalPage,yes,buildPageMetadata,Static policy page.
+/contact,page,src/app/contact/page.tsx,Static page,yes,buildPageMetadata,Contact page.

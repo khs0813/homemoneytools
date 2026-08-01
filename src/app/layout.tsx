@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "@/app/globals.css";
+import { GrowthAnalyticsProvider } from "@/components/analytics/GrowthAnalyticsProvider";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { siteConfig } from "@/config/site";
@@ -87,6 +88,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <OrganizationJsonLd />
         <WebsiteJsonLd />
+        <GrowthAnalyticsProvider />
         <Header />
         {children}
         <Footer />
