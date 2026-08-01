@@ -81,6 +81,11 @@ const seoRelatedLinksBySlug: Record<string, SeoRelatedLink[]> = {
       href: "/acquisition-tax-calculator",
       title: "대출 전 매수 세금 확인",
       description: "DSR이 맞아도 취득세와 초기 현금 필요액은 따로 계산해야 합니다."
+    },
+    {
+      href: "/home-purchase-total-cost-calculator",
+      title: "매수 초기비용 한 번에 확인",
+      description: "취득세, 중개보수, 주담대 월상환액과 잔금 현금을 함께 봅니다."
     }
   ],
   "rent-vs-jeonse": [
@@ -115,6 +120,28 @@ const seoRelatedLinksBySlug: Record<string, SeoRelatedLink[]> = {
       href: "/guides/900-million-apartment-acquisition-tax",
       title: "9억 아파트 세금 체크",
       description: "조건 차이가 세금 부담에 미치는 영향을 사례로 확인합니다."
+    },
+    {
+      href: "/home-purchase-total-cost-calculator",
+      title: "내 집 마련 총비용 계산",
+      description: "취득세와 중개보수, 대출 실행 후 필요한 현금을 함께 계산합니다."
+    }
+  ],
+  "home-purchase-total-cost": [
+    {
+      href: "/dsr-calculator",
+      title: "DSR 상세 계산",
+      description: "주담대와 기존대출이 상환 여력에 미치는 영향을 따로 확인합니다."
+    },
+    {
+      href: "/acquisition-tax-calculator",
+      title: "취득세 상세 계산",
+      description: "주택 수, 조정대상지역, 면적과 감면 조건별 세금을 점검합니다."
+    },
+    {
+      href: "/real-estate-brokerage-fee-calculator",
+      title: "중개수수료 상세 계산",
+      description: "매매가 기준 상한요율과 협의요율, 부가세 포함 금액을 확인합니다."
     }
   ],
   "housing-subscription-score": [
