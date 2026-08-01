@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AdFitSideBanner, AdFitTopBanner, AdFitVerticalBanner } from "@/components/adfit/AdFitPageAds";
 import { CalculatorCard } from "@/components/calculator/CalculatorCard";
+import { RecentCalculations } from "@/components/calculator/RecentCalculations";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { calculators } from "@/config/calculators";
 import { guides } from "@/config/guides";
@@ -112,6 +113,10 @@ export default function HomePage() {
             {popular.map((calculator) => <CalculatorCard key={calculator.slug} calculator={calculator} />)}
           </div>
         </section>
+
+        <div className="mt-12">
+          <RecentCalculations />
+        </div>
 
         <section className="mt-12 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6 md:p-8">
           <p className="text-sm font-bold text-brand-emerald">검색형 콘텐츠</p>

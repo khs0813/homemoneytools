@@ -9,15 +9,18 @@ import { MoneyInput } from "@/components/calculator/MoneyInput";
 import { NumberInput } from "@/components/calculator/NumberInput";
 import { PercentInput } from "@/components/calculator/PercentInput";
 import { QuickPresetGroup } from "@/components/calculator/QuickPresetGroup";
+import { RecommendedNextActions } from "@/components/calculator/RecommendedNextActions";
 import { ResultRow } from "@/components/calculator/ResultRow";
 import { ResultSummary } from "@/components/calculator/ResultSummary";
-import { ShareButton } from "@/components/calculator/ShareButton";
+import { ShareResult } from "@/components/calculator/ShareResult";
 import { CalculatorWorkspace } from "@/components/calculator/CalculatorWorkspace";
 import { rentConversionRules } from "@/config/rent-conversion-rules";
 import { trackGrowthEvent } from "@/lib/analytics";
 import { calculateRentConversion, type RentConversionType } from "@/lib/calculators/rent-conversion";
+import { buildFragmentPath } from "@/lib/fragment-state";
 import { formatCurrency, formatPercent, MAX_SAFE_MONEY_AMOUNT, MAX_SAFE_RATE_PERCENT, MAX_SAFE_YEARS } from "@/lib/format";
 import { getEnumParam, getNumberParam, writeQueryState } from "@/lib/query-state";
+import { saveRecentCalculation } from "@/lib/recent-calculations";
 
 const schema = z.object({
   type: z.enum(["jeonse-to-rent", "rent-to-jeonse"]),
@@ -44,6 +47,7 @@ type Result = (ReturnType<typeof calculateRentConversion> & {
   changedDeposit: number;
   depositDifference: number;
   onePointRateChangeAmount: number;
+  submitted: FormValues;
 }) | null;
 
 const defaultValues: FormValues = {
@@ -90,7 +94,13 @@ export function RentConversionCalculator() {
       existingDeposit,
       changedDeposit,
       depositDifference: Math.abs(existingDeposit - changedDeposit),
-      onePointRateChangeAmount
+      onePointRateChangeAmount,
+      submitted: values
+    });
+    saveRecentCalculation({
+      calculator_type: analyticsContext.calculator_type,
+      page_path: "/monthly-rent-conversion-calculator",
+      summary: "월세 전세 환산 계산 결과"
     });
     trackGrowthEvent("calculator_complete", analyticsContext);
     writeQueryState(values);
@@ -101,31 +111,63 @@ export function RentConversionCalculator() {
       analyticsContext={analyticsContext}
       pinForm={Boolean(result)}
       result={result ? (
-        <ResultSummary
-          title={result.type === "jeonse-to-rent" ? "예상 월세" : "전세 환산 금액"}
-          value={result.type === "jeonse-to-rent" ? formatCurrency(result.monthlyRent) : formatCurrency(result.jeonseEquivalent)}
-          description={`${result.years}년 기준 총 월세는 ${formatCurrency(result.totalRentForPeriod)}입니다.`}
-          basisDate="2026-07-16"
-          assumptions={[
-            "전세와 월세 환산은 입력한 전환율을 같은 공식에 적용한 참고값입니다.",
-            "월세에서 전세로 환산할 때는 기존 보증금을 월세 환산분에 더합니다.",
-            "전세에서 월세로 전환할 때 입력 전환율이 법정 상한 참고값을 넘으면 주의 문구를 표시합니다."
-          ]}
-        >
-          <ResultRow label="기존 보증금" value={formatCurrency(result.existingDeposit)} />
-          <ResultRow label="변경 보증금" value={formatCurrency(result.changedDeposit)} />
-          <ResultRow label="보증금 차액" value={formatCurrency(result.depositDifference)} />
-          <ResultRow label="적용 전환율" value={formatPercent(result.conversionRate)} />
-          <ResultRow label="전환율 1%p 변화 시 결과 차이" value={formatCurrency(Math.abs(result.onePointRateChangeAmount))} />
-          {result.type === "jeonse-to-rent"
-            ? <ResultRow label="전세→월세 법정 상한 참고값" value={formatPercent(result.legalMaximumRate)} />
-            : <ResultRow label="계산 성격" value="월세→전세 비교용 역산 · 법정 상한 직접 적용 아님" />}
-          <ResultRow label="예상 월세" value={formatCurrency(result.monthlyRent)} />
-          <ResultRow label="월세의 전세금 환산액" value={formatCurrency(result.jeonseEquivalent)} />
-          <ResultRow label="기간 내 월세 총액" value={formatCurrency(result.totalRentForPeriod)} />
-          {result.exceedsLegalMaximum ? <ResultRow label="주의" value="입력 전환율이 현재 법정 상한 참고값을 초과합니다." /> : null}
-          <ShareButton />
-        </ResultSummary>
+        <>
+          <ResultSummary
+            title={result.type === "jeonse-to-rent" ? "예상 월세" : "전세 환산 금액"}
+            value={result.type === "jeonse-to-rent" ? formatCurrency(result.monthlyRent) : formatCurrency(result.jeonseEquivalent)}
+            description={`${result.years}년 기준 총 월세는 ${formatCurrency(result.totalRentForPeriod)}입니다.`}
+            basisDate="2026-07-16"
+            assumptions={[
+              "전세와 월세 환산은 입력한 전환율을 같은 공식에 적용한 참고값입니다.",
+              "월세에서 전세로 환산할 때는 기존 보증금을 월세 환산분에 더합니다.",
+              "전세에서 월세로 전환할 때 입력 전환율이 법정 상한 참고값을 넘으면 주의 문구를 표시합니다."
+            ]}
+          >
+            <ResultRow label="기존 보증금" value={formatCurrency(result.existingDeposit)} />
+            <ResultRow label="변경 보증금" value={formatCurrency(result.changedDeposit)} />
+            <ResultRow label="보증금 차액" value={formatCurrency(result.depositDifference)} />
+            <ResultRow label="적용 전환율" value={formatPercent(result.conversionRate)} />
+            <ResultRow label="전환율 1%p 변화 시 결과 차이" value={formatCurrency(Math.abs(result.onePointRateChangeAmount))} />
+            {result.type === "jeonse-to-rent"
+              ? <ResultRow label="전세→월세 법정 상한 참고값" value={formatPercent(result.legalMaximumRate)} />
+              : <ResultRow label="계산 성격" value="월세→전세 비교용 역산 · 법정 상한 직접 적용 아님" />}
+            <ResultRow label="예상 월세" value={formatCurrency(result.monthlyRent)} />
+            <ResultRow label="월세의 전세금 환산액" value={formatCurrency(result.jeonseEquivalent)} />
+            <ResultRow label="기간 내 월세 총액" value={formatCurrency(result.totalRentForPeriod)} />
+            {result.exceedsLegalMaximum ? <ResultRow label="주의" value="입력 전환율이 현재 법정 상한 참고값을 초과합니다." /> : null}
+            <ShareResult
+              title="월세 전세 환산 계산 결과"
+              text={`월세 ${formatCurrency(result.monthlyRent)}\n전환율 ${result.conversionRate}%\n전세 환산 금액 ${formatCurrency(result.jeonseEquivalent)}\n기준일 2026-07-16\n집계산에서 직접 계산`}
+              path="/monthly-rent-conversion-calculator"
+              fragmentState={result.submitted}
+            />
+          </ResultSummary>
+          <RecommendedNextActions
+            calculatorType="monthly_rent_conversion"
+            actions={[
+              {
+                href: buildFragmentPath("/rent-vs-jeonse-calculator", {
+                  jeonseDeposit: result.jeonseEquivalent,
+                  rentDeposit: result.submitted.deposit,
+                  monthlyRent: result.monthlyRent,
+                  years: result.submitted.years
+                }),
+                title: "같은 조건으로 월세와 전세 총비용 비교",
+                description: "환산 금액이 아니라 2년 총주거비와 기회비용까지 비교합니다."
+              },
+              {
+                href: "/jeonse-loan-interest-calculator",
+                title: "전세대출 월이자 확인",
+                description: "전세 환산 금액 중 대출을 쓸 경우 월 이자와 총이자를 계산합니다."
+              },
+              {
+                href: "/guides/monthly-rent-conversion-basics",
+                title: "전월세 전환율 기준 이해하기",
+                description: "전환율이 왜 결과를 크게 바꾸는지 기준과 예시를 확인합니다."
+              }
+            ]}
+          />
+        </>
       ) : null}
     >
       <form onSubmit={handleSubmit(onSubmit)} className="rounded-3xl border border-slate-200 bg-white p-4 shadow-soft sm:p-6">

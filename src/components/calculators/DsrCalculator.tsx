@@ -8,15 +8,18 @@ import { MoneyInput } from "@/components/calculator/MoneyInput";
 import { NumberInput } from "@/components/calculator/NumberInput";
 import { PercentInput } from "@/components/calculator/PercentInput";
 import { QuickPresetGroup } from "@/components/calculator/QuickPresetGroup";
+import { RecommendedNextActions } from "@/components/calculator/RecommendedNextActions";
 import { ResultRow } from "@/components/calculator/ResultRow";
 import { ResultSummary } from "@/components/calculator/ResultSummary";
-import { ShareButton } from "@/components/calculator/ShareButton";
+import { ShareResult } from "@/components/calculator/ShareResult";
 import { CalculatorWorkspace } from "@/components/calculator/CalculatorWorkspace";
 import { dsrRules } from "@/config/dsr-rules";
 import { trackGrowthEvent } from "@/lib/analytics";
+import { buildFragmentPath } from "@/lib/fragment-state";
 import { calculateDsr } from "@/lib/calculators/dsr";
 import { formatCurrency, formatPercent, MAX_SAFE_MONEY_AMOUNT, MAX_SAFE_RATE_PERCENT, MAX_SAFE_YEARS } from "@/lib/format";
 import { getEnumParam, getNumberParam, writeQueryState } from "@/lib/query-state";
+import { saveRecentCalculation } from "@/lib/recent-calculations";
 
 const schema = z.object({
   annualIncome: z.number().finite().min(1).max(MAX_SAFE_MONEY_AMOUNT),
@@ -34,6 +37,7 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>;
 type Result = (ReturnType<typeof calculateDsr> & {
   halfPointUpAssessmentDsrDelta: number;
+  submitted: FormValues;
 }) | null;
 
 const defaultValues: FormValues = {
@@ -80,7 +84,13 @@ export function DsrCalculator() {
     const halfPointUp = calculateDsr({ ...values, mortgageRate: values.mortgageRate + 0.5 });
     setResult({
       ...calculated,
-      halfPointUpAssessmentDsrDelta: halfPointUp.assessmentDsr - calculated.assessmentDsr
+      halfPointUpAssessmentDsrDelta: halfPointUp.assessmentDsr - calculated.assessmentDsr,
+      submitted: values
+    });
+    saveRecentCalculation({
+      calculator_type: analyticsContext.calculator_type,
+      page_path: "/dsr-calculator",
+      summary: "DSR 상환 여력 계산 결과"
     });
     trackGrowthEvent("calculator_complete", analyticsContext);
     writeQueryState(values);
@@ -98,34 +108,67 @@ export function DsrCalculator() {
       analyticsContext={analyticsContext}
       pinForm={Boolean(result)}
       result={result ? (
-        <ResultSummary
-          title={statusText}
-          value={formatPercent(result.assessmentDsr)}
-          description={`${result.useStressAssessment ? "스트레스 DSR" : "일반 DSR"} 기준 상환 여력 참고값입니다. 금융회사 실제 승인 한도가 아닙니다.`}
-          basisDate="2026-07-01"
-          assumptions={[
-            `DSR 규칙 버전 ${result.version}을 사용합니다.`,
-            "주담대 월 상환액은 기존 대출 계산 서비스의 원리금균등 공식을 사용합니다.",
-            "신용대출은 선택한 방식에 따라 5년 산정만기 또는 이자만 현금흐름 참고값으로 반영합니다."
-          ]}
-        >
-          <ResultRow label="일반 DSR" value={formatPercent(result.dsr)} />
-          <ResultRow label="스트레스 DSR" value={formatPercent(result.stressedDsr)} />
-          <ResultRow label="목표 기준" value={formatPercent(result.dsrLimit)} />
-          <ResultRow label={marginLabel} value={formatPercent(marginRatio, 2)} />
-          <ResultRow label="실제 기준 연간 원리금" value={formatCurrency(result.totalAnnualRepayment)} />
-          <ResultRow label="실제 기준 월환산 원리금" value={formatCurrency(result.monthlyAverageRepayment)} />
-          <ResultRow label="심사용 연간 원리금" value={formatCurrency(result.assessmentTotalAnnualRepayment)} />
-          <ResultRow label="심사용 월환산 원리금" value={formatCurrency(result.assessmentMonthlyAverageRepayment)} />
-          <ResultRow label="주담대 연상환액(계약금리)" value={formatCurrency(result.annualMortgagePayment)} />
-          <ResultRow label="기존대출 반영액" value={formatCurrency(result.annualCreditPayment + result.otherAnnualRepayment)} />
-          <ResultRow label="기존 대출이 차지하는 비중" value={formatPercent(existingLoanShare, 2)} />
-          <ResultRow label="금리 0.5%p 상승 시 DSR 차이" value={`${formatPercent(Math.abs(result.halfPointUpAssessmentDsrDelta), 2)}p`} />
-          <ResultRow label="기준 대비 여유 금액" value={formatCurrency(result.remainingAnnualRepaymentCapacity)} />
-          <ResultRow label="적용한 계산 공식" value="DSR = 연간 원리금 상환액 ÷ 연소득 × 100" />
-          {result.creditLoanMode === "interest-only" ? <ResultRow label="주의" value="신용대출을 이자만 반영한 현금흐름 참고값입니다." /> : null}
-          <ShareButton />
-        </ResultSummary>
+        <>
+          <ResultSummary
+            title={statusText}
+            value={formatPercent(result.assessmentDsr)}
+            description={`${result.useStressAssessment ? "스트레스 DSR" : "일반 DSR"} 기준 상환 여력 참고값입니다. 금융회사 실제 승인 한도가 아닙니다.`}
+            basisDate="2026-07-01"
+            assumptions={[
+              `DSR 규칙 버전 ${result.version}을 사용합니다.`,
+              "주담대 월 상환액은 기존 대출 계산 서비스의 원리금균등 공식을 사용합니다.",
+              "신용대출은 선택한 방식에 따라 5년 산정만기 또는 이자만 현금흐름 참고값으로 반영합니다."
+            ]}
+          >
+            <ResultRow label="일반 DSR" value={formatPercent(result.dsr)} />
+            <ResultRow label="스트레스 DSR" value={formatPercent(result.stressedDsr)} />
+            <ResultRow label="목표 기준" value={formatPercent(result.dsrLimit)} />
+            <ResultRow label={marginLabel} value={formatPercent(marginRatio, 2)} />
+            <ResultRow label="실제 기준 연간 원리금" value={formatCurrency(result.totalAnnualRepayment)} />
+            <ResultRow label="실제 기준 월환산 원리금" value={formatCurrency(result.monthlyAverageRepayment)} />
+            <ResultRow label="심사용 연간 원리금" value={formatCurrency(result.assessmentTotalAnnualRepayment)} />
+            <ResultRow label="심사용 월환산 원리금" value={formatCurrency(result.assessmentMonthlyAverageRepayment)} />
+            <ResultRow label="주담대 연상환액(계약금리)" value={formatCurrency(result.annualMortgagePayment)} />
+            <ResultRow label="기존대출 반영액" value={formatCurrency(result.annualCreditPayment + result.otherAnnualRepayment)} />
+            <ResultRow label="기존 대출이 차지하는 비중" value={formatPercent(existingLoanShare, 2)} />
+            <ResultRow label="금리 0.5%p 상승 시 DSR 차이" value={`${formatPercent(Math.abs(result.halfPointUpAssessmentDsrDelta), 2)}p`} />
+            <ResultRow label="기준 대비 여유 금액" value={formatCurrency(result.remainingAnnualRepaymentCapacity)} />
+            <ResultRow label="적용한 계산 공식" value="DSR = 연간 원리금 상환액 ÷ 연소득 × 100" />
+            {result.creditLoanMode === "interest-only" ? <ResultRow label="주의" value="신용대출을 이자만 반영한 현금흐름 참고값입니다." /> : null}
+            <ShareResult
+              title="DSR 계산 결과"
+              text={`예상 DSR ${formatPercent(result.assessmentDsr)}\n월평균 상환 참고액 ${formatCurrency(result.assessmentMonthlyAverageRepayment)}\n기준일 2026-07-01\n집계산에서 직접 계산`}
+              path="/dsr-calculator"
+              fragmentState={result.submitted}
+            />
+          </ResultSummary>
+          <RecommendedNextActions
+            calculatorType="dsr"
+            actions={[
+              {
+                href: buildFragmentPath("/home-purchase-total-cost-calculator", {
+                  annualIncome: result.submitted.annualIncome,
+                  mortgageAmount: result.submitted.mortgageAmount,
+                  mortgageRate: result.submitted.mortgageRate,
+                  mortgageYears: result.submitted.mortgageYears,
+                  existingCreditLoanAmount: result.submitted.existingCreditLoanAmount
+                }),
+                title: "취득세와 중개수수료를 포함한 매수 초기비용 확인",
+                description: "월 상환 여력과 잔금 시점 현금을 한 번에 이어서 계산합니다."
+              },
+              {
+                href: "/acquisition-tax-calculator",
+                title: "주택가격별 취득세 확인",
+                description: "주택 수와 지역 조건에 따라 잔금 전 필요한 세금을 점검합니다."
+              },
+              {
+                href: result.submitted.annualIncome >= 70_000_000 ? "/guides/salary-70-million-dsr-40" : "/guides/salary-50-million-dsr",
+                title: result.submitted.annualIncome >= 70_000_000 ? "연봉 7천만원 DSR 40% 사례 확인" : "연봉 5천만원 DSR 40% 사례 확인",
+                description: "연소득 기준별 상환 여력과 기존대출 영향을 사례로 확인합니다."
+              }
+            ]}
+          />
+        </>
       ) : null}
     >
       <form onSubmit={handleSubmit(onSubmit)} className="rounded-3xl border border-slate-200 bg-white p-4 shadow-soft sm:p-6">

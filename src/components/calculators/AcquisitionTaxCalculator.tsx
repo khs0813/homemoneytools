@@ -5,15 +5,18 @@ import { Controller, useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MoneyInput } from "@/components/calculator/MoneyInput";
+import { RecommendedNextActions } from "@/components/calculator/RecommendedNextActions";
 import { ResultRow } from "@/components/calculator/ResultRow";
 import { ResultSummary } from "@/components/calculator/ResultSummary";
-import { ShareButton } from "@/components/calculator/ShareButton";
+import { ShareResult } from "@/components/calculator/ShareResult";
 import { CalculatorWorkspace } from "@/components/calculator/CalculatorWorkspace";
 import { calculateAcquisitionTax, type FirstHomeDiscountType, type HouseCount } from "@/lib/calculators/acquisition-tax";
 import { calculateBrokerageFee } from "@/lib/calculators/brokerage-fee";
 import { trackGrowthEvent } from "@/lib/analytics";
+import { buildFragmentPath } from "@/lib/fragment-state";
 import { formatCurrency, formatPercent, MAX_SAFE_MONEY_AMOUNT } from "@/lib/format";
 import { getBooleanParam, getEnumParam, getNumberParam, writeQueryState } from "@/lib/query-state";
+import { saveRecentCalculation } from "@/lib/recent-calculations";
 
 const schema = z.object({
   price: z.number().finite().min(1).max(MAX_SAFE_MONEY_AMOUNT),
@@ -28,6 +31,7 @@ type FormValues = z.infer<typeof schema>;
 type Result = (ReturnType<typeof calculateAcquisitionTax> & {
   brokerageFeeTotal: number;
   minimumTransactionCost: number;
+  submitted: FormValues;
 }) | null;
 
 const defaultValues: FormValues = {
@@ -81,7 +85,13 @@ export function AcquisitionTaxCalculator() {
     setResult({
       ...calculated,
       brokerageFeeTotal: brokerage.total,
-      minimumTransactionCost: calculated.totalTax + brokerage.total
+      minimumTransactionCost: calculated.totalTax + brokerage.total,
+      submitted: normalized
+    });
+    saveRecentCalculation({
+      calculator_type: analyticsContext.calculator_type,
+      page_path: "/acquisition-tax-calculator",
+      summary: "취득세 계산 결과"
     });
     trackGrowthEvent("calculator_complete", analyticsContext);
     writeQueryState(normalized);
@@ -92,29 +102,66 @@ export function AcquisitionTaxCalculator() {
       analyticsContext={analyticsContext}
       pinForm={Boolean(result)}
       result={result ? (
-        <ResultSummary
-          title="예상 총 납부액"
-          value={formatCurrency(result.totalTax)}
-          description={`적용 취득세율은 ${formatPercent(result.rate)}이며, 기존 취득세 서비스 결과를 그대로 사용합니다.`}
-          basisDate="2026-07-01"
-          assumptions={[
-            `취득세 기준 버전 ${result.version}을 사용합니다.`,
-            "주택 유상매매 간편 계산 범위이며 법인·증여·상속·부담부증여는 포함하지 않습니다.",
-            "최소 거래비용은 취득세 합계와 매매 중개보수 예상액을 단순 합산한 참고값입니다."
-          ]}
-        >
-          <ResultRow label="취득세 예상액" value={formatCurrency(result.acquisitionTax)} />
-          <ResultRow label="지방교육세" value={formatCurrency(result.localEducationTax)} />
-          <ResultRow label="농어촌특별세" value={formatCurrency(result.specialRuralTax)} />
-          <ResultRow label="합계" value={formatCurrency(result.totalTax)} />
-          <ResultRow label="주택가격 대비 세금 비율" value={formatPercent(result.effectiveRate, 3)} />
-          <ResultRow label="중개수수료 포함 최소 거래비용" value={formatCurrency(result.minimumTransactionCost)} />
-          <ResultRow label="감면 적용 전 세액" value={formatCurrency(result.acquisitionTaxBeforeDiscount)} />
-          <ResultRow label="감면 적용 전후 차이" value={formatCurrency(result.firstHomeDiscount)} />
-          <ResultRow label="매매 중개보수 예상액" value={formatCurrency(result.brokerageFeeTotal)} />
-          {result.warnings.map((warning) => <ResultRow key={warning} label="주의" value={warning} />)}
-          <ShareButton />
-        </ResultSummary>
+        <>
+          <ResultSummary
+            title="예상 총 납부액"
+            value={formatCurrency(result.totalTax)}
+            description={`적용 취득세율은 ${formatPercent(result.rate)}이며, 기존 취득세 서비스 결과를 그대로 사용합니다.`}
+            basisDate="2026-07-01"
+            assumptions={[
+              `취득세 기준 버전 ${result.version}을 사용합니다.`,
+              "주택 유상매매 간편 계산 범위이며 법인·증여·상속·부담부증여는 포함하지 않습니다.",
+              "최소 거래비용은 취득세 합계와 매매 중개보수 예상액을 단순 합산한 참고값입니다."
+            ]}
+          >
+            <ResultRow label="취득세 예상액" value={formatCurrency(result.acquisitionTax)} />
+            <ResultRow label="지방교육세" value={formatCurrency(result.localEducationTax)} />
+            <ResultRow label="농어촌특별세" value={formatCurrency(result.specialRuralTax)} />
+            <ResultRow label="합계" value={formatCurrency(result.totalTax)} />
+            <ResultRow label="주택가격 대비 세금 비율" value={formatPercent(result.effectiveRate, 3)} />
+            <ResultRow label="중개수수료 포함 최소 거래비용" value={formatCurrency(result.minimumTransactionCost)} />
+            <ResultRow label="감면 적용 전 세액" value={formatCurrency(result.acquisitionTaxBeforeDiscount)} />
+            <ResultRow label="감면 적용 전후 차이" value={formatCurrency(result.firstHomeDiscount)} />
+            <ResultRow label="매매 중개보수 예상액" value={formatCurrency(result.brokerageFeeTotal)} />
+            {result.warnings.map((warning) => <ResultRow key={warning} label="주의" value={warning} />)}
+            <ShareResult
+              title="취득세 계산 결과"
+              text={`취득세 합계 ${formatCurrency(result.totalTax)}\n지방교육세 ${formatCurrency(result.localEducationTax)}\n농어촌특별세 ${formatCurrency(result.specialRuralTax)}\n기준일 2026-07-01\n집계산에서 직접 계산`}
+              path="/acquisition-tax-calculator"
+              fragmentState={result.submitted}
+            />
+          </ResultSummary>
+          <RecommendedNextActions
+            calculatorType="acquisition_tax"
+            actions={[
+              {
+                href: buildFragmentPath("/real-estate-brokerage-fee-calculator", {
+                  transactionType: "sale",
+                  transactionAmount: result.submitted.price
+                }),
+                title: "중개수수료 계산",
+                description: "같은 매매가로 중개보수 상한액과 부가세 포함 예상액을 확인합니다."
+              },
+              {
+                href: buildFragmentPath("/loan-interest-calculator", {
+                  principal: Math.round(result.submitted.price * 0.6)
+                }),
+                title: "주택담보대출 월상환액 확인",
+                description: "매수 자금 중 대출이 필요한 경우 월 납입액을 따로 계산합니다."
+              },
+              {
+                href: buildFragmentPath("/home-purchase-total-cost-calculator", {
+                  price: result.submitted.price,
+                  houseCount: result.submitted.houseCount,
+                  isRegulatedArea: result.submitted.isRegulatedArea,
+                  floorAreaOver85: result.submitted.floorAreaOver85
+                }),
+                title: "내 집 마련 총비용 계산",
+                description: "취득세, 중개보수, 대출, 기타 비용까지 초기 현금을 이어서 계산합니다."
+              }
+            ]}
+          />
+        </>
       ) : null}
     >
       <form onSubmit={handleSubmit(onSubmit)} className="rounded-3xl border border-slate-200 bg-white p-4 shadow-soft sm:p-6">

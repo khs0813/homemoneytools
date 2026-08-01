@@ -9,14 +9,17 @@ import { MoneyInput } from "@/components/calculator/MoneyInput";
 import { NumberInput } from "@/components/calculator/NumberInput";
 import { PercentInput } from "@/components/calculator/PercentInput";
 import { QuickPresetGroup } from "@/components/calculator/QuickPresetGroup";
+import { RecommendedNextActions } from "@/components/calculator/RecommendedNextActions";
 import { ResultRow } from "@/components/calculator/ResultRow";
 import { ResultSummary } from "@/components/calculator/ResultSummary";
-import { ShareButton } from "@/components/calculator/ShareButton";
+import { ShareResult } from "@/components/calculator/ShareResult";
 import { CalculatorWorkspace } from "@/components/calculator/CalculatorWorkspace";
 import { calculateJeonseLoan, type RepaymentType } from "@/lib/calculators/loan";
 import { trackGrowthEvent } from "@/lib/analytics";
+import { buildFragmentPath } from "@/lib/fragment-state";
 import { formatCurrency, formatPercent, MAX_SAFE_MONEY_AMOUNT, MAX_SAFE_RATE_PERCENT, MAX_SAFE_YEARS } from "@/lib/format";
 import { getEnumParam, getNumberParam, writeQueryState } from "@/lib/query-state";
+import { saveRecentCalculation } from "@/lib/recent-calculations";
 
 const schema = z.object({
   jeonseDeposit: z.number().finite().min(1, "전세보증금을 입력해 주세요.").max(MAX_SAFE_MONEY_AMOUNT),
@@ -41,6 +44,7 @@ type Result = (BaseResult & {
   onePointUpMonthlyPayment: number;
   halfPointUpTotalInterest: number;
   onePointUpTotalInterest: number;
+  submitted: FormValues;
 }) | null;
 
 const defaultValues: FormValues = {
@@ -85,7 +89,13 @@ export function JeonseLoanCalculator() {
       halfPointUpMonthlyIncrease: halfPointUp.monthlyPayment - calculated.monthlyPayment,
       onePointUpMonthlyPayment: onePointUp.monthlyPayment,
       halfPointUpTotalInterest: halfPointUp.totalInterest,
-      onePointUpTotalInterest: onePointUp.totalInterest
+      onePointUpTotalInterest: onePointUp.totalInterest,
+      submitted: values
+    });
+    saveRecentCalculation({
+      calculator_type: analyticsContext.calculator_type,
+      page_path: "/jeonse-loan-interest-calculator",
+      summary: "전세대출 이자 계산 결과"
     });
     trackGrowthEvent("calculator_complete", analyticsContext);
     writeQueryState(values);
@@ -96,31 +106,63 @@ export function JeonseLoanCalculator() {
       analyticsContext={analyticsContext}
       pinForm={Boolean(result)}
       result={result ? (
-        <ResultSummary
-          title="예상 월 납입액"
-          value={formatCurrency(result.monthlyPayment)}
-          description="입력하신 상환방식 기준 예상 월 납입액이며 참고용입니다."
-          basisDate="2026-06-03"
-          assumptions={[
-            "입력한 대출금액, 금리, 기간, 상환방식을 기존 전세대출 계산 서비스에 그대로 적용합니다.",
-            "보증료와 중도상환수수료는 입력한 요율이 있을 때만 참고 금융비용으로 봅니다.",
-            "실제 대출 금리와 한도는 금융기관, 보증기관, 신용 조건에 따라 달라질 수 있습니다."
-          ]}
-        >
-          <ResultRow label="월이자" value={formatCurrency(result.monthlyInterestOnly)} />
-          <ResultRow label="계약기간 총이자" value={formatCurrency(result.totalInterest)} />
-          <ResultRow label="금리 0.5%p 상승 시 월 부담 변화" value={`${formatCurrency(result.halfPointUpMonthlyIncrease)} 증가`} />
-          <ResultRow label="전세보증금 대비 대출 비율" value={formatPercent(result.loanToDepositRatio)} />
-          <ResultRow label="첫 달 납입액" value={formatCurrency(result.firstMonthlyPayment)} />
-          <ResultRow label="마지막 달 납입액" value={formatCurrency(result.lastMonthlyPayment)} />
-          <ResultRow label="원금+이자 합계" value={formatCurrency(result.totalPayment)} />
-          {result.guaranteeFee > 0 ? <ResultRow label="보증료" value={formatCurrency(result.guaranteeFee)} /> : null}
-          <ResultRow label="중도상환수수료 최대 추정" value={formatCurrency(result.prepaymentFee)} />
-          <ResultRow label="총 금융비용" value={formatCurrency(result.estimatedBorrowingCost)} />
-          <ResultRow label="금리 0.5%p 상승 시 월 납입액" value={`${formatCurrency(result.halfPointUpMonthlyPayment)} · 총이자 ${formatCurrency(result.halfPointUpTotalInterest)}`} />
-          <ResultRow label="금리 1.0%p 상승 시 월 납입액" value={`${formatCurrency(result.onePointUpMonthlyPayment)} · 총이자 ${formatCurrency(result.onePointUpTotalInterest)}`} />
-          <ShareButton />
-        </ResultSummary>
+        <>
+          <ResultSummary
+            title="예상 월 납입액"
+            value={formatCurrency(result.monthlyPayment)}
+            description="입력하신 상환방식 기준 예상 월 납입액이며 참고용입니다."
+            basisDate="2026-06-03"
+            assumptions={[
+              "입력한 대출금액, 금리, 기간, 상환방식을 기존 전세대출 계산 서비스에 그대로 적용합니다.",
+              "보증료와 중도상환수수료는 입력한 요율이 있을 때만 참고 금융비용으로 봅니다.",
+              "실제 대출 금리와 한도는 금융기관, 보증기관, 신용 조건에 따라 달라질 수 있습니다."
+            ]}
+          >
+            <ResultRow label="월이자" value={formatCurrency(result.monthlyInterestOnly)} />
+            <ResultRow label="계약기간 총이자" value={formatCurrency(result.totalInterest)} />
+            <ResultRow label="금리 0.5%p 상승 시 월 부담 변화" value={`${formatCurrency(result.halfPointUpMonthlyIncrease)} 증가`} />
+            <ResultRow label="전세보증금 대비 대출 비율" value={formatPercent(result.loanToDepositRatio)} />
+            <ResultRow label="첫 달 납입액" value={formatCurrency(result.firstMonthlyPayment)} />
+            <ResultRow label="마지막 달 납입액" value={formatCurrency(result.lastMonthlyPayment)} />
+            <ResultRow label="원금+이자 합계" value={formatCurrency(result.totalPayment)} />
+            {result.guaranteeFee > 0 ? <ResultRow label="보증료" value={formatCurrency(result.guaranteeFee)} /> : null}
+            <ResultRow label="중도상환수수료 최대 추정" value={formatCurrency(result.prepaymentFee)} />
+            <ResultRow label="총 금융비용" value={formatCurrency(result.estimatedBorrowingCost)} />
+            <ResultRow label="금리 0.5%p 상승 시 월 납입액" value={`${formatCurrency(result.halfPointUpMonthlyPayment)} · 총이자 ${formatCurrency(result.halfPointUpTotalInterest)}`} />
+            <ResultRow label="금리 1.0%p 상승 시 월 납입액" value={`${formatCurrency(result.onePointUpMonthlyPayment)} · 총이자 ${formatCurrency(result.onePointUpTotalInterest)}`} />
+            <ShareResult
+              title="전세대출 이자 계산 결과"
+              text={`전세대출 ${formatCurrency(result.submitted.principal)}\n금리 ${result.submitted.annualRate}%\n예상 월이자 ${formatCurrency(result.monthlyInterestOnly)}\n${result.submitted.years}년 총이자 ${formatCurrency(result.totalInterest)}\n기준일 2026-06-03\n집계산에서 직접 계산`}
+              path="/jeonse-loan-interest-calculator"
+              fragmentState={result.submitted}
+            />
+          </ResultSummary>
+          <RecommendedNextActions
+            calculatorType="jeonse_loan_interest"
+            actions={[
+              {
+                href: buildFragmentPath("/rent-vs-jeonse-calculator", {
+                  jeonseDeposit: result.submitted.jeonseDeposit,
+                  jeonseLoanAmount: result.submitted.principal,
+                  jeonseLoanRate: result.submitted.annualRate,
+                  years: result.submitted.years
+                }),
+                title: "같은 기간의 월세와 전세 총비용 비교",
+                description: "전세대출 이자와 보증금 기회비용을 월세 조건과 같은 기간으로 비교합니다."
+              },
+              {
+                href: "/monthly-rent-conversion-calculator",
+                title: "월세를 전세보증금으로 환산",
+                description: "월세 조건이 전세금으로는 어느 정도인지 전환율 기준으로 확인합니다."
+              },
+              {
+                href: result.submitted.principal >= 200_000_000 ? "/guides/200-million-jeonse-loan-monthly-interest" : "/guides/100-million-jeonse-loan-interest",
+                title: result.submitted.principal >= 200_000_000 ? "전세대출 2억원의 금리별 월이자 비교" : "전세대출 1억원의 금리별 월이자 비교",
+                description: "대표 금액 기준으로 금리별 월 부담과 총이자 차이를 읽어봅니다."
+              }
+            ]}
+          />
+        </>
       ) : null}
     >
       <form onSubmit={handleSubmit(onSubmit)} className="rounded-3xl border border-slate-200 bg-white p-4 shadow-soft sm:p-6">

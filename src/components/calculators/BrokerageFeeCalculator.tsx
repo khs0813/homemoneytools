@@ -7,14 +7,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { MoneyInput } from "@/components/calculator/MoneyInput";
 import { PercentInput } from "@/components/calculator/PercentInput";
 import { QuickPresetGroup } from "@/components/calculator/QuickPresetGroup";
+import { RecommendedNextActions } from "@/components/calculator/RecommendedNextActions";
 import { ResultRow } from "@/components/calculator/ResultRow";
 import { ResultSummary } from "@/components/calculator/ResultSummary";
-import { ShareButton } from "@/components/calculator/ShareButton";
+import { ShareResult } from "@/components/calculator/ShareResult";
 import { CalculatorWorkspace } from "@/components/calculator/CalculatorWorkspace";
 import { calculateBrokerageFee, type BrokerageTransactionType } from "@/lib/calculators/brokerage-fee";
 import { trackGrowthEvent } from "@/lib/analytics";
+import { buildFragmentPath } from "@/lib/fragment-state";
 import { formatCurrency, formatPercent } from "@/lib/format";
 import { getBooleanParam, getEnumParam, getNumberParam, writeQueryState } from "@/lib/query-state";
+import { saveRecentCalculation } from "@/lib/recent-calculations";
 
 const schema = z.object({
   transactionType: z.enum(["sale", "jeonse", "monthlyRent"]),
@@ -26,7 +29,9 @@ const schema = z.object({
 });
 
 type FormValues = z.infer<typeof schema>;
-type Result = ReturnType<typeof calculateBrokerageFee> | null;
+type Result = (ReturnType<typeof calculateBrokerageFee> & {
+  submitted: FormValues;
+}) | null;
 
 const defaultValues: FormValues = {
   transactionType: "sale",
@@ -62,7 +67,12 @@ export function BrokerageFeeCalculator() {
   function onSubmit(values: FormValues) {
     const normalized = { ...values, customRate: values.customRate && values.customRate > 0 ? values.customRate : undefined };
     const calculated = calculateBrokerageFee(normalized);
-    setResult(calculated);
+    setResult({ ...calculated, submitted: normalized });
+    saveRecentCalculation({
+      calculator_type: analyticsContext.calculator_type,
+      page_path: "/real-estate-brokerage-fee-calculator",
+      summary: "부동산 중개수수료 계산 결과"
+    });
     trackGrowthEvent("calculator_complete", analyticsContext);
     writeQueryState(normalized);
   }
@@ -84,31 +94,63 @@ export function BrokerageFeeCalculator() {
       analyticsContext={analyticsContext}
       pinForm={Boolean(result)}
       result={result ? (
-        <ResultSummary
-          title="예상 총 중개비"
-          value={formatCurrency(result.total)}
-          description={`${result.includeVat ? "부가세 포함" : "부가세 제외"} 예상액이며, 중개보수 상한과 협의요율을 함께 비교합니다.`}
-          basisDate="2026-01-01"
-          assumptions={[
-            `중개보수 요율 데이터 버전 ${result.version}을 사용합니다.`,
-            "월세 거래금액은 기존 중개보수 서비스의 환산거래금액 공식을 사용합니다.",
-            "협의요율이 상한요율을 넘으면 기존 서비스가 법정 상한으로 제한합니다."
-          ]}
-        >
-          <ResultRow label="거래금액" value={formatCurrency(result.transactionAmount)} />
-          {transactionType === "monthlyRent" ? <ResultRow label="월세 환산 거래금액" value={formatCurrency(result.transactionAmount)} /> : null}
-          <ResultRow label="적용 상한요율" value={formatPercent(result.legalRate, 4)} />
-          <ResultRow label="법정 상한액" value={formatCurrency(legalUpperAmount)} />
-          <ResultRow label="사용자 입력 협의요율" value={formatPercent(result.requestedRate, 4)} />
-          <ResultRow label="협의요율 적용액" value={formatCurrency(result.brokerageFee)} />
-          <ResultRow label="상한 대비 절감액" value={formatCurrency(legalSavings)} />
-          <ResultRow label="부가세 제외 금액" value={formatCurrency(result.brokerageFee)} />
-          <ResultRow label="부가세 포함 예상액" value={formatCurrency(vatIncludedEstimate)} />
-          <ResultRow label="부가세" value={formatCurrency(result.vat)} />
-          <ResultRow label="총 지급 예상액" value={formatCurrency(result.total)} />
-          {result.wasRateCapped ? <ResultRow label="주의" value="입력 요율이 상한을 넘어 법정 상한으로 제한했습니다." /> : null}
-          <ShareButton />
-        </ResultSummary>
+        <>
+          <ResultSummary
+            title="예상 총 중개비"
+            value={formatCurrency(result.total)}
+            description={`${result.includeVat ? "부가세 포함" : "부가세 제외"} 예상액이며, 중개보수 상한과 협의요율을 함께 비교합니다.`}
+            basisDate="2026-01-01"
+            assumptions={[
+              `중개보수 요율 데이터 버전 ${result.version}을 사용합니다.`,
+              "월세 거래금액은 기존 중개보수 서비스의 환산거래금액 공식을 사용합니다.",
+              "협의요율이 상한요율을 넘으면 기존 서비스가 법정 상한으로 제한합니다."
+            ]}
+          >
+            <ResultRow label="거래금액" value={formatCurrency(result.transactionAmount)} />
+            {transactionType === "monthlyRent" ? <ResultRow label="월세 환산 거래금액" value={formatCurrency(result.transactionAmount)} /> : null}
+            <ResultRow label="적용 상한요율" value={formatPercent(result.legalRate, 4)} />
+            <ResultRow label="법정 상한액" value={formatCurrency(legalUpperAmount)} />
+            <ResultRow label="사용자 입력 협의요율" value={formatPercent(result.requestedRate, 4)} />
+            <ResultRow label="협의요율 적용액" value={formatCurrency(result.brokerageFee)} />
+            <ResultRow label="상한 대비 절감액" value={formatCurrency(legalSavings)} />
+            <ResultRow label="부가세 제외 금액" value={formatCurrency(result.brokerageFee)} />
+            <ResultRow label="부가세 포함 예상액" value={formatCurrency(vatIncludedEstimate)} />
+            <ResultRow label="부가세" value={formatCurrency(result.vat)} />
+            <ResultRow label="총 지급 예상액" value={formatCurrency(result.total)} />
+            {result.wasRateCapped ? <ResultRow label="주의" value="입력 요율이 상한을 넘어 법정 상한으로 제한했습니다." /> : null}
+            <ShareResult
+              title="부동산 중개수수료 계산 결과"
+              text={`예상 중개보수 ${formatCurrency(result.total)}\n상한요율 ${formatPercent(result.legalRate, 4)}\n거래금액 ${formatCurrency(result.transactionAmount)}\n기준일 2026-01-01\n집계산에서 직접 계산`}
+              path="/real-estate-brokerage-fee-calculator"
+              fragmentState={result.submitted}
+            />
+          </ResultSummary>
+          <RecommendedNextActions
+            calculatorType="brokerage_fee"
+            actions={[
+              {
+                href: buildFragmentPath("/acquisition-tax-calculator", {
+                  price: result.submitted.transactionType === "sale" ? result.submitted.transactionAmount : undefined
+                }),
+                title: "취득세까지 포함한 매수 초기비용 확인",
+                description: "매매라면 잔금 전 세금과 중개보수를 함께 확인합니다."
+              },
+              {
+                href: buildFragmentPath("/home-purchase-total-cost-calculator", {
+                  price: result.submitted.transactionType === "sale" ? result.submitted.transactionAmount : undefined,
+                  brokerageRate: result.appliedRate
+                }),
+                title: "내 집 마련 총비용 계산",
+                description: "취득세, 중개보수, 대출 실행 후 필요한 현금을 이어서 계산합니다."
+              },
+              {
+                href: "/loan-interest-calculator",
+                title: "주택담보대출 월상환액 계산",
+                description: "매수 자금 중 대출이 필요하다면 월 납입액과 총이자를 확인합니다."
+              }
+            ]}
+          />
+        </>
       ) : null}
     >
       <form onSubmit={handleSubmit(onSubmit)} className="rounded-3xl border border-slate-200 bg-white p-4 shadow-soft sm:p-6">
