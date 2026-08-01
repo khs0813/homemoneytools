@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AdFitSlot } from "@/components/adfit/AdFitSlot";
 import { MoneyInput } from "@/components/calculator/MoneyInput";
 import { NumberInput } from "@/components/calculator/NumberInput";
 import { PercentInput } from "@/components/calculator/PercentInput";
@@ -142,6 +143,7 @@ export function DsrCalculator() {
               fragmentState={result.submitted}
             />
           </ResultSummary>
+          <AdFitSlot placement="calculator_result_primary" />
           <RecommendedNextActions
             calculatorType="dsr"
             actions={[

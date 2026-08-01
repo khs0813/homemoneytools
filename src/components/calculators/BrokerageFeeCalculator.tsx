@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AdFitSlot } from "@/components/adfit/AdFitSlot";
 import { MoneyInput } from "@/components/calculator/MoneyInput";
 import { PercentInput } from "@/components/calculator/PercentInput";
 import { QuickPresetGroup } from "@/components/calculator/QuickPresetGroup";
@@ -125,6 +126,7 @@ export function BrokerageFeeCalculator() {
               fragmentState={result.submitted}
             />
           </ResultSummary>
+          <AdFitSlot placement="calculator_result_primary" />
           <RecommendedNextActions
             calculatorType="brokerage_fee"
             actions={[

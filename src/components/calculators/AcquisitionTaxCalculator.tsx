@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AdFitSlot } from "@/components/adfit/AdFitSlot";
 import { MoneyInput } from "@/components/calculator/MoneyInput";
 import { RecommendedNextActions } from "@/components/calculator/RecommendedNextActions";
 import { ResultRow } from "@/components/calculator/ResultRow";
@@ -131,6 +132,7 @@ export function AcquisitionTaxCalculator() {
               fragmentState={result.submitted}
             />
           </ResultSummary>
+          <AdFitSlot placement="calculator_result_primary" />
           <RecommendedNextActions
             calculatorType="acquisition_tax"
             actions={[

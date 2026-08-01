@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AdFitSlot } from "@/components/adfit/AdFitSlot";
 import { FormErrorSummary } from "@/components/calculator/FormErrorSummary";
 import { MoneyInput } from "@/components/calculator/MoneyInput";
 import { NumberInput } from "@/components/calculator/NumberInput";
@@ -151,6 +152,7 @@ export function RentVsJeonseCalculator() {
               fragmentState={result.submitted}
             />
           </ResultCard>
+          <AdFitSlot placement="calculator_result_primary" />
           <RecommendedNextActions
             calculatorType="rent_vs_jeonse"
             actions={[
