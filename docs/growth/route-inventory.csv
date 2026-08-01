@@ -8,6 +8,7 @@ url,type,route_file,component_or_source,indexable,canonical_source,notes
 /dsr-calculator,calculator,src/app/dsr-calculator/page.tsx,DsrCalculator,yes,buildCalculatorMetadata,Core target page.
 /real-estate-brokerage-fee-calculator,calculator,src/app/real-estate-brokerage-fee-calculator/page.tsx,BrokerageFeeCalculator,yes,buildCalculatorMetadata,Core target page.
 /acquisition-tax-calculator,calculator,src/app/acquisition-tax-calculator/page.tsx,AcquisitionTaxCalculator,yes,buildCalculatorMetadata,Actual acquisition tax route.
+/home-purchase-total-cost-calculator,calculator,src/app/home-purchase-total-cost-calculator/page.tsx,HomePurchaseTotalCostCalculator,yes,buildCalculatorMetadata,New Growth calculator route.
 /housing-subscription-score-calculator,calculator,src/app/housing-subscription-score-calculator/page.tsx,SubscriptionScoreCalculator,yes,buildCalculatorMetadata,Housing core.
 /loan-interest-calculator,calculator,src/app/loan-interest-calculator/page.tsx,LoanInterestCalculator,yes,buildCalculatorMetadata,Related but not housing-specific.
 /take-home-pay-calculator,calculator,src/app/take-home-pay-calculator/page.tsx,TakeHomePayCalculator,yes,buildCalculatorMetadata,Non-housing cluster.
@@ -48,4 +49,3 @@ url,type,route_file,component_or_source,indexable,canonical_source,notes
 /terms,page,src/app/terms/page.tsx,LegalPage,yes,buildPageMetadata,Static policy page.
 /disclaimer,page,src/app/disclaimer/page.tsx,LegalPage,yes,buildPageMetadata,Static policy page.
 /contact,page,src/app/contact/page.tsx,Static page,yes,buildPageMetadata,Contact page.
-

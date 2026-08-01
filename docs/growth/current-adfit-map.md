@@ -48,3 +48,17 @@ Production baseline commit: `ef1324e93c9fa6de54bd059e159d6b509b1af849`
 - Insert only the matching device ad unit into the DOM.
 - Track `ad_slot_rendered` and `ad_slot_viewable`; do not track ad clicks.
 
+## Implemented Growth Slot Map
+
+| Placement | Device | Env key | Fallback key | Size | Feature flag |
+| --- | --- | --- | --- | --- | --- |
+| `calculator_result_primary` | mobile | `NEXT_PUBLIC_ADFIT_MOBILE_RESULT` | `DAN-4cOowgAme3T2tNK2` | `300x250` | `NEXT_PUBLIC_ENABLE_CALCULATOR_RESULT_AD` |
+| `calculator_result_primary` | desktop | `NEXT_PUBLIC_ADFIT_DESKTOP_RESULT` | `DAN-vydppL950Rcp0u3T` | `728x90` | `NEXT_PUBLIC_ENABLE_CALCULATOR_RESULT_AD` |
+| `calculator_mid_content` | mobile | `NEXT_PUBLIC_ADFIT_MOBILE_MID` | `DAN-tzq6el4IGCSFEnSl` | `320x480` | `NEXT_PUBLIC_ENABLE_CALCULATOR_MID_AD` |
+| `calculator_mid_content` | desktop | `NEXT_PUBLIC_ADFIT_DESKTOP_MID` | none | `728x90` | `NEXT_PUBLIC_ENABLE_CALCULATOR_MID_AD` |
+| `calculator_end` | mobile | `NEXT_PUBLIC_ADFIT_MOBILE_END` | `DAN-MxttnTNbygaLu9ii` | `320x50` | `NEXT_PUBLIC_ENABLE_CALCULATOR_END_AD` |
+| `desktop_side_rail` | desktop | `NEXT_PUBLIC_ADFIT_DESKTOP_RAIL` | `DAN-3zihtfJ5ImCC9NOc` | `160x600` | `NEXT_PUBLIC_ENABLE_DESKTOP_RAIL_AD` |
+| `guide_after_answer` | mobile | `NEXT_PUBLIC_ADFIT_GUIDE_MOBILE_AFTER_ANSWER` | `DAN-4cOowgAme3T2tNK2` | `300x250` | `NEXT_PUBLIC_ENABLE_GUIDE_AFTER_ANSWER_AD` |
+| `guide_after_answer` | desktop | `NEXT_PUBLIC_ADFIT_GUIDE_DESKTOP_AFTER_ANSWER` | `DAN-vydppL950Rcp0u3T` | `728x90` | `NEXT_PUBLIC_ENABLE_GUIDE_AFTER_ANSWER_AD` |
+
+Calculator result ads now render after the result summary. The former mobile calculator header ad no longer renders on calculator pages.
