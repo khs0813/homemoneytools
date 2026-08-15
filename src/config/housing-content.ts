@@ -32,6 +32,7 @@ export const housingCalculatorSlugs = [
   "acquisition-tax",
   "brokerage-fee",
   "monthly-rent-conversion",
+  "home-purchase-total-cost",
   "housing-subscription-score"
 ] as const;
 

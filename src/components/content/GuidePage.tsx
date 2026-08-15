@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AdFitSideBanner, AdFitTopBanner } from "@/components/adfit/AdFitPageAds";
+import { AdFitSlot } from "@/components/adfit/AdFitSlot";
 import { FaqJsonLd, FaqSection } from "@/components/calculator/FaqSection";
 import { RelatedCalculators } from "@/components/calculator/RelatedCalculators";
 import { PageContainer } from "@/components/layout/PageContainer";
@@ -24,8 +24,6 @@ export function GuidePage({ guide }: { guide: Guide }) {
             <p className="mt-5 text-base leading-8 text-slate-600">{guide.description}</p>
           </div>
           <div className="relative mt-8 rounded-3xl border border-slate-200 bg-white p-5 shadow-soft sm:p-6 md:p-10">
-            <AdFitSideBanner />
-
           <section className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-5">
             <h2 className="text-lg font-bold text-slate-950">계산 기준일과 제도 메모</h2>
             <p className="mt-3 text-sm leading-7 text-slate-600">기준일: {dateMetadata.basisDate}</p>
@@ -38,6 +36,8 @@ export function GuidePage({ guide }: { guide: Guide }) {
             </ul>
           </section>
           <AdFitTopBanner />
+
+          <AdFitSlot placement="guide_after_answer" />
 
           {guide.body.map((section) => (
             <section key={section.heading} className="mt-10 border-t border-slate-100 pt-8 first:border-t-0 first:pt-0">
@@ -80,6 +80,8 @@ export function GuidePage({ guide }: { guide: Guide }) {
               본 글은 공개된 제도와 기준을 이해하기 쉽게 정리한 참고용 콘텐츠입니다. 실제 대출 조건, 취득세, 청약 기준, 중개보수, 전월세 계약 조건은 개인 상황과 최신 제도 변경에 따라 달라질 수 있습니다. 중요한 의사결정 전에는 공식 기관과 관계 기관 확인이 필요합니다.
             </p>
           </section>
+
+          <AdFitSlot placement="guide_end" />
 
           <section className="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-5">
             <h2 className="text-lg font-bold text-slate-950">정책 및 문의 링크</h2>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { CalculatorCard } from "@/components/calculator/CalculatorCard";
+import { RecentCalculations } from "@/components/calculator/RecentCalculations";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { calculators } from "@/config/calculators";
 import { guides } from "@/config/guides";
@@ -35,9 +36,19 @@ export default function HomePage() {
                 전세·월세·매매 과정에서 필요한 비용과 대출 조건을 계산하고, 적용 공식과 기준일, 공식 출처를 함께 확인할 수 있습니다.
                 본 사이트의 계산 결과는 참고용 정보이며, 실제 대출 조건, 취득세, 청약 기준, 중개보수, 전월세 계약 조건은 개인 상황과 최신 제도에 따라 달라질 수 있습니다.
               </p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Link href="/calculators" className="rounded-2xl bg-white px-6 py-4 text-center font-bold text-brand-navy transition hover:bg-blue-50">주거비 계산기 보기</Link>
-                <Link href="/guides" className="rounded-2xl border border-white/30 px-6 py-4 text-center font-bold text-white transition hover:bg-white/10">주거비 가이드 보기</Link>
+              <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                <Link href="/jeonse-loan-interest-calculator" className="rounded-2xl bg-white px-4 py-4 font-bold text-brand-navy transition hover:bg-blue-50">
+                  전세대출 월이자 계산
+                </Link>
+                <Link href="/rent-vs-jeonse-calculator" className="rounded-2xl bg-white/10 px-4 py-4 font-bold text-white ring-1 ring-white/20 transition hover:bg-white/15">
+                  월세와 전세 총비용 비교
+                </Link>
+                <Link href="/dsr-calculator" className="rounded-2xl bg-white/10 px-4 py-4 font-bold text-white ring-1 ring-white/20 transition hover:bg-white/15">
+                  DSR과 월 원리금 확인
+                </Link>
+                <Link href="/home-purchase-total-cost-calculator" className="rounded-2xl bg-white/10 px-4 py-4 font-bold text-white ring-1 ring-white/20 transition hover:bg-white/15">
+                  집 살 때 초기비용 확인
+                </Link>
               </div>
             </div>
           </section>
@@ -105,6 +116,10 @@ export default function HomePage() {
             {popular.map((calculator) => <CalculatorCard key={calculator.slug} calculator={calculator} />)}
           </div>
         </section>
+
+        <div className="mt-12">
+          <RecentCalculations />
+        </div>
 
         <section className="mt-12 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6 md:p-8">
           <p className="text-sm font-bold text-brand-emerald">검색형 콘텐츠</p>

@@ -2,10 +2,10 @@
   "generatedAt": "2026-08-15T15:54:15.162Z",
   "mode": "http",
   "baseUrl": "http://localhost:3000",
-  "sitemapUrlCount": 42,
-  "htmlPageCount": 42,
+  "sitemapUrlCount": 43,
+  "htmlPageCount": 43,
   "sourceSummary": {
-    "calculatorCount": 16,
+    "calculatorCount": 17,
     "guideCount": 18
   },
   "fatalCount": 0,

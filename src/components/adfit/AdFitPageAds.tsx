@@ -47,3 +47,4 @@ export function AdFitSideBanner({
 export function AdFitInlineBanner() {
   return <AdFitSlot placement="end" />;
 }
+
