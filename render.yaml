@@ -1,11 +1,78 @@
 services:
   - type: web
     name: home-money-calculator
-    runtime: node
-    plan: free
+    runtime: static
     buildCommand: npm ci && npm run build
-    startCommand: npm run start
-    autoDeploy: true
+    staticPublishPath: ./dist
+    autoDeployTrigger: commit
+    routes:
+      - type: redirect
+        source: /severance-pay-calculator
+        destination: https://www.moneycalculator.co.kr/severance-pay-calculator
+      - type: redirect
+        source: /guides/acquisition-tax
+        destination: /guides/acquisition-tax-checklist
+      - type: redirect
+        source: /guides/brokerage-fee
+        destination: /guides/brokerage-fee-negotiation
+      - type: redirect
+        source: /guides/dsr
+        destination: /guides/what-dsr-40-means
+      - type: redirect
+        source: /guides/jeonse-loan-interest
+        destination: /guides/jeonse-loan-interest-mistakes
+      - type: redirect
+        source: /guides/monthly-rent-conversion
+        destination: /guides/monthly-rent-conversion-basics
+      - type: redirect
+        source: /guides/rent-vs-jeonse
+        destination: /guides/rent-vs-jeonse-decision-guide
+      - type: redirect
+        source: /guides/subscription-score
+        destination: /guides/subscription-score-interpretation
+    headers:
+      - path: /*
+        name: X-DNS-Prefetch-Control
+        value: "off"
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: X-XSS-Protection
+        value: "0"
+      - path: /*
+        name: X-Download-Options
+        value: noopen
+      - path: /*
+        name: X-Permitted-Cross-Domain-Policies
+        value: none
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: Strict-Transport-Security
+        value: "max-age=31536000; includeSubDomains"
+      - path: /*
+        name: Cross-Origin-Opener-Policy
+        value: same-origin
+      - path: /*
+        name: Cross-Origin-Resource-Policy
+        value: same-origin
+      - path: /*
+        name: Origin-Agent-Cluster
+        value: "?1"
+      - path: /*
+        name: Permissions-Policy
+        value: "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+      - path: /*
+        name: Content-Security-Policy
+        value: upgrade-insecure-requests
+      - path: /*
+        name: Content-Security-Policy-Report-Only
+        value: "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; img-src 'self' data: https:; font-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https:; connect-src 'self' https:; frame-src https:"
     envVars:
       - key: NODE_VERSION
         value: 20.19.0
@@ -13,29 +80,21 @@ services:
         value: https://jipcalc.co.kr
       - key: NEXT_TELEMETRY_DISABLED
         value: "1"
-      - key: NEXT_PUBLIC_ENABLE_CALCULATOR_RESULT_AD
+      - key: NEXT_PUBLIC_ADFIT_ENABLE_RESULT_PRIMARY
         value: "true"
-      - key: NEXT_PUBLIC_ENABLE_CALCULATOR_MID_AD
+      - key: NEXT_PUBLIC_ADFIT_ENABLE_MID_CONTENT
         value: "true"
-      - key: NEXT_PUBLIC_ENABLE_CALCULATOR_END_AD
+      - key: NEXT_PUBLIC_ADFIT_ENABLE_END
         value: "true"
-      - key: NEXT_PUBLIC_ENABLE_DESKTOP_RAIL_AD
+      - key: NEXT_PUBLIC_ADFIT_ENABLE_DESKTOP_RAIL
         value: "true"
-      - key: NEXT_PUBLIC_ENABLE_GUIDE_AFTER_ANSWER_AD
-        value: "true"
-      - key: NEXT_PUBLIC_ADFIT_MOBILE_RESULT
+      - key: NEXT_PUBLIC_ADFIT_MOBILE_RECTANGLE_IMAGE
         sync: false
-      - key: NEXT_PUBLIC_ADFIT_MOBILE_MID
+      - key: NEXT_PUBLIC_ADFIT_MOBILE_BANNER
         sync: false
-      - key: NEXT_PUBLIC_ADFIT_MOBILE_END
+      - key: NEXT_PUBLIC_ADFIT_MOBILE_THIN_BANNER
         sync: false
-      - key: NEXT_PUBLIC_ADFIT_DESKTOP_RESULT
+      - key: NEXT_PUBLIC_ADFIT_DESKTOP_WEB_BANNER
         sync: false
-      - key: NEXT_PUBLIC_ADFIT_DESKTOP_MID
-        sync: false
-      - key: NEXT_PUBLIC_ADFIT_DESKTOP_RAIL
-        sync: false
-      - key: NEXT_PUBLIC_ADFIT_GUIDE_MOBILE_AFTER_ANSWER
-        sync: false
-      - key: NEXT_PUBLIC_ADFIT_GUIDE_DESKTOP_AFTER_ANSWER
+      - key: NEXT_PUBLIC_ADFIT_DESKTOP_RIGHT_TOP
         sync: false

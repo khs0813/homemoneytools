@@ -1,6 +1,6 @@
 import { fallbackSiteUrl, sanitizeSiteUrl } from "@/lib/site-url";
 
-const siteUrl = sanitizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL || process.env.RENDER_EXTERNAL_URL, fallbackSiteUrl);
+const siteUrl = sanitizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL, fallbackSiteUrl);
 
 export const siteConfig = {
   name: "집계산",

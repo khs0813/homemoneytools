@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { AdFitInlineBanner, AdFitTopBanner } from "@/components/adfit/AdFitPageAds";
+import { AdFitInlineBanner } from "@/components/adfit/AdFitPageAds";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { siteConfig } from "@/config/site";
 
@@ -42,8 +42,6 @@ export function LegalPage({
             </dd>
           </div>
         </dl>
-        <AdFitTopBanner />
-        <AdFitInlineBanner />
         {children}
         <div className="mt-10 grid gap-8">
           {sections.map((section) => (
@@ -63,6 +61,7 @@ export function LegalPage({
             </section>
           ))}
         </div>
+        <AdFitInlineBanner />
       </article>
     </PageContainer>
   );

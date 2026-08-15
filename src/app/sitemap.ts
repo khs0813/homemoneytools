@@ -4,6 +4,8 @@ import { getCalculatorDateMetadata, getGuideDateMetadata } from "@/config/conten
 import { guides } from "@/config/guides";
 import { siteConfig } from "@/config/site";
 
+export const dynamic = "force-static";
+
 const legacyPaths = new Set(["/severance-pay-calculator"]);
 
 function isCleanIndexablePath(path: string): boolean {

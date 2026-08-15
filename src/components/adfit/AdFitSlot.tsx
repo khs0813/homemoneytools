@@ -1,120 +1,168 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { trackGrowthEvent } from "@/lib/analytics";
+import { trackAnalyticsEvent } from "@/lib/analytics";
+import { cn } from "@/lib/utils";
 
 const ADFIT_SDK_SRC = "https://t1.kakaocdn.net/kas/static/ba.min.js";
+const ADFIT_EXPERIMENT_ID = "adfit-baseline-20260801";
 
-export type AdFitPlacement =
-  | "calculator_result_primary"
-  | "calculator_mid_content"
-  | "calculator_end"
-  | "guide_after_answer"
-  | "guide_mid_content"
-  | "guide_end"
-  | "desktop_side_rail";
+export type AdFitPlacement = "result_primary" | "mid_content" | "end" | "desktop_rail";
+export type AdFitDevice = "mobile" | "desktop";
 
-type Device = "mobile" | "desktop";
+type AdFitEnvName =
+  | "NEXT_PUBLIC_ADFIT_MOBILE_RECTANGLE_IMAGE"
+  | "NEXT_PUBLIC_ADFIT_MOBILE_BANNER"
+  | "NEXT_PUBLIC_ADFIT_MOBILE_THIN_BANNER"
+  | "NEXT_PUBLIC_ADFIT_DESKTOP_WEB_BANNER"
+  | "NEXT_PUBLIC_ADFIT_DESKTOP_RIGHT_TOP"
+  | "NEXT_PUBLIC_ADFIT_ENABLE_RESULT_PRIMARY"
+  | "NEXT_PUBLIC_ADFIT_ENABLE_MID_CONTENT"
+  | "NEXT_PUBLIC_ADFIT_ENABLE_END"
+  | "NEXT_PUBLIC_ADFIT_ENABLE_DESKTOP_RAIL";
 
-type UnitConfig = {
-  envKey: string;
-  fallbackUnit?: string;
-  width: string;
-  height: string;
+export type AdFitRuntimeEnv = Partial<Record<AdFitEnvName, string>>;
+
+type AdFitSlotCandidate = {
+  envName: AdFitEnvName;
+  featureFlag: AdFitEnvName;
+  unit: string;
+  width: number;
+  height: number;
 };
 
-type PlacementConfig = {
-  flagEnvKey: string;
-  mobile?: UnitConfig;
-  desktop?: UnitConfig;
+type ResolvedAdFitSlot = AdFitSlotCandidate & {
+  adSize: string;
 };
 
-type AdFitGlobal = {
+type AdFitGlobal = Window & {
   adfit?: { init?: () => void } | (() => void);
   __jipcalcAdFitSdkPromise?: Promise<void>;
-  __jipcalcAdFitInitTimers?: Map<string, number>;
+  __jipcalcAdFitRequestedSlots?: Set<string>;
+  __jipcalcAdFitRenderedSlots?: Set<string>;
+  __jipcalcAdFitViewableSlots?: Set<string>;
 };
 
 type AdFitSlotProps = {
   placement: AdFitPlacement;
   className?: string;
+  envOverride?: AdFitRuntimeEnv;
 };
 
-const placementConfig: Record<AdFitPlacement, PlacementConfig> = {
-  calculator_result_primary: {
-    flagEnvKey: "NEXT_PUBLIC_ENABLE_CALCULATOR_RESULT_AD",
-    mobile: { envKey: "NEXT_PUBLIC_ADFIT_MOBILE_RESULT", fallbackUnit: "DAN-4cOowgAme3T2tNK2", width: "300", height: "250" },
-    desktop: { envKey: "NEXT_PUBLIC_ADFIT_DESKTOP_RESULT", fallbackUnit: "DAN-vydppL950Rcp0u3T", width: "728", height: "90" }
-  },
-  calculator_mid_content: {
-    flagEnvKey: "NEXT_PUBLIC_ENABLE_CALCULATOR_MID_AD",
-    mobile: { envKey: "NEXT_PUBLIC_ADFIT_MOBILE_MID", fallbackUnit: "DAN-tzq6el4IGCSFEnSl", width: "320", height: "480" },
-    desktop: { envKey: "NEXT_PUBLIC_ADFIT_DESKTOP_MID", width: "728", height: "90" }
-  },
-  calculator_end: {
-    flagEnvKey: "NEXT_PUBLIC_ENABLE_CALCULATOR_END_AD",
-    mobile: { envKey: "NEXT_PUBLIC_ADFIT_MOBILE_END", fallbackUnit: "DAN-MxttnTNbygaLu9ii", width: "320", height: "50" },
-    desktop: { envKey: "NEXT_PUBLIC_ADFIT_DESKTOP_MID", width: "728", height: "90" }
-  },
-  guide_after_answer: {
-    flagEnvKey: "NEXT_PUBLIC_ENABLE_GUIDE_AFTER_ANSWER_AD",
-    mobile: { envKey: "NEXT_PUBLIC_ADFIT_GUIDE_MOBILE_AFTER_ANSWER", fallbackUnit: "DAN-4cOowgAme3T2tNK2", width: "300", height: "250" },
-    desktop: { envKey: "NEXT_PUBLIC_ADFIT_GUIDE_DESKTOP_AFTER_ANSWER", fallbackUnit: "DAN-vydppL950Rcp0u3T", width: "728", height: "90" }
-  },
-  guide_mid_content: {
-    flagEnvKey: "NEXT_PUBLIC_ENABLE_GUIDE_AFTER_ANSWER_AD",
-    mobile: { envKey: "NEXT_PUBLIC_ADFIT_GUIDE_MOBILE_MID", width: "300", height: "250" },
-    desktop: { envKey: "NEXT_PUBLIC_ADFIT_GUIDE_DESKTOP_MID", width: "728", height: "90" }
-  },
-  guide_end: {
-    flagEnvKey: "NEXT_PUBLIC_ENABLE_GUIDE_AFTER_ANSWER_AD",
-    mobile: { envKey: "NEXT_PUBLIC_ADFIT_GUIDE_MOBILE_END", width: "320", height: "50" },
-    desktop: { envKey: "NEXT_PUBLIC_ADFIT_GUIDE_DESKTOP_END", width: "728", height: "90" }
-  },
-  desktop_side_rail: {
-    flagEnvKey: "NEXT_PUBLIC_ENABLE_DESKTOP_RAIL_AD",
-    desktop: { envKey: "NEXT_PUBLIC_ADFIT_DESKTOP_RAIL", fallbackUnit: "DAN-3zihtfJ5ImCC9NOc", width: "160", height: "600" }
+function getDefaultAdFitEnv(): AdFitRuntimeEnv {
+  return {
+    NEXT_PUBLIC_ADFIT_MOBILE_RECTANGLE_IMAGE: process.env.NEXT_PUBLIC_ADFIT_MOBILE_RECTANGLE_IMAGE,
+    NEXT_PUBLIC_ADFIT_MOBILE_BANNER: process.env.NEXT_PUBLIC_ADFIT_MOBILE_BANNER,
+    NEXT_PUBLIC_ADFIT_MOBILE_THIN_BANNER: process.env.NEXT_PUBLIC_ADFIT_MOBILE_THIN_BANNER,
+    NEXT_PUBLIC_ADFIT_DESKTOP_WEB_BANNER: process.env.NEXT_PUBLIC_ADFIT_DESKTOP_WEB_BANNER,
+    NEXT_PUBLIC_ADFIT_DESKTOP_RIGHT_TOP: process.env.NEXT_PUBLIC_ADFIT_DESKTOP_RIGHT_TOP,
+    NEXT_PUBLIC_ADFIT_ENABLE_RESULT_PRIMARY: process.env.NEXT_PUBLIC_ADFIT_ENABLE_RESULT_PRIMARY,
+    NEXT_PUBLIC_ADFIT_ENABLE_MID_CONTENT: process.env.NEXT_PUBLIC_ADFIT_ENABLE_MID_CONTENT,
+    NEXT_PUBLIC_ADFIT_ENABLE_END: process.env.NEXT_PUBLIC_ADFIT_ENABLE_END,
+    NEXT_PUBLIC_ADFIT_ENABLE_DESKTOP_RAIL: process.env.NEXT_PUBLIC_ADFIT_ENABLE_DESKTOP_RAIL
+  };
+}
+
+function isEnabled(value: string | undefined) {
+  if (!value) {
+    return true;
   }
-};
 
-function getEnvValue(key: string): string | undefined {
-  return process.env[key]?.trim() || undefined;
+  return !["0", "false", "off", "no"].includes(value.toLowerCase());
 }
 
-function isEnabled(flagEnvKey: string): boolean {
-  const value = getEnvValue(flagEnvKey);
-  return value !== "false" && value !== "0";
+function candidate(env: AdFitRuntimeEnv, envName: AdFitEnvName, featureFlag: AdFitEnvName, width: number, height: number): AdFitSlotCandidate | null {
+  const unit = env[envName]?.trim();
+
+  if (!unit || !isEnabled(env[featureFlag])) {
+    return null;
+  }
+
+  return { envName, featureFlag, unit, width, height };
 }
 
-function getUnit(config: UnitConfig): string | undefined {
-  return getEnvValue(config.envKey) || config.fallbackUnit;
+function resolveAdFitSlot(placement: AdFitPlacement, device: AdFitDevice, env: AdFitRuntimeEnv): ResolvedAdFitSlot | null {
+  const candidates: Array<AdFitSlotCandidate | null> = [];
+
+  if (placement === "result_primary" && device === "mobile") {
+    candidates.push(
+      candidate(env, "NEXT_PUBLIC_ADFIT_MOBILE_RECTANGLE_IMAGE", "NEXT_PUBLIC_ADFIT_ENABLE_RESULT_PRIMARY", 320, 480),
+      candidate(env, "NEXT_PUBLIC_ADFIT_MOBILE_BANNER", "NEXT_PUBLIC_ADFIT_ENABLE_RESULT_PRIMARY", 300, 250)
+    );
+  }
+
+  if (placement === "result_primary" && device === "desktop") {
+    candidates.push(candidate(env, "NEXT_PUBLIC_ADFIT_DESKTOP_WEB_BANNER", "NEXT_PUBLIC_ADFIT_ENABLE_RESULT_PRIMARY", 728, 90));
+  }
+
+  if (placement === "mid_content" && device === "mobile") {
+    candidates.push(candidate(env, "NEXT_PUBLIC_ADFIT_MOBILE_THIN_BANNER", "NEXT_PUBLIC_ADFIT_ENABLE_MID_CONTENT", 320, 50));
+  }
+
+  if (placement === "mid_content" && device === "desktop") {
+    candidates.push(candidate(env, "NEXT_PUBLIC_ADFIT_DESKTOP_WEB_BANNER", "NEXT_PUBLIC_ADFIT_ENABLE_MID_CONTENT", 728, 90));
+  }
+
+  if (placement === "end" && device === "mobile") {
+    candidates.push(candidate(env, "NEXT_PUBLIC_ADFIT_MOBILE_THIN_BANNER", "NEXT_PUBLIC_ADFIT_ENABLE_END", 320, 50));
+  }
+
+  if (placement === "end" && device === "desktop") {
+    candidates.push(candidate(env, "NEXT_PUBLIC_ADFIT_DESKTOP_WEB_BANNER", "NEXT_PUBLIC_ADFIT_ENABLE_END", 728, 90));
+  }
+
+  if (placement === "desktop_rail" && device === "desktop") {
+    candidates.push(candidate(env, "NEXT_PUBLIC_ADFIT_DESKTOP_RIGHT_TOP", "NEXT_PUBLIC_ADFIT_ENABLE_DESKTOP_RAIL", 160, 600));
+  }
+
+  const selected = candidates.find(Boolean);
+
+  if (!selected) {
+    return null;
+  }
+
+  return { ...selected, adSize: `${selected.width}x${selected.height}` };
 }
 
-export function getAdFitSlotConfigForTest(placement: AdFitPlacement, device: Device) {
-  const config = placementConfig[placement];
-  const unitConfig = config[device];
-  return unitConfig ? { ...unitConfig, unit: getUnit(unitConfig), enabled: isEnabled(config.flagEnvKey) } : undefined;
+export function resolveAdFitSlotForTest(placement: AdFitPlacement, device: AdFitDevice, env: AdFitRuntimeEnv = {}) {
+  const slot = resolveAdFitSlot(placement, device, env);
+
+  if (!slot) {
+    return null;
+  }
+
+  return {
+    envName: slot.envName,
+    featureFlag: slot.featureFlag,
+    adSize: slot.adSize,
+    unitPresent: Boolean(slot.unit)
+  };
 }
 
-function getAdFitInit() {
-  const adfit = (window as Window & AdFitGlobal).adfit;
-  return typeof adfit === "function" ? adfit : adfit?.init;
+function getSet(win: AdFitGlobal, key: "__jipcalcAdFitRequestedSlots" | "__jipcalcAdFitRenderedSlots" | "__jipcalcAdFitViewableSlots") {
+  win[key] ??= new Set<string>();
+  return win[key] as Set<string>;
+}
+
+function runAdFitInit() {
+  const adfit = (window as AdFitGlobal).adfit;
+  const init = typeof adfit === "function" ? adfit : adfit?.init;
+
+  if (typeof init === "function") {
+    init();
+  }
 }
 
 function loadAdFitSdk() {
-  const win = window as Window & AdFitGlobal;
-  if (win.__jipcalcAdFitSdkPromise) return win.__jipcalcAdFitSdkPromise;
+  const win = window as AdFitGlobal;
 
-  win.__jipcalcAdFitSdkPromise = new Promise((resolve, reject) => {
-    if (getAdFitInit()) {
+  if (win.__jipcalcAdFitSdkPromise) {
+    return win.__jipcalcAdFitSdkPromise;
+  }
+
+  win.__jipcalcAdFitSdkPromise = new Promise<void>((resolve, reject) => {
+    if (win.adfit || document.querySelector(`script[src="${ADFIT_SDK_SRC}"]`)) {
       resolve();
-      return;
-    }
-
-    const existing = document.querySelector<HTMLScriptElement>("script[data-kakao-adfit-sdk='true']");
-    if (existing) {
-      existing.addEventListener("load", () => resolve(), { once: true });
-      existing.addEventListener("error", () => reject(new Error("AdFit SDK failed to load")), { once: true });
       return;
     }
 
@@ -131,40 +179,20 @@ function loadAdFitSdk() {
   return win.__jipcalcAdFitSdkPromise;
 }
 
-function scheduleAdFitInit(slotKey: string) {
-  const win = window as Window & AdFitGlobal;
-  if (!win.__jipcalcAdFitInitTimers) {
-    win.__jipcalcAdFitInitTimers = new Map();
-  }
-
-  const existing = win.__jipcalcAdFitInitTimers.get(slotKey);
-  if (existing) {
-    window.clearTimeout(existing);
-  }
-
-  const timer = window.setTimeout(() => {
-    win.__jipcalcAdFitInitTimers?.delete(slotKey);
-    void loadAdFitSdk().then(() => {
-      getAdFitInit()?.();
-    }).catch(() => undefined);
-  }, 80);
-
-  win.__jipcalcAdFitInitTimers.set(slotKey, timer);
-  return () => {
-    const activeTimer = win.__jipcalcAdFitInitTimers?.get(slotKey);
-    if (activeTimer === timer) {
-      window.clearTimeout(timer);
-      win.__jipcalcAdFitInitTimers?.delete(slotKey);
-    }
-  };
-}
-
-function useDevice(): Device | null {
-  const [device, setDevice] = useState<Device | null>(null);
+function useViewportDevice(placement: AdFitPlacement) {
+  const [device, setDevice] = useState<AdFitDevice | null>(null);
 
   useEffect(() => {
-    const media = window.matchMedia("(min-width: 768px)");
-    const update = () => setDevice(media.matches ? "desktop" : "mobile");
+    const media = window.matchMedia(placement === "desktop_rail" ? "(min-width: 1536px)" : "(min-width: 768px)");
+    const update = () => {
+      if (placement === "desktop_rail") {
+        setDevice(media.matches ? "desktop" : null);
+        return;
+      }
+
+      setDevice(media.matches ? "desktop" : "mobile");
+    };
+
     update();
 
     if (typeof media.addEventListener === "function") {
@@ -174,60 +202,175 @@ function useDevice(): Device | null {
 
     media.addListener(update);
     return () => media.removeListener(update);
-  }, []);
+  }, [placement]);
 
   return device;
 }
 
-export function AdFitSlot({ placement, className }: AdFitSlotProps) {
-  const device = useDevice();
-  const containerRef = useRef<HTMLDivElement>(null);
-  const config = placementConfig[placement];
-  const unitConfig = device ? config[device] : undefined;
-  const unit = unitConfig ? getUnit(unitConfig) : undefined;
-  const slotKey = useMemo(() => `${placement}:${device ?? "unknown"}:${unit ?? "none"}`, [device, placement, unit]);
+function usePagePath() {
+  const [pagePath] = useState(() => (typeof window === "undefined" ? "" : window.location.pathname));
+
+  return pagePath;
+}
+
+function buildSlotKey(pagePath: string, placement: AdFitPlacement, device: AdFitDevice, slot: ResolvedAdFitSlot) {
+  return [pagePath, placement, device, slot.envName, slot.adSize].join(":");
+}
+
+function getPageGroup(pagePath: string) {
+  if (pagePath.startsWith("/guides/")) return "guide";
+  if (pagePath === "/guides") return "guide_index";
+  if (pagePath === "/calculators") return "calculator_index";
+  if (pagePath === "/") return "home";
+  return "calculator";
+}
+
+export function AdFitSlot({ placement, className, envOverride }: AdFitSlotProps) {
+  const device = useViewportDevice(placement);
+  const pagePath = usePagePath();
+  const [ownedSlotKey, setOwnedSlotKey] = useState("");
+  const rootRef = useRef<HTMLElement>(null);
+  const env = useMemo(() => ({ ...getDefaultAdFitEnv(), ...envOverride }), [envOverride]);
+  const slot = device ? resolveAdFitSlot(placement, device, env) : null;
+  const slotKey = device && pagePath && slot ? buildSlotKey(pagePath, placement, device, slot) : "";
 
   useEffect(() => {
-    if (!device || !unit || !unitConfig || !isEnabled(config.flagEnvKey)) return;
-    trackGrowthEvent("ad_slot_rendered", { ad_placement: placement, source_section: placement });
-    return scheduleAdFitInit(slotKey);
-  }, [config.flagEnvKey, device, placement, slotKey, unit, unitConfig]);
+    if (!slot || !device || !pagePath || !slotKey) {
+      return;
+    }
+
+    const win = window as AdFitGlobal;
+    const renderedSlots = getSet(win, "__jipcalcAdFitRenderedSlots");
+
+    if (!renderedSlots.has(slotKey)) {
+      renderedSlots.add(slotKey);
+      trackAnalyticsEvent("ad_slot_rendered", {
+        page_path: pagePath,
+        page_group: getPageGroup(pagePath),
+        placement,
+        device,
+        ad_size: slot.adSize,
+        experiment_id: ADFIT_EXPERIMENT_ID
+      });
+    }
+  }, [device, pagePath, placement, slot, slotKey]);
 
   useEffect(() => {
-    if (!containerRef.current || !device || !unit || !unitConfig || !isEnabled(config.flagEnvKey) || typeof IntersectionObserver === "undefined") return;
+    if (!slot || !device || !pagePath || !slotKey) {
+      return;
+    }
 
-    let tracked = false;
-    const observer = new IntersectionObserver((entries) => {
-      if (tracked || !entries.some((entry) => entry.isIntersecting && entry.intersectionRatio >= 0.5)) return;
-      tracked = true;
-      trackGrowthEvent("ad_slot_viewable", { ad_placement: placement, source_section: placement });
+    const win = window as AdFitGlobal;
+    const requestedSlots = getSet(win, "__jipcalcAdFitRequestedSlots");
+
+    if (requestedSlots.has(slotKey)) {
+      return;
+    }
+
+    requestedSlots.add(slotKey);
+
+    const timer = window.setTimeout(() => {
+      setOwnedSlotKey(slotKey);
+      trackAnalyticsEvent("ad_slot_requested", {
+        page_path: pagePath,
+        page_group: getPageGroup(pagePath),
+        placement,
+        device,
+        ad_size: slot.adSize,
+        experiment_id: ADFIT_EXPERIMENT_ID
+      });
+
+      loadAdFitSdk()
+        .then(() => window.setTimeout(runAdFitInit, 80))
+        .catch(() => {
+          trackAnalyticsEvent("ad_slot_failed", {
+            page_path: pagePath,
+            page_group: getPageGroup(pagePath),
+            placement,
+            device,
+            ad_size: slot.adSize,
+            experiment_id: ADFIT_EXPERIMENT_ID
+          });
+        });
+    }, 80);
+
+    return () => window.clearTimeout(timer);
+  }, [device, pagePath, placement, slot, slotKey]);
+
+  useEffect(() => {
+    if (!slot || !device || !pagePath || !slotKey || typeof IntersectionObserver === "undefined" || !rootRef.current) {
+      return;
+    }
+
+    const win = window as AdFitGlobal;
+    const viewableSlots = getSet(win, "__jipcalcAdFitViewableSlots");
+    let viewTimer: number | undefined;
+
+    if (viewableSlots.has(slotKey)) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+          viewTimer ??= window.setTimeout(() => {
+            if (viewableSlots.has(slotKey)) {
+              return;
+            }
+
+            viewableSlots.add(slotKey);
+            trackAnalyticsEvent("ad_slot_viewable", {
+              page_path: pagePath,
+              page_group: getPageGroup(pagePath),
+              placement,
+              device,
+              ad_size: slot.adSize,
+              experiment_id: ADFIT_EXPERIMENT_ID
+            });
+          }, 1000);
+          return;
+        }
+
+        if (viewTimer) {
+          window.clearTimeout(viewTimer);
+          viewTimer = undefined;
+        }
+      },
+      { threshold: [0, 0.5, 1] }
+    );
+
+    observer.observe(rootRef.current);
+
+    return () => {
+      if (viewTimer) {
+        window.clearTimeout(viewTimer);
+      }
       observer.disconnect();
-    }, { threshold: [0.5] });
+    };
+  }, [device, pagePath, placement, slot, slotKey]);
 
-    observer.observe(containerRef.current);
-    return () => observer.disconnect();
-  }, [config.flagEnvKey, device, placement, unit, unitConfig]);
-
-  if (!device || !unit || !unitConfig || !isEnabled(config.flagEnvKey)) {
+  if (!slot || !device || !pagePath) {
     return null;
   }
 
+  if (typeof window !== "undefined") {
+    const requestedSlots = getSet(window as AdFitGlobal, "__jipcalcAdFitRequestedSlots");
+
+    if (requestedSlots.has(slotKey) && ownedSlotKey !== slotKey) {
+      return null;
+    }
+  }
+
   return (
-    <aside className={["my-4 flex justify-center overflow-hidden", className].filter(Boolean).join(" ")} data-adfit-placement={placement} data-testid={`adfit-slot-${placement}`}>
-      <div
-        ref={containerRef}
-        className="max-w-full overflow-hidden"
-        style={{ width: `${unitConfig.width}px`, minHeight: `${unitConfig.height}px` }}
-      >
-        <ins
-          className="kakao_ad_area"
-          style={{ display: "none" }}
-          data-ad-unit={unit}
-          data-ad-width={unitConfig.width}
-          data-ad-height={unitConfig.height}
-          data-jipcalc-ad-slot-key={slotKey}
-        />
-      </div>
+    <aside
+      ref={rootRef}
+      aria-label="광고"
+      className={cn("my-6 flex justify-center print:hidden", device === "mobile" && "-mx-4 sm:mx-0", className)}
+      data-adfit-placement={placement}
+      data-adfit-device={device}
+      data-adfit-size={slot.adSize}
+    >
+      <ins className="kakao_ad_area" data-ad-unit={slot.unit} data-ad-width={String(slot.width)} data-ad-height={String(slot.height)} />
     </aside>
   );
 }

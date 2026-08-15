@@ -3,11 +3,11 @@
 import { AdFitSlot } from "@/components/adfit/AdFitSlot";
 
 export function AdFitTopBanner() {
-  return <AdFitSlot placement="guide_after_answer" />;
+  return <AdFitSlot placement="mid_content" />;
 }
 
 export function AdFitDesktopTopBanner() {
-  return <AdFitSlot placement="calculator_result_primary" />;
+  return <AdFitSlot placement="result_primary" />;
 }
 
 export function AdFitMobileCalculatorHeaderAds() {
@@ -15,15 +15,15 @@ export function AdFitMobileCalculatorHeaderAds() {
 }
 
 export function AdFitVerticalBanner() {
-  return <AdFitSlot placement="desktop_side_rail" />;
+  return <AdFitSlot placement="desktop_rail" />;
 }
 
 export function AdFitMobileRectangleBanner() {
-  return <AdFitSlot placement="calculator_mid_content" />;
+  return <AdFitSlot placement="result_primary" />;
 }
 
 export function AdFitMobileMediumRectangleBanner() {
-  return <AdFitSlot placement="calculator_result_primary" />;
+  return <AdFitSlot placement="result_primary" />;
 }
 
 type AdFitSideBannerProps = {
@@ -32,16 +32,19 @@ type AdFitSideBannerProps = {
   showMobileLargeRectangle?: boolean;
 };
 
-export function AdFitSideBanner({ showVertical = true }: AdFitSideBannerProps) {
-  if (!showVertical) return null;
-  return (
-    <aside className="mt-6 hidden justify-center overflow-hidden 2xl:flex">
-      <AdFitSlot placement="desktop_side_rail" className="my-0" />
-    </aside>
-  );
+export function AdFitSideBanner({
+  showVertical = true,
+  showMobileMediumRectangle: _showMobileMediumRectangle = true,
+  showMobileLargeRectangle: _showMobileLargeRectangle = true
+}: AdFitSideBannerProps) {
+  if (!showVertical) {
+    return null;
+  }
+
+  return <AdFitSlot placement="desktop_rail" className="xl:absolute xl:left-full xl:top-0 xl:ml-6 xl:mt-0" />;
 }
 
 export function AdFitInlineBanner() {
-  return <AdFitSlot placement="guide_after_answer" />;
+  return <AdFitSlot placement="end" />;
 }
 

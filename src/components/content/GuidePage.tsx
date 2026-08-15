@@ -35,6 +35,7 @@ export function GuidePage({ guide }: { guide: Guide }) {
               ))}
             </ul>
           </section>
+          <AdFitTopBanner />
 
           <AdFitSlot placement="guide_after_answer" />
 
