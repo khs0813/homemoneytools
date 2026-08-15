@@ -7,13 +7,21 @@ const projectRoot = process.cwd();
 const reportsDir = path.join(projectRoot, "reports");
 const productionOrigin = "https://jipcalc.co.kr";
 const legacyRedirects = new Map([
-  ["/severance-pay-calculator", "https://www.moneycalculator.co.kr/severance-pay-calculator"]
+  ["/severance-pay-calculator", "https://www.moneycalculator.co.kr/severance-pay-calculator"],
+  ["/guides/acquisition-tax", "/guides/acquisition-tax-checklist"],
+  ["/guides/brokerage-fee", "/guides/brokerage-fee-negotiation"],
+  ["/guides/dsr", "/guides/what-dsr-40-means"],
+  ["/guides/jeonse-loan-interest", "/guides/jeonse-loan-interest-mistakes"],
+  ["/guides/monthly-rent-conversion", "/guides/monthly-rent-conversion-basics"],
+  ["/guides/rent-vs-jeonse", "/guides/rent-vs-jeonse-decision-guide"],
+  ["/guides/subscription-score", "/guides/subscription-score-interpretation"]
 ]);
 const ignoredSourceFiles = new Set([
-  path.join(projectRoot, "scripts", "seo-audit.mjs")
+  path.join(projectRoot, "scripts", "seo-audit.mjs"),
+  path.join(projectRoot, "scripts", "serve-static-out.mjs"),
+  path.join(projectRoot, "scripts", "verify-static-export.mjs")
 ]);
 const sourceLegacyAllowlist = new Set([
-  path.join(projectRoot, "next.config.ts"),
   path.join(projectRoot, "src", "app", "sitemap.ts")
 ]);
 
@@ -146,6 +154,7 @@ async function auditHttp() {
   await auditLegacyRedirects();
   await auditRss();
   await auditRobots();
+  await auditNotFound();
 
   return {
     sitemapUrlCount: sitemapPaths.length,
@@ -258,7 +267,9 @@ async function auditLegacyRedirects() {
       addIssue("fatal", "legacy-redirect", routePath, `expected 301, got ${response.status}`);
       continue;
     }
-    if (response.location !== destination) {
+    const acceptableLocations = new Set([destination]);
+    if (destination.startsWith("/")) acceptableLocations.add(`${baseUrl}${destination}`);
+    if (!acceptableLocations.has(response.location ?? "")) {
       addIssue("fatal", "legacy-redirect", routePath, `expected ${destination}, got ${response.location ?? "missing Location"}`);
     }
   }
@@ -298,6 +309,17 @@ async function auditRobots() {
     if (value === "/" || value.startsWith("/guides") || value.includes("calculator")) {
       addIssue("fatal", "robots", "/robots.txt", `core path disallowed: ${line}`);
     }
+  }
+}
+
+async function auditNotFound() {
+  const routePath = "/__jipcalc-seo-audit-intentional-404";
+  const response = await fetchPath(routePath);
+  if (response.status !== 404) {
+    addIssue("fatal", "not-found", routePath, `expected 404, got ${response.status}`);
+  }
+  if (response.body.includes("<h1>전세·월세·매매 주거비 계산기</h1>")) {
+    addIssue("fatal", "not-found", routePath, "missing path returned the home page HTML");
   }
 }
 

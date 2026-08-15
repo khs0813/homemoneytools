@@ -6,8 +6,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && node scripts/seo-audit.mjs --source",
-    "start": "next start -p ${PORT:-3000}",
-    "start:render": "next start -p $PORT",
+    "start": "npm run serve:static",
+    "serve:static": "node scripts/serve-static-out.mjs --dir out --port ${PORT:-3000}",
+    "start:render": "npm run serve:static",
     "lint": "eslint . --max-warnings=0",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
@@ -20,6 +21,8 @@
     "performance:check": "node scripts/check-performance.mjs --base http://localhost:3000",
     "content:duplication": "node scripts/check-content-duplication.mjs --base http://localhost:3000",
     "calculation:regression": "node scripts/check-calculation-regression.mjs",
+    "static:verify": "node scripts/verify-static-export.mjs --dir out",
+    "browser:check": "node scripts/check-static-browser.mjs --base http://localhost:3000",
     "audit": "npm audit --audit-level=low",
     "check": "npm run typecheck && npm run lint && npm run test && npm run build && npm run audit"
   },

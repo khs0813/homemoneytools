@@ -1,6 +1,6 @@
 # SEO Audit
 
-- Generated at: 2026-07-29T14:10:29.046Z
+- Generated at: 2026-08-15T15:54:15.162Z
 - Mode: http
 - Base URL: http://localhost:3000
 - Sitemap URLs: 42
