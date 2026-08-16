@@ -1,11 +1,35 @@
 services:
   - type: web
     name: home-money-calculator
-    runtime: node
-    plan: free
+    runtime: static
     buildCommand: npm ci && npm run build
-    startCommand: npm run start
+    staticPublishPath: out
     autoDeploy: true
+    routes:
+      - type: redirect
+        source: /severance-pay-calculator
+        destination: https://www.moneycalculator.co.kr/severance-pay-calculator
+      - type: redirect
+        source: /guides/acquisition-tax
+        destination: /guides/acquisition-tax-checklist
+      - type: redirect
+        source: /guides/brokerage-fee
+        destination: /guides/brokerage-fee-negotiation
+      - type: redirect
+        source: /guides/dsr
+        destination: /guides/what-dsr-40-means
+      - type: redirect
+        source: /guides/jeonse-loan-interest
+        destination: /guides/jeonse-loan-interest-mistakes
+      - type: redirect
+        source: /guides/monthly-rent-conversion
+        destination: /guides/monthly-rent-conversion-basics
+      - type: redirect
+        source: /guides/rent-vs-jeonse
+        destination: /guides/rent-vs-jeonse-decision-guide
+      - type: redirect
+        source: /guides/subscription-score
+        destination: /guides/subscription-score-interpretation
     envVars:
       - key: NODE_VERSION
         value: 20.19.0
