@@ -1,10 +1,10 @@
 # SEO Audit
 
-- Generated at: 2026-08-15T15:54:15.162Z
-- Mode: http
-- Base URL: http://localhost:3000
-- Sitemap URLs: 43
-- HTML pages: 43
+- Generated at: 2026-08-16T02:15:30.483Z
+- Mode: source
+- Base URL: source
+- Sitemap URLs: n/a
+- HTML pages: n/a
 - Fatal issues: 0
 - Warnings: 0
 

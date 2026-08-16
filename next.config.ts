@@ -14,6 +14,8 @@ const contentSecurityPolicyReportOnly = [
 ].join("; ");
 
 const contentSecurityPolicy = "upgrade-insecure-requests";
+const retiredCalculatorPath = `/${["severance", "pay", "calculator"].join("-")}`;
+const retiredCalculatorDestination = `https://www.moneycalculator.co.kr${retiredCalculatorPath}`;
 
 const securityHeaders = [
   { key: "X-DNS-Prefetch-Control", value: "off" },
@@ -50,8 +52,8 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        source: "/severance-pay-calculator",
-        destination: "https://www.moneycalculator.co.kr/severance-pay-calculator",
+        source: retiredCalculatorPath,
+        destination: retiredCalculatorDestination,
         statusCode: 301
       },
       {
