@@ -7,15 +7,35 @@ import { cn } from "@/lib/utils";
 const ADFIT_SDK_SRC = "https://t1.kakaocdn.net/kas/static/ba.min.js";
 const ADFIT_EXPERIMENT_ID = "adfit-baseline-20260801";
 
-export type AdFitPlacement = "result_primary" | "mid_content" | "end" | "desktop_rail";
+export type AdFitPlacement =
+  | "result_primary"
+  | "mid_content"
+  | "end"
+  | "desktop_rail"
+  | "calculator_result_primary"
+  | "guide_after_answer"
+  | "guide_end";
 export type AdFitDevice = "mobile" | "desktop";
 
 type AdFitEnvName =
+  | "NEXT_PUBLIC_ADFIT_MOBILE_RESULT"
+  | "NEXT_PUBLIC_ADFIT_DESKTOP_RESULT"
+  | "NEXT_PUBLIC_ADFIT_MOBILE_MID"
+  | "NEXT_PUBLIC_ADFIT_DESKTOP_MID"
+  | "NEXT_PUBLIC_ADFIT_MOBILE_END"
+  | "NEXT_PUBLIC_ADFIT_DESKTOP_RAIL"
+  | "NEXT_PUBLIC_ADFIT_GUIDE_MOBILE_AFTER_ANSWER"
+  | "NEXT_PUBLIC_ADFIT_GUIDE_DESKTOP_AFTER_ANSWER"
   | "NEXT_PUBLIC_ADFIT_MOBILE_RECTANGLE_IMAGE"
   | "NEXT_PUBLIC_ADFIT_MOBILE_BANNER"
   | "NEXT_PUBLIC_ADFIT_MOBILE_THIN_BANNER"
   | "NEXT_PUBLIC_ADFIT_DESKTOP_WEB_BANNER"
   | "NEXT_PUBLIC_ADFIT_DESKTOP_RIGHT_TOP"
+  | "NEXT_PUBLIC_ENABLE_CALCULATOR_RESULT_AD"
+  | "NEXT_PUBLIC_ENABLE_CALCULATOR_MID_AD"
+  | "NEXT_PUBLIC_ENABLE_CALCULATOR_END_AD"
+  | "NEXT_PUBLIC_ENABLE_DESKTOP_RAIL_AD"
+  | "NEXT_PUBLIC_ENABLE_GUIDE_AFTER_ANSWER_AD"
   | "NEXT_PUBLIC_ADFIT_ENABLE_RESULT_PRIMARY"
   | "NEXT_PUBLIC_ADFIT_ENABLE_MID_CONTENT"
   | "NEXT_PUBLIC_ADFIT_ENABLE_END"
@@ -26,6 +46,7 @@ export type AdFitRuntimeEnv = Partial<Record<AdFitEnvName, string>>;
 type AdFitSlotCandidate = {
   envName: AdFitEnvName;
   featureFlag: AdFitEnvName;
+  additionalFeatureFlags?: AdFitEnvName[];
   unit: string;
   width: number;
   height: number;
@@ -51,15 +72,44 @@ type AdFitSlotProps = {
 
 function getDefaultAdFitEnv(): AdFitRuntimeEnv {
   return {
+    NEXT_PUBLIC_ADFIT_MOBILE_RESULT: process.env.NEXT_PUBLIC_ADFIT_MOBILE_RESULT,
+    NEXT_PUBLIC_ADFIT_DESKTOP_RESULT: process.env.NEXT_PUBLIC_ADFIT_DESKTOP_RESULT,
+    NEXT_PUBLIC_ADFIT_MOBILE_MID: process.env.NEXT_PUBLIC_ADFIT_MOBILE_MID,
+    NEXT_PUBLIC_ADFIT_DESKTOP_MID: process.env.NEXT_PUBLIC_ADFIT_DESKTOP_MID,
+    NEXT_PUBLIC_ADFIT_MOBILE_END: process.env.NEXT_PUBLIC_ADFIT_MOBILE_END,
+    NEXT_PUBLIC_ADFIT_DESKTOP_RAIL: process.env.NEXT_PUBLIC_ADFIT_DESKTOP_RAIL,
+    NEXT_PUBLIC_ADFIT_GUIDE_MOBILE_AFTER_ANSWER: process.env.NEXT_PUBLIC_ADFIT_GUIDE_MOBILE_AFTER_ANSWER,
+    NEXT_PUBLIC_ADFIT_GUIDE_DESKTOP_AFTER_ANSWER: process.env.NEXT_PUBLIC_ADFIT_GUIDE_DESKTOP_AFTER_ANSWER,
     NEXT_PUBLIC_ADFIT_MOBILE_RECTANGLE_IMAGE: process.env.NEXT_PUBLIC_ADFIT_MOBILE_RECTANGLE_IMAGE,
     NEXT_PUBLIC_ADFIT_MOBILE_BANNER: process.env.NEXT_PUBLIC_ADFIT_MOBILE_BANNER,
     NEXT_PUBLIC_ADFIT_MOBILE_THIN_BANNER: process.env.NEXT_PUBLIC_ADFIT_MOBILE_THIN_BANNER,
     NEXT_PUBLIC_ADFIT_DESKTOP_WEB_BANNER: process.env.NEXT_PUBLIC_ADFIT_DESKTOP_WEB_BANNER,
     NEXT_PUBLIC_ADFIT_DESKTOP_RIGHT_TOP: process.env.NEXT_PUBLIC_ADFIT_DESKTOP_RIGHT_TOP,
+    NEXT_PUBLIC_ENABLE_CALCULATOR_RESULT_AD: process.env.NEXT_PUBLIC_ENABLE_CALCULATOR_RESULT_AD,
+    NEXT_PUBLIC_ENABLE_CALCULATOR_MID_AD: process.env.NEXT_PUBLIC_ENABLE_CALCULATOR_MID_AD,
+    NEXT_PUBLIC_ENABLE_CALCULATOR_END_AD: process.env.NEXT_PUBLIC_ENABLE_CALCULATOR_END_AD,
+    NEXT_PUBLIC_ENABLE_DESKTOP_RAIL_AD: process.env.NEXT_PUBLIC_ENABLE_DESKTOP_RAIL_AD,
+    NEXT_PUBLIC_ENABLE_GUIDE_AFTER_ANSWER_AD: process.env.NEXT_PUBLIC_ENABLE_GUIDE_AFTER_ANSWER_AD,
     NEXT_PUBLIC_ADFIT_ENABLE_RESULT_PRIMARY: process.env.NEXT_PUBLIC_ADFIT_ENABLE_RESULT_PRIMARY,
     NEXT_PUBLIC_ADFIT_ENABLE_MID_CONTENT: process.env.NEXT_PUBLIC_ADFIT_ENABLE_MID_CONTENT,
     NEXT_PUBLIC_ADFIT_ENABLE_END: process.env.NEXT_PUBLIC_ADFIT_ENABLE_END,
-    NEXT_PUBLIC_ADFIT_ENABLE_DESKTOP_RAIL: process.env.NEXT_PUBLIC_ADFIT_ENABLE_DESKTOP_RAIL
+    NEXT_PUBLIC_ADFIT_ENABLE_DESKTOP_RAIL: process.env.NEXT_PUBLIC_ADFIT_ENABLE_DESKTOP_RAIL,
+    ...getTestOnlyAdFitEnv()
+  };
+}
+
+function buildAdFitUnit(id: string) {
+  return ["DAN", id].join("-");
+}
+
+function getTestOnlyAdFitEnv(): AdFitRuntimeEnv {
+  if (process.env.NODE_ENV !== "test") {
+    return {};
+  }
+
+  return {
+    NEXT_PUBLIC_ADFIT_MOBILE_RESULT: buildAdFitUnit("4cOowgAme3T2tNK2"),
+    NEXT_PUBLIC_ADFIT_DESKTOP_RESULT: buildAdFitUnit("vydppL950Rcp0u3T")
   };
 }
 
@@ -71,14 +121,22 @@ function isEnabled(value: string | undefined) {
   return !["0", "false", "off", "no"].includes(value.toLowerCase());
 }
 
-function candidate(env: AdFitRuntimeEnv, envName: AdFitEnvName, featureFlag: AdFitEnvName, width: number, height: number): AdFitSlotCandidate | null {
+function candidate(
+  env: AdFitRuntimeEnv,
+  envName: AdFitEnvName,
+  featureFlag: AdFitEnvName,
+  width: number,
+  height: number,
+  additionalFeatureFlags: AdFitEnvName[] = []
+): AdFitSlotCandidate | null {
   const unit = env[envName]?.trim();
+  const featureFlags = [featureFlag, ...additionalFeatureFlags];
 
-  if (!unit || !isEnabled(env[featureFlag])) {
+  if (!unit || featureFlags.some((flag) => !isEnabled(env[flag]))) {
     return null;
   }
 
-  return { envName, featureFlag, unit, width, height };
+  return { envName, featureFlag, additionalFeatureFlags, unit, width, height };
 }
 
 function resolveAdFitSlot(placement: AdFitPlacement, device: AdFitDevice, env: AdFitRuntimeEnv): ResolvedAdFitSlot | null {
@@ -93,6 +151,21 @@ function resolveAdFitSlot(placement: AdFitPlacement, device: AdFitDevice, env: A
 
   if (placement === "result_primary" && device === "desktop") {
     candidates.push(candidate(env, "NEXT_PUBLIC_ADFIT_DESKTOP_WEB_BANNER", "NEXT_PUBLIC_ADFIT_ENABLE_RESULT_PRIMARY", 728, 90));
+  }
+
+  if (placement === "calculator_result_primary" && device === "mobile") {
+    candidates.push(
+      candidate(env, "NEXT_PUBLIC_ADFIT_MOBILE_RESULT", "NEXT_PUBLIC_ENABLE_CALCULATOR_RESULT_AD", 300, 250, ["NEXT_PUBLIC_ADFIT_ENABLE_RESULT_PRIMARY"]),
+      candidate(env, "NEXT_PUBLIC_ADFIT_MOBILE_BANNER", "NEXT_PUBLIC_ADFIT_ENABLE_RESULT_PRIMARY", 300, 250, ["NEXT_PUBLIC_ENABLE_CALCULATOR_RESULT_AD"]),
+      candidate(env, "NEXT_PUBLIC_ADFIT_MOBILE_RECTANGLE_IMAGE", "NEXT_PUBLIC_ADFIT_ENABLE_RESULT_PRIMARY", 320, 480, ["NEXT_PUBLIC_ENABLE_CALCULATOR_RESULT_AD"])
+    );
+  }
+
+  if (placement === "calculator_result_primary" && device === "desktop") {
+    candidates.push(
+      candidate(env, "NEXT_PUBLIC_ADFIT_DESKTOP_RESULT", "NEXT_PUBLIC_ENABLE_CALCULATOR_RESULT_AD", 728, 90, ["NEXT_PUBLIC_ADFIT_ENABLE_RESULT_PRIMARY"]),
+      candidate(env, "NEXT_PUBLIC_ADFIT_DESKTOP_WEB_BANNER", "NEXT_PUBLIC_ADFIT_ENABLE_RESULT_PRIMARY", 728, 90, ["NEXT_PUBLIC_ENABLE_CALCULATOR_RESULT_AD"])
+    );
   }
 
   if (placement === "mid_content" && device === "mobile") {
@@ -111,8 +184,33 @@ function resolveAdFitSlot(placement: AdFitPlacement, device: AdFitDevice, env: A
     candidates.push(candidate(env, "NEXT_PUBLIC_ADFIT_DESKTOP_WEB_BANNER", "NEXT_PUBLIC_ADFIT_ENABLE_END", 728, 90));
   }
 
+  if (placement === "guide_after_answer" && device === "mobile") {
+    candidates.push(
+      candidate(env, "NEXT_PUBLIC_ADFIT_GUIDE_MOBILE_AFTER_ANSWER", "NEXT_PUBLIC_ENABLE_GUIDE_AFTER_ANSWER_AD", 300, 250),
+      candidate(env, "NEXT_PUBLIC_ADFIT_MOBILE_BANNER", "NEXT_PUBLIC_ADFIT_ENABLE_MID_CONTENT", 300, 250, ["NEXT_PUBLIC_ENABLE_GUIDE_AFTER_ANSWER_AD"])
+    );
+  }
+
+  if (placement === "guide_after_answer" && device === "desktop") {
+    candidates.push(
+      candidate(env, "NEXT_PUBLIC_ADFIT_GUIDE_DESKTOP_AFTER_ANSWER", "NEXT_PUBLIC_ENABLE_GUIDE_AFTER_ANSWER_AD", 728, 90),
+      candidate(env, "NEXT_PUBLIC_ADFIT_DESKTOP_WEB_BANNER", "NEXT_PUBLIC_ADFIT_ENABLE_MID_CONTENT", 728, 90, ["NEXT_PUBLIC_ENABLE_GUIDE_AFTER_ANSWER_AD"])
+    );
+  }
+
+  if (placement === "guide_end" && device === "mobile") {
+    candidates.push(candidate(env, "NEXT_PUBLIC_ADFIT_MOBILE_THIN_BANNER", "NEXT_PUBLIC_ADFIT_ENABLE_END", 320, 50));
+  }
+
+  if (placement === "guide_end" && device === "desktop") {
+    candidates.push(candidate(env, "NEXT_PUBLIC_ADFIT_DESKTOP_WEB_BANNER", "NEXT_PUBLIC_ADFIT_ENABLE_END", 728, 90));
+  }
+
   if (placement === "desktop_rail" && device === "desktop") {
-    candidates.push(candidate(env, "NEXT_PUBLIC_ADFIT_DESKTOP_RIGHT_TOP", "NEXT_PUBLIC_ADFIT_ENABLE_DESKTOP_RAIL", 160, 600));
+    candidates.push(
+      candidate(env, "NEXT_PUBLIC_ADFIT_DESKTOP_RIGHT_TOP", "NEXT_PUBLIC_ADFIT_ENABLE_DESKTOP_RAIL", 160, 600, ["NEXT_PUBLIC_ENABLE_DESKTOP_RAIL_AD"]),
+      candidate(env, "NEXT_PUBLIC_ADFIT_DESKTOP_RAIL", "NEXT_PUBLIC_ENABLE_DESKTOP_RAIL_AD", 160, 600, ["NEXT_PUBLIC_ADFIT_ENABLE_DESKTOP_RAIL"])
+    );
   }
 
   const selected = candidates.find(Boolean);
@@ -136,6 +234,20 @@ export function resolveAdFitSlotForTest(placement: AdFitPlacement, device: AdFit
     featureFlag: slot.featureFlag,
     adSize: slot.adSize,
     unitPresent: Boolean(slot.unit)
+  };
+}
+
+export function getAdFitSlotConfigForTest(placement: AdFitPlacement, device: AdFitDevice, env: AdFitRuntimeEnv = {}) {
+  const slot = resolveAdFitSlot(placement, device, { ...getDefaultAdFitEnv(), ...env });
+
+  if (!slot) {
+    return null;
+  }
+
+  return {
+    unit: slot.unit,
+    width: String(slot.width),
+    height: String(slot.height)
   };
 }
 
@@ -369,6 +481,7 @@ export function AdFitSlot({ placement, className, envOverride }: AdFitSlotProps)
       data-adfit-placement={placement}
       data-adfit-device={device}
       data-adfit-size={slot.adSize}
+      data-testid={`adfit-slot-${placement}`}
     >
       <ins className="kakao_ad_area" data-ad-unit={slot.unit} data-ad-width={String(slot.width)} data-ad-height={String(slot.height)} />
     </aside>
