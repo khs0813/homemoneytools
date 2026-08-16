@@ -217,8 +217,8 @@ export const calculators: CalculatorInfo[] = [
     guidePath: "/guides/jeonse-loan-interest-mistakes",
     title: "전세대출 이자 계산기",
     shortTitle: "전세대출 이자",
-    seoTitle: "전세대출 이자 계산기 - 월 이자·총이자 계산",
-    metaDescription: "전세보증금, 대출금액, 금리, 기간을 입력해 전세대출 월 이자와 총이자를 계산합니다. 1억·2억 전세대출 이자와 금리 상승 시나리오도 함께 확인하세요.",
+    seoTitle: "전세대출 이자 계산기 | 1억·2억·3억 월이자 비교",
+    metaDescription: "대출금액·금리·기간을 입력하면 전세대출 월이자와 총이자를 계산합니다. 1억·2억·3억원의 금리별 부담과 금리 상승 시 변화를 비교하세요.",
     category: "주거·대출",
     description: "전세보증금, 대출금액, 금리, 기간, 상환방식을 입력하면 월 이자와 총 이자를 계산할 수 있습니다.",
     keywords: ["전세대출 이자 계산기", "전세대출 월 이자", "전세자금대출 이자 계산"],
@@ -262,8 +262,8 @@ export const calculators: CalculatorInfo[] = [
     guidePath: "/guides/what-dsr-40-means",
     title: "주택담보대출 DSR 계산기",
     shortTitle: "DSR",
-    seoTitle: "주담대·스트레스 DSR 계산기 - 연소득별 월 상환액 계산",
-    metaDescription: "주택담보대출 금액, 금리, 상환기간, 연소득을 입력해 예상 DSR 비율과 스트레스 DSR 기준의 월 상환액을 계산할 수 있습니다.",
+    seoTitle: "DSR 계산기 | 주담대·스트레스 DSR·월상환액",
+    metaDescription: "연소득과 주담대·신용대출 조건을 입력해 일반 DSR과 스트레스 DSR, 월 원리금과 기준까지 남은 상환 여력을 계산합니다.",
     category: "주거·대출",
     description: "연소득과 대출 정보를 입력해 DSR과 기준 대비 여유 금액을 계산합니다.",
     keywords: ["DSR 계산기", "주담대 DSR 계산", "주택담보대출 한도 계산"],
@@ -277,7 +277,7 @@ export const calculators: CalculatorInfo[] = [
       { question: "스트레스 DSR과 일반 DSR은 무엇이 다른가요?", answer: "일반 DSR은 현재 조건을 기준으로 상환 부담을 계산하고, 스트레스 DSR은 금리 상승 가능성 등을 반영해 더 보수적으로 상환 부담을 보는 방식입니다." },
       { question: "주담대 신청 전 이 계산기를 어떻게 활용하면 좋나요?", answer: "연소득, 대출금, 금리, 상환기간을 바꿔가며 예상 월 상환액과 DSR 비율을 비교하는 용도로 사용할 수 있습니다." }
     ],
-    relatedSlugs: ["jeonse-loan-interest", "monthly-rent-conversion", "acquisition-tax"]
+    relatedSlugs: ["home-purchase-total-cost", "acquisition-tax", "brokerage-fee"]
   },
   {
     slug: "acquisition-tax",
@@ -300,7 +300,7 @@ export const calculators: CalculatorInfo[] = [
       { question: "분양권도 같은가요?", answer: "아니요. 이 간편 계산기는 주택 유상매매만 다루며 분양권, 증여, 상속, 법인 거래는 별도 확인이 필요합니다." },
       { question: "실거래가와 과세표준이 항상 같은가요?", answer: "원칙적으로 취득가액이 기준이지만 특수 거래에서는 세무 판단이 달라질 수 있습니다." }
     ],
-    relatedSlugs: ["brokerage-fee", "dsr", "housing-subscription-score"]
+    relatedSlugs: ["brokerage-fee", "home-purchase-total-cost", "dsr"]
   },
   {
     slug: "brokerage-fee",
@@ -308,6 +308,8 @@ export const calculators: CalculatorInfo[] = [
     guidePath: "/guides/brokerage-fee-negotiation",
     title: "부동산 중개수수료 계산기",
     shortTitle: "중개수수료",
+    seoTitle: "부동산 중개수수료 계산기 | 매매·전세·월세 복비",
+    metaDescription: "매매가·보증금·월세를 입력해 중개보수 상한액, 협의요율, 월세 환산거래금액과 부가세 포함 예상액을 계산합니다.",
     category: "부동산·거래비용",
     description: "매매, 전세, 월세 계약 시 예상 부동산 중개보수와 부가세 포함 또는 제외 금액을 계산합니다.",
     keywords: ["부동산 중개수수료 계산기", "부동산 복비 계산", "전세 복비 계산"],
@@ -321,7 +323,7 @@ export const calculators: CalculatorInfo[] = [
       { question: "상한요율이면 반드시 그만큼 내야 하나요?", answer: "아니요. 상한요율은 최대 범위이며 실제 요율은 협의할 수 있습니다." },
       { question: "오피스텔과 주택은 같은가요?", answer: "용도와 거래 유형에 따라 적용 규정이 달라질 수 있습니다." }
     ],
-    relatedSlugs: ["acquisition-tax", "rent-vs-jeonse", "monthly-rent-conversion"]
+    relatedSlugs: ["acquisition-tax", "home-purchase-total-cost", "loan-interest"]
   },
   {
     slug: "monthly-rent-conversion",
@@ -329,8 +331,8 @@ export const calculators: CalculatorInfo[] = [
     guidePath: "/guides/monthly-rent-conversion-basics",
     title: "월세 전세 환산 계산기",
     shortTitle: "월세 전세 환산",
-    seoTitle: "월세 전세 환산 계산기 - 보증금·월세 전환금액 계산",
-    metaDescription: "보증금과 월세를 입력하면 전세 환산금액과 월세 환산금액을 바로 계산할 수 있는 무료 전월세 환산 계산기입니다.",
+    seoTitle: "월세 전세 환산 계산기 | 월세 50만·100만원 전세금",
+    metaDescription: "월세를 전세금으로, 전세를 월세로 환산합니다. 보증금과 전환율을 입력해 월세 50만·70만·100만원의 전세 환산액을 확인하세요.",
     category: "주거·비교",
     description: "전세를 월세로 전환하거나 월세를 전세금으로 환산할 때 예상 금액을 계산합니다.",
     keywords: ["월세 환산 계산기", "전세 월세 전환 계산", "전월세 전환율 계산"],
@@ -345,6 +347,29 @@ export const calculators: CalculatorInfo[] = [
       { question: "계산값이 시세와 다른 이유는 무엇인가요?", answer: "입지, 옵션, 수요, 계약기간 같은 시장 요소가 반영되지 않기 때문입니다." }
     ],
     relatedSlugs: ["jeonse-loan-interest", "dsr", "rent-vs-jeonse"]
+  },
+  {
+    slug: "home-purchase-total-cost",
+    path: "/home-purchase-total-cost-calculator",
+    guidePath: "/guides/600-million-apartment-acquisition-tax",
+    title: "내 집 마련 총비용 계산기",
+    shortTitle: "내 집 마련 총비용",
+    seoTitle: "내 집 마련 총비용 계산기 | 취득세·중개수수료·대출",
+    metaDescription: "주택가격과 대출·보유 현금을 입력해 취득세, 중개수수료, 월 원리금과 계약부터 잔금까지 필요한 총 현금을 계산합니다.",
+    category: "부동산·매수비용",
+    description: "주택가격, 대출, 보유 현금, 취득세 조건, 중개보수와 직접 입력 비용을 조합해 매수 초기비용과 월 원리금, DSR을 계산합니다.",
+    keywords: ["내 집 마련 총비용 계산기", "주택 매수 초기비용", "취득세 중개수수료 대출 계산"],
+    formula: "기존 취득세, 중개보수, 대출 상환, DSR 계산 서비스를 조합하고, 이사비·법무비·기타 비용은 사용자가 직접 입력한 금액만 더해 총 현금 필요액을 계산합니다.",
+    example: "5억 원 주택을 살 때 보유 현금 1억 5천만 원, 주담대 3억 원을 입력하면 취득세, 중개보수, 월 원리금, DSR과 잔금 시점 필요 현금을 함께 확인할 수 있습니다.",
+    caution: "계약금, 이사비, 법무비, 기타 비용은 추정하지 않고 사용자가 입력한 값만 반영합니다. 실제 대출 승인, 세금 신고, 계약 조건은 관계 기관 확인이 필요합니다.",
+    faqs: [
+      { question: "내 집 마련 총비용 계산기는 어떤 공식을 새로 쓰나요?", answer: "새 세율이나 대출 공식을 만들지 않고 기존 취득세, 중개보수, 대출, DSR 계산 서비스를 조합합니다." },
+      { question: "법무비와 이사비는 자동 추정하나요?", answer: "아니요. 근거 없는 비용을 만들지 않기 위해 사용자가 직접 입력한 금액만 반영합니다." },
+      { question: "계약금은 왜 직접 입력하나요?", answer: "계약금 비율은 계약마다 달라질 수 있어 기본 추정 대신 실제 예정 금액을 넣도록 했습니다." },
+      { question: "DSR 결과가 대출 승인 가능성을 뜻하나요?", answer: "아닙니다. 입력 조건 기준 상환 여력 참고값이며 실제 승인은 금융회사 심사와 담보 기준에 따라 달라집니다." },
+      { question: "어떤 계산기를 함께 보면 좋나요?", answer: "DSR 계산기, 취득세 계산기, 중개수수료 계산기를 함께 확인하면 각 항목을 더 자세히 볼 수 있습니다." }
+    ],
+    relatedSlugs: ["dsr", "acquisition-tax", "brokerage-fee"]
   },
   {
     slug: "housing-subscription-score",

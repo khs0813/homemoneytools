@@ -2,6 +2,8 @@ import { getGuideDateMetadata } from "@/config/content-metadata";
 import { guides } from "@/config/guides";
 import { siteConfig } from "@/config/site";
 
+export const dynamic = "force-static";
+
 const baseUrl = siteConfig.url.replace(/\/$/, "");
 
 function toRssDate(date: string): string {

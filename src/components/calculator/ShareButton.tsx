@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { trackGrowthEvent } from "@/lib/analytics";
 
 export function ShareButton() {
   const [copied, setCopied] = useState(false);
 
   async function copyUrl() {
     if (typeof window === "undefined") return;
+    trackGrowthEvent("share_result_click", { source_section: "result_card" });
     try {
       await navigator.clipboard.writeText(window.location.href);
       setCopied(true);
