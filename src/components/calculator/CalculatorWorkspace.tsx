@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, type ReactNode } from "react";
 import { AdFitSlot } from "@/components/adfit/AdFitSlot";
+import { trackGrowthEvent, type GrowthEventProperties } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 
 type CalculatorWorkspaceProps = {

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AdFitTopBanner } from "@/components/adfit/AdFitPageAds";
 import { AdFitSlot } from "@/components/adfit/AdFitSlot";
 import { FaqJsonLd, FaqSection } from "@/components/calculator/FaqSection";
 import { RelatedCalculators } from "@/components/calculator/RelatedCalculators";
