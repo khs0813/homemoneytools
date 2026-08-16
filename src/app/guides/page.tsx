@@ -26,9 +26,9 @@ export default function GuidesPage() {
             각 글에는 실제 사례, 주의사항, FAQ, 계산 기준일, 공식 출처, 관련 계산기 링크를 포함했습니다.
           </p>
         </div>
-        <AdFitTopBanner placement="guide" />
+        <AdFitTopBanner />
         <div className="relative mt-8">
-          <AdFitSideBanner placement="guide" />
+          <AdFitSideBanner />
           <div className="grid gap-5 md:grid-cols-2">
             {guides.map((guide) => (
               <Link key={guide.slug} href={guide.path} className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-soft sm:p-6">

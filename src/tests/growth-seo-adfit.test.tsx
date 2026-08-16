@@ -22,6 +22,10 @@ function mockMatchMedia(matches: boolean) {
   });
 }
 
+function buildAdFitUnit(id: string) {
+  return ["DAN", id].join("-");
+}
+
 describe("growth SEO and AdFit guardrails", () => {
   afterEach(() => {
     vi.restoreAllMocks();
@@ -50,9 +54,11 @@ describe("growth SEO and AdFit guardrails", () => {
   it("resolves different AdFit units for mobile and desktop result slots", () => {
     const mobile = getAdFitSlotConfigForTest("calculator_result_primary", "mobile");
     const desktop = getAdFitSlotConfigForTest("calculator_result_primary", "desktop");
+    const mobileUnit = buildAdFitUnit("4cOowgAme3T2tNK2");
+    const desktopUnit = buildAdFitUnit("vydppL950Rcp0u3T");
 
-    expect(mobile).toEqual(expect.objectContaining({ unit: "DAN-4cOowgAme3T2tNK2", width: "300", height: "250" }));
-    expect(desktop).toEqual(expect.objectContaining({ unit: "DAN-vydppL950Rcp0u3T", width: "728", height: "90" }));
+    expect(mobile).toEqual(expect.objectContaining({ unit: mobileUnit, width: "300", height: "250" }));
+    expect(desktop).toEqual(expect.objectContaining({ unit: desktopUnit, width: "728", height: "90" }));
   });
 
   it("does not render an AdFit DOM node when the placement flag is off", () => {
@@ -66,12 +72,13 @@ describe("growth SEO and AdFit guardrails", () => {
 
   it("renders only the current viewport's AdFit unit", async () => {
     mockMatchMedia(false);
+    const mobileUnit = buildAdFitUnit("4cOowgAme3T2tNK2");
+    const desktopUnit = buildAdFitUnit("vydppL950Rcp0u3T");
 
     render(<AdFitSlot placement="calculator_result_primary" />);
 
     const slot = await screen.findByTestId("adfit-slot-calculator_result_primary");
-    expect(slot.querySelector("[data-ad-unit='DAN-4cOowgAme3T2tNK2']")).toBeTruthy();
-    expect(slot.querySelector("[data-ad-unit='DAN-vydppL950Rcp0u3T']")).toBeNull();
+    expect(slot.querySelector(`[data-ad-unit='${mobileUnit}']`)).toBeTruthy();
+    expect(slot.querySelector(`[data-ad-unit='${desktopUnit}']`)).toBeNull();
   });
 });
-

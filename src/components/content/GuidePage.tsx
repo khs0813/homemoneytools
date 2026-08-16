@@ -23,9 +23,9 @@ export function GuidePage({ guide }: { guide: Guide }) {
             <h1 className="mt-3 text-3xl font-black text-slate-950 md:text-5xl">{guide.h1}</h1>
             <p className="mt-5 text-base leading-8 text-slate-600">{guide.description}</p>
           </div>
-          <AdFitTopBanner placement="guide" />
+          <AdFitTopBanner />
           <div className="relative mt-8 rounded-3xl border border-slate-200 bg-white p-5 shadow-soft sm:p-6 md:p-10">
-            <AdFitSideBanner placement="guide" />
+            <AdFitSideBanner />
 
           <section className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-5">
             <h2 className="text-lg font-bold text-slate-950">계산 기준일과 제도 메모</h2>
