@@ -3,7 +3,7 @@ services:
     name: home-money-calculator
     runtime: static
     buildCommand: npm ci && npm run build
-    staticPublishPath: ./dist
+    staticPublishPath: out
     autoDeployTrigger: commit
     routes:
       - type: redirect
