@@ -42,8 +42,8 @@ export function LegalPage({
             </dd>
           </div>
         </dl>
-        <AdFitTopBanner />
-        <AdFitInlineBanner />
+        <AdFitTopBanner placement="guide" />
+        <AdFitInlineBanner placement="guide" />
         {children}
         <div className="mt-10 grid gap-8">
           {sections.map((section) => (

@@ -13,3 +13,19 @@ services:
         value: https://jipcalc.co.kr
       - key: NEXT_TELEMETRY_DISABLED
         value: "1"
+      - key: PUBLIC_ADFIT_HOME_MOBILE
+        sync: false
+      - key: PUBLIC_ADFIT_HOME_DESKTOP
+        sync: false
+      - key: PUBLIC_ADFIT_GUIDE_MOBILE
+        sync: false
+      - key: PUBLIC_ADFIT_GUIDE_DESKTOP
+        sync: false
+      - key: PUBLIC_ADFIT_CALC_ARTICLE_MOBILE
+        sync: false
+      - key: PUBLIC_ADFIT_CALC_ARTICLE_DESKTOP
+        sync: false
+      - key: PUBLIC_ADFIT_CALC_POST_TOOL_MOBILE
+        sync: false
+      - key: PUBLIC_ADFIT_CALC_POST_TOOL_DESKTOP
+        sync: false

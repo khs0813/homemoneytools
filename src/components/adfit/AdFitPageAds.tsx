@@ -3,6 +3,70 @@
 import { useEffect, useState } from "react";
 import { AdFitBanner } from "@/components/adfit/AdFitBanner";
 
+type AdFitPlacement = "home" | "guide" | "calcArticle" | "calcPostTool";
+type AdFitDevice = "mobile" | "desktop";
+
+type AdFitUnit = {
+  unit: string;
+  width: string;
+  height: string;
+};
+
+type AdFitPlacementProps = {
+  placement?: AdFitPlacement;
+};
+
+const adFitUnits: Record<AdFitPlacement, Record<AdFitDevice, AdFitUnit>> = {
+  home: {
+    mobile: {
+      unit: process.env.PUBLIC_ADFIT_HOME_MOBILE || process.env.NEXT_PUBLIC_ADFIT_HOME_MOBILE || "",
+      width: "320",
+      height: "50"
+    },
+    desktop: {
+      unit: process.env.PUBLIC_ADFIT_HOME_DESKTOP || process.env.NEXT_PUBLIC_ADFIT_HOME_DESKTOP || "",
+      width: "728",
+      height: "90"
+    }
+  },
+  guide: {
+    mobile: {
+      unit: process.env.PUBLIC_ADFIT_GUIDE_MOBILE || process.env.NEXT_PUBLIC_ADFIT_GUIDE_MOBILE || "",
+      width: "320",
+      height: "50"
+    },
+    desktop: {
+      unit: process.env.PUBLIC_ADFIT_GUIDE_DESKTOP || process.env.NEXT_PUBLIC_ADFIT_GUIDE_DESKTOP || "",
+      width: "728",
+      height: "90"
+    }
+  },
+  calcArticle: {
+    mobile: {
+      unit: process.env.PUBLIC_ADFIT_CALC_ARTICLE_MOBILE || process.env.NEXT_PUBLIC_ADFIT_CALC_ARTICLE_MOBILE || "",
+      width: "320",
+      height: "50"
+    },
+    desktop: {
+      unit: process.env.PUBLIC_ADFIT_CALC_ARTICLE_DESKTOP || process.env.NEXT_PUBLIC_ADFIT_CALC_ARTICLE_DESKTOP || "",
+      width: "728",
+      height: "90"
+    }
+  },
+  calcPostTool: {
+    mobile: {
+      unit: process.env.PUBLIC_ADFIT_CALC_POST_TOOL_MOBILE || process.env.NEXT_PUBLIC_ADFIT_CALC_POST_TOOL_MOBILE || "",
+      width: "320",
+      height: "50"
+    },
+    desktop: {
+      unit: process.env.PUBLIC_ADFIT_CALC_POST_TOOL_DESKTOP || process.env.NEXT_PUBLIC_ADFIT_CALC_POST_TOOL_DESKTOP || "",
+      width: "728",
+      height: "90"
+    }
+  }
+};
+
 function useMediaQuery(query: string, initialMatches: boolean | null = null) {
   const [matches, setMatches] = useState<boolean | null>(initialMatches);
 
@@ -23,17 +87,38 @@ function useMediaQuery(query: string, initialMatches: boolean | null = null) {
   return matches;
 }
 
-export function AdFitTopBanner() {
+function AdFitMobileBanner({ placement = "guide" }: AdFitPlacementProps) {
+  const isTabletOrDesktop = useMediaQuery("(min-width: 768px)");
+  const ad = adFitUnits[placement].mobile;
+
+  if (isTabletOrDesktop !== false || !ad.unit) {
+    return null;
+  }
+
+  return (
+    <div className="-mx-4 flex justify-center overflow-hidden">
+      <AdFitBanner unit={ad.unit} width={ad.width} height={ad.height} />
+    </div>
+  );
+}
+
+export function AdFitTopBanner({ placement = "home" }: AdFitPlacementProps) {
   const isDesktop = useMediaQuery("(min-width: 768px)", false);
 
   if (isDesktop === null) {
     return null;
   }
 
+  const ad = isDesktop ? adFitUnits[placement].desktop : adFitUnits[placement].mobile;
+
+  if (!ad.unit) {
+    return null;
+  }
+
   if (!isDesktop) {
     return (
       <div className="-mx-4 mt-6 flex justify-center overflow-hidden">
-        <AdFitBanner unit="DAN-MxttnTNbygaLu9ii" width="320" height="50" />
+        <AdFitBanner unit={ad.unit} width={ad.width} height={ad.height} />
       </div>
     );
   }
@@ -41,30 +126,32 @@ export function AdFitTopBanner() {
   return (
     <div className="mt-8 overflow-x-auto">
       <div className="flex min-w-[728px] justify-center lg:min-w-0">
-        <AdFitBanner unit="DAN-vydppL950Rcp0u3T" width="728" height="90" />
+        <AdFitBanner unit={ad.unit} width={ad.width} height={ad.height} />
       </div>
     </div>
   );
 }
 
-export function AdFitDesktopTopBanner() {
+export function AdFitDesktopTopBanner({ placement = "calcPostTool" }: AdFitPlacementProps) {
   const isDesktop = useMediaQuery("(min-width: 768px)");
+  const ad = adFitUnits[placement].desktop;
 
-  if (isDesktop !== true) {
+  if (isDesktop !== true || !ad.unit) {
     return null;
   }
 
   return (
     <div className="mt-8 overflow-x-auto">
       <div className="flex min-w-[728px] justify-center lg:min-w-0">
-        <AdFitBanner unit="DAN-vydppL950Rcp0u3T" width="728" height="90" />
+        <AdFitBanner unit={ad.unit} width={ad.width} height={ad.height} />
       </div>
     </div>
   );
 }
 
-export function AdFitMobileCalculatorHeaderAds() {
+export function AdFitMobileCalculatorHeaderAds({ placement = "calcPostTool" }: AdFitPlacementProps) {
   const isTabletOrDesktop = useMediaQuery("(min-width: 768px)");
+  const ad = adFitUnits[placement].mobile;
 
   useEffect(() => {
     if (isTabletOrDesktop !== false) {
@@ -85,59 +172,38 @@ export function AdFitMobileCalculatorHeaderAds() {
     return null;
   }
 
+  if (!ad.unit) {
+    return null;
+  }
+
   return (
     <aside className="-mx-4 mb-6 flex scroll-mt-24 flex-col items-center gap-4 overflow-hidden pt-3">
-      <AdFitBanner unit="DAN-MxttnTNbygaLu9ii" width="320" height="50" />
-      <AdFitBanner unit="DAN-4cOowgAme3T2tNK2" width="300" height="250" />
+      <AdFitBanner unit={ad.unit} width={ad.width} height={ad.height} />
     </aside>
   );
 }
 
 export function AdFitVerticalBanner() {
-  const isWideDesktop = useMediaQuery("(min-width: 1536px)");
-
-  if (!isWideDesktop) {
-    return null;
-  }
-
-  return <AdFitBanner unit="DAN-3zihtfJ5ImCC9NOc" width="160" height="600" />;
+  return null;
 }
 
-export function AdFitMobileRectangleBanner() {
-  const isTabletOrDesktop = useMediaQuery("(min-width: 768px)");
-
-  if (isTabletOrDesktop !== false) {
-    return null;
-  }
-
-  return (
-    <div className="-mx-4 flex justify-center overflow-hidden">
-      <AdFitBanner unit="DAN-tzq6el4IGCSFEnSl" width="320" height="480" />
-    </div>
-  );
+export function AdFitMobileRectangleBanner({ placement = "guide" }: AdFitPlacementProps) {
+  return <AdFitMobileBanner placement={placement} />;
 }
 
-export function AdFitMobileMediumRectangleBanner() {
-  const isTabletOrDesktop = useMediaQuery("(min-width: 768px)");
-
-  if (isTabletOrDesktop !== false) {
-    return null;
-  }
-
-  return (
-    <div className="flex justify-center">
-      <AdFitBanner unit="DAN-4cOowgAme3T2tNK2" width="300" height="250" />
-    </div>
-  );
+export function AdFitMobileMediumRectangleBanner({ placement = "guide" }: AdFitPlacementProps) {
+  return <AdFitMobileBanner placement={placement} />;
 }
 
 type AdFitSideBannerProps = {
+  placement?: AdFitPlacement;
   showVertical?: boolean;
   showMobileMediumRectangle?: boolean;
   showMobileLargeRectangle?: boolean;
 };
 
 export function AdFitSideBanner({
+  placement = "guide",
   showVertical = true,
   showMobileMediumRectangle = true,
   showMobileLargeRectangle = true
@@ -155,8 +221,7 @@ export function AdFitSideBanner({
 
   return (
     <aside className="mt-6 flex flex-col items-center gap-4 xl:absolute xl:-top-64 xl:left-full xl:ml-6 xl:mt-0">
-      {!isTabletOrDesktop && showMobileMediumRectangle ? <AdFitMobileMediumRectangleBanner /> : null}
-      {!isTabletOrDesktop && showMobileLargeRectangle ? <AdFitMobileRectangleBanner /> : null}
+      {!isTabletOrDesktop && (showMobileMediumRectangle || showMobileLargeRectangle) ? <AdFitMobileBanner placement={placement} /> : null}
       {showVertical && isWideDesktop ? (
         <div>
           <AdFitVerticalBanner />
@@ -166,7 +231,7 @@ export function AdFitSideBanner({
   );
 }
 
-export function AdFitInlineBanner() {
+export function AdFitInlineBanner({ placement = "guide" }: AdFitPlacementProps) {
   const isTabletOrDesktop = useMediaQuery("(min-width: 768px)");
 
   if (isTabletOrDesktop === null) {
@@ -179,8 +244,7 @@ export function AdFitInlineBanner() {
 
   return (
     <aside className="mt-8">
-      <AdFitMobileMediumRectangleBanner />
-      <AdFitMobileRectangleBanner />
+      <AdFitMobileBanner placement={placement} />
     </aside>
   );
 }

@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { AdFitDesktopTopBanner, AdFitMobileCalculatorHeaderAds, AdFitSideBanner } from "@/components/adfit/AdFitPageAds";
+import { AdFitDesktopTopBanner, AdFitMobileCalculatorHeaderAds, AdFitSideBanner, AdFitTopBanner } from "@/components/adfit/AdFitPageAds";
 import type { CalculatorInfo } from "@/config/calculators";
 import { DisclaimerBox } from "@/components/calculator/DisclaimerBox";
 import { FaqJsonLd, FaqSection } from "@/components/calculator/FaqSection";
@@ -39,7 +39,7 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
       />
       <CalculatorJsonLd info={info} />
       <section>
-        <AdFitMobileCalculatorHeaderAds />
+        <AdFitMobileCalculatorHeaderAds placement="calcPostTool" />
         <div className="rounded-3xl bg-gradient-to-br from-brand-navy to-slate-900 p-8 text-white shadow-soft">
           <div className="text-sm font-semibold text-emerald-200">{info.category}</div>
           <h1 className="mt-3 text-3xl font-black tracking-tight md:text-5xl">{info.title}</h1>
@@ -47,9 +47,9 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
         </div>
         <div className="relative mt-8">
           <div>{children}</div>
-          <AdFitSideBanner showMobileMediumRectangle={false} showMobileLargeRectangle={false} />
+          <AdFitSideBanner placement="calcPostTool" showMobileMediumRectangle={false} showMobileLargeRectangle={false} />
         </div>
-        <AdFitDesktopTopBanner />
+        <AdFitDesktopTopBanner placement="calcPostTool" />
         <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(280px,380px)]">
           <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
             <h2 className="text-lg font-bold text-slate-950">이 계산기로 확인할 수 있는 것</h2>
@@ -94,6 +94,8 @@ export function CalculatorPage({ info, children }: { info: CalculatorInfo; child
           </div>
         </div>
       </section>
+
+      <AdFitTopBanner placement="calcArticle" />
 
       <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6 md:p-8">
         <p className="text-sm font-bold text-brand-emerald">계산 전 확인사항</p>

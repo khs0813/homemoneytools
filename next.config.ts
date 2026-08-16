@@ -15,6 +15,17 @@ const contentSecurityPolicyReportOnly = [
 
 const contentSecurityPolicy = "upgrade-insecure-requests";
 
+const publicAdFitEnv = {
+  PUBLIC_ADFIT_HOME_MOBILE: process.env.PUBLIC_ADFIT_HOME_MOBILE ?? process.env.NEXT_PUBLIC_ADFIT_HOME_MOBILE ?? "",
+  PUBLIC_ADFIT_HOME_DESKTOP: process.env.PUBLIC_ADFIT_HOME_DESKTOP ?? process.env.NEXT_PUBLIC_ADFIT_HOME_DESKTOP ?? "",
+  PUBLIC_ADFIT_GUIDE_MOBILE: process.env.PUBLIC_ADFIT_GUIDE_MOBILE ?? process.env.NEXT_PUBLIC_ADFIT_GUIDE_MOBILE ?? "",
+  PUBLIC_ADFIT_GUIDE_DESKTOP: process.env.PUBLIC_ADFIT_GUIDE_DESKTOP ?? process.env.NEXT_PUBLIC_ADFIT_GUIDE_DESKTOP ?? "",
+  PUBLIC_ADFIT_CALC_ARTICLE_MOBILE: process.env.PUBLIC_ADFIT_CALC_ARTICLE_MOBILE ?? process.env.NEXT_PUBLIC_ADFIT_CALC_ARTICLE_MOBILE ?? "",
+  PUBLIC_ADFIT_CALC_ARTICLE_DESKTOP: process.env.PUBLIC_ADFIT_CALC_ARTICLE_DESKTOP ?? process.env.NEXT_PUBLIC_ADFIT_CALC_ARTICLE_DESKTOP ?? "",
+  PUBLIC_ADFIT_CALC_POST_TOOL_MOBILE: process.env.PUBLIC_ADFIT_CALC_POST_TOOL_MOBILE ?? process.env.NEXT_PUBLIC_ADFIT_CALC_POST_TOOL_MOBILE ?? "",
+  PUBLIC_ADFIT_CALC_POST_TOOL_DESKTOP: process.env.PUBLIC_ADFIT_CALC_POST_TOOL_DESKTOP ?? process.env.NEXT_PUBLIC_ADFIT_CALC_POST_TOOL_DESKTOP ?? ""
+};
+
 const securityHeaders = [
   { key: "X-DNS-Prefetch-Control", value: "off" },
   { key: "X-Frame-Options", value: "DENY" },
@@ -36,6 +47,7 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   productionBrowserSourceMaps: false,
+  env: publicAdFitEnv,
   experimental: {
     cpus: 2
   },
